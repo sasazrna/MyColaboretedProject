@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "329199274321",
+    "firebase_url": "https://prigovorhr-f8d24.firebaseio.com",
+    "project_id": "prigovorhr-f8d24",
+    "storage_bucket": "prigovorhr-f8d24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329199274321:android:4a14bd829ad911bc",
+        "android_client_info": {
+          "package_name": "com.prigovorhr.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329199274321-2fnu6tr0maan5raov1huhe09cdjqf2pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJcWbqNABOWha9Bydo8obGXcJcgsg__w8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

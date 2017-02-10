@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             BackgroundColor="White"
+             x:Class="PrigovorHR.Shared.Views.AttachmentView">
+  <ContentView.Content>
+    <StackLayout>
+    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+      <Image Source="attach.png" WidthRequest="15"  />
+      <Label x:Name="lblAttachmentName" Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" HorizontalOptions = "Start"/>
+    </StackLayout>
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

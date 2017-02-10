@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+            x:Class="PrigovorHR.Shared.Views.CompanyStoreFoundView">
+  <ContentView.Content>
+    <StackLayout Padding="5,5,5,5">
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+          <!--<controls:CircleImage FillColor="Blue" Opacity="0.1" WidthRequest="50" HeightRequest="50" Aspect="AspectFill" BorderColor="Black">-->
+            
+          <!--</controls:CircleImage>-->
+          <!--<Label x:Name="_lblFirstLetter" Text="M" FontAttributes="Bold, Italic" FontSize="Large" TextColor="#ff6803" Margin="5, -10, 0, 0"/>-->
+        </StackLayout>
+        <StackLayout VerticalOptions="FillAndExpand">
+          <Label x:Name="_lblStoreName" HorizontalOptions="Start" Text="Poslovnica Zagreb, Avenue Mall Zagreb"  FontSize="Medium" TextColor="Black" FontAttributes="Bold"/>
+          <Label x:Name="_lblAddress" HorizontalOptions="Start" Text="Avenija Dubrovnik 16" FontSize="Small" TextColor="Silver" Margin="0,-6, 0, 0"  />
+          <Label x:Name="_lblCompanyName" HorizontalOptions="Start" Text="MUller trgovina Zagreb d.o.o." FontSize="Small" TextColor="Silver" Margin="0,-8, 0, 0" />
+        </StackLayout>
+        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">-->
+        <Image Source="arrow.png" HorizontalOptions="EndAndExpand" Margin="-10,0,10,0"  />
+        <!--</StackLayout>-->
+      </StackLayout>
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

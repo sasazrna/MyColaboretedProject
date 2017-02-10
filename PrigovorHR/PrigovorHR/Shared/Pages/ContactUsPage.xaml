@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrigovorHR.Shared.Pages.ContactUsPage" BackgroundColor="White">
+  
+    <ScrollView >
+    <StackLayout Padding="15, 20, 15, 5" >
+      <Label Text="Kontaktirajte nas" FontSize="Large" FontAttributes="Bold"  TextColor="Black" HorizontalTextAlignment="Center" />
+      <!--<Entry x:Name="_NameSurnameEntry" IsEnabled="False" Placeholder="Ime i prezime..." TextColor="Black" PlaceholderColor="Silver" FontSize="Small"  Margin="0, 15, 0, 10"/>
+      <Entry x:Name="_PhonenumberEntry" Placeholder="Broj telefona..." TextColor="Black" Keyboard="Numeric" PlaceholderColor="Silver" FontSize="Small" Margin="0,15,0,0"></Entry>
+      <Entry x:Name="_EmailEntry" Placeholder="Email adresa..." IsEnabled="False" TextColor="Black" PlaceholderColor="Silver" FontSize="Small" Margin="0, 15, 0, 10"/>-->
+     
+       <StackLayout Padding="1" BackgroundColor="White" VerticalOptions ="FillAndExpand">
+       <Label Text="Napišite naslov poruke" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Start" Margin="0, 25, 0, 5"/>
+         <Entry x:Name="_TitleOfMessageEntry"></Entry>
+         <Label Text="Napišite nam poruku" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Start" Margin="0, 25, 0, 5"/>
+        <Editor x:Name="_MessageEntry" BackgroundColor="White" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Black"/>
+      </StackLayout>
+       <Button x:Name="_btnSend" Text="Pošalji" TextColor="White" BackgroundColor="#FF7e65"/>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

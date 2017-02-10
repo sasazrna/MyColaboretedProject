@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PrigovorHR.Shared.Views.ComplaintOriginalView"
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             BackgroundColor="White">
+  <ContentView.Content>
+    <StackLayout x:Name="lytOriginalComplaintLayout" VerticalOptions="Start" >
+      <StackLayout VerticalOptions="Start">
+        
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+          <Label x:Name="lblTypeOfComplaint" Text="ORGINALNI PRIGOVOR" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Start" TextColor="#FF7e65"  />
+          <Image Source="arrow_drop_down.png" x:Name="imgOriginalComplaintDetails" Aspect="AspectFill" BackgroundColor="Gray"  VerticalOptions="End" HorizontalOptions="EndAndExpand" HeightRequest="20" WidthRequest="20"/>
+        </StackLayout>
+        
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+          <Image Source="ikonica.png" WidthRequest="30" HorizontalOptions="Start"  />
+          <Label Text="Marin Marinić" x:Name="lblUsername"  FontSize="Small" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="Black" />
+        </StackLayout>
+        
+        <StackLayout  Orientation="Vertical" HorizontalOptions="FillAndExpand">
+          <Label x:Name="lblOriginalComplaint_TextShort" Text="Lorem Ipsum je jednostavno probni tekst koji koristi utiskarskoj i slovoslagarskoj industriji...."  FontSize="Small" HorizontalOptions="Start" TextColor="Black"  Margin="0, 12,0,0"  />
+
+          <Label x:Name="lblOriginalComplaint_TextLong" Text="Lorem Ipsum je jednostavno probni tekst koji se koristi utiskarskoj i slovoslagarskoj industriji. Lorem Ipsum postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo tiskarsku galiju slova i posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet stoljeća, već se i vinuo u svijet elektronskog slovoslagarstva, ostajući u suštini nepromijenjen. Postao je popularan tijekom 1960-ih s pojavom Letraset listova s odlomcima Lorem Ipsum-a, a u skorije vrijeme sa software-om za stolno izdavaštvo kao što je Aldus PageMaker koji također sadrži varijante Lorem Ipsum-a.
+                  Zašto ga koristimo?Odavno je uspostavljena činje (s dodatkom humora i slično)."  FontSize="Small" HorizontalOptions="Start" TextColor="Black"   />
+        </StackLayout>
+      </StackLayout >
+
+      <StackLayout x:Name="lytAttachmentsLayout">
+        <Views:AttachmentView></Views:AttachmentView>
+      </StackLayout>
+
+      <StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0, 12,0,0">
+          <Label Text="Vrijeme problema"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+          <Label x:Name="lblProblemDateTime" Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+          <Label Text="Vrijeme prijave"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+          <Label x:Name="lblComplaintDateTime" Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout x:Name="lytLine" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand"></StackLayout>
+    </StackLayout>
+
+  </ContentView.Content>
+</ContentView>

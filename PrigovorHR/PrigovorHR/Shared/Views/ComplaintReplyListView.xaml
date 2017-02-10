@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrigovorHR.Shared.Views.ComplaintReplyListView"
+              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             BackgroundColor="White">
+  <ContentView.Content>
+    <StackLayout>
+      <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" BackgroundColor="#FF7e65"/>
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+          <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Start"    />
+          <Label x:Name="lblElementName" Text="SuperKonzum Varaždi"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
+          <Label x:Name="lblDateTimeOfResponse" Text="24/08/2016 22:11" FontSize="Small" TextColor="Gray" HorizontalOptions = "End"/>
+        </StackLayout>
+      </StackLayout>
+
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+        <Image Source="ikonica.png" WidthRequest="20" HorizontalOptions="Start" Margin="0,0,0,0"   />
+        <Label Text="Marin Marinić" x:Name="lblUsername"  FontSize="Small" FontAttributes="Bold" HorizontalOptions="FillAndExpand" TextColor="Black" />
+      </StackLayout>
+      
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+        <Image x:Name="imgAttachmentImage"  Source="attach.png"  HorizontalOptions="Start"  WidthRequest="20"  />
+        <Label x:Name="lblReplyTextShort" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+        <Label x:Name="lblReplyTextLong" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+      </StackLayout>
+
+      <StackLayout x:Name="lytAttachmentsLayout" IsVisible="False">
+        <Views:AttachmentView></Views:AttachmentView>
+      </StackLayout>
+    </StackLayout>
+
+  </ContentView.Content>
+</ContentView>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PrigovorHR.Shared.Views.LandingViewNoLogin">
+  <ContentView.Content>
+    <StackLayout x:Name ="RootStack">
+      <StackLayout Padding="15, 0, 15, 5"  Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <Label Text="Ostvarite vaša potrošačka prava" FontSize="40"  TextColor="White" HorizontalTextAlignment="Start"  />
+       
+        <ScrollView>
+          <StackLayout>
+          <Label Text="Prigovor.hr aplikacija omogućava vam ostvarivanje vaših potrošačkih i građanskih prava na brz i jednostavan način" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,30,0,0"  />
+          <Label Text="Koristeći našu aplikaciju možete pronaći tvrtku/grad kojima želite uputiti prigovor ili sugestiju u par klikova" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,10,0,0"  />
+          <Label Text="Da bi ste krenuli koristiti aplikaciju prijavite se ili kreirajte korisnički račun" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,10,0,0"  />
+          </StackLayout>
+        </ScrollView>
+
+        <StackLayout VerticalOptions="EndAndExpand">
+      <Button x:Name="_btnLogin" Text="Prijavi se"  TextColor="White" VerticalOptions="EndAndExpand" BackgroundColor="#FF7e65"/>
+      <Button x:Name="btnCreateAccount" Text="Kreiraj korisnički račun"  TextColor="White" VerticalOptions="EndAndExpand" BackgroundColor="#30343f"/>
+        </StackLayout>
+      </StackLayout>
+      
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="15, 0, 15, 5">
+        <Button x:Name="btnAboutUs" Text="O nama"  TextColor="White"  HorizontalOptions="FillAndExpand" BackgroundColor="#30343f"/>
+        <!--<Button x:Name="btnContact" Text="Kontakt"  TextColor="White" HorizontalOptions="FillAndExpand" BackgroundColor="#30343f"/>-->
+      </StackLayout>
+      
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

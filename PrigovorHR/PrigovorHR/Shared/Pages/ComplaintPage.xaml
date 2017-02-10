@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              BackgroundColor="White"
+             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             x:Class="PrigovorHR.Shared.Pages.ComplaintPage">
+
+  <RelativeLayout x:Name="lytRelative">
+    <ContentView x:Name="cvTopContentView"
+      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+      <StackLayout Spacing="0">
+        <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+        <ScrollView x:Name="scrView">
+          <StackLayout>
+            <StackLayout x:Name="lytOriginalAndLastComplaintReply" VerticalOptions="Start" >
+              <Views:ComplaintOriginalView></Views:ComplaintOriginalView>
+            </StackLayout>
+
+            <StackLayout x:Name="lytNumberOfResponses" VerticalOptions="Start">
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <Image Source="more2.png"  Aspect="AspectFill" BackgroundColor="#FF7e65" HorizontalOptions="Start" WidthRequest="30" > </Image>
+                <StackLayout Padding="0,3,0,0" BackgroundColor="#FF7e65" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></StackLayout>
+              </StackLayout>
+              <StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Start" Margin="0, -12, 0,0">
+                <Image x:Name="imgArrow" Source="arrow_drop_down.png" Aspect="AspectFill" BackgroundColor="Gray"  HeightRequest="20" WidthRequest="20"/>
+              </StackLayout>
+            </StackLayout>
+
+            <StackLayout x:Name="lytAllResponses">
+              <Views:ComplaintReplyListView></Views:ComplaintReplyListView>
+              <Views:ComplaintReplyListView></Views:ComplaintReplyListView>
+            </StackLayout>
+          </StackLayout>
+        </ScrollView>
+      </StackLayout>
+    </ContentView>
+    <fab:FloatingActionButton
+       x:Name="btnAddResponse"
+       Source="fab_add.png"
+       Size="Normal" HasShadow="False" PressedColor="Red"
+       NormalColor="#FF6A00"
+       RippleColor="Blue"
+       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
+       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
+  
+    <Label Text="BLABLABAHAJAHJIAIUAH"
+       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
+       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />  
+
+    <fab:FloatingActionButton
+    x:Name="fab2Btn"
+       Source="fab_add.png"
+       Size="Normal" HasShadow="False" PressedColor="Red"
+       NormalColor="#FF6A00"
+       RippleColor="Blue"
+    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
+    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
+    <fab:FloatingActionButton
+       x:Name="fab3Btn"
+       Source="fab_add.png"
+       Size="Normal" HasShadow="False" PressedColor="Red"
+       NormalColor="#FF6A00"
+       RippleColor="Blue"
+       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
+       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
+
+  </RelativeLayout>
+</ContentPage>
+

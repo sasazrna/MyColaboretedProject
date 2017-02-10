@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              BackgroundColor="White"
+             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
+             x:Class="PrigovorHR.Shared.Views.ComplaintView">
+  <RelativeLayout
+    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+    <ScrollView>
+      <StackLayout Padding="5,20,5,5">
+        <StackLayout x:Name="lytOriginalComplaintLayout" VerticalOptions="Start" >
+          <StackLayout  VerticalOptions="Start">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <Label Text="ORGINALNI PRIGOVOR" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Start" TextColor="#FF7e65"  />
+              <Image Source="arrow_drop_down.png" x:Name="btnimgOriginalComplaintDetails" Aspect="AspectFill" BackgroundColor="Gray"  VerticalOptions="End" HorizontalOptions="EndAndExpand" HeightRequest="20" WidthRequest="20"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+              <Image Source="ikonica.png" WidthRequest="30" HorizontalOptions="Start" Margin="0,-5,0,0"   />
+              <Label Text="Marin Marinić" x:Name="lblUsername"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <!--<Label Text="24/08/2016 22:11" x:Name="lblDateOfComplaint" FontSize="Small" TextColor="Silver" HorizontalOptions="End"/>-->
+            </StackLayout>
+            <StackLayout x:Name="lytOriginalComplaint_ShortTextLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <Label x:Name="lblOriginalComplaint_TextShort" Text="Lorem Ipsum je jednostavno probni tekst koji koristi utiskarskoj i slovoslagarskoj industriji...."  FontSize="Small" HorizontalOptions="Start" TextColor="Black"  Margin="0, 12,0,0"  />
+            </StackLayout>
+          </StackLayout >
+          <StackLayout x:Name="lytOriginalComplaint_LongTextLayout">
+            <Label x:Name="lblOriginalComplaint_TextLong" Text="Lorem Ipsum je jednostavno probni tekst koji se koristi utiskarskoj i slovoslagarskoj industriji. Lorem Ipsum postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo tiskarsku galiju slova i posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet stoljeća, već se i vinuo u svijet elektronskog slovoslagarstva, ostajući u suštini nepromijenjen. Postao je popularan tijekom 1960-ih s pojavom Letraset listova s odlomcima Lorem Ipsum-a, a u skorije vrijeme sa software-om za stolno izdavaštvo kao što je Aldus PageMaker koji također sadrži varijante Lorem Ipsum-a.
+                 Zašto ga koristimo?Odavno je uspostavljena činje (s dodatkom humora i slično)."  FontSize="Small" HorizontalOptions="Start" TextColor="Black"  Margin="0, 12,0,0"  />
+          </StackLayout>
+
+          <StackLayout x:Name="lytAttachmentsLayout">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0, 12,0,0">
+              <Image Source="attach.png" WidthRequest="15" HorizontalOptions="Start"    />
+              <Label Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" HorizontalOptions = "Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+              <Image Source="play.png" WidthRequest="15" HorizontalOptions="Start"    />
+              <Label Text="naslovaudiozapisa.pm3" FontSize="Small" TextColor="#529bca" HorizontalOptions = "Start"/>
+            </StackLayout>
+          </StackLayout>
+
+          <StackLayout x:Name="lytOriginalComplaint_DateTimeLayout">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0, 12,0,0">
+              <Label Text="Vrijeme problema"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+              <Label Text="Vrijeme prijave"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+
+        <StackLayout x:Name="lytLastResponseLayout" VerticalOptions="Start" >
+          <StackLayout  VerticalOptions="Start">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <Label Text="ZADNJI ODGOVOR" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Start" TextColor="#FF7e65"  />
+              <Image Source="arrow_drop_down.png" x:Name="btnimgLastResponseDetails" Aspect="AspectFill" BackgroundColor="Gray"  VerticalOptions="End" HorizontalOptions="EndAndExpand" HeightRequest="20" WidthRequest="20"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+              <Image Source="ikonica.png" WidthRequest="30" HorizontalOptions="Start" Margin="0,-5,0,0"   />
+              <Label Text="Marin Marinić" x:Name="lblUsernameLastResponse"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <!--<Label Text="24/08/2016 22:11" x:Name="lblDateOfComplaint" FontSize="Small" TextColor="Silver" HorizontalOptions="End"/>-->
+            </StackLayout>
+            <StackLayout x:Name="lyLastResponse_ShortTextLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <Label x:Name="lblLastResponse_TextShort" Text="Lorem Ipsum je jednostavno probni tekst koji koristi utiskarskoj i slovoslagarskoj industriji...."  FontSize="Small" HorizontalOptions="Start" TextColor="Black"  Margin="0, 12,0,0"  />
+            </StackLayout>
+          </StackLayout >
+          <StackLayout x:Name="lytLastResponse_LongTextLayout">
+            <Label x:Name="lblLastResponse_TextLong" Text="Lorem Ipsum je jednostavno probni tekst koji se koristi utiskarskoj i slovoslagarskoj industriji. Lorem Ipsum postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo tiskarsku galiju slova i posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet stoljeća, već se i vinuo u svijet elektronskog slovoslagarstva, ostajući u suštini nepromijenjen. Postao je popularan tijekom 1960-ih s pojavom Letraset listova s odlomcima Lorem Ipsum-a, a u skorije vrijeme sa software-om za stolno izdavaštvo kao što je Aldus PageMaker koji također sadrži varijante Lorem Ipsum-a.
+                 Zašto ga koristimo?Odavno je uspostavljena činje (s dodatkom humora i slično)."  FontSize="Small" HorizontalOptions="Start" TextColor="Black"  Margin="0, 12,0,0"  />
+          </StackLayout>
+
+          <StackLayout x:Name="lytLastResponse_AttachmentsLayout">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0, 12,0,0">
+              <Image Source="attach.png" WidthRequest="15" HorizontalOptions="Start"    />
+              <Label Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" HorizontalOptions = "Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+              <Image Source="play.png" WidthRequest="15" HorizontalOptions="Start"    />
+              <Label Text="naslovaudiozapisa.pm3" FontSize="Small" TextColor="#529bca" HorizontalOptions = "Start"/>
+            </StackLayout>
+          </StackLayout>
+
+          <StackLayout x:Name="lytLastResponse_DateTimeLayout">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0, 12,0,0">
+              <Label Text="Vrijeme problema"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+              <Label Text="Vrijeme prijave"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+
+        <StackLayout x:Name="lytNumberOfResponses">
+          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <Image Source="more2.png" x:Name="meduKomunikacija_Button"  Aspect="AspectFill" BackgroundColor="#FF7e65" HorizontalOptions="Start" WidthRequest="30" > </Image>
+            <StackLayout Padding="0,3,0,0" BackgroundColor="#FF7e65" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></StackLayout>
+          </StackLayout>
+        </StackLayout>
+
+        <StackLayout x:Name="lytAllResponses">
+          <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+                <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Start"    />
+                <Label Text="SuperKonzum Varaždi"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
+                <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+              </StackLayout>
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+              <Image Source="attach.png"  HorizontalOptions="Start"  WidthRequest="20"  />
+              <Label Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+            </StackLayout>
+
+          </StackLayout>
+
+          <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="#FF7e65"/>
+          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+              <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Start"    />
+              <Label Text="SuperKonzum Varaždi"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
+              <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+            </StackLayout>
+
+          </StackLayout>
+          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+            <Image Source="attach.png"  HorizontalOptions="Start"  WidthRequest="20"  />
+            <Label Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+          </StackLayout>
+          <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="#FF7e65"/>
+          <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+                <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Start"    />
+                <Label Text="SuperKonzum Varaždi"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
+                <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+              </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+              <Image Source="attach.png"  HorizontalOptions="Start"  WidthRequest="20"  />
+              <Label Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+            </StackLayout>
+          </StackLayout>
+          <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="#FF7e65"/>
+          <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+                <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Start"    />
+                <Label Text="SuperKonzum Varaždi"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
+                <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+              </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+              <Image Source="attach.png"  HorizontalOptions="Start"  WidthRequest="20"  />
+              <Label Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+            </StackLayout>
+          </StackLayout>
+          <StackLayout>
+          </StackLayout>
+          <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" Margin="-15, 0 , 50, 0" BackgroundColor="#FF7e65"/>
+        </StackLayout>
+
+        <!--<StackLayout x:Name="posljednja_poruka">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Margin="0, 12,0,0" >
+                <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Start"    />
+                <Label Text="Billa Varaždi"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
+                <Label Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+              </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+              <Image Source="attach.png"  HorizontalOptions="Start"  WidthRequest="20"  />
+              <Label Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red...."  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
+            </StackLayout>
+          </StackLayout>-->
+      </StackLayout>
+    </ScrollView>
+
+    <fab:FloatingActionButton
+      x:Name="btnAddResponse"
+      Source="fab_add.png"
+      Size="Normal"
+			NormalColor="#FF7e65"
+      RippleColor="#FF7e65"
+      RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
+      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}"/>
+  </RelativeLayout>
+
+</ContentView>
+

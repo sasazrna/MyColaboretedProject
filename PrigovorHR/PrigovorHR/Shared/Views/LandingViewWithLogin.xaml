@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             x:Class="PrigovorHR.Shared.Views.LandingViewWithLogin">
+  <ContentView.Content>
+    <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
+      <Views:MainNavigationBar x:Name="_TopNavigationBar" BackgroundColor="Silver">
+      </Views:MainNavigationBar>
+    </StackLayout>
+  </ContentView.Content>
+</ContentView>

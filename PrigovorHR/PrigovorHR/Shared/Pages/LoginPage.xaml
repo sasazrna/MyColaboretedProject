@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             x:Class="PrigovorHR.Shared.Pages.LoginPage">
+
+  <StackLayout>
+    <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+  <ScrollView x:Name="LoginScrollView">
+    <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
+      <Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Silver" LineBreakMode="CharacterWrap" />
+       <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 20, 15, 20">
+         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+           <Image Source="fb_art.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+           <Label Text="Facebook" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" LineBreakMode="TailTruncation" />
+         </StackLayout>
+
+         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+           <Image Source="google.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+           <Label Text="Google" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black"  LineBreakMode="TailTruncation"/>
+         </StackLayout>
+        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+          <Image Source="linked.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
+          <Label Text="LinkedIn" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" LineBreakMode="TailTruncation" />
+        </StackLayout>-->
+      </StackLayout>
+       
+
+      <StackLayout Padding="0, 30, 0, 0" >
+        <Label Text="Prijava email adresom:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Silver" />
+      </StackLayout>
+
+      <StackLayout Padding="0,0,0,0" Spacing="-2">
+        <Label Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
+        <Entry x:Name="_EMailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+        <Label Text="Upišite lozinku:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
+        <Entry x:Name="_PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+      </StackLayout>
+
+
+      <StackLayout VerticalOptions="EndAndExpand">
+        <Button x:Name="btnLogin" Text="Prijavi me" TextColor="White"  BackgroundColor="#FF6A00"/>
+        <Button x:Name="btnIForgotPassword" Text="Zaboravili ste lozinku?" TextColor="Black" FontSize="Small"  BackgroundColor="Silver" />
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+  </StackLayout>
+</ContentPage>
+

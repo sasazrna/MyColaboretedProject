@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             xmlns:local="clr-namespace:PrigovorHR.Shared.Pages"
+             x:Class="PrigovorHR.Shared.Pages.LoginRegister">
+
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Name="Menu1" Activated="OnClick"  Order="Primary" Priority="0" Icon ="add.png" />
+    <ToolbarItem Name="Menu2" Activated="OnClick"  Order="Secondary" Priority="1" Text ="Keks" Icon ="send.png" />
+  </ContentPage.ToolbarItems>
+
+  <ScrollView>
+    <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand" Spacing="2">
+      <Label Text="Registrirajte se ili se prijavite" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" />
+      <Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Navy" />
+    
+      <local:SocialNetworksView VerticalOptions="FillAndExpand"/>
+
+      <Label Text="Ili registrirajte se svojim emailom:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" Margin="0, 10, 0, 0" />
+     
+      <Entry x:Name="ImeEntry" Placeholder="Upišite vaše ime" TextColor="Black" PlaceholderColor="#3b5998" FontSize="Medium" Completed="EntryCompletedEvent" />
+      <Entry x:Name="PrezimeEntry" Placeholder="Upišite vaše prezime" TextColor="Black" PlaceholderColor="#3b5998" FontSize="Medium" Completed="EntryCompletedEvent"/>
+      <Entry x:Name="EmailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="#3b5998" FontSize="Medium" Completed="EntryCompletedEvent"/>
+      <Entry x:Name="LozinkaEntry" Placeholder="Odaberite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="#3b5998" FontSize="Medium" Completed="EntryCompletedEvent"/>
+
+      <Button x:Name="btnRegistrirajme" Text="Registriraj me" Clicked="Registrirajme" VerticalOptions="CenterAndExpand" BackgroundColor="#FF6A00" TextColor="White" />
+      
+    </StackLayout>
+  </ScrollView>
+</ContentPage>
