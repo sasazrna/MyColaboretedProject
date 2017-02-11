@@ -27,7 +27,7 @@ namespace PrigovorHR.Shared.Models
         public CountyModel county { get; set; }
         public int city_id { get; set; }
         public CityModel city { get; set; }
-        public int location_id { get; set; }
+        public int? location_id { get; set; }
         public int type_id { get; set; }
         public ElementTypeModel type { get; set; }
         public string root_business_full_name { get; set; }
