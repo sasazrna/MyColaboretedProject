@@ -98,7 +98,11 @@ namespace PrigovorHR.Shared.Pages
             }
             else ElementMap.IsVisible = false;
 
-            CompanyElementsListView.DisplayData(companyElement.siblings);
+            if (companyElement.siblings != null)
+                CompanyElementsListView.DisplayData(companyElement.siblings);
+            else
+                CompanyElementsListView.IsVisible = false;
+
             CompanyMap.HeightRequest = 200;
             ElementMap.HeightRequest = 200;
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
