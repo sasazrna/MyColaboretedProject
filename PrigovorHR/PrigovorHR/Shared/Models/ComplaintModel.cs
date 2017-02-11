@@ -16,7 +16,7 @@ namespace PrigovorHR.Shared.Models
         public int user_id { get; set; }
         public int element_id { get; set; }
         public string complaint { get; set; }
-        public int closed { get; set; }
+        public bool closed { get; set; }
         public string problem_occurred { get; set; }//??
         public string suggestion { get; set; }
         public string last_event { get; set; }
