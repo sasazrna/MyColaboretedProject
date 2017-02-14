@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+
+namespace PrigovorHR
+{
+	public partial class PrviPrigovor : ContentPage
+	{
+		public PrviPrigovor ()
+		{
+            InitializeComponent();
+
+            arrivalDatePicker.IsVisible = false;
+            arrivalTimePicke.IsVisible = false;
+
+            attach_pdf_font.Text = '\uf1c1'.ToString();
+            attach_pdf_font.TextColor = Color.Gray;
+
+            attach_photo_font.Text = '\uf030'.ToString();
+            attach_photo_font.TextColor = Color.Gray;
+
+            attach_voice_font.Text = '\uf041'.ToString();
+            attach_voice_font.TextColor = Color.Gray;
+
+            progres_memorije_attachmenta.Progress = 0.1;
+
+            dodani_pdf.Text = '\uf1c1'.ToString();
+            dodani_pdf.TextColor = Color.Gray;
+
+            send_font.Text = '\uf2c6'.ToString();
+            send_font.TextColor = Color.FromHex("#FF7e65");
+            send_font.FontSize = 55;
+
+            Sada_stack.IsVisible = false;
+            Ranije_stack.IsVisible = false;
+
+
+            //Prikaz vremena sada
+
+            var SadStackTab = new TapGestureRecognizer();
+            SadStackTab.Tapped += (s, e) =>
+            {
+                ZaPopunit_stack.IsVisible = false;
+                Ranije_stack.IsVisible = false;
+                Sada_stack.IsVisible = true;
+                labela_vremena_sad.Text = DateTime.Now.ToString();
+            };
+            SadaStackButton.GestureRecognizers.Add(SadStackTab);
+
+
+            //Paljenje dijaloga za namještanje vremena ranije
+
+            var PrijeStackTab = new TapGestureRecognizer();
+            PrijeStackTab.Tapped += (s, e) =>
+            {
+                ZaPopunit_stack.IsVisible = false;
+                Sada_stack.IsVisible = false;
+                Ranije_stack.IsVisible = true;
+            };
+            RanijeStackButton.GestureRecognizers.Add(PrijeStackTab);
+
+
+            // DatePicker selected Event
+
+            arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
+
+
+            // Fokusiranje DatePickera
+
+            var DateGestureRecognizer = new TapGestureRecognizer();
+            DateGestureRecognizer.Tapped += (s, e) =>
+            {
+                arrivalDatePicker.Focus();
+            };
+            RanijeStackButton.GestureRecognizers.Add(DateGestureRecognizer);
+
+
+            //Ispis TimePickera
+
+            arrivalTimePicke.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == TimePicker.TimeProperty.PropertyName)
+                {
+                    labelasati.Text = arrivalTimePicke.Time.ToString();
+                    labelasati.TextColor = Color.Silver;
+                }
+            };
+        }
+
+
+        // Ispis DatePickera
+
+        private void ArrivalDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            labelavremena.Text = e.NewDate.ToString("dd.MM.yyyy.");
+            labelavremena.TextColor = Color.Silver;
+            arrivalTimePicke.Focus();
+        }
+    }
+}
