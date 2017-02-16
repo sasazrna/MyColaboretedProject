@@ -23,7 +23,8 @@ namespace PrigovorHR.Shared.Pages
             _EMailEntry.Completed += EmailEntry_Completed;
             btnLogin.Clicked += BtnPrijava_Clicked;
             btnIForgotPassword.Clicked += BtnZaboravioSamLozinku_Clicked;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+
+           NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         private async void NavigationBar_BackButtonPressedEvent()
@@ -35,7 +36,7 @@ namespace PrigovorHR.Shared.Pages
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await NavigationBar.imgBack.RotateTo(90, 75);
+               await NavigationBar.imgBack.RotateTo(90, 75);
                 await Navigation.PopModalAsync();
             });
             return true;

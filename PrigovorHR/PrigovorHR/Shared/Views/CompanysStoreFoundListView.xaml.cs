@@ -142,7 +142,7 @@ namespace PrigovorHR.Shared.Views
             else
             {
                 var QuickComplaintPage = new QuickComplaintPage(CompanyElement.element);
-                QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaintsView_BasicUser.RefToView.LoadComplaints(); });
+                QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); });
                 await Navigation.PushPopupAsync(QuickComplaintPage);
             }
 

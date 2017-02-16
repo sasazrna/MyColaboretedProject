@@ -27,6 +27,11 @@ namespace PrigovorHR.Shared.Pages
             CompanyElementsListView.ElementSelectedEvent += CompanyElementsListView_ElementSelectedEvent;
         }
 
+        private async void FabButtonView_ButtonClickedEvent(int ButtonId)
+        {
+           await Navigation.PushModalAsync(new NewComplaint());
+        }
+
         private void CompanyElementsListView_ElementSelectedEvent(int ElementId)
         {
             SetData(CompanyElement,

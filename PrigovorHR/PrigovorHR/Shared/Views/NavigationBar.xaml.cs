@@ -13,6 +13,8 @@ namespace PrigovorHR.Shared.Views
         private Controllers.TAPController TAPController;
         internal delegate void BackButtonPressedHandler();
         internal event BackButtonPressedHandler BackButtonPressedEvent;
+        public Image imgBack { get { return ImgBack ?? new Image(); } }
+        public Label lblNavigationTitle { get { return LblNavigationTitle ?? new Label(); } }
 
         public NavigationBar()
         {

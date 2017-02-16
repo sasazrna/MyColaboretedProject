@@ -46,6 +46,15 @@ namespace PrigovorHR.Shared
 
         public static async Task<string> LoginUser_EMail(string jsonvalue)
         {
+            //try
+            //{
+            //    throw new Exception("bla");
+            //}
+            //catch(Exception ex)
+            //{
+            //    // Acr.UserDialogs.UserDialogs.Instance.Alert(ex.StackTrace);
+            //  // new Controllers.ExceptionController(ex, "", "");
+            //}
             return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.LoginUser, jsonvalue);
         }
 
@@ -87,8 +96,10 @@ namespace PrigovorHR.Shared
                 JObject Jobj = JObject.Parse(Result);
                 return (int)Jobj["attachments_id"][0];
             }
-            catch
+            catch (Exception ex)
             {
+                new Controllers.ExceptionController(ex, "Došlo je do greške prilikom slanja vašeg privitka!" + Environment.NewLine + "Detalji greške: " + ex.Message,
+                    "public static async Task<int> SendComplaintAttachment(byte[] ByteData, string FileName)" + Environment.NewLine + ex.ToString());
                 return -1;
             }
         }
@@ -242,6 +253,7 @@ namespace PrigovorHR.Shared
                         }
                         else
                         {
+
                             //write this to filelog and send it after next success login
                             //   return response.ToString();
                             return "Error:" + response.ReasonPhrase +  await response.Content.ReadAsStringAsync();

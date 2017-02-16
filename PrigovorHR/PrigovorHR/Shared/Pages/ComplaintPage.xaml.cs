@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FAB.Forms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace PrigovorHR.Shared.Pages
 {
     public partial class ComplaintPage : ContentPage
     {
-      private Controllers.TAPController TAPController;
-       public ComplaintPage()
+        private Controllers.TAPController TAPController;
+        private int _clickedTotal=1;
+
+        public ComplaintPage()
         {
             InitializeComponent();
         }
@@ -30,6 +33,18 @@ namespace PrigovorHR.Shared.Pages
             scrView.IsVisible = false;
             NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
             NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
+
+            Btn3.TranslateTo(0, 0, 100);
+      //      Btn3.FadeTo(0, 100);
+            Btn3.RotateTo(360, 0);
+
+            Btn2.TranslateTo(0, 0, 100);
+         //   Btn2.FadeTo(0, 100);
+            Btn2.RotateTo(360, 100);
+            Btn1.Clicked += FabButton_Click;
+            Btn2.Clicked += FabButton_Click;
+            Btn3.Clicked += FabButton_Click;
+            scrView.Scrolled += ScrView_Scrolled;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
 
             Device.StartTimer(new TimeSpan(0, 0, 0, 1), () =>
@@ -37,39 +52,46 @@ namespace PrigovorHR.Shared.Pages
                    Display(Complaint);
                    return false;
                });
-
-            fab2Btn.TranslateTo(0, 0, 100);
-            fab2Btn.FadeTo(0, 100);
-            fab2Btn.RotateTo(360, 0, Easing.SinOut);
-
-            btnAddResponse.TranslateTo(0, 0, 100);
-            btnAddResponse.FadeTo(0, 100);
-            btnAddResponse.RotateTo(360, 100, Easing.SinOut);
-            fab3Btn.Clicked += Fab3Btn_Clicked;
         }
 
-        int clickedTotal = 1;
-        private async void Fab3Btn_Clicked(object sender, EventArgs e)
+        private void ScrView_Scrolled(object sender, ScrolledEventArgs e)
         {
-            clickedTotal++;
-            if (clickedTotal % 2 == 0)
+            if (_clickedTotal % 2 == 0)
+                FabButton_Click(Btn1, new EventArgs());
+        }
+
+        private async void FabButton_Click(object sender, EventArgs e)
+        {
+            var ClickedButton = ((FloatingActionButton)sender);
+
+            if (ClickedButton == Btn1)
             {
-              await  fab2Btn.TranslateTo(0, -200, 100);
-                //fab2Btn.FadeTo(1, 100);
-                //fab2Btn.RotateTo(360, 100, Easing.SinOut);
-            await    btnAddResponse.TranslateTo(0, -100, 100);
-                //btnAddResponse.FadeTo(1, 100);
-                //btnAddResponse.RotateTo(360, 100, Easing.SinOut);
+                _clickedTotal += 1;
+                if (_clickedTotal % 2 == 0)
+                {
+                    await Btn2.TranslateTo(0, -60, 70);
+                   // await Btn2.FadeTo(1, 70);
+                    await Btn2.RotateTo(360, 70);
+
+                    await Btn3.TranslateTo(0, -120, 70);
+                  //  await Btn3.FadeTo(1, 100);
+                    await Btn3.RotateTo(360, 70);
+                }
+                else
+                {
+                    await Btn3.TranslateTo(0, 0, 70);
+                //    await Btn3.FadeTo(0, 70);
+                    await Btn3.RotateTo(360, 70);
+
+                    await Btn2.TranslateTo(0, 0, 70);
+                  //  await Btn2.FadeTo(0, 100);
+                    await Btn2.RotateTo(360, 70);
+                }
             }
+            else if (ClickedButton == Btn2)
+                await Navigation.PushModalAsync(new NewComplaintResponse());
             else
-            {
-               await fab2Btn.TranslateTo(0, 0, 100);
-                //fab2Btn.FadeTo(0, 100);
-               //fab2Btn.RotateTo(360, 0, Easing.SinOut);
-          await      btnAddResponse.TranslateTo(0, 0, 100);
-                //btnAddResponse.FadeTo(0, 100);
-                //btnAddResponse.RotateTo(360, 100, Easing.SinOut);
-            }
+                await Navigation.PushModalAsync(new CloseComplaintPage());
         }
 
         private async void Display(Models.ComplaintModel Complaint)
@@ -109,8 +131,8 @@ namespace PrigovorHR.Shared.Pages
             }
             else if (view == NavigationBar.imgBack)
             {
-               await view.RotateTo(90, 100);
-               await Navigation.PopModalAsync(true);
+                await view.RotateTo(90, 100);
+                await Navigation.PopModalAsync(true);
             }
 
             NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;

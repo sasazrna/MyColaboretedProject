@@ -4,16 +4,22 @@
              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              xmlns:controls="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
              x:Class="PrigovorHR.Shared.Views.ListOfComplaintsView_BasicUser">
-  <controls:PullToRefreshLayout x:Name="_pullLayout"
-        IsPullToRefreshEnabled="True"
-        RefreshColor="#FF6A00">
-    <ScrollView>
-      <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
-        <Views:ComplaintListView_BasicUser>
 
-        </Views:ComplaintListView_BasicUser>
-      </StackLayout>
-    </ScrollView>
-  </controls:PullToRefreshLayout>
+  <StackLayout>
+    <Views:ComplaintListTabView x:Name="ComplaintListTabView">
+
+    </Views:ComplaintListTabView>
+    <controls:PullToRefreshLayout x:Name="_pullLayout"
+          IsPullToRefreshEnabled="True"
+          RefreshColor="#FF6A00">
+      <ScrollView>
+        <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
+          <Views:ComplaintListView_BasicUser>
+
+          </Views:ComplaintListView_BasicUser>
+        </StackLayout>
+      </ScrollView>
+    </controls:PullToRefreshLayout>
+  </StackLayout>
 </ContentView>
 

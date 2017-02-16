@@ -443,7 +443,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <AndroidAsset Include="Assets\Fonts\fontawesome-webfont.ttf" />
+    <AndroidAsset Include="Assets\Fonts\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
     <None Include="google-services.json" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
@@ -466,6 +468,7 @@
     <ProjectReference Include="..\PrigovorHR\PrigovorHR.csproj">
       <Project>{eaef0d7c-23b9-4b48-9e93-a5fa04ddd7c1}</Project>
       <Name>PrigovorHR</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

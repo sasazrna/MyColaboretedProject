@@ -15,7 +15,10 @@ namespace PrigovorHR.Shared.Views
     {
         private PullToRefreshModel PullToRefreshModel = new PullToRefreshModel();
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
-        public static ListOfComplaintsView_BasicUser RefToView;
+        public static ListOfComplaintsView_BasicUser ReferenceToView;
+        private bool DisplayClosedComplaints=false;
+        private RootComplaintModel _DataSource;
+
         public ListOfComplaintsView_BasicUser()
         {
             InitializeComponent();
@@ -24,8 +27,15 @@ namespace PrigovorHR.Shared.Views
             _pullLayout.SetBinding<PullToRefreshModel>(PullToRefreshLayout.IsRefreshingProperty, vm => vm.IsBusy);
             _pullLayout.SetBinding<PullToRefreshModel>(PullToRefreshLayout.RefreshCommandProperty, vm => vm.RefreshCommand);
             PullToRefreshModel.Pulled += PullToRefreshModel_Pulled;
-            RefToView = this; 
+            ComplaintListTabView.SelectedTabChangedEvent += ComplaintListTabView_SelectedTabChangedEvent;
+            ReferenceToView = this; 
             LoadComplaints();
+        }
+
+        private void ComplaintListTabView_SelectedTabChangedEvent(ComplaintListTabView.enumTabs SelectedTab)
+        {
+            DisplayClosedComplaints = SelectedTab == ComplaintListTabView.enumTabs.ClosedComplaints;
+            DataSource = DataSource;
         }
 
         public void LoadComplaints()
@@ -60,11 +70,13 @@ namespace PrigovorHR.Shared.Views
 
         public Models.RootComplaintModel DataSource
         {
-            private get { return null; }
+            private get { return _DataSource; }
             set
             {
+                _DataSource = value;
                 _StackLayout.Children.Clear();
-                foreach (var Complaint in value?.user?.complaints.OrderByDescending(c => DateTime.Parse(c.updated_at)))
+                foreach (var Complaint in value?.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
+                                                                 .Where(c=>c.closed == DisplayClosedComplaints))
                 {
                     var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
                     _StackLayout.Children.Add(ComplaintListView);

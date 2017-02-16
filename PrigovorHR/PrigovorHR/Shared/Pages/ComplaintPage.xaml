@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               BackgroundColor="White"
              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Pages.ComplaintPage">
 
   <RelativeLayout x:Name="lytRelative">
@@ -11,11 +11,11 @@
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
       <StackLayout Spacing="0">
-        <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
         <ScrollView x:Name="scrView">
           <StackLayout>
             <StackLayout x:Name="lytOriginalAndLastComplaintReply" VerticalOptions="Start" >
-              <Views:ComplaintOriginalView></Views:ComplaintOriginalView>
+              <views:ComplaintOriginalView></views:ComplaintOriginalView>
             </StackLayout>
 
             <StackLayout x:Name="lytNumberOfResponses" VerticalOptions="Start">
@@ -29,43 +29,66 @@
             </StackLayout>
 
             <StackLayout x:Name="lytAllResponses">
-              <Views:ComplaintReplyListView></Views:ComplaintReplyListView>
-              <Views:ComplaintReplyListView></Views:ComplaintReplyListView>
+              <views:ComplaintReplyListView></views:ComplaintReplyListView>
+              <views:ComplaintReplyListView></views:ComplaintReplyListView>
             </StackLayout>
           </StackLayout>
         </ScrollView>
       </StackLayout>
     </ContentView>
+
+
     <fab:FloatingActionButton
-       x:Name="btnAddResponse"
-       Source="fab_add.png"
-       Size="Normal" HasShadow="False" PressedColor="Red"
-       NormalColor="#FF6A00"
-       RippleColor="Blue"
-       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
-       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
+   x:Name="Btn3"
+   NormalColor="#FF7e65"
+   RippleColor="Blue"
+   Size="Normal"
+   Source="clear.png"
+    
+   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Width,
+                                                              Factor=1,
+                                                              Constant=-75}"
+   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Height,
+                                                              Factor=1,
+                                                              Constant=-75}"/>
+
+
+    <fab:FloatingActionButton
+        x:Name="Btn2"
+        NormalColor="#FF7e65"
+        RippleColor="Blue"
+        Size="Normal"
+        Source="chat.png"
+        
+        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Width,
+                                                              Factor=1,
+                                                              Constant=-75}"
+        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Height,
+                                                              Factor=1,
+                                                              Constant=-75}"/>
+
+
+    <fab:FloatingActionButton
+   x:Name="Btn1"
+   NormalColor="#FF7e65"
+   RippleColor="Blue"
+   Size="Normal"
+   Source="fab_add.png"
+
+   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Width,
+                                                              Factor=1,
+                                                              Constant=-75}"
+   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Height,
+                                                              Factor=1,
+                                                              Constant=-75}" />
+
   
-    <Label Text="BLABLABAHAJAHJIAIUAH"
-       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
-       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />  
-
-    <fab:FloatingActionButton
-    x:Name="fab2Btn"
-       Source="fab_add.png"
-       Size="Normal" HasShadow="False" PressedColor="Red"
-       NormalColor="#FF6A00"
-       RippleColor="Blue"
-    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
-    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
-    <fab:FloatingActionButton
-       x:Name="fab3Btn"
-       Source="fab_add.png"
-       Size="Normal" HasShadow="False" PressedColor="Red"
-       NormalColor="#FF6A00"
-       RippleColor="Blue"
-       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-75}"
-       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-75}" />
-
   </RelativeLayout>
 </ContentPage>
 

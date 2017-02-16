@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.Views
+namespace PrigovorHR.Shared.Pages
 {
-    public partial class ComplaintEvaluationView : ContentView
+    public partial class CloseComplaintPage
     {
         private Controllers.TAPController TAPController;
         private View[] AllEvaluationsStars;
         private Dictionary<View, int> StoredEvaluationGrades = new Dictionary<View, int>();
 
-        public ComplaintEvaluationView()
+        public CloseComplaintPage()
         {
             InitializeComponent();
 

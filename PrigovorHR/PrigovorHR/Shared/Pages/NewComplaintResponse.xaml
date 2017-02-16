@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prigovorHr="clr-namespace:PrigovorHR"
              x:Class="PrigovorHR.Shared.Pages.NewComplaintResponse">
-  <!--<ScrollView>-->
-    <!--<StackLayout Padding="25,30,25,30">
+  <ScrollView>
+    <StackLayout Padding="25,30,25,30">
 
       <Frame>
         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -11,21 +12,21 @@
           <StackLayout Orientation="Horizontal" Padding="20,0.45,20,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"> </StackLayout>
           <Editor BackgroundColor="White" HeightRequest="220"  />
           <StackLayout Orientation="Horizontal" Padding="25,0,25,0" HorizontalOptions="FillAndExpand" >
-            <app1111:FontAwesomeLabel x:Name="attach_pdf_font" FontSize="Large" HorizontalOptions="StartAndExpand"></app1111:FontAwesomeLabel>
-            <app1111:FontAwesomeLabel x:Name="attach_photo_font" FontSize="Large" HorizontalOptions="CenterAndExpand"></app1111:FontAwesomeLabel>
-            <app1111:FontAwesomeLabel x:Name="attach_voice_font" FontSize="Large" HorizontalOptions="EndAndExpand"></app1111:FontAwesomeLabel>
+            <prigovorHr:FontAwesomeLabel x:Name="attach_pdf_font" FontSize="Large" HorizontalOptions="StartAndExpand"></prigovorHr:FontAwesomeLabel>
+            <prigovorHr:FontAwesomeLabel x:Name="attach_photo_font" FontSize="Large" HorizontalOptions="CenterAndExpand"></prigovorHr:FontAwesomeLabel>
+            <prigovorHr:FontAwesomeLabel x:Name="attach_voice_font" FontSize="Large" HorizontalOptions="EndAndExpand"></prigovorHr:FontAwesomeLabel>
 
           </StackLayout>
           <StackLayout x:Name="stack_dodanih_attachmenta" HorizontalOptions="FillAndExpand">
             <ProgressBar x:Name="progres_memorije_attachmenta"></ProgressBar>
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-              <app1111:FontAwesomeLabel x:Name="dodani_pdf" FontSize="Micro" VerticalTextAlignment="Center" HorizontalOptions="Start" HorizontalTextAlignment="Center"></app1111:FontAwesomeLabel>
+              <prigovorHr:FontAwesomeLabel x:Name="dodani_pdf" FontSize="Micro" VerticalTextAlignment="Center" HorizontalOptions="Start" HorizontalTextAlignment="Center"></prigovorHr:FontAwesomeLabel>
               <Label Text="nekik.pdf" FontSize="Small" HorizontalOptions="Start" HorizontalTextAlignment="Start" TextColor="Blue"></Label>
             </StackLayout>
           </StackLayout>
-          <app1111:FontAwesomeLabel x:Name="send_font"  HorizontalOptions="CenterAndExpand"></app1111:FontAwesomeLabel>
+          <prigovorHr:FontAwesomeLabel x:Name="send_font"  HorizontalOptions="CenterAndExpand"></prigovorHr:FontAwesomeLabel>
         </StackLayout>
       </Frame>
     </StackLayout>
-  </ScrollView>-->
+  </ScrollView>
 </ContentPage>
