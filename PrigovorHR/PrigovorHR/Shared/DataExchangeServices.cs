@@ -98,8 +98,8 @@ namespace PrigovorHR.Shared
             }
             catch (Exception ex)
             {
-                new Controllers.ExceptionController(ex, "Došlo je do greške prilikom slanja vašeg privitka!" + Environment.NewLine + "Detalji greške: " + ex.Message,
-                    "public static async Task<int> SendComplaintAttachment(byte[] ByteData, string FileName)" + Environment.NewLine + ex.ToString());
+                //new Controllers.ExceptionController(ex, "Došlo je do greške prilikom slanja vašeg privitka!" + Environment.NewLine + "Detalji greške: " + ex.Message,
+                //    "public static async Task<int> SendComplaintAttachment(byte[] ByteData, string FileName)" + Environment.NewLine + ex.ToString());
                 return -1;
             }
         }
