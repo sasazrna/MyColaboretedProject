@@ -19,6 +19,7 @@ namespace PrigovorHR.Shared.Views
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
+            
         }
 
         public ComplaintListView_BasicUser(ComplaintModel _Complaint)

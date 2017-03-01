@@ -4,7 +4,9 @@
              x:Class="PrigovorHR.Shared.Pages.SplashScreenPage" BackgroundColor="White">
  <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-    <Image Source="PrigovorLogoMobile.png" Scale="2"  Margin="0, 150, 0,0"></Image>
+     
+    <Image Source="PrigovorLogoMobile.png" Scale="2" Margin="0, 150, 0,0"></Image>
+   
     </StackLayout>
  </StackLayout>
 </ContentPage>
