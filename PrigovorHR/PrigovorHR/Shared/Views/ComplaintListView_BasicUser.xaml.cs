@@ -19,7 +19,6 @@ namespace PrigovorHR.Shared.Views
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
-            
         }
 
         public ComplaintListView_BasicUser(ComplaintModel _Complaint)
@@ -41,6 +40,9 @@ namespace PrigovorHR.Shared.Views
             Complaint = _Complaint;
             TAPController = new Controllers.TAPController(this.Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
+            FAL.Text = FontAwesomeLabel.Images.FABolt;
+            FAL.TextColor = Color.Purple;
+            FAL.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(FontAwesomeLabel));
         }
 
         private async  void TAPController_SingleTaped(string viewId, View view)
