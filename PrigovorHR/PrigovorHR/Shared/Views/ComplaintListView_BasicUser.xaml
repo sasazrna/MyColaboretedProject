@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prigovorHr="clr-namespace:PrigovorHR;assembly=PrigovorHR"
-             xmlns:shared="clr-namespace:PrigovorHR.Shared;assembly=PrigovorHR"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
              BackgroundColor="White"
              x:Class="PrigovorHR.Shared.Views.ComplaintListView_BasicUser">
     
@@ -16,7 +15,7 @@
             <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "StartAndExpand"/>
             <Image x:Name="imgAttachmentImage"  Source="attach.png"  HorizontalOptions="Start" VerticalOptions="EndAndExpand"  WidthRequest="15" Rotation="90"  />
             <Label HorizontalOptions="End" Text="21.svib." TextColor="Gray" FontSize="Small" VerticalOptions="End" VerticalTextAlignment="Start"  ></Label>
-           
+                <views:FontAwesomeLabel x:Name="FAL"></views:FontAwesomeLabel>
           </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" >
