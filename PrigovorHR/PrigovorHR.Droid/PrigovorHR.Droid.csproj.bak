@@ -17,7 +17,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
@@ -432,6 +432,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidControllers.cs" />
+    <Compile Include="CurvedCornersLabelRenderer.cs" />
     <Compile Include="FacebookCallback.cs" />
     <Compile Include="FontAwesomeLabelRenderer.cs" />
     <Compile Include="KeyBoardOverlayFix.cs" />

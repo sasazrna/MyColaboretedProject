@@ -23,6 +23,7 @@ namespace PrigovorHR.Shared.Pages
         public ComplaintPage(Models.ComplaintModel Complaint)
         {
             InitializeComponent();
+            lytNumberOfResponses.Text = "+3";
 
             //btnAddResponse.Clicked += BtnAddResponse_Clicked;
             TAPController = new Controllers.TAPController(lytNumberOfResponses, NavigationBar.imgBack);
@@ -127,15 +128,18 @@ namespace PrigovorHR.Shared.Pages
             if (view == lytNumberOfResponses)
             {
                 lytAllResponses.IsVisible = !lytAllResponses.IsVisible;
-                await imgArrow.RotateTo(lytAllResponses.IsVisible ? 0 : 180, 75);
+                //await imgArrow.RotateTo(lytAllResponses.IsVisible ? 0 : 180, 75);
+                lytNumberOfResponses.Text = "-";
             }
             else if (view == NavigationBar.imgBack)
             {
                 await view.RotateTo(90, 100);
                 await Navigation.PopModalAsync(true);
+               
             }
 
             NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
+            
         }
 
         protected override bool OnBackButtonPressed()

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             x:Class="PrigovorHR.Shared.Views.ComplaintCoversationHeaderView">
+  <ContentView.Content>
+      <Frame Margin="-15,-20,-15,-5">
+        <StackLayout >
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Image HorizontalOptions="Start" Source="priv3.png" VerticalOptions="Start" WidthRequest="30" />
+        <Label x:Name="lblStoreName" FontSize="Medium"  HorizontalOptions="FillAndExpand" Text="SuperKonzum Varaždin" TextColor="Black" VerticalOptions="EndAndExpand" VerticalTextAlignment="Start" />
+
+      </StackLayout>
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+        <Label Text="S kim razgovaram:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
+        <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "End"/>
+      </StackLayout>
+        </StackLayout>
+      </Frame>
+    </ContentView.Content>
+</ContentView>

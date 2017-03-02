@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="CurvedCornersLabel.cs" />
     <Compile Include="FontAwsomeLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Controllers\CameraController.cs" />
@@ -52,6 +53,9 @@
     <Compile Include="Shared\Interfaces\IAndroidCallers.cs" />
     <Compile Include="Shared\Controllers\SearchController.cs" />
     <Compile Include="Shared\DataExchangeServices.cs" />
+    <Compile Include="Shared\Views\LastResponsView.xaml.cs">
+      <DependentUpon>LastResponsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\Models\CityModel.cs" />
     <Compile Include="Shared\Models\CompanyModel.cs" />
     <Compile Include="Shared\Models\ComplaintModel.cs" />
@@ -122,6 +126,9 @@
     </Compile>
     <Compile Include="Shared\Pages\CloseComplaintPage.xaml.cs">
       <DependentUpon>CloseComplaintPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\Views\ComplaintCoversationHeaderView.xaml.cs">
+      <DependentUpon>ComplaintCoversationHeaderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Views\ComplaintListTabView.xaml.cs">
       <DependentUpon>ComplaintListTabView.xaml</DependentUpon>
@@ -556,6 +563,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\NewComplaintResponse.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Views\ComplaintCoversationHeaderView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Views\LastResponsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

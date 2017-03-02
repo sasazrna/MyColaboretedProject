@@ -1,11 +1,12 @@
 using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
 using Android.Graphics;
-
-/* 'Icon' is the namespace for my solution. So instead you should include your namespaces, of course. */
 using PrigovorHR;
 using PrigovorHR.Droid;
+using PrigovorHR;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+/* 'Icon' is the namespace for my solution. So instead you should include your namespaces, of course. */
+
 
 [assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(FontAwesomeLabelRenderer))]
 namespace PrigovorHR.Droid

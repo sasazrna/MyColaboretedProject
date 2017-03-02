@@ -432,6 +432,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidControllers.cs" />
+    <Compile Include="CurvedCornersLabelRenderer.cs" />
     <Compile Include="FacebookCallback.cs" />
     <Compile Include="FontAwesomeLabelRenderer.cs" />
     <Compile Include="KeyBoardOverlayFix.cs" />
