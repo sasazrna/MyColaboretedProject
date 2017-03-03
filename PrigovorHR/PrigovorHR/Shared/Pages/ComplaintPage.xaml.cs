@@ -18,7 +18,7 @@ namespace PrigovorHR.Shared.Pages
         public ComplaintPage()
         {
             InitializeComponent();
-            labela.Text = Pages.FontAwesomeLabel.Images.FAAdjust;
+            labela.Text = FontAwesomeLabel.Images.FAAdjust;
             labela.TextColor = Color.Teal;
 
             labela2.Text = Views.FontAwesomeLabel.Images.FAAdjust;
