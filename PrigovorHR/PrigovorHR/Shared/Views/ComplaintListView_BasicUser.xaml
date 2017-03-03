@@ -4,48 +4,31 @@
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
              BackgroundColor="White"
              x:Class="PrigovorHR.Shared.Views.ComplaintListView_BasicUser">
-    
-  <StackLayout Padding="15, 5, 15, 5" >
+
+    <StackLayout Padding="15, 5, 15, 5" >
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-          <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
             <Label x:Name="lblShortComplaint" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
           </StackLayout>-->
-          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-            <Label Text="S kim razgovaram:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
-            <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "StartAndExpand"/>
-            <Image x:Name="imgAttachmentImage"  Source="attach.png"  HorizontalOptions="Start" VerticalOptions="EndAndExpand"  WidthRequest="15" Rotation="90"  />
-            <Label HorizontalOptions="End" Text="21.svib." TextColor="Gray" FontSize="Small" VerticalOptions="End" VerticalTextAlignment="Start"  ></Label>
-                <views:FontAwesomeLabel x:Name="FAL"></views:FontAwesomeLabel>
-          </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                <Label Text="S kim razgovaram:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
+                <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "StartAndExpand"/>
+                <Image x:Name="imgAttachmentImage"  Source="attach.png"  HorizontalOptions="Start" VerticalOptions="EndAndExpand"  WidthRequest="15" Rotation="90"  />
+                <Label x:Name="lblComplaintResponseDate" HorizontalOptions="End" Text="21.svib." TextColor="Gray" FontSize="Small" VerticalOptions="End" VerticalTextAlignment="Start"  ></Label>
+            </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" >
-          <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Center"    />
-          <Label x:Name="lblStoreName" Text="SuperKonzum Varaždin"  FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" />
-          <!--<Image Source="arrow.png" WidthRequest="20" HorizontalOptions="Start"    />-->
+            <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Center"    />
+            <Label x:Name="lblStoreName" Text="SuperKonzum Varaždin"  FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" />
+            <!--<Image Source="arrow.png" WidthRequest="20" HorizontalOptions="Start"    />-->
         </StackLayout>
-   
 
-    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
-      <Label x:Name="lblShortComplaint" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
-    </StackLayout>
-    
-        <StackLayout IsVisible="False" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0, 12,0,0">
-          <Label Text="Vrijeme problema"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
-          <Label x:Name="lblTimeOfProblem" Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
+            <Label x:Name="lblShortComplaint" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red"  FontSize="Medium" HorizontalOptions="FillAndExpand" TextColor="Black" />
         </StackLayout>
-        <StackLayout IsVisible="False" Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-          <Label Text="Vrijeme prijave"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
-          <Label x:Name="lblTimeOfComplaint" Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
-        </StackLayout>
-        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-          <Label Text="S kim razgovaram:"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
-          <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "End"/>
-        </StackLayout>-->
-        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-        <Button x:Name="btnOpenThisComplaint" Text ="Prikaži ovaj prigovor" BackgroundColor="White" TextColor="Black" HorizontalOptions="FillAndExpand"></Button>
-      </StackLayout>-->
         <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="Silver"/>
-      </StackLayout>
-  
+    </StackLayout>
+
 </ContentView>
 

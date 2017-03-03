@@ -53,8 +53,8 @@
     <Compile Include="Shared\Interfaces\IAndroidCallers.cs" />
     <Compile Include="Shared\Controllers\SearchController.cs" />
     <Compile Include="Shared\DataExchangeServices.cs" />
-    <Compile Include="Shared\Views\LastResponsView.xaml.cs">
-      <DependentUpon>LastResponsView.xaml</DependentUpon>
+    <Compile Include="Shared\Views\LastComplaintResponseView.xaml.cs">
+      <DependentUpon>LastComplaintResponseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Models\CityModel.cs" />
     <Compile Include="Shared\Models\CompanyModel.cs" />
@@ -141,9 +141,6 @@
     </Compile>
     <Compile Include="Shared\Pages\ComplaintPage.xaml.cs">
       <DependentUpon>ComplaintPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Shared\Views\ContactPersonsView.xaml.cs">
-      <DependentUpon>ContactPersonsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Views\LandingViewWithLogin.xaml.cs">
       <DependentUpon>LandingViewWithLogin.xaml</DependentUpon>
@@ -421,10 +418,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Views\ContactPersonsView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Shared\Views\ListOfComplaintsView_BasicUser.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -575,7 +568,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Views\LastResponsView.xaml">
+    <EmbeddedResource Include="Shared\Views\LastComplaintResponseView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

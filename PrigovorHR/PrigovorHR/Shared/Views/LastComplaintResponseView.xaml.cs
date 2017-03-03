@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace PrigovorHR.Shared.Views
 {
-    public partial class LastResponsView : ContentView
+    public partial class LastComplaintResponseView : ContentView
     {
-        public LastResponsView()
+        public LastComplaintResponseView()
         {
             InitializeComponent();
         }

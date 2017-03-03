@@ -21,29 +21,17 @@
                             <views:ComplaintOriginalView></views:ComplaintOriginalView>
                         </StackLayout>
 
-                        <!--<StackLayout x:Name="lytNumberOfResponses" VerticalOptions="Start">
-              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                <Image Source="more2.png"  Aspect="AspectFill" BackgroundColor="#FF7e65" HorizontalOptions="Start" WidthRequest="30" > </Image>
-                <StackLayout Padding="0,3,0,0" BackgroundColor="#FF7e65" VerticalOptions="Center" HorizontalOptions="FillAndExpand"></StackLayout>
-              </StackLayout>
-              <StackLayout Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Start" Margin="0, -12, 0,0">
-                <Image x:Name="imgArrow" Source="arrow_drop_down.png" Aspect="AspectFill" BackgroundColor="Gray"  HeightRequest="20" WidthRequest="20"/>
-              </StackLayout>
-            </StackLayout>-->
-
                         <StackLayout Spacing="-30">
                             <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
 
 
                             <StackLayout x:Name="Open" HorizontalOptions="Center">
-                                <views:CurvedCornersLabel x:Name="lytNumberOfResponses"
+                         <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
                          CurvedBackgroundColor="#FF7e65"
-                         CurvedCornerRadius="20"
-                         FontSize="16.5"
-                         HeightRequest="35"
-                         WidthRequest="35"
+                        CurvedCornerRadius="20"
+                         HeightRequest="50"
+                         WidthRequest="50"
                          HorizontalTextAlignment="Center"
-                         Text="+3"
                          TextColor="White"
                          VerticalTextAlignment="Center" />
                             </StackLayout>
@@ -53,11 +41,9 @@
                             <views:ComplaintReplyListView></views:ComplaintReplyListView>
                             <views:ComplaintReplyListView></views:ComplaintReplyListView>
                         </StackLayout>
-
-                        <StackLayout>
-
-                            <views:LastResponsView></views:LastResponsView>
-                        </StackLayout>
+                        <!--<StackLayout>
+                            <views:LastComplaintResponseView></views:LastComplaintResponseView>
+                        </StackLayout>-->
                     </StackLayout>
                 </ScrollView>
             </StackLayout>

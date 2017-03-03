@@ -25,13 +25,20 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
             this.BackgroundColor = Color.White.WithLuminosity(1);
-            lblTimeOfComplaint.Text = _Complaint.created_at;
-            lblTimeOfProblem.Text = _Complaint.problem_occurred;
+            //lblTimeOfComplaint.Text = _Complaint.created_at;
+            //lblTimeOfProblem.Text = _Complaint.problem_occurred;
             var Reply = _Complaint.replies.LastOrDefault();
 
-            lblShortComplaint.Text = !_Complaint.replies.Any() ?
+            lblShortComplaint.Text = Reply == null ?
                                      _Complaint.complaint.Length < 100 ? _Complaint.complaint : _Complaint.complaint.Substring(0, 100) :
                                      Reply.reply.Length < 100 ? Reply.reply : Reply.reply.Substring(0, 100);
+
+            var LastResponse = Reply == null ? DateTime.Parse(_Complaint.updated_at) : DateTime.Parse(Reply.updated_at);
+
+            if (LastResponse.Date == DateTime.Now.Date)
+                lblComplaintResponseDate.Text = LastResponse.ToString();
+            else
+                lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
 
             IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == _Complaint.id);
             lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
@@ -40,9 +47,9 @@ namespace PrigovorHR.Shared.Views
             Complaint = _Complaint;
             TAPController = new Controllers.TAPController(this.Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
-            FAL.Text = FontAwesomeLabel.Images.FABolt;
-            FAL.TextColor = Color.Purple;
-            FAL.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(FontAwesomeLabel));
+            //FAL.Text = FontAwesomeLabel.Images.FABolt;
+            //FAL.TextColor = Color.Purple;
+            //FAL.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(FontAwesomeLabel));
         }
 
         private async  void TAPController_SingleTaped(string viewId, View view)

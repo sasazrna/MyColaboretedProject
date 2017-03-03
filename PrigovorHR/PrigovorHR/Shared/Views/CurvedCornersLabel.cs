@@ -9,6 +9,7 @@ namespace PrigovorHR.Shared.Views
 {
     public class CurvedCornersLabel : Label
     {
+        public CurvedCornersLabel() { }
         public static readonly BindableProperty CurvedCornerRadiusProperty =
             BindableProperty.Create(
                 nameof(CurvedCornerRadius),

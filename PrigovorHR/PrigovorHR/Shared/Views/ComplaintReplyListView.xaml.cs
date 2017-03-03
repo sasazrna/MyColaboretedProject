@@ -29,7 +29,8 @@ namespace PrigovorHR.Shared.Views
             lblDateTimeOfResponse.Text = DateTime.Parse(ComplaintReply.created_at).ToString();
             lblReplyTextShort.Text = ComplaintReply.reply.Length < 111 ? ComplaintReply.reply : ComplaintReply.reply.Substring(0, 111) + "...";
             lblReplyTextLong.Text = ComplaintReply.reply;
-            lblUsername.Text = _ComplaintReply.user.name_surname; //_ComplaintReply.by_contact != 0 ? _ComplaintReply.by_contact.ToString() : Controllers.LoginRegisterController._LoggedUser.name_surname;
+            lblUsername.Text = _ComplaintReply.user.name_surname;
+            lblNameInitials.Text = lblUsername.Text.Substring(0, 1) + "." + lblUsername.Text.Substring(lblUsername.Text.LastIndexOf(" ")+1, 1);
             imgAttachmentImage.IsVisible = ComplaintReply.attachments.Any();
 
             lytAttachmentsLayout.Children.Clear();

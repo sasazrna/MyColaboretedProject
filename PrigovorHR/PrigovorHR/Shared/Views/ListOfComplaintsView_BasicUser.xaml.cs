@@ -18,7 +18,10 @@ namespace PrigovorHR.Shared.Views
         public static ListOfComplaintsView_BasicUser ReferenceToView;
         private bool DisplayClosedComplaints=false;
         private RootComplaintModel _DataSource;
-
+        private int DisplayedComplaints = 0;
+        private const int MaximumDisplayedComplaintsPerRequest = 6;
+        private double CurrentMaximumScrollValue = 0;
+        private bool AllComplaintsVisible = false;
         public ListOfComplaintsView_BasicUser()
         {
             InitializeComponent();
@@ -28,13 +31,41 @@ namespace PrigovorHR.Shared.Views
             _pullLayout.SetBinding<PullToRefreshModel>(PullToRefreshLayout.RefreshCommandProperty, vm => vm.RefreshCommand);
             PullToRefreshModel.Pulled += PullToRefreshModel_Pulled;
             ComplaintListTabView.SelectedTabChangedEvent += ComplaintListTabView_SelectedTabChangedEvent;
-            ReferenceToView = this; 
             LoadComplaints();
+            scrview.Scrolled += Scrview_Scrolled;
+            ReferenceToView = this;
+        }
+
+        private void Scrview_Scrolled(object sender, ScrolledEventArgs e)
+        {
+            if (e.ScrollY >= CurrentMaximumScrollValue & !AllComplaintsVisible)
+            {
+                DisplayData();
+                CalculateMaximumScroll();
+            }
+        }
+
+        private void CalculateMaximumScroll()
+        {
+            if (DisplayedComplaints > 0)
+            {
+                new Task(async () =>
+                {
+                    scrview.Scrolled -= Scrview_Scrolled;
+                    await scrview.ScrollToAsync(_StackLayout.Children.Last(), ScrollToPosition.Start, false);
+                    CurrentMaximumScrollValue = scrview.ScrollY;
+                    await scrview.ScrollToAsync(_StackLayout.Children.First(), ScrollToPosition.Start, false);
+                    scrview.Scrolled += Scrview_Scrolled;
+                }).RunSynchronously();
+            }
         }
 
         private void ComplaintListTabView_SelectedTabChangedEvent(ComplaintListTabView.enumTabs SelectedTab)
         {
+            scrview.Scrolled -= Scrview_Scrolled;
+            DisplayedComplaints = 0;
             DisplayClosedComplaints = SelectedTab == ComplaintListTabView.enumTabs.ClosedComplaints;
+            scrview.Scrolled += Scrview_Scrolled;
             DataSource = DataSource;
         }
 
@@ -51,6 +82,7 @@ namespace PrigovorHR.Shared.Views
             try
             {
                 //var RE = await DataExchangeServices.GetMyComplaints();
+                DisplayedComplaints = 0;
                 DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                     (await DataExchangeServices.GetMyComplaints());
 
@@ -75,11 +107,24 @@ namespace PrigovorHR.Shared.Views
             {
                 _DataSource = value;
                 _StackLayout.Children.Clear();
-                foreach (var Complaint in value?.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
-                                                                 .Where(c=>c.closed == DisplayClosedComplaints))
+                DisplayData();
+                CalculateMaximumScroll();
+            }
+        }
+
+        private void DisplayData()
+        {
+            if (DisplayedComplaints != _DataSource.user?.complaints.Count - 1 | DisplayedComplaints == 0)
+            {
+                foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
+                                                           .Where(c => c.closed == DisplayClosedComplaints)
+                                                           .Skip(DisplayedComplaints)
+                                                           .Take(MaximumDisplayedComplaintsPerRequest))
                 {
                     var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
                     _StackLayout.Children.Add(ComplaintListView);
+                    DisplayedComplaints++;
+                    AllComplaintsVisible = DisplayedComplaints >= _DataSource.user?.complaints.Count - 1;
                 }
             }
         }
