@@ -1,5 +1,6 @@
 ﻿using FAB.Forms;
 using Newtonsoft.Json;
+using PrigovorHR.Shared.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,18 @@ namespace PrigovorHR.Shared.Pages
         public ComplaintPage()
         {
             InitializeComponent();
-            labela.Text = Pages.FontAwesomeLabel.Images.FAAdjust;
-            labela.TextColor = Color.Teal;
-
-            labela2.Text = Views.FontAwesomeLabel.Images.FAAdjust;
-            labela2.TextColor = Color.Teal;
         }
 
         public ComplaintPage(Models.ComplaintModel Complaint)
         {
             InitializeComponent();
-         //  lytNumberOfResponses.Text = "+3";
+            labela.Text = FontAwesomeLabel.Images.FAAdjust;
+            labela.TextColor = Color.Teal;
+
+            labela2.Text = FontAwesomeLabel.Images.FAArrowCircleOLeft;
+            labela2.TextColor = Color.Teal;
+
+            //  lytNumberOfResponses.Text = "+3";
 
             //btnAddResponse.Clicked += BtnAddResponse_Clicked;
             TAPController = new Controllers.TAPController(NavigationBar.imgBack);

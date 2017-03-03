@@ -4,7 +4,6 @@
               BackgroundColor="White"
              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
-             xmlns:pages="clr-namespace:PrigovorHR.Shared.Pages;assembly=PrigovorHR"
              x:Class="PrigovorHR.Shared.Pages.ComplaintPage">
 
     <RelativeLayout x:Name="lytRelative">
@@ -19,19 +18,16 @@
                             <views:ComplaintCoversationHeaderView></views:ComplaintCoversationHeaderView>
                         </StackLayout>
                       <StackLayout>
-                        <pages:FontAwesomeLabel x:Name="labela" FontSize="Small" HorizontalOptions="End"></pages:FontAwesomeLabel>
+                        <views:FontAwesomeLabel x:Name="labela" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
                         <views:FontAwesomeLabel x:Name="labela2" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
                       </StackLayout>
+                        
                         <StackLayout x:Name="lytOriginalAndLastComplaintReply" VerticalOptions="Start" >
                             <views:ComplaintOriginalView></views:ComplaintOriginalView>
-                          
                         </StackLayout>
 
                         <StackLayout Spacing="-30">
-                        
                             <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
-
-                       
                             <StackLayout x:Name="Open" HorizontalOptions="Center">
                          <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
                          CurvedBackgroundColor="#FF7e65"
