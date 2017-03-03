@@ -1,16 +1,19 @@
 using System;
 
 using Android.Content;
+using Android.Graphics;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Graphics.Drawables;
+using Android.Util;
+using PrigovorHR.AndroidRenderers;
 using PrigovorHR.Shared.Views;
 using static PrigovorHR.AndroidRenderers.AndroidRenderers;
 using Android.Util;
 using Android.Graphics;
 
-[assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(CurvedCornersLabelRenderer))]
-[assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(FontAwesomeLabelRenderer))]
+[assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(AndroidRenderers.CurvedCornersLabelRenderer))]
+[assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(AndroidRenderers.FontAwesomeLabelRenderer))]
 
 namespace PrigovorHR.AndroidRenderers
 {

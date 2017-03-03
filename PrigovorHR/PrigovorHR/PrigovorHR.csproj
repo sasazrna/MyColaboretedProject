@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Shared\Pages\FontAwsomeLabel.cs" />
     <Compile Include="Shared\Views\CurvedCornersLabel.cs" />
     <Compile Include="Shared\Views\FontAwsomeLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

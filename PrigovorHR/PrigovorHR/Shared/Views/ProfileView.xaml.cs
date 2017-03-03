@@ -20,6 +20,8 @@ namespace PrigovorHR.Shared.Views
         public ProfileView()
         {
             InitializeComponent();
+           
+
             _TAPController = new Controllers.TAPController(_imgProfilePicture);
 
             _btnSaveChanges.Clicked += _btnSaveChanges_Clicked;

@@ -13,6 +13,7 @@ namespace PrigovorHR.Shared.Pages
         public ContactUsPage()
         {
             InitializeComponent();
+           
 
             _btnSend.Clicked += _btnSend_Clicked;
         }

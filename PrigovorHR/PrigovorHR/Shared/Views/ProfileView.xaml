@@ -2,6 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:CircleImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
              x:Class="PrigovorHR.Shared.Views.ProfileView" BackgroundColor="White">
   <ContentView.Content>
     <ScrollView>
@@ -9,6 +10,7 @@
         <CircleImage:CircleImage x:Name="_imgProfilePicture" Source="Person.png" BorderColor="#FF7e65" BorderThickness="1" />
         <Image Source="edit.png" HorizontalOptions="Start"  WidthRequest="30" HeightRequest="30" Margin="160, -40, 0, 0"/>
         <Entry x:Name="_NameEntry" Placeholder="Ime..." TextColor="Black" PlaceholderColor="Silver" FontSize="Medium" Margin="0, 15, 0, 0"/>
+       
         <Entry x:Name="_SurnameEntry" Placeholder="Prezime..." IsPassword="False" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium"  Margin="0, 5, 0, 0"/>
         <Label x:Name="_lblIncorrectEMail" Text="Upišite ispravan email!" FontSize="Medium" TextColor="Red" IsVisible="False"/>
         <Entry x:Name="_EMailEntry" Placeholder="Email adresa..." TextColor="Black" PlaceholderColor="Silver" FontSize="Medium" Margin="0, 5, 0, 0"/>
