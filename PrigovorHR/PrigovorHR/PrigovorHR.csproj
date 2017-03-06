@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Shared\Controllers\TranslateController.cs" />
+    <Compile Include="Shared\Models\ExceptionInfoModel.cs" />
+    <Compile Include="Shared\Pages\MainSideMenuPage.cs" />
     <Compile Include="Shared\Views\CurvedCornersLabel.cs" />
     <Compile Include="Shared\Views\FontAwsomeLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,7 +71,6 @@
     <Compile Include="Shared\Models\ElementsModel.cs" />
     <Compile Include="Shared\Models\ElementTypeModel.cs" />
     <Compile Include="Shared\Models\EMailLoginModel.cs" />
-    <Compile Include="Shared\Models\ExceptionModel.cs" />
     <Compile Include="Shared\Models\GoogleUserModel.cs" />
     <Compile Include="Shared\Models\LoginTypeModel.cs" />
     <Compile Include="Shared\Models\PullToRefreshModel.cs" />
@@ -201,15 +203,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Mobile, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.0.6.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Microsoft.Azure.Mobile.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.0.7.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Microsoft.Azure.Mobile.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Mobile.Analytics">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Analytics.0.6.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\\Microsoft.Azure.Mobile.Analytics.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Analytics.0.7.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\\Microsoft.Azure.Mobile.Analytics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Mobile.Crashes, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Crashes.0.6.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Microsoft.Azure.Mobile.Crashes.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Crashes.0.7.0\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Microsoft.Azure.Mobile.Crashes.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -327,6 +329,18 @@
       <HintPath>..\..\packages\Rg.Plugins.Popup.1.0.4\lib\portable-win+net45+wp8+win8+wpa81\Rg.Plugins.Popup.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ScnPage.Plugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ScnSideMenu.Forms.1.2.10\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\ScnPage.Plugin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ScnSideMenu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ScnSideMenu.Forms.1.2.10\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\ScnSideMenu.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ScnViewGestures, Version=1.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ScnViewGestures.Forms.1.3.6.1\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\ScnViewGestures.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Splat.1.6.2\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
       <Private>True</Private>
@@ -344,11 +358,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Validation.2.4.10\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
+      <HintPath>..\..\packages\Validation.2.4.13\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Auth, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Auth.1.3.2.3\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Auth.1.3.2.4\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

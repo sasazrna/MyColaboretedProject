@@ -11,6 +11,7 @@ using Plugin.Messaging;
 using Android.Content.PM;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using PrigovorHR.Shared.Controllers;
 
 namespace PrigovorHR.Shared
 {
@@ -46,15 +47,6 @@ namespace PrigovorHR.Shared
 
         public static async Task<string> LoginUser_EMail(string jsonvalue)
         {
-            //try
-            //{
-            //    throw new Exception("bla");
-            //}
-            //catch(Exception ex)
-            //{
-            //    // Acr.UserDialogs.UserDialogs.Instance.Alert(ex.StackTrace);
-            //  // new Controllers.ExceptionController(ex, "", "");
-            //}
             return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.LoginUser, jsonvalue);
         }
 
@@ -90,18 +82,9 @@ namespace PrigovorHR.Shared
 
         public static async Task<int> SendComplaintAttachment(byte[] ByteData, string FileName)
         {
-            try
-            {
-                var Result = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendComplaintAttachment, FileName, ByteData);
-                JObject Jobj = JObject.Parse(Result);
-                return (int)Jobj["attachments_id"][0];
-            }
-            catch (Exception ex)
-            {
-                //new Controllers.ExceptionController(ex, "Došlo je do greške prilikom slanja vašeg privitka!" + Environment.NewLine + "Detalji greške: " + ex.Message,
-                //    "public static async Task<int> SendComplaintAttachment(byte[] ByteData, string FileName)" + Environment.NewLine + ex.ToString());
-                return -1;
-            }
+            var Result = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendComplaintAttachment, FileName, ByteData);
+            JObject Jobj = JObject.Parse(Result);
+            return (int)Jobj?["attachments_id"]?.FirstOrDefault();
         }
 
         public static async Task<string> SendComplaint(string jsonvalue)
@@ -127,6 +110,10 @@ namespace PrigovorHR.Shared
             return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetReplyAttachmentData, JsonData);
         }
 
+        public static async Task<bool> SendExceptionData(string jsonvalue)
+        {
+            return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendExceptionData, jsonvalue) != "Error:";
+        }
         /// <summary>
         /// Private class that handles all the communications and returns result to root dataexchangeservices class
         /// </summary>
@@ -136,24 +123,25 @@ namespace PrigovorHR.Shared
             public enum ServiceCommands : int
             {
                 GetSearchResults,
-                GetDirectTagResult ,
+                GetDirectTagResult,
                 //GetGoogleUserInfo = 3,
                 //GetFacebookUserInfo = 4,
-                RegisterUser ,
-                LoginUser  ,
-                GetUserAvatar ,
-                ChangeUserInfo ,
+                RegisterUser,
+                LoginUser,
+                GetUserAvatar,
+                ChangeUserInfo,
                 ContactUs,
-                GetMyComplaints ,
+                GetMyComplaints,
                 ResetPassword,
-                ComplaintReaded ,
-                SendComplaint ,
-                GetLongLatFromAddress ,
-                SendComplaintAttachment ,
+                ComplaintReaded,
+                SendComplaint,
+                GetLongLatFromAddress,
+                SendComplaintAttachment,
                 SendReplyAttachment,
                 GetComplaintAttachmentData,
                 GetReplyAttachmentData,
                 GetCompanyElementData,
+                SendExceptionData
             };
 
 
@@ -171,10 +159,11 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.SendComplaint, "predaj-prigovor" },
                                                           { ServiceCommands.GetLongLatFromAddress, "https://maps.googleapis.com/maps/api/geocode/json?address=" },
                                                           { ServiceCommands.SendComplaintAttachment,"predaj-prigovor/single-upload" },
-                                                          {ServiceCommands.SendReplyAttachment, "odgovori-na-prigovor/single-upload" },
+                                                          { ServiceCommands.SendReplyAttachment, "odgovori-na-prigovor/single-upload" },
                                                           { ServiceCommands.GetComplaintAttachmentData, "prilozi/" },
                                                           {ServiceCommands.GetReplyAttachmentData, "odgovor-prilozi/" },
-                                                          { ServiceCommands.GetCompanyElementData, "prigovori/" } };
+                                                          { ServiceCommands.GetCompanyElementData, "prigovori/" },
+                                                          { ServiceCommands.SendExceptionData, "xamarin-exceptions"} };
 
 
 
@@ -210,7 +199,7 @@ namespace PrigovorHR.Shared
                                 client.DefaultRequestHeaders.Authorization = header;
                                 var fullAddress = serviceAddress + APIAdresses[ServiceCommand];
 
-                                if (ServiceCommand == ServiceCommands.GetComplaintAttachmentData | 
+                                if (ServiceCommand == ServiceCommands.GetComplaintAttachmentData |
                                     ServiceCommand == ServiceCommands.GetReplyAttachmentData)
                                 {
                                     JObject Jobj = JObject.Parse(value);
@@ -239,13 +228,9 @@ namespace PrigovorHR.Shared
 
                         if (response.IsSuccessStatusCode)
                         {
-                            try
-                            {
-                                Models.UserToken.token = response.Headers.GetValues("Authorization").Last();
-                            }
-                            catch { }
+                            try { Models.UserToken.token = response.Headers.GetValues("Authorization").Last(); } catch { }
 
-                            if (ServiceCommand == ServiceCommands.GetUserAvatar | 
+                            if (ServiceCommand == ServiceCommands.GetUserAvatar |
                                 ServiceCommand == ServiceCommands.GetComplaintAttachmentData |
                                 ServiceCommand == ServiceCommands.GetReplyAttachmentData)
                                 return Convert.ToBase64String(await response.Content.ReadAsByteArrayAsync());
@@ -253,24 +238,19 @@ namespace PrigovorHR.Shared
                         }
                         else
                         {
-
-                            //write this to filelog and send it after next success login
-                            //   return response.ToString();
-                            return "Error:" + response.ReasonPhrase +  await response.Content.ReadAsStringAsync();
+                            return "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
                         }
                     }
                 }
-                catch (Exception err)
+                catch (Exception ex)
                 {
-                    return "Error:" + err.ToString();
+                    ExceptionController.HandleException(ex, "Došlo je do greške na  internal async Task<string> GetData(");
+                    return "Error:";
                 }
             }
 
             internal async Task<string> SendData(ServiceCommands ServiceCommand, string value, byte[] byteData = null, string serviceAddress = ServiceAddress)
             {
-                //var byteArray = Encoding.UTF8.GetBytes("forge:123123p");
-                //var header = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-
                 try
                 {
                     using (var client = new HttpClient())
@@ -294,7 +274,7 @@ namespace PrigovorHR.Shared
                                 break;
 
                             case ServiceCommands.SendComplaintAttachment:
-                                multipartData.Add(new ByteArrayContent(byteData),"file", value);
+                                multipartData.Add(new ByteArrayContent(byteData), "file", value);
                                 response = await client.PostAsync(urlAddress, multipartData);
                                 break;
 
@@ -306,7 +286,7 @@ namespace PrigovorHR.Shared
                                         multipartData.Add(new StringContent((string)Jobj[prop.Name]), prop.Name);
 
                                 multipartData.Add(new ByteArrayContent(Views.ProfileView.ProfileImageByte), "profile_image_input", "avatar.jpg");
-                                urlAddress += Controllers.LoginRegisterController._LoggedUser.id.ToString();
+                                urlAddress += LoginRegisterController.LoggedUser.id.ToString();
                                 response = await client.PostAsync(urlAddress, multipartData);
                                 break;
                         }
@@ -316,10 +296,14 @@ namespace PrigovorHR.Shared
                             try { Models.UserToken.token = response.Headers.GetValues("Authorization").Last(); } catch { }
                             return await response.Content.ReadAsStringAsync();
                         }
-                        else return await response.Content.ReadAsStringAsync(); //"Error: " + response.StatusCode.ToString();
+                        else return "Error:";
                     }
                 }
-                catch (Exception err) { return "Error:" + err.ToString(); }
+                catch (Exception ex)
+                {
+                    ExceptionController.HandleException(ex, "Došlo je do greške na  internal async Task<string> SendData");
+                    return "Error:";
+                }
             }
         }
     }

@@ -7,7 +7,7 @@
              x:Class="PrigovorHR.Shared.Pages.ComplaintPage">
 
     <RelativeLayout x:Name="lytRelative">
-        <ContentView x:Name="cvTopContentView"
+    <ContentView x:Name="cvTopContentView"
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
             <StackLayout Spacing="0">
@@ -17,11 +17,11 @@
                         <StackLayout VerticalOptions="Start">
                             <views:ComplaintCoversationHeaderView></views:ComplaintCoversationHeaderView>
                         </StackLayout>
-                      <StackLayout>
-                        <views:FontAwesomeLabel x:Name="labela" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
-                        <views:FontAwesomeLabel x:Name="labela2" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
-                      </StackLayout>
-                        
+                        <StackLayout>
+                            <views:FontAwesomeLabel x:Name="labela" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
+                            <views:FontAwesomeLabel x:Name="labela2" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
+                        </StackLayout>
+
                         <StackLayout x:Name="lytOriginalAndLastComplaintReply" VerticalOptions="Start" >
                             <views:ComplaintOriginalView></views:ComplaintOriginalView>
                         </StackLayout>
@@ -29,7 +29,7 @@
                         <StackLayout Spacing="-30">
                             <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
                             <StackLayout x:Name="Open" HorizontalOptions="Center">
-                         <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
+                                <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
                          CurvedBackgroundColor="#FF7e65"
                         CurvedCornerRadius="20"
                          HeightRequest="50"
@@ -38,11 +38,11 @@
                          TextColor="White"
                          VerticalTextAlignment="Center" />
                             </StackLayout>
-                     
+
                         </StackLayout>
-                      
-                      
-                      
+
+
+
 
                         <StackLayout x:Name="lytAllResponses">
                             <views:ComplaintReplyListView></views:ComplaintReplyListView>

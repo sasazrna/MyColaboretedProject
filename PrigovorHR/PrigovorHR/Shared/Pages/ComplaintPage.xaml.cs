@@ -60,6 +60,7 @@ namespace PrigovorHR.Shared.Pages
                });
         }
 
+
         private void ScrView_Scrolled(object sender, ScrolledEventArgs e)
         {
             if (_clickedTotal % 2 == 0)

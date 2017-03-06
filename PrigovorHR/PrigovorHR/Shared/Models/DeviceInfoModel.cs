@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using Plugin.DeviceInfo;
 namespace PrigovorHR.Shared.Models
 {
-    class DeviceInfoModel
+   public class DeviceInfoModel
     {
-        public string Id { get; set; }
-        public string Model { get; set; }
-        public string Platform { get; set; }
-        public string Version { get; set; }
+        public static string Id { get { return CrossDeviceInfo.Current.Id; } }
+        public static string Model { get { return CrossDeviceInfo.Current.Model; } }
+        public static string Platform { get { return CrossDeviceInfo.Current.Platform.ToString(); } }
+        public static string Version { get { return CrossDeviceInfo.Current.Version; } }
     }
 }

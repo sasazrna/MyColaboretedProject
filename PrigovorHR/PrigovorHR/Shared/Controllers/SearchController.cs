@@ -20,13 +20,17 @@ namespace PrigovorHR.Shared.Controllers
         public event SearchActivatedHandler SearchActivated;
         public event SearchDeactivatedHandler SearchDeactivated;
 
-        public bool _isTyping = false;
-        public bool _isSpecial = false;//označavati će dali se nešto specifično pretražuje, treba definirati
-        public bool _stopTextChangedEvent = false;
-        public bool _isQRTextActive = false;
-        SearchBar _SearchBarField;
-        Entry _EntryBarField;
-    
+        public bool isTyping = false;
+        public bool isSpecial = false;//označavati će dali se nešto specifično pretražuje, treba definirati
+        public bool stopTextChangedEvent = false;
+        public bool isQRTextActive = false;
+        private SearchBar SearchBarField;
+        private Entry EntryBarField;
+
+        private int NumberOfTextChangesBeforeSearchStart = 0;
+        private int NumberOfActivatedTimers = 0;
+        private int WaitBeforeActivation = 500;
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,47 +44,44 @@ namespace PrigovorHR.Shared.Controllers
             if (EntryBarField != null)
                 EntryBarField.TextChanged += SearchBarField_TextChanged;
 
-            _WaitBeforeActivation = WaitBeforeActivation;
+            this.WaitBeforeActivation = WaitBeforeActivation;
 
-            _SearchBarField = SearchBarField;
-            _EntryBarField = EntryBarField;
+            this.SearchBarField = SearchBarField;
+            this.EntryBarField = EntryBarField;
         }
 
         #region search function
-        private int _NumberOfTextChangesBeforeSearchStart = 0;
-        private int _NumberOfActivatedTimers = 0;
-        private int _WaitBeforeActivation = 500;
         private void SearchBarField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_stopTextChangedEvent | e.NewTextValue == "@" | e.NewTextValue == "#" | e.NewTextValue == "#@" | e.NewTextValue == "@#") return;
+            if (stopTextChangedEvent | e.NewTextValue == "@" | e.NewTextValue == "#" | e.NewTextValue == "#@" | e.NewTextValue == "@#") return;
 
             if (e.NewTextValue != e.OldTextValue & !string.IsNullOrWhiteSpace(e.NewTextValue))
             {
-                _isTyping = true;
-                _NumberOfTextChangesBeforeSearchStart++;
+                isTyping = true;
+                NumberOfTextChangesBeforeSearchStart++;
                 string typedtext = e.NewTextValue.Replace("#", "");
                 typedtext = typedtext.Replace("@", "");
 
-                Device.StartTimer(new TimeSpan(0, 0, 0, 0, _WaitBeforeActivation), () =>
+                Device.StartTimer(new TimeSpan(0, 0, 0, 0, WaitBeforeActivation), () =>
                 {
-                    _NumberOfActivatedTimers++;
-                    if (_NumberOfActivatedTimers == _NumberOfTextChangesBeforeSearchStart)
+                    NumberOfActivatedTimers++;
+                    if (NumberOfActivatedTimers == NumberOfTextChangesBeforeSearchStart)
                     {
-                        _NumberOfActivatedTimers = 0;
-                        _NumberOfTextChangesBeforeSearchStart = 0;
-                        _isTyping = false;
-                        if (!_isQRTextActive || (_isQRTextActive & e.NewTextValue != string.Empty))
+                        NumberOfActivatedTimers = 0;
+                        NumberOfTextChangesBeforeSearchStart = 0;
+                        isTyping = false;
+                        if (!isQRTextActive || (isQRTextActive & e.NewTextValue != string.Empty))
                         {
-                            SearchActivated?.Invoke(typedtext, _isQRTextActive);
-                            if (_isQRTextActive)
+                            SearchActivated?.Invoke(typedtext, isQRTextActive);
+                            if (isQRTextActive)
                             {
-                                if (_SearchBarField != null)
-                                    _SearchBarField.Text = string.Empty;
-                                else _EntryBarField.Text = string.Empty;
+                                if (SearchBarField != null)
+                                    SearchBarField.Text = string.Empty;
+                                else EntryBarField.Text = string.Empty;
                             }
                         }
-                        else if (_isQRTextActive & e.NewTextValue == string.Empty)
-                            _isQRTextActive = false;
+                        else if (isQRTextActive & e.NewTextValue == string.Empty)
+                            isQRTextActive = false;
                     }
                     return false;//Stop the timer
                 });

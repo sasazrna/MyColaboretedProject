@@ -32,9 +32,9 @@
 
       <StackLayout Padding="0,0,0,0" Spacing="-2">
         <Label Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="_EMailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+        <Entry x:Name="EMailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
         <Label Text="Upišite lozinku:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="_PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+        <Entry x:Name="PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
       </StackLayout>
 
 

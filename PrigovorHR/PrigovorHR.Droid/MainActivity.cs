@@ -24,6 +24,7 @@ using PrigovorHR.Shared;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
+using ScnViewGestures.Plugin.Forms.Droid.Renderers;
 
 namespace PrigovorHR.Droid
 {
@@ -43,6 +44,8 @@ namespace PrigovorHR.Droid
             //var Activity = new Activity1();
            
             Forms.Init(this, bundle);
+            ViewGesturesRenderer.Init();
+
             //StartActivity(Intent);
             //await Task.Delay(500);
 
