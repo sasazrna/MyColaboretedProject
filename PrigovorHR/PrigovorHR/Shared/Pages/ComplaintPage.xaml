@@ -19,8 +19,7 @@
                             <views:ComplaintCoversationHeaderView></views:ComplaintCoversationHeaderView>
                         </StackLayout>
                       <StackLayout>
-                        <pages:FontAwesomeLabel x:Name="labela" FontSize="Small" HorizontalOptions="End"></pages:FontAwesomeLabel>
-                        <views:FontAwesomeLabel x:Name="labela2" FontSize="Small" HorizontalOptions="End"></views:FontAwesomeLabel>
+                       
                       </StackLayout>
                         <StackLayout x:Name="lytOriginalAndLastComplaintReply" VerticalOptions="Start" >
                             <views:ComplaintOriginalView></views:ComplaintOriginalView>
