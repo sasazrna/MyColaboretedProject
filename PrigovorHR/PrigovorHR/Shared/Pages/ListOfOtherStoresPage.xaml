@@ -13,8 +13,8 @@
                 <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="#f3f3f3">
                     <Label Text="Poslovnice u Zagrebu" TextColor="Gray" FontSize="Medium"  HorizontalOptions="Center" Margin="0,10,0,10"></Label>
                 </StackLayout>
-            <StackLayout>
-                <Views:CompanyElementsListView x:Name="CompanyElementsListView">
+                <StackLayout>
+                    <Views:CompanyElementsListView x:Name="CompanyElementsListView">
                 </Views:CompanyElementsListView>
             </StackLayout>
         </StackLayout>
