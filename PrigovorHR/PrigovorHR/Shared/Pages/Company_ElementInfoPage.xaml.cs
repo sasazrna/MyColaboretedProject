@@ -25,11 +25,26 @@ namespace PrigovorHR.Shared.Pages
             TAPController.SingleTaped += TAPController_SingleTaped;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             CompanyElementsListView.ElementSelectedEvent += CompanyElementsListView_ElementSelectedEvent;
+
+
+            imgCompanyDetails.Text = Views.FontAwesomeLabel.Images.FAEllipsisH;
+
+            var ListOfOtherStoresTap = new TapGestureRecognizer();
+            ListOfOtherStoresTap.Tapped += async (s, e) =>
+            {
+                await Navigation.PushModalAsync(new OtherStorePage());
+
+            };
+            lytListOfOtherElements.GestureRecognizers.Add(ListOfOtherStoresTap);
+
         }
+
+
+
 
         private async void FabButtonView_ButtonClickedEvent(int ButtonId)
         {
-           await Navigation.PushModalAsync(new NewComplaint());
+            await Navigation.PushModalAsync(new NewComplaint());
         }
 
         private void CompanyElementsListView_ElementSelectedEvent(int ElementId)
@@ -39,9 +54,15 @@ namespace PrigovorHR.Shared.Pages
                 CompanyElement.element :
                 CompanyElement.siblings.Single(sib => sib.id == ElementId));
 
-             //CompanyElement = JsonConvert.DeserializeObject<CompanyElementRootModel>(
-             //await DataExchangeServices.GetCompanyElementData(_CompaniesStoresFoundInfo.First(com => com.id == ElementId).slug));
+
+
+
+
+            //CompanyElement = JsonConvert.DeserializeObject<CompanyElementRootModel>(
+            //await DataExchangeServices.GetCompanyElementData(_CompaniesStoresFoundInfo.First(com => com.id == ElementId).slug));
         }
+
+
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
@@ -58,11 +79,11 @@ namespace PrigovorHR.Shared.Pages
             return true;
         }
 
-        public async void SetData(CompanyElementRootModel companyElement, CompanyElementModel OtherElement=null)
+        public async void SetData(CompanyElementRootModel companyElement, CompanyElementModel OtherElement = null)
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavanje poslovnice", Acr.UserDialogs.MaskType.Clear);
             var CompanyElement = OtherElement ?? companyElement.element;
-         
+
             NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
             lblCompanyAddress.Text = CompanyElement.root_business.address;
             lblCompanyCity.Text = CompanyElement.root_business.city?.name;
@@ -113,7 +134,13 @@ namespace PrigovorHR.Shared.Pages
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 
-        private async void TAPController_SingleTaped(string viewId, View view)
+
+       
+
+
+
+
+    private async void TAPController_SingleTaped(string viewId, View view)
         {
             if (view == lytPreviousElementControl)
             {
@@ -150,6 +177,9 @@ namespace PrigovorHR.Shared.Pages
             }
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
+
+
+           
         }
     }
 }

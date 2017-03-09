@@ -14,19 +14,19 @@ namespace PrigovorHR.Shared.Pages
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ListOfOtherStoresPage : ContentPage
+    public partial class OtherStorePage : ContentPage
     {
-        public ListOfOtherStoresPage()
+        public OtherStorePage()
         {
             InitializeComponent();
-         
+          
         }
     }
 
-    class ListOfOtherStoresPageViewModel : INotifyPropertyChanged
+    class OtherStorePageViewModel : INotifyPropertyChanged
     {
 
-        public ListOfOtherStoresPageViewModel()
+        public OtherStorePageViewModel()
         {
             IncreaseCountCommand = new Command(IncreaseCount);
         }

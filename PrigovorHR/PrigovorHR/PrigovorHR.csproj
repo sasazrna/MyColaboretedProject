@@ -39,6 +39,9 @@
     <Compile Include="Shared\Controllers\TranslateController.cs" />
     <Compile Include="Shared\Models\ExceptionInfoModel.cs" />
     <Compile Include="Shared\Pages\MainSideMenuPage.cs" />
+    <Compile Include="Shared\Pages\OtherStorePage.xaml.cs">
+      <DependentUpon>OtherStorePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\Views\CurvedCornersLabel.cs" />
     <Compile Include="Shared\Views\FontAwsomeLabel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -583,6 +586,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shared\Views\LastComplaintResponseView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Pages\OtherStorePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

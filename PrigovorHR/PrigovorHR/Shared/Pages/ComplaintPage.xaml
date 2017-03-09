@@ -26,7 +26,7 @@
                           
                         </StackLayout>
 
-                        <StackLayout Spacing="-30">
+                        <StackLayout Spacing="-35">
                         
                             <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
 
@@ -34,7 +34,7 @@
                             <StackLayout x:Name="Open" HorizontalOptions="Center">
                          <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
                          CurvedBackgroundColor="#FF7e65"
-                        CurvedCornerRadius="20"
+                        CurvedCornerRadius="25"
                          HeightRequest="50"
                          WidthRequest="50"
                          HorizontalTextAlignment="Center"
