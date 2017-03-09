@@ -37,7 +37,7 @@ namespace PrigovorHR.Shared.Views
 
         private void DisplayData(Models.ComplaintModel Complaint)
         {
-            var NameSurname = Controllers.LoginRegisterController._LoggedUser.name_surname;
+            var NameSurname = Controllers.LoginRegisterController.LoggedUser.name_surname;
 
             lblTypeOfComplaint.Text = "ORIGINALNI PRIGOVOR";
 

@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace PrigovorHR.Shared.Pages
 {
-    public partial class LandingPage : ContentPage
+    public partial class LandingPage 
     {
         private LandingViewNoLogin LandingViewNoLogin=null;
         private LandingViewWithLogin LandingViewWithLogin=null;

@@ -39,9 +39,9 @@ namespace PrigovorHR.Shared.Models
     {
         public static string token
         {
-            get { return Controllers.LoginRegisterController._LoggedUser?.token.Trim('"'); }
+            get { return Controllers.LoginRegisterController.LoggedUser?.token.Trim('"'); }
             set{
-                Controllers.LoginRegisterController._LoggedUser.token = value.Replace("Bearer ", string.Empty).Trim('"');}
+                Controllers.LoginRegisterController.LoggedUser.token = value.Replace("Bearer ", string.Empty).Trim('"');}
         }
     }
 }

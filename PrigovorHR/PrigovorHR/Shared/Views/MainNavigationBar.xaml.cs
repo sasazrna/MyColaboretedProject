@@ -46,7 +46,7 @@ namespace PrigovorHR.Shared.Views
         public bool GPSActivated { get; set; }
         public bool QuickComplaintActivated { get; set; }
         public bool DirectTagActivated { get; set; }
-        public bool isTyping { get { return _SearchControler._isTyping; } private set { } }
+        public bool isTyping { get { return _SearchControler.isTyping; } private set { } }
 
         private enum eGPSOptionStatus : int { unvailable = 0, available = 1, activated = 2 };
         private eGPSOptionStatus _CurrentGPSStatus = eGPSOptionStatus.unvailable;
@@ -66,7 +66,7 @@ namespace PrigovorHR.Shared.Views
             _SearchControler.SearchActivated += _SearchControler_SearchActivated;
             _SearchControler.SearchDeactivated += _SearchControler_SearchDeactivated;
             _entrySearch.Unfocused += EntrySearch_Unfocused;
-            Controllers.QRScannerController._ScanCompletedEvent += QRScannerController__ScanCompletedEvent;
+            Controllers.QRScannerController.ScanCompletedEvent += QRScannerController__ScanCompletedEvent;
             _RefToView = this;
 
             //_CurrentGPSStatus = ((eGPSOptionStatus)(Convert.ToInt32(Controllers.GPSController._GPSEnabled)));
@@ -112,7 +112,7 @@ namespace PrigovorHR.Shared.Views
                 //if (isQRFormat)
                 //{
                     _entrySearch.Text = result;
-                    _SearchControler._isQRTextActive = true;
+                    _SearchControler.isQRTextActive = true;
                 //}
                 //else
                 //{
@@ -148,9 +148,9 @@ namespace PrigovorHR.Shared.Views
                 }
                 else
                 {
-                    _SearchControler._stopTextChangedEvent = true;
+                    _SearchControler.stopTextChangedEvent = true;
                     _entrySearch.Text = string.Empty;
-                    _SearchControler._stopTextChangedEvent = false;
+                    _SearchControler.stopTextChangedEvent = false;
                     ActivateSearchField();
                 }
             }

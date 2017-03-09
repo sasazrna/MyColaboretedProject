@@ -15,13 +15,7 @@ namespace PrigovorHR
     {
         public delegate void OrientationChangedHandler();
         public static event OrientationChangedHandler _OrientationChanged;
-        public static string _ApplicationFont = "Work Sans Medium";
-        public static Page _PreviousPage;
-        public static int _CurrentPage = 0;
-        public static NavigationPage _RootNavigationPage = new NavigationPage();
-        private static ContentView _Mainpage = new ContentView();
-        public static string _fontFamily = Xamarin.Forms.Device.OnPlatform("MarkerFelt-Thin", "Droid Sans Mono", "Comic Sans MS");
-        public static NavigationPage navigationPage;
+        public static string _ApplicationFont = Xamarin.Forms.Device.OnPlatform("MarkerFelt-Thin", "Droid Sans Mono", "Comic Sans MS");
         public App()
         {
             //   MainPage = new NavigationPage((Page)new Shared.Pages.MasterDetail());
@@ -40,12 +34,12 @@ namespace PrigovorHR
 
         private void SetMainPage()
         {
-                MainPage = new NavigationPage(new LandingPage())
-                {
-                    BarBackgroundColor = Color.FromHex("#7dbbe6"),
-                    BarTextColor = Color.Black
-                };
-                MainPage.SizeChanged += MainPage_SizeChanged1;
+            MainPage = new NavigationPage(new LandingPage())
+            {
+                BarBackgroundColor = Color.FromHex("#7dbbe6"),
+                BarTextColor = Color.Black
+            };
+            MainPage.SizeChanged += MainPage_SizeChanged1;
         }
 
         private void MainPage_SizeChanged1(object sender, EventArgs e)
@@ -56,7 +50,7 @@ namespace PrigovorHR
 
         private void NavigationPage_PoppedToRoot(object sender, NavigationEventArgs e)
         {
-            navigationPage.BackgroundColor = Color.FromHex("#30343f");
+          //  navigationPage.BackgroundColor = Color.FromHex("#30343f");
         }
 
         public static Action<string> PostSuccessFacebookAction { get; set; }

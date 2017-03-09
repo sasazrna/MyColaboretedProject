@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PrigovorHR.Shared.Controllers;
 using PrigovorHR.Shared.Models;
 using Refractored.XamForms.PullToRefresh;
 using System;
@@ -88,7 +89,14 @@ namespace PrigovorHR.Shared.Views
 
                 MainNavigationBar._RefToView.NumOfUnreadedComplaints = ComplaintModel.RefToAllComplaints.user.unread_complaints.Count;
             }
-            catch (Exception err) { Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške u dohvaćanju vaših prigovora!" + System.Environment.NewLine + "Provjerite internet konekciju","Greška", "OK"); }
+            catch
+            (Exception ex)
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške u dohvaćanju vaših prigovora!" +
+                    System.Environment.NewLine + "Provjerite internet konekciju", "Greška", "OK");
+                ExceptionController.HandleException(ex, "Došlo je do greške na  private async void PullToRefreshModel_Pulled()");
+            }
+
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             PullToRefreshModel.IsBusy = false;
         }

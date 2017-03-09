@@ -21,7 +21,7 @@ namespace PrigovorHR.Shared.Pages
         private async void _btnSend_Clicked(object sender, EventArgs e)
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Šaljem poruku...");
-            var User = Controllers.LoginRegisterController._LoggedUser;
+            var User = Controllers.LoginRegisterController.LoggedUser;
             
             var ContactInfo = new Models.ContactUsModel(User.name_surname, User.telephone, User.email, User.id, _TitleOfMessageEntry.Text, _MessageEntry.Text);
 

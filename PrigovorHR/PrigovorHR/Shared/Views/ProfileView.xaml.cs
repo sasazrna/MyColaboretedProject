@@ -31,21 +31,23 @@ namespace PrigovorHR.Shared.Views
             _TAPController.SingleTaped += _TAPController_SingleTaped;
             _imgProfilePicture.MinimumHeightRequest = 77;
             _imgProfilePicture.MinimumWidthRequest = 77;
+
+          //  Controllers.TranslateController.Translate(lblPassword);
         }
 
         public void LoadData()
         {
-            _NameEntry.Text = Controllers.LoginRegisterController._LoggedUser.name;
-            _SurnameEntry.Text = Controllers.LoginRegisterController._LoggedUser.surname;
-            _TelephoneEntry.Text = Controllers.LoginRegisterController._LoggedUser.telephone;
-            _EMailEntry.Text = Controllers.LoginRegisterController._LoggedUser.email;
+            _NameEntry.Text = Controllers.LoginRegisterController.LoggedUser.name;
+            _SurnameEntry.Text = Controllers.LoginRegisterController.LoggedUser.surname;
+            _TelephoneEntry.Text = Controllers.LoginRegisterController.LoggedUser.telephone;
+            _EMailEntry.Text = Controllers.LoginRegisterController.LoggedUser.email;
             _EMailEntry.IsEnabled = false;
-            _PasswordAgainEntry.Text = Controllers.LoginRegisterController._LoggedUser.password;
-            _PasswordEntry.Text = Controllers.LoginRegisterController._LoggedUser.password;
+            _PasswordAgainEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
+            _PasswordEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
 
-            if (!string.IsNullOrEmpty(Controllers.LoginRegisterController._LoggedUser.profileimage))
+            if (!string.IsNullOrEmpty(Controllers.LoginRegisterController.LoggedUser.profileimage))
             {
-                ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController._LoggedUser.profileimage);
+                ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController.LoggedUser.profileimage);
                 _imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
             }
             else
@@ -58,7 +60,7 @@ namespace PrigovorHR.Shared.Views
             if (!string.IsNullOrEmpty(Picker.FileName))
             {
                 ProfileImageByte = Picker.DataArray;
-                Controllers.LoginRegisterController._LoggedUser.profileimage = Convert.ToBase64String(ProfileImageByte);
+                Controllers.LoginRegisterController.LoggedUser.profileimage = Convert.ToBase64String(ProfileImageByte);
                 _imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
             }
 
@@ -166,7 +168,7 @@ namespace PrigovorHR.Shared.Views
                     _lblPassword.TextColor = Color.Black;
                 }
 
-                if (_PasswordAgainEntry.Text == _PasswordEntry.Text && _PasswordEntry.Text != Controllers.LoginRegisterController._LoggedUser.password)
+                if (_PasswordAgainEntry.Text == _PasswordEntry.Text && _PasswordEntry.Text != Controllers.LoginRegisterController.LoggedUser.password)
                 {
                     Acr.UserDialogs.UserDialogs.Instance.Confirm(
                        new Acr.UserDialogs.ConfirmConfig()

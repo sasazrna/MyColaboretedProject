@@ -170,7 +170,7 @@ namespace PrigovorHR.Shared.Pages
             else
                 attachment_ids = null;
 
-            if ((attachment_ids != null && attachment_ids.First() > -1) || attachment_ids == null)
+            if ((attachment_ids != null && attachment_ids.First() > 0) || attachment_ids == null)
             {
                 var result = await DataExchangeServices.SendComplaint(
                  JsonConvert.SerializeObject(new

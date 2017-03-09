@@ -20,7 +20,6 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
 
-            _EMailEntry.Completed += EmailEntry_Completed;
             btnLogin.Clicked += BtnPrijava_Clicked;
             btnIForgotPassword.Clicked += BtnZaboravioSamLozinku_Clicked;
 
@@ -49,10 +48,22 @@ namespace PrigovorHR.Shared.Pages
 
         private async void BtnPrijava_Clicked(object sender, EventArgs e)
         {
+            if(string.IsNullOrEmpty(EMailEntry.Text) | string.IsNullOrEmpty(PasswordEntry.Text))
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Unesite sve potrebne podatke!", "Neispravna prijava", "OK");
+                return;
+            }
+
+            if (!Android.Util.Patterns.EmailAddress.Matcher(EMailEntry.Text).Matches())
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Unesite ispravan e-mail!", "Neispravna prijava", "OK");
+                return;
+            }
+
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Prijava u toku....", Acr.UserDialogs.MaskType.Clear);
             await Task.Delay(20);
 
-            var LoginModel = new Models.EMailLoginModel() { email = _EMailEntry.Text, password = _PasswordEntry.Text };
+            var LoginModel = new Models.EMailLoginModel() { email = EMailEntry.Text, password = PasswordEntry.Text };
             var user = await Controllers.LoginRegisterController.LoginUser(LoginTypeModel.eLoginType.email, LoginModel);
 
             if(user != null)
@@ -69,17 +80,6 @@ namespace PrigovorHR.Shared.Pages
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Neispravna prijava!" + Environment.NewLine + "Provjerite ispravnost unesenih podataka", "Neispravna prijava", "OK");
                 else
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Greška kod prijave!" + Environment.NewLine + "Provjerite ispravnost unesenih podataka", "Neispravna prijava", "OK");
-            }
-        }
-
-        private void EmailEntry_Completed(object sender, EventArgs e)
-        {
-            switch (((Entry)sender).Placeholder)
-            {
-                case "Upišite vaš email":
-                    if (string.IsNullOrEmpty(_PasswordEntry.Text))
-                        _PasswordEntry.Focus();
-                    break;
             }
         }
     }
