@@ -23,6 +23,12 @@ namespace PrigovorHR.Shared.Views
              new Controllers.TAPController(lblActiveComplaints, lblClosedComplaints).SingleTaped += ComplaintListTabView_SingleTaped;
             lytClosedComplaintsUnderline.IsVisible = false;
             // ReferenceToView = this;
+
+            lblActiveComplaints.Text = '\uf06d'.ToString();
+            lblActiveComplaints.TextColor = Color.FromHex("#FF7e65");
+            lblClosedComplaints.Text = '\uf187'.ToString();
+            lblClosedComplaints.TextColor = Color.FromHex("#FF7e65");
+
         }
 
         private void ComplaintListTabView_SingleTaped(string viewId, View view)

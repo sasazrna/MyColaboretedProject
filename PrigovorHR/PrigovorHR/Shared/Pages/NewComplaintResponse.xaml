@@ -6,13 +6,42 @@
     <ScrollView>
         <StackLayout Padding="25,30,25,30">
 
-            <Frame>
+
+
+           
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Image HorizontalOptions="Start" Source="priv3.png" VerticalOptions="Start" WidthRequest="30" />
+                        <Label x:Name="lblStoreName" FontSize="Medium" HorizontalOptions="FillAndExpand" Text="SuperKonzum Varaždin" TextColor="Black" VerticalOptions="EndAndExpand" VerticalTextAlignment="Start" />
+
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="S kim razgovaram:" FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
+                        <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions="End" />
+                    </StackLayout>
+                </StackLayout>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Label Text="Vaš odgovor" FontSize="Small" HorizontalTextAlignment="Center" TextColor="Silver" Margin="0, 0, 0, 0" />
                     <StackLayout Orientation="Horizontal" Padding="20,0.45,20,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
                     <Editor BackgroundColor="White" HeightRequest="220"  />
                     <StackLayout Orientation="Horizontal" Padding="25,0,25,0" HorizontalOptions="FillAndExpand" >
-                        <views:FontAwesomeLabel x:Name="attach_pdf_font" FontSize="Large" HorizontalOptions="StartAndExpand"></views:FontAwesomeLabel>
+                        <views:FontAwesomeLabel x:Name="attach_pdf_font" FontSize="Large"  HorizontalOptions="StartAndExpand"></views:FontAwesomeLabel>
                         <views:FontAwesomeLabel x:Name="attach_photo_font" FontSize="Large" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
                         <views:FontAwesomeLabel x:Name="attach_voice_font" FontSize="Large" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
 
@@ -26,7 +55,7 @@
                     </StackLayout>
                     <views:FontAwesomeLabel x:Name="send_font"  HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
                 </StackLayout>
-            </Frame>
+            
         </StackLayout>
     </ScrollView>
 </ContentPage>

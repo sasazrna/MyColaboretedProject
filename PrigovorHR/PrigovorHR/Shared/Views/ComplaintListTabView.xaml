@@ -1,21 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             BackgroundColor="White" xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Views.ComplaintListTabView">
   <Frame Padding="0">
   <StackLayout>
-    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-      <Label x:Name="lblActiveComplaints" Text="Aktivni prigovori" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5" TextColor="#FF7e65"></Label>
-      <Label x:Name="lblClosedComplaints" Text="Zatvoreni prigovori" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5" TextColor="#FF7e65"></Label>
-    </StackLayout>
-    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-        <StackLayout x:Name="lytActiveComplaintsUnderline" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF7e65"/>
-      </StackLayout>
-      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-        <StackLayout x:Name="lytClosedComplaintsUnderline" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF7e65"/>
-      </StackLayout>
-    </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <StackLayout x:Name="lytActiveComplaintsUnderline" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF7e65" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <StackLayout x:Name="lytClosedComplaintsUnderline" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF7e65" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+      <!--<Label x:Name="lblActiveComplaints" Text="Aktivni prigovori" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5" TextColor="#FF7e65"></Label>-->
+                <Views:FontAwesomeLabel x:Name="lblActiveComplaints" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Margin="5" >
+                    </Views:FontAwesomeLabel>
+           <!--<Label x:Name="lblClosedComplaints" Text="Zatvoreni prigovori" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="5" TextColor="#FF7e65"></Label>-->
+                <Views:FontAwesomeLabel x:Name="lblClosedComplaints" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" Margin="5">
+                </Views:FontAwesomeLabel>
+            </StackLayout>
+   
     <!--<StackLayout x:Name="lytActiveComplaints" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
       <Label Text="Aktivni prigovori" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
     </StackLayout>

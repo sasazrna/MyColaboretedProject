@@ -18,6 +18,18 @@ namespace PrigovorHR.Shared.Pages
         {
             InitializeComponent();
 
+
+            //imgStar.Text = Views.FontAwesomeLabel.Images.FAStar;
+            //imgStar.TextColor = Color.FromHex("#FF7e65");
+            //imgReset.Text = Views.FontAwesomeLabel.Images.FABan;
+            //imgReset.TextColor = Color.FromHex("#FF7e65");
+
+
+
+
+
+
+
             AllEvaluationsStars = AnswerEvaluationLayout.Children.Concat(
                                                                         SpeedEvaluationLayout.Children.Concat(
                                                                         CommunicationEvaluationLayout.Children))

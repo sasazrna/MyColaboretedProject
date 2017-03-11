@@ -19,7 +19,16 @@
         <Image Source="rate_star.png" WidthRequest="30" HeightRequest="30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         <Image Source="rate_star.png" WidthRequest="30" HeightRequest="30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
         <Image Source="rate_star.png" WidthRequest="30" HeightRequest="30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-      </StackLayout>
+
+
+                <!--<Views:FontAwesomeLabel x:Name="Reset1" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"  ></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel x:Name="Star" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel x:Name="Star" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel x:Name="Star" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel x:Name="Star" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel x:Name="Star" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>-->
+
+ </StackLayout>
 
       <Label Text="Brzina rješavanja" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 25, 0, 10" />
 
@@ -30,7 +39,16 @@
         <Image Source="rate_star.png"  WidthRequest="30" HeightRequest="30"  Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
         <Image Source="rate_star.png"  WidthRequest="30" HeightRequest="30"  Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
         <Image Source="rate_star.png"  WidthRequest="30" HeightRequest="30"  Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-      </StackLayout>
+
+
+                <!--<Views:FontAwesomeLabel x:Name="Reset2" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>-->
+
+            </StackLayout>
 
       <Label Text="Komunikacija" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 25, 0, 10" />
     
@@ -41,10 +59,18 @@
         <Image Source="rate_star.png" WidthRequest="30" HeightRequest="30"  Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
         <Image Source="rate_star.png" WidthRequest="30" HeightRequest="30"  Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
         <Image Source="rate_star.png"   WidthRequest="30" HeightRequest="30"  Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
-      </StackLayout>
+
+                <!--<Views:FontAwesomeLabel x:Name="Reset3" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>-->
+
+            </StackLayout>
 
       <StackLayout>
-        <Entry x:Name="LastMessage">
+        <Entry x:Name="LastMessage" Placeholder="Napišite sugestiju" PlaceholderColor="Silver">
           
         </Entry>
       </StackLayout>
@@ -53,3 +79,7 @@
     </StackLayout>
   </ScrollView>
 </ContentPage>
+
+    
+    
+    
