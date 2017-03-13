@@ -7,6 +7,14 @@
     <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
       <Views:MainNavigationBar x:Name="_TopNavigationBar" BackgroundColor="Silver">
       </Views:MainNavigationBar>
-    </StackLayout>
+            <StackLayout VerticalOptions="End">
+            <Views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView">
+            </Views:ListOfComplaintsView_BasicUser>
+            </StackLayout>
+            <StackLayout VerticalOptions="EndAndExpand">
+                <Views:ComplaintListTabView x:Name="ComplaintListTabView">
+                </Views:ComplaintListTabView>
+            </StackLayout>
+        </StackLayout>
   </ContentView.Content>
 </ContentView>

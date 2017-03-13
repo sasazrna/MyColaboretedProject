@@ -9,20 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Views
 {
-    public partial class ListOfComplaintsView_BasicUser : ContentView, IDisposable
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ListOfComplaintsView_BasicUser : ContentView
     {
         private PullToRefreshModel PullToRefreshModel = new PullToRefreshModel();
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public static ListOfComplaintsView_BasicUser ReferenceToView;
-        private bool DisplayClosedComplaints=false;
         private RootComplaintModel _DataSource;
-        private int DisplayedComplaints = 0;
+        private Dictionary<string, int> DisplayedComplaints = new Dictionary<string, int>();
         private const int MaximumDisplayedComplaintsPerRequest = 6;
         private double CurrentMaximumScrollValue = 0;
         private bool AllComplaintsVisible = false;
+        private Dictionary<ComplaintListTabView.Tabs, StackLayout> Layouts = new Dictionary<ComplaintListTabView.Tabs, StackLayout>();
+        private StackLayout VisibleLayout;
+
         public ListOfComplaintsView_BasicUser()
         {
             InitializeComponent();
@@ -31,10 +35,27 @@ namespace PrigovorHR.Shared.Views
             _pullLayout.SetBinding<PullToRefreshModel>(PullToRefreshLayout.IsRefreshingProperty, vm => vm.IsBusy);
             _pullLayout.SetBinding<PullToRefreshModel>(PullToRefreshLayout.RefreshCommandProperty, vm => vm.RefreshCommand);
             PullToRefreshModel.Pulled += PullToRefreshModel_Pulled;
-            ComplaintListTabView.SelectedTabChangedEvent += ComplaintListTabView_SelectedTabChangedEvent;
+
+            DisplayedComplaints.Add(lytActiveComplaints.Id.ToString(), 0);
+            DisplayedComplaints.Add(lytClosedComplaints.Id.ToString(), 0);
+            DisplayedComplaints.Add(lytStoredComplaints.Id.ToString(), 0);
+            DisplayedComplaints.Add(lytUnsentComplaints.Id.ToString(), 0);
+            Layouts.Add(ComplaintListTabView.Tabs.ActiveComplaints, lytActiveComplaints);
+            Layouts.Add(ComplaintListTabView.Tabs.ClosedComplaints, lytClosedComplaints);
+            Layouts.Add(ComplaintListTabView.Tabs.StoredComplaints, lytStoredComplaints);
+            Layouts.Add(ComplaintListTabView.Tabs.UnsentComplaints, lytUnsentComplaints);
+            VisibleLayout = Layouts[ComplaintListTabView.Tabs.ActiveComplaints];
             LoadComplaints();
             scrview.Scrolled += Scrview_Scrolled;
             ReferenceToView = this;
+        }
+
+        public void ChangeVisibleLayout(ComplaintListTabView.Tabs SelectedTab)
+        {
+            VisibleLayout = Layouts[SelectedTab];
+            VisibleLayout.IsVisible = true;
+            foreach (var Layout in Layouts.Where(l => l.Key != SelectedTab))
+                Layout.Value.IsVisible = false;
         }
 
         private void Scrview_Scrolled(object sender, ScrolledEventArgs e)
@@ -48,26 +69,14 @@ namespace PrigovorHR.Shared.Views
 
         private void CalculateMaximumScroll()
         {
-            if (DisplayedComplaints > 0)
+            new Task(async () =>
             {
-                new Task(async () =>
-                {
-                    scrview.Scrolled -= Scrview_Scrolled;
-                    await scrview.ScrollToAsync(_StackLayout.Children.Last(), ScrollToPosition.Start, false);
-                    CurrentMaximumScrollValue = scrview.ScrollY;
-                    await scrview.ScrollToAsync(_StackLayout.Children.First(), ScrollToPosition.Start, false);
-                    scrview.Scrolled += Scrview_Scrolled;
-                }).RunSynchronously();
-            }
-        }
-
-        private void ComplaintListTabView_SelectedTabChangedEvent(ComplaintListTabView.enumTabs SelectedTab)
-        {
-            scrview.Scrolled -= Scrview_Scrolled;
-            DisplayedComplaints = 0;
-            DisplayClosedComplaints = SelectedTab == ComplaintListTabView.enumTabs.ClosedComplaints;
-            scrview.Scrolled += Scrview_Scrolled;
-            DataSource = DataSource;
+                scrview.Scrolled -= Scrview_Scrolled;
+                await scrview.ScrollToAsync(VisibleLayout.Children.Last(), ScrollToPosition.Start, false);
+                CurrentMaximumScrollValue = scrview.ScrollY;
+                await scrview.ScrollToAsync(VisibleLayout.Children.First(), ScrollToPosition.Start, false);
+                scrview.Scrolled += Scrview_Scrolled;
+            }).RunSynchronously();
         }
 
         public void LoadComplaints()
@@ -78,12 +87,12 @@ namespace PrigovorHR.Shared.Views
         private async void PullToRefreshModel_Pulled()
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavanje prigovora");
-            _StackLayout.Children.Clear();
+            VisibleLayout.Children.Clear();
             await Task.Delay(19);
             try
             {
-                //var RE = await DataExchangeServices.GetMyComplaints();
-                DisplayedComplaints = 0;
+                DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+
                 DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                     (await DataExchangeServices.GetMyComplaints());
 
@@ -101,20 +110,13 @@ namespace PrigovorHR.Shared.Views
             PullToRefreshModel.IsBusy = false;
         }
 
-        public void Dispose()
-        {
-            PullToRefreshModel = null;
-            _pullLayout = null;
-            _StackLayout = null;
-        }
-
         public Models.RootComplaintModel DataSource
         {
             private get { return _DataSource; }
             set
             {
                 _DataSource = value;
-                _StackLayout.Children.Clear();
+                VisibleLayout.Children.Clear();
                 DisplayData();
                 CalculateMaximumScroll();
             }
@@ -122,18 +124,30 @@ namespace PrigovorHR.Shared.Views
 
         private void DisplayData()
         {
-            if (DisplayedComplaints != _DataSource.user?.complaints.Count - 1 | DisplayedComplaints == 0)
+            var displayedComplaints = DisplayedComplaints[VisibleLayout.Id.ToString()];
+            var ClosedComplaintsVisible = VisibleLayout == lytClosedComplaints;
+
+            if (VisibleLayout == lytClosedComplaints | VisibleLayout == lytActiveComplaints)
             {
-                foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
-                                                           .Where(c => c.closed == DisplayClosedComplaints)
-                                                           .Skip(DisplayedComplaints)
-                                                           .Take(MaximumDisplayedComplaintsPerRequest))
+                if (displayedComplaints != _DataSource.user?.complaints.Count - 1 | displayedComplaints == 0)
                 {
-                    var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
-                    _StackLayout.Children.Add(ComplaintListView);
-                    DisplayedComplaints++;
-                    AllComplaintsVisible = DisplayedComplaints >= _DataSource.user?.complaints.Count - 1;
+                    foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
+                                                               .Where(c => c.closed == ClosedComplaintsVisible)
+                                                               .Skip(displayedComplaints)
+                                                               .Take(MaximumDisplayedComplaintsPerRequest))
+                    {
+                        var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
+                        VisibleLayout.Children.Add(ComplaintListView);
+                        displayedComplaints++;
+                        AllComplaintsVisible = displayedComplaints >= _DataSource.user?.complaints.Count - 1;
+                    }
+
+                    DisplayedComplaints[VisibleLayout.Id.ToString()] = displayedComplaints;
                 }
+            }
+            else
+            {
+                //Load stored or 
             }
         }
     }

@@ -10,7 +10,6 @@ namespace PrigovorHR.Shared.Views
 {
     public partial class ComplaintOriginalView : ContentView
     {
-        private Controllers.TAPController TAPController;
 
         public ComplaintOriginalView()
         {
@@ -20,46 +19,28 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
 
-            TAPController = new Controllers.TAPController(this, imgOriginalComplaintDetails);
-            TAPController.SingleTaped += TAPController_SingleTaped;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading();
             Task.Run(() => { Device.BeginInvokeOnMainThread(() => { DisplayData(Complaint); }); });
             lblOriginalComplaint_TextLong.IsVisible = true;
-            lblOriginalComplaint_TextShort.IsVisible = false;
-        }
-
-        private async void TAPController_SingleTaped(string viewId, View view)
-        {
-            lblOriginalComplaint_TextLong.IsVisible = !lblOriginalComplaint_TextLong.IsVisible;
-            lblOriginalComplaint_TextShort.IsVisible = !lblOriginalComplaint_TextShort.IsVisible;
-            await imgOriginalComplaintDetails.RotateTo(lblOriginalComplaint_TextLong.IsVisible ? 0 : 180, 75);
         }
 
         private void DisplayData(Models.ComplaintModel Complaint)
         {
             var NameSurname = Controllers.LoginRegisterController.LoggedUser.name_surname;
 
-            lblTypeOfComplaint.Text = "ORIGINALNI PRIGOVOR";
-
             lblUsername.Text = NameSurname;
-
-            lblOriginalComplaint_TextShort.Text = Complaint.complaint.Length < 111 ? Complaint.complaint : Complaint.complaint.Substring(0, 111) + "...";
-
             lblOriginalComplaint_TextLong.Text = Complaint.complaint;
+            lblNameInitials.Text = NameSurname.Substring(0, 1) + "." + NameSurname.Substring(NameSurname.LastIndexOf(" ") + 1, 1);
 
-            if (lblOriginalComplaint_TextLong.Text.Length < 111)
-            {
-                imgOriginalComplaintDetails.IsVisible = false;
-                TAPController.SingleTaped -= TAPController_SingleTaped;
-                TAPController = null;
-            }
+            if (!string.IsNullOrEmpty(Complaint.suggestion))
+                lytSuggestion.IsVisible = true;
 
             lytAttachmentsLayout.Children.Clear();
             foreach (var Attachment in Complaint.attachments)
                 lytAttachmentsLayout.Children.Add(new AttachmentView(false, Complaint.id, Attachment.id, Attachment.attachment_url));
 
-            lblProblemDateTime.Text = Complaint.problem_occurred;
-            lblComplaintDateTime.Text = Complaint.created_at;
+            lblProblemDateTime.Text = !string.IsNullOrEmpty(Complaint.problem_occurred) ? DateTime.Parse(Complaint.problem_occurred).ToString() : "nedefinirano";
+            lblComplaintDateTime.Text = DateTime.Parse( Complaint.created_at).ToString();
             lytLine.IsVisible = false;// !LastReplyId.HasValue;
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }

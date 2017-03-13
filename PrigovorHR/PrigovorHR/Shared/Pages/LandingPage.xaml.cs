@@ -80,7 +80,6 @@ namespace PrigovorHR.Shared.Pages
                 }
                 else
                 {
-                    LandingViewWithLogin?.Dispose();
                     LandingViewWithLogin = new LandingViewWithLogin();
                     Content = LandingViewWithLogin;
                     BackgroundColor = Color.White;

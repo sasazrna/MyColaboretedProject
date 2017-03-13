@@ -25,35 +25,34 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
             this.BackgroundColor = Color.White.WithLuminosity(1);
-            //lblTimeOfComplaint.Text = _Complaint.created_at;
-            //lblTimeOfProblem.Text = _Complaint.problem_occurred;
-            var Reply = _Complaint.replies.LastOrDefault();
+             var Reply = _Complaint.replies.LastOrDefault();
+            Complaint = _Complaint;
 
-            lblShortComplaint.Text = Reply == null ?
-                                     _Complaint.complaint.Length < 100 ? _Complaint.complaint : _Complaint.complaint.Substring(0, 100) :
-                                     Reply.reply.Length < 100 ? Reply.reply : Reply.reply.Substring(0, 100);
+            lblShortComplaint.Text = Reply == null ? _Complaint.complaint :  Reply.reply;
 
             var LastResponse = Reply == null ? DateTime.Parse(_Complaint.updated_at) : DateTime.Parse(Reply.updated_at);
 
             if (LastResponse.Date == DateTime.Now.Date)
-                lblComplaintResponseDate.Text = LastResponse.ToString();
+                lblComplaintResponseDate.Text = LastResponse.ToString().Substring(0, LastResponse.ToString().LastIndexOf(":"));
             else
                 lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
 
             IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == _Complaint.id);
             lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
 
+            lblNameOfContactPerson.Text =
+                Complaint.replies.Any() ?
+                Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? 
+                "nepoznato" : "nepoznato";
+
             lblStoreName.Text = _Complaint.element.name;
-            Complaint = _Complaint;
             TAPController = new Controllers.TAPController(this.Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
-            //FAL.Text = FontAwesomeLabel.Images.FABolt;
-            //FAL.TextColor = Color.Purple;
-            //FAL.FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(FontAwesomeLabel));
         }
 
-        private async  void TAPController_SingleTaped(string viewId, View view)
+        private async void TAPController_SingleTaped(string viewId, View view)
         {
+         //   await AnimateColor(view);
             await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
 
@@ -61,6 +60,17 @@ namespace PrigovorHR.Shared.Views
                 MainNavigationBar._RefToView.NumOfUnreadedComplaints--;
 
             lblShortComplaint.FontAttributes = FontAttributes.None;
+
+        }
+
+        private  async Task AnimateColor(View view)
+        {
+            var RGB = new Color(view.BackgroundColor.R, view.BackgroundColor.G, view.BackgroundColor.B);
+            for (int i = 0; i < 100; i++)
+            {
+                view.BackgroundColor = new Color(RGB.R, RGB.G, RGB.B - i);
+                await Task.Delay(10);
+            }
         }
     }
 }

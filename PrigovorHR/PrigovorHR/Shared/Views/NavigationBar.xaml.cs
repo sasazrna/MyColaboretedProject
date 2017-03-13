@@ -27,5 +27,11 @@ namespace PrigovorHR.Shared.Views
                 BackButtonPressedEvent?.Invoke();
             });
         }
+
+        public async void InitBackButtonPressed()
+        {
+            await imgBack.RotateTo(90, 75);
+            BackButtonPressedEvent?.Invoke();
+        }
     }
 }

@@ -1,38 +1,51 @@
-﻿using Newtonsoft.Json;
-using PrigovorHR.Shared.Models;
+﻿using PrigovorHR.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Views
+namespace PrigovorHR.Shared.Pages
 {
-    public partial class ProfileView : ContentView
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ProfilePage : ContentPage
     {
         private Controllers.TAPController _TAPController;
         public static byte[] ProfileImageByte;
 
-        public ProfileView()
+        public ProfilePage()
         {
             InitializeComponent();
-           
 
             _TAPController = new Controllers.TAPController(_imgProfilePicture);
 
             _btnSaveChanges.Clicked += _btnSaveChanges_Clicked;
             _EMailEntry.Completed += _EntryEMail_Completed;
-            _PasswordEntry.Completed += _EntryPassword_Completed;
             _PasswordAgainEntry.Completed += _EntryPasswordAgain_Completed;
+            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             _TAPController.SingleTaped += _TAPController_SingleTaped;
-            _imgProfilePicture.MinimumHeightRequest = 77;
-            _imgProfilePicture.MinimumWidthRequest = 77;
+            //_imgProfilePicture.MinimumHeightRequest = 77;
+            //_imgProfilePicture.MinimumWidthRequest = 77;
+            LoadData();
+            //  Controllers.TranslateController.Translate(lblPassword);
+        }
 
-          //  Controllers.TranslateController.Translate(lblPassword);
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationBar.InitBackButtonPressed();
+            return true;
+        }
+
+        private async void NavigationBar_BackButtonPressedEvent()
+        {
+            await Navigation.PopModalAsync(true);
         }
 
         public void LoadData()
@@ -87,11 +100,6 @@ namespace PrigovorHR.Shared.Views
                 _lblPassword.TextColor = Color.Black;
 
             }
-        }
-
-        private void _EntryPassword_Completed(object sender, EventArgs e)
-        {
-
         }
 
         private void _EntryEMail_Completed(object sender, EventArgs e)
@@ -209,4 +217,3 @@ namespace PrigovorHR.Shared.Views
         }
     }
 }
-

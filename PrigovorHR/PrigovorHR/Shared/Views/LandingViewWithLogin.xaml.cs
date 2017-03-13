@@ -8,14 +8,17 @@ using PrigovorHR.Shared.Pages;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Extensions;
+using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Views
 {
-    public partial class LandingViewWithLogin : ContentView, IDisposable
+
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LandingViewWithLogin : ContentView
     {
-        private CompanysStoreFoundListView CompanysFoundListView;
-        private ListOfComplaintsView_BasicUser ListOfComplaints;
-        private ProfileView ProfileView;
+        // private CompanysStoreFoundListView CompanysFoundListView;
+        //private ListOfComplaintsView_BasicUser ListOfComplaints;
+        private bool DisplayClosedComplaints = false;
 
         public LandingViewWithLogin()
         {
@@ -24,19 +27,16 @@ namespace PrigovorHR.Shared.Views
             _TopNavigationBar.SearchActivated += _TopNavigationBar_SearchActivated;
             _TopNavigationBar._ShowProfileEvent += MenuPage_ShowProfileEvent;
             _TopNavigationBar._ShowComplaintsEvent += _TopNavigationBar__ShowComplaintsEvent;
+            //ComplaintListTabView.SelectedTabChangedEvent += ComplaintListTabView_SelectedTabChangedEvent;
+            //CompanysFoundListView = new CompanysStoreFoundListView();
+            //ListOfComplaints = new ListOfComplaintsView_BasicUser();
 
-            CompanysFoundListView = new CompanysStoreFoundListView();
-            ListOfComplaints = new ListOfComplaintsView_BasicUser();
-            ProfileView = new ProfileView();
-
-            _StackLayout.Children.Add(_TopNavigationBar);
-            _StackLayout.Children.Add(ListOfComplaints);
-            _StackLayout.Children.Add(CompanysFoundListView);
-            _StackLayout.Children.Add(ProfileView);
-            CompanysFoundListView.IsVisible = false;
-            ProfileView.IsVisible = false;
+            //_StackLayout.Children.Add(_TopNavigationBar);
+            //_StackLayout.Children.Add(ListOfComplaints);
+            //_StackLayout.Children.Add(CompanysFoundListView);
+            //_StackLayout.Children.Add(ProfileView);
+           // CompanysFoundListView.IsVisible = false;
             Content = _StackLayout;
-
 
             //When logged in, check if there is complaint that wasnt sent for some reason.
             object objuser;
@@ -47,42 +47,36 @@ namespace PrigovorHR.Shared.Views
             if (objuser != null && WriteNewComplaintModel.QuickComplaint)
             {
                 var QuickComplaintPage = new QuickComplaintPage(null, WriteNewComplaintModel);
-                QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaints.LoadComplaints(); });
+            //    QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaintsView.LoadComplaints(); });
                 Navigation.PushPopupAsync(QuickComplaintPage);
             }
         }
 
+        private void ComplaintListTabView_SelectedTabChangedEvent(ComplaintListTabView.Tabs SelectedTab)
+        {
+            //scrview.Scrolled -= Scrview_Scrolled;
+            //DisplayedComplaints = 0;
+            //DisplayClosedComplaints = SelectedTab == ComplaintListTabView.enumTabs.ClosedComplaints;
+            //scrview.Scrolled += Scrview_Scrolled;
+            //DataSource = DataSource;
+        }
+    
         private void _TopNavigationBar_SearchActivated(string searchtext, bool isQRCoded)
         {
-            ListOfComplaints.IsVisible = false;
-            ProfileView.IsVisible = false;
-            CompanysFoundListView.IsVisible = true;
+            //ListOfComplaints.IsVisible = false;
+            //CompanysFoundListView.IsVisible = true;
         }
 
         private void _TopNavigationBar__ShowComplaintsEvent()
         {
-            ListOfComplaints.IsVisible = true;
-            CompanysFoundListView.IsVisible = false;
-            ProfileView.IsVisible = false;
-            ListOfComplaints.LoadComplaints();
+            //ListOfComplaints.IsVisible = true;
+            //CompanysFoundListView.IsVisible = false;
+            //ListOfComplaints.LoadComplaints();
         }
 
-        private void MenuPage_ShowProfileEvent()
+        private async void MenuPage_ShowProfileEvent()
         {
-            ListOfComplaints.IsVisible = false;
-            CompanysFoundListView.IsVisible = false;
-            ProfileView.IsVisible = true;
-            ProfileView.ResizeCircleControl();
-            ProfileView.LoadData();
-        }
-
-        public void Dispose()
-        {
-            CompanysFoundListView.Dispose();
-            ListOfComplaints.Dispose();
-            CompanysFoundListView = null;
-            ListOfComplaints = null;
-            ProfileView = null;
+            await Navigation.PushModalAsync(new ProfilePage(), true);
         }
     }
 }

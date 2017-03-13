@@ -5,34 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Forms.Xaml;
 using Xamarin.Forms;
 
 namespace PrigovorHR.Shared.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ComplaintPage : ContentPage
     {
-        private Controllers.TAPController TAPController;
         private int _clickedTotal=1;
-
+        private Models.ComplaintModel Complaint;
         public ComplaintPage()
         {
             InitializeComponent();
-            
         }
 
-        public ComplaintPage(Models.ComplaintModel Complaint)
+        public ComplaintPage(Models.ComplaintModel complaint)
         {
             InitializeComponent();
-         //  lytNumberOfResponses.Text = "+3";
-
-            //btnAddResponse.Clicked += BtnAddResponse_Clicked;
-            TAPController = new Controllers.TAPController(NavigationBar.imgBack);
-            TAPController.SingleTaped += TAPController_SingleTaped;
-
+            Complaint = complaint;
             lytAllResponses.Children.Clear();
-            lytOriginalAndLastComplaintReply.Children.Clear();
+            lytOriginalComplaint.Children.Clear();
             scrView.IsVisible = false;
+
+            ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ? 
+                Complaint.replies.LastOrDefault(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" : 
+                "nepoznato", Complaint.element.name, false);
+
             NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
             NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
 
@@ -47,7 +46,7 @@ namespace PrigovorHR.Shared.Pages
             scrView.Scrolled += ScrView_Scrolled;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
 
-            Device.StartTimer(new TimeSpan(0, 0, 0, 1), () =>
+            Device.StartTimer(new TimeSpan(0, 0, 0, 0,500), () =>
                {
                    DisplayData(Complaint);
                    return false;
@@ -85,16 +84,14 @@ namespace PrigovorHR.Shared.Pages
                 }
             }
             else if (ClickedButton == Btn2)
-                await Navigation.PushModalAsync(new NewComplaintResponse());
+                await Navigation.PushModalAsync(new NewComplaintResponsePage(Complaint));
             else
                 await Navigation.PushModalAsync(new CloseComplaintPage());
         }
 
         private void DisplayData(Models.ComplaintModel Complaint)
         {
-            lytOriginalAndLastComplaintReply.Children.Add(new Views.ComplaintOriginalView(Complaint, null));
-
-         //   var Result = await DataExchangeServices.GetCompanyElementData(Complaint.element.slug);
+            lytOriginalComplaint.Children.Add(new Views.ComplaintOriginalView(Complaint, null));
 
             if (Complaint.replies.Any())
             {
@@ -102,7 +99,7 @@ namespace PrigovorHR.Shared.Pages
                     lytAllResponses.Children.Add(new Views.ComplaintReplyListView(Complaint, Reply));
 
                 lblNumberOfResponses.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label));
-                lblNumberOfResponses.Text = "+" + Convert.ToString(lytAllResponses.Children.Count + 1);
+                lblNumberOfResponses.Text = "+" + Convert.ToString(lytAllResponses.Children.Count);
             }
             else
             {
@@ -119,37 +116,17 @@ namespace PrigovorHR.Shared.Pages
             });
 
             NavigationBar.MinimumHeightRequest = Views.MainNavigationBar._RefToView.Height;
+            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
-        private async void TAPController_SingleTaped(string viewId, View view)
+        private async void NavigationBar_BackButtonPressedEvent()
         {
-            if (view == lblNumberOfResponses)
-            {
-                lytAllResponses.IsVisible = !lytAllResponses.IsVisible;
-
-                //if (lytAllResponses.IsVisible)
-                //{
-                //    lblNumberOfResponses.Text = "-";
-                //    lblNumberOfResponses.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label));
-                //}
-                //else
-                //{
-                //    lblNumberOfResponses.Text = Convert.ToString(lytAllResponses.Children.Count + 1);
-                //    lblNumberOfResponses.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label));
-                //}
-            }
-            else if (view == NavigationBar.imgBack)
-            {
-                await view.RotateTo(90, 100);
-                await Navigation.PopModalAsync(true);
-            }
-
-            NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
+            await Navigation.PopModalAsync(true);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            TAPController_SingleTaped(null, NavigationBar.imgBack);
+            NavigationBar.InitBackButtonPressed();
             return true;
         }
         private void BtnAddResponse_Clicked(object sender, EventArgs e)

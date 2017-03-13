@@ -11,49 +11,37 @@
         <ContentView x:Name="cvTopContentView"
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
-            <StackLayout Spacing="0">
+
+            <StackLayout>
                 <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+
+                <StackLayout VerticalOptions="Start" Margin="0,6,0,0">
+                    <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView"></views:ComplaintCoversationHeaderView>
+                </StackLayout>
+
                 <ScrollView x:Name="scrView">
                     <StackLayout>
-                        <StackLayout VerticalOptions="Start">
-                            <views:ComplaintCoversationHeaderView></views:ComplaintCoversationHeaderView>
-                        </StackLayout>
-                      <StackLayout>
-                       
-                      </StackLayout>
-                        <StackLayout x:Name="lytOriginalAndLastComplaintReply" VerticalOptions="Start" >
+                        <StackLayout x:Name="lytOriginalComplaint" VerticalOptions="Start" >
                             <views:ComplaintOriginalView></views:ComplaintOriginalView>
-                          
                         </StackLayout>
 
                         <StackLayout Spacing="-35">
-                        
                             <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
-
-                       
                             <StackLayout x:Name="Open" HorizontalOptions="Center">
-                         <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
-                         CurvedBackgroundColor="#FF7e65"
-                        CurvedCornerRadius="25"
+                                <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
+                                     CurvedBackgroundColor="#FF7e65"
+                                     CurvedCornerRadius="25"
                          HeightRequest="50"
                          WidthRequest="50"
                          HorizontalTextAlignment="Center"
                          TextColor="White"
                          VerticalTextAlignment="Center" />
                             </StackLayout>
-                     
                         </StackLayout>
-                      
-                      
-                      
-
                         <StackLayout x:Name="lytAllResponses">
                             <views:ComplaintReplyListView></views:ComplaintReplyListView>
                             <views:ComplaintReplyListView></views:ComplaintReplyListView>
                         </StackLayout>
-                        <!--<StackLayout>
-                            <views:LastComplaintResponseView></views:LastComplaintResponseView>
-                        </StackLayout>-->
                     </StackLayout>
                 </ScrollView>
             </StackLayout>
@@ -75,7 +63,6 @@
                                                               Factor=1,
                                                               Constant=-75}"/>
 
-
         <fab:FloatingActionButton
         x:Name="Btn2"
         NormalColor="#FF7e65"
@@ -92,7 +79,6 @@
                                                               Factor=1,
                                                               Constant=-75}"/>
 
-
         <fab:FloatingActionButton
    x:Name="Btn1"
    NormalColor="#FF7e65"
@@ -108,7 +94,6 @@
                                                               Property=Height,
                                                               Factor=1,
                                                               Constant=-75}" />
-
 
     </RelativeLayout>
 </ContentPage>

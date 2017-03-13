@@ -123,22 +123,21 @@ namespace PrigovorHR.Shared.Views
             {
                 var CompanyStoreFound = new CompanyStoreFoundView(data);
                 _CompaniesStoreFoundViews.Add(CompanyStoreFound);
-                CompanyStoreFound.SingleClicked += CompanyStoreFound__SingleTaped;
+                CompanyStoreFound.SingleClicked += CompanyStoreFound_SingleClicked;
                 _StackLayout.Children.Add(CompanyStoreFound);
             }
 
             // _StackLayout.Children.LastOrDefault()?.Focus();
         }
 
-        private async void CompanyStoreFound__SingleTaped(int ElementId)
+        private async void CompanyStoreFound_SingleClicked(Models.CompanyElementModel element)
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading();
-            await Task.Delay(100);
-            var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(
-               await DataExchangeServices.GetCompanyElementData(_CompaniesStoresFoundInfo.First(com => com.id == ElementId).slug));
-            
+            await Task.Delay(10);
+            var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(await DataExchangeServices.GetCompanyElementData(element.slug));
+
             if (!MainNavigationBar._RefToView._QuickComplaintRequested)
-                await Navigation.PushModalAsync(new Pages.Company_ElementInfoPage(CompanyElement) { Title = "Natrag na pretragu" }, true);
+                await Navigation.PushModalAsync(new Company_ElementInfoPage(CompanyElement) { Title = "Natrag na pretragu" }, true);
             else
             {
                 var QuickComplaintPage = new QuickComplaintPage(CompanyElement.element);

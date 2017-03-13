@@ -10,13 +10,12 @@ namespace PrigovorHR.Shared.Views
 {
     public partial class ComplaintReplyListView : ContentView
     {
-        private Controllers.TAPController TAPController;
         private Models.ComplaintModel Complaint;
         private Models.ComplaintModel.ComplaintReplyModel ComplaintReply;
+
         public ComplaintReplyListView()
         {
             InitializeComponent();
-            lytAttachmentsLayout.IsVisible = false;
         }
 
         public ComplaintReplyListView(Models.ComplaintModel _Complaint, Models.ComplaintModel.ComplaintReplyModel _ComplaintReply)
@@ -25,31 +24,15 @@ namespace PrigovorHR.Shared.Views
 
             Complaint = _Complaint;
             ComplaintReply = _ComplaintReply;
-            lblElementName.Text = _Complaint.element.name;
             lblDateTimeOfResponse.Text = DateTime.Parse(ComplaintReply.created_at).ToString();
-            lblReplyTextShort.Text = ComplaintReply.reply.Length < 111 ? ComplaintReply.reply : ComplaintReply.reply.Substring(0, 111) + "...";
+            lblDateTimeOfResponse.Text = lblDateTimeOfResponse.Text.Substring(0, lblDateTimeOfResponse.Text.LastIndexOf(":") + 1);
             lblReplyTextLong.Text = ComplaintReply.reply;
             lblUsername.Text = _ComplaintReply.user.name_surname;
             lblNameInitials.Text = lblUsername.Text.Substring(0, 1) + "." + lblUsername.Text.Substring(lblUsername.Text.LastIndexOf(" ")+1, 1);
-            imgAttachmentImage.IsVisible = ComplaintReply.attachments.Any();
 
             lytAttachmentsLayout.Children.Clear();
             foreach (var Attachment in _ComplaintReply.attachments)
                 lytAttachmentsLayout.Children.Add(new AttachmentView(true, ComplaintReply.id, Attachment.id, Attachment.attachment_url));
-
-            TAPController = new Controllers.TAPController(this);
-            lblReplyTextLong.IsVisible = false;
-            TAPController.SingleTaped += TAPController_SingleTaped;
-        }
-
-        private void TAPController_SingleTaped(string viewId, View view)
-        {
-            if (lblReplyTextShort.Text.Length >= 111)
-            {
-                lblReplyTextLong.IsVisible = !lblReplyTextLong.IsVisible;
-                lblReplyTextShort.IsVisible = !lblReplyTextShort.IsVisible;
-            }
-            lytAttachmentsLayout.IsVisible = ComplaintReply.attachments.Any() && !lytAttachmentsLayout.IsVisible;
         }
     }
 }

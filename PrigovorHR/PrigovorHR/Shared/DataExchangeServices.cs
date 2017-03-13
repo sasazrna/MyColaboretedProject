@@ -161,7 +161,7 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.SendComplaintAttachment,"predaj-prigovor/single-upload" },
                                                           { ServiceCommands.SendReplyAttachment, "odgovori-na-prigovor/single-upload" },
                                                           { ServiceCommands.GetComplaintAttachmentData, "prilozi/" },
-                                                          {ServiceCommands.GetReplyAttachmentData, "odgovor-prilozi/" },
+                                                          { ServiceCommands.GetReplyAttachmentData, "odgovor-prilozi/" },
                                                           { ServiceCommands.GetCompanyElementData, "prigovori/" },
                                                           { ServiceCommands.SendExceptionData, "xamarin-exceptions"} };
 
@@ -285,7 +285,7 @@ namespace PrigovorHR.Shared
                                     if (!string.IsNullOrEmpty((string)Jobj[prop.Name]))
                                         multipartData.Add(new StringContent((string)Jobj[prop.Name]), prop.Name);
 
-                                multipartData.Add(new ByteArrayContent(Views.ProfileView.ProfileImageByte), "profile_image_input", "avatar.jpg");
+                                multipartData.Add(new ByteArrayContent(Pages.ProfilePage.ProfileImageByte), "profile_image_input", "avatar.jpg");
                                 urlAddress += LoginRegisterController.LoggedUser.id.ToString();
                                 response = await client.PostAsync(urlAddress, multipartData);
                                 break;

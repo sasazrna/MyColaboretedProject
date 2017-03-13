@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrigovorHR.Shared.Pages.OtherCompanyStoresPage" 
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" BackgroundColor="White"
+             Title="OtherStorePage">
+
+    <StackLayout>
+        <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+        <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="#f3f3f3">
+            <Label x:Name="lblElementCounty" Text="Grad Zagreb" TextColor="Gray" FontSize="Medium" HorizontalOptions="Center"></Label>
+        </StackLayout>
+        <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="#f3f3f3">
+            <Label x:Name="lblElementCity" Text="Zagreb" TextColor="Gray" FontSize="Medium" HorizontalOptions="Center"></Label>
+        </StackLayout>
+        <ScrollView x:Name="scrvScroll" Margin="0,-5,0,0">
+            <StackLayout>
+                <Views:CompanyElementsListView x:Name="CompanyElementsListView">
+                </Views:CompanyElementsListView>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

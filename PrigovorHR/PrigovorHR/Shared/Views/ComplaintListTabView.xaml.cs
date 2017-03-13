@@ -10,37 +10,48 @@ namespace PrigovorHR.Shared.Views
 {
     public partial class ComplaintListTabView 
     {
-     //   public static ComplaintListTabView ReferenceToView;
-        public enum enumTabs { ActiveComplaints, ClosedComplaints }
-        private enumTabs SelectedTab { get; set; }
+        public static ComplaintListTabView ReferenceToView;
+        public enum Tabs { ActiveComplaints, ClosedComplaints, StoredComplaints, UnsentComplaints }
+        private Dictionary<FontAwesomeLabel, Tabs> LabelsToTabsConnection;
+        private Tabs SelectedTab { get; set; }
 
-        public delegate void SelectedTabChangedHandler(enumTabs SelectedTab);
+        public delegate void SelectedTabChangedHandler(Tabs SelectedTab);
         public event SelectedTabChangedHandler SelectedTabChangedEvent;
+
+        private Dictionary<bool, Color> SelectedUnselectedColor = 
+            new Dictionary<bool, Color>() { { false, Color.FromHex("#79b2d6") }, { true, Color.FromHex("#FF7e65") } };
 
         public ComplaintListTabView()
         {
             InitializeComponent();
-             new Controllers.TAPController(lblActiveComplaints, lblClosedComplaints).SingleTaped += ComplaintListTabView_SingleTaped;
-            lytClosedComplaintsUnderline.IsVisible = false;
-            // ReferenceToView = this;
+            new Controllers.TAPController(lytActiveComplaints, lytClosedComplaints, lytStoredComplaints, lytUnsentComplaints).SingleTaped += ComplaintListTabView_SingleTaped;
+            ReferenceToView = this;
 
             lblActiveComplaints.Text = '\uf06d'.ToString();
-            lblActiveComplaints.TextColor = Color.FromHex("#FF7e65");
+            lblActiveComplaints.TextColor = SelectedUnselectedColor[true];
             lblClosedComplaints.Text = '\uf187'.ToString();
-            lblClosedComplaints.TextColor = Color.FromHex("#FF7e65");
+            lblClosedComplaints.TextColor = SelectedUnselectedColor[false];
+            lblStoredComplaints.Text = FontAwesomeLabel.Images.FAAmbulance;
+            lblStoredComplaints.TextColor = SelectedUnselectedColor[false];
+            lblUnsentComplaints.Text = FontAwesomeLabel.Images.FAAndroid;
+            lblUnsentComplaints.TextColor = SelectedUnselectedColor[false];
 
+            LabelsToTabsConnection = new Dictionary<FontAwesomeLabel, Tabs>() { { lblActiveComplaints, Tabs.ActiveComplaints },
+                                                                                { lblClosedComplaints, Tabs.ClosedComplaints },
+                                                                                { lblStoredComplaints, Tabs.StoredComplaints },
+                                                                                { lblUnsentComplaints, Tabs.UnsentComplaints } };
         }
 
         private void ComplaintListTabView_SingleTaped(string viewId, View view)
         {
-            if (view == lblActiveComplaints)
-                SelectedTab = enumTabs.ActiveComplaints;
-            else SelectedTab = enumTabs.ClosedComplaints;
+            var SelectedLabel = ((FontAwesomeLabel)((StackLayout)view).Children.First());
+            SelectedTab = LabelsToTabsConnection[SelectedLabel];
 
-            lytActiveComplaintsUnderline.IsVisible = SelectedTab == enumTabs.ActiveComplaints;
-            lytClosedComplaintsUnderline.IsVisible = !lytActiveComplaintsUnderline.IsVisible;
-        
+            foreach (var label in LabelsToTabsConnection.Keys)
+                label.TextColor = SelectedUnselectedColor[label == SelectedLabel];
+
             SelectedTabChangedEvent?.Invoke(SelectedTab);
+            ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(SelectedTab);
         }
     }
 }

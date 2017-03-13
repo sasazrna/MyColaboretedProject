@@ -12,21 +12,20 @@ namespace PrigovorHR.Shared.Views
     public partial class CompanyStoreFoundView : ContentView
     {
         private Controllers.TAPController TAPController;
-        public delegate void SingleTapHandler(int id);
+        public delegate void SingleTapHandler(CompanyElementModel CompanyElement);
         public event SingleTapHandler SingleClicked;
         public delegate void DoubleTapHandler();
         public event DoubleTapHandler DoubleClicked;
-        public int Elementid;
+        private  CompanyElementModel CompanyElement;
 
-        public CompanyStoreFoundView(CompanyElementModel CompanyElement)
+        public CompanyStoreFoundView(CompanyElementModel companyElement)
         {
             InitializeComponent();
             TAPController = new Controllers.TAPController(this);
-
+            CompanyElement = companyElement;
             _lblStoreName.Text = CompanyElement.name;
             _lblAddress.Text = CompanyElement.address;
             _lblCompanyName.Text = CompanyElement.root_business.name;
-            Elementid = CompanyElement.id;
             //_lblFirstLetter.Text = storeName.Substring(0, 1);
             TAPController.SingleTaped += TAPController_SingleTaped;
             TAPController.DoubleTapped += TAPController_DoubleTapped;
@@ -44,7 +43,7 @@ namespace PrigovorHR.Shared.Views
 
         private void TAPController_SingleTaped(string viewId, View view)
         {
-            SingleClicked?.Invoke(Elementid);
+            SingleClicked?.Invoke(CompanyElement);
         }
 
         public void Dispose()

@@ -14,5 +14,15 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
         }
+
+        public void SetHeaderInfo(string ContactPerson, string StoreName, bool Replying)
+        {
+            lblNameOfContactPerson.Text = ContactPerson;
+            lblStoreName.Text = StoreName;
+            imgSend.Text = "\uf2c6";
+            imgSend2.Text = "\uf2c6";
+
+            lytSendResponse.IsVisible = Replying;
+        }
     }
 }

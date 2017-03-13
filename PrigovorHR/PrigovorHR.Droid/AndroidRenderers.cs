@@ -6,14 +6,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Graphics.Drawables;
 using Android.Util;
-using PrigovorHR.AndroidRenderers;
 using PrigovorHR.Shared.Views;
 using static PrigovorHR.AndroidRenderers.AndroidRenderers;
-using Android.Util;
-using Android.Graphics;
 
-[assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(AndroidRenderers.CurvedCornersLabelRenderer))]
-[assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(AndroidRenderers.FontAwesomeLabelRenderer))]
+[assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(CurvedCornersLabelRenderer))]
+[assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(FontAwesomeLabelRenderer))]
+[assembly: ExportRenderer(typeof(MultiLineLabel), typeof(CustomMultiLineLabelRenderer))]
 
 namespace PrigovorHR.AndroidRenderers
 {
@@ -75,6 +73,22 @@ namespace PrigovorHR.AndroidRenderers
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("TTF file not found. Make sure the Android project contains it at '/Assets/Fonts/fontawesome-webfont.ttf'.");
+                }
+            }
+        }
+
+        public class CustomMultiLineLabelRenderer : LabelRenderer
+        {
+            protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
+            {
+                base.OnElementChanged(e);
+
+                MultiLineLabel multiLineLabel = (MultiLineLabel)Element;
+
+                if (multiLineLabel != null && multiLineLabel.Lines != -1)
+                {
+                    Control.SetSingleLine(false);
+                    Control.SetLines(multiLineLabel.Lines);
                 }
             }
         }
