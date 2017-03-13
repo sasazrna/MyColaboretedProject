@@ -14,6 +14,7 @@
                     </StackLayout>
                     <StackLayout x:Name="_imgComplaintsLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="True" Spacing="1">
                         <Views:FontAwesomeLabel x:Name="imgComplaints" FontSize="Large" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" ></Views:FontAwesomeLabel>
+                   
                         <!--<Label x:Name="_lblNumOfUnreadResponses" Text ="2" TextColor="#FF7e65" FontSize="Medium" FontAttributes="Bold"></Label>-->
                     </StackLayout>
                     <StackLayout x:Name="_imgLogoLayout" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" IsVisible="True">
@@ -24,7 +25,7 @@
                         <Views:FontAwesomeLabel x:Name="imgQRCode" FontSize="30" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
                     </StackLayout>
                     <StackLayout x:Name="_imgSearchLayout" Orientation="Horizontal" HorizontalOptions="EndAndExpand" IsVisible="True">
-                        <Views:FontAwesomeLabel x:Name="imgSearch" FontSize="20" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                        <Views:FontAwesomeLabel x:Name="imgSearch" FontSize="20" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Margin="-5,0,15,0"></Views:FontAwesomeLabel>
                     </StackLayout>
                 </StackLayout>
 

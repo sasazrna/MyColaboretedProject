@@ -36,7 +36,10 @@ namespace PrigovorHR.Shared.Views
 
         public static MainNavigationBar ReferenceToView;
 
-        public bool HasUnreadedReplys { set { imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00"); } }
+        public bool HasUnreadedReplys { set { imgComplaints.Text = !value ? Views.FontAwesomeLabel.Images.FAPEnvelopeOpen : Views.FontAwesomeLabel.Images.FAPEnvelopeOpen; 
+                                              imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00");
+            }
+        }
 
         public MainNavigationBar()
         {
@@ -47,6 +50,8 @@ namespace PrigovorHR.Shared.Views
 
             imgComplaints.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
             imgComplaints.TextColor = Color.Gray;
+
+            //imgComplaintsOpen.Text = Views.FontAwesomeLabel.Images.FAEnvelopeO;
 
 
             imgQRCode.Text = Views.FontAwesomeLabel.Images.FAQrcode;
