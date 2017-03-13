@@ -9,9 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class LandingPage 
     {
         private LandingViewNoLogin LandingViewNoLogin=null;
@@ -89,7 +92,7 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            return MainNavigationBar._RefToView?.BackButtonPressedEvent() ?? false;
+            return MainNavigationBar.ReferenceToView?.BackButtonPressedEvent() ?? false;
         }
     }
 }

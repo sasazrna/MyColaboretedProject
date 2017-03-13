@@ -15,7 +15,7 @@ namespace PrigovorHR.Shared.Controllers
 {
     class SearchController:IDisposable
     {
-        public delegate void SearchActivatedHandler(string searchtext, bool isQRCoded);
+        public delegate void SearchActivatedHandler(string searchtext);
         public delegate void SearchDeactivatedHandler();
         public event SearchActivatedHandler SearchActivated;
         public event SearchDeactivatedHandler SearchDeactivated;
@@ -72,7 +72,7 @@ namespace PrigovorHR.Shared.Controllers
                         isTyping = false;
                         if (!isQRTextActive || (isQRTextActive & e.NewTextValue != string.Empty))
                         {
-                            SearchActivated?.Invoke(typedtext, isQRTextActive);
+                            SearchActivated?.Invoke(typedtext);
                             if (isQRTextActive)
                             {
                                 if (SearchBarField != null)

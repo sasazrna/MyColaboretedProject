@@ -67,7 +67,7 @@ namespace PrigovorHR.Shared.Pages
                 companyElement.element.children?.SingleOrDefault(sib => sib.id == ElementId);
 
 
-            NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
+            NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
             lblCompanyAddress.Text = CompanyElement.root_business.address;
             lblCompanyCity.Text = CompanyElement.root_business.city?.name;
             lblCompanyDescription.Text = CompanyElement.root_business.description;
@@ -150,7 +150,7 @@ namespace PrigovorHR.Shared.Pages
                await Navigation.PushModalAsync(new OtherCompanyStoresPage(CompanyElement));
             }
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-            NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
+            NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace PrigovorHR.Shared.Pages
                 Complaint.replies.LastOrDefault(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" : 
                 "nepoznato", Complaint.element.name, false);
 
-            NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height;
+            NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
             NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
 
             Btn3.TranslateTo(0, 0, 100);
@@ -112,10 +112,10 @@ namespace PrigovorHR.Shared.Pages
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                 scrView.IsVisible = true;
                 NavigationBar.lblNavigationTitle.Text = "Prigovor.hr";
-                NavigationBar.HeightRequest = Views.MainNavigationBar._RefToView.Height; return false;
+                NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height; return false;
             });
 
-            NavigationBar.MinimumHeightRequest = Views.MainNavigationBar._RefToView.Height;
+            NavigationBar.MinimumHeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 

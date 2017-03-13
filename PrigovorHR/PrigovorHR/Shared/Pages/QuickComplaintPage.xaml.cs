@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using PrigovorHR.Shared.Models;
+using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class QuickComplaintPage : PopupPage
     {
         private Controllers.TAPController _tapController;

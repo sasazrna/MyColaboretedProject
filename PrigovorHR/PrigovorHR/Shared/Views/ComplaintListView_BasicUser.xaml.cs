@@ -7,9 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class ComplaintListView_BasicUser : ContentView
     {
         private Controllers.TAPController TAPController;
@@ -55,12 +58,7 @@ namespace PrigovorHR.Shared.Views
          //   await AnimateColor(view);
             await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
-
-            if (MainNavigationBar._RefToView.NumOfUnreadedComplaints > 0)
-                MainNavigationBar._RefToView.NumOfUnreadedComplaints--;
-
             lblShortComplaint.FontAttributes = FontAttributes.None;
-
         }
 
         private  async Task AnimateColor(View view)

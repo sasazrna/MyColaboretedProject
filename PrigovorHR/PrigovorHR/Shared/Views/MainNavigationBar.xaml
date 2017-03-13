@@ -2,85 +2,45 @@
 <ContentView BackgroundColor="White"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  x:Class="PrigovorHR.Shared.Views.MainNavigationBar">
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             x:Class="PrigovorHR.Shared.Views.MainNavigationBar">
 
-  <ContentView.Content>
-    <Frame x:Name="frmFrame" Padding="10,10,0,-2" HasShadow="False">
-      <StackLayout>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-          <StackLayout x:Name="_imgMenuLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-            <Image x:Name="_imgMenu" Scale="1.35" Source="menu.png" />
-          </StackLayout>
-          <StackLayout x:Name="_imgComplaintsLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="True">
-            <Image x:Name="_imgComplaints" Source="notifikacija.png" Scale="1.35" />
-            <Label x:Name="_lblNumOfUnreadResponses" Text ="2" TextColor="#FF7e65" FontSize="Small" FontAttributes="Bold"></Label>
-          </StackLayout>
-          <StackLayout x:Name="_imgLogoLayout" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" IsVisible="True">
-            <Image x:Name="_imgLogo" Aspect="AspectFit" Scale="0.85" Source="LOGO.png" HorizontalOptions="CenterAndExpand"/>
-            <Label x:Name="_lblNavigationTitle" Text="Konzum" TextColor="Black" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
-          </StackLayout>
-          <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-            <Entry x:Name="_entrySearch" IsVisible="False"
-                   HorizontalTextAlignment="Center"
-                   TextColor="Black" FontSize="Medium"
-                   Placeholder="Pronađi tvrtku/poslovnicu"  PlaceholderColor="Silver" HorizontalOptions="StartAndExpand"></Entry>
-          </StackLayout>
-          <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0, -6, 0" IsVisible="True">
-             <Image x:Name="_imgQRCode" Scale="1.35" Source="QRIcon.png" IsVisible="True"/>
-          </StackLayout>
-          <StackLayout x:Name="_imgSearchLayout" Orientation="Horizontal" HorizontalOptions="EndAndExpand" IsVisible="True">
-            <Image x:Name="_imgSearch" Scale="1.35" Source="search.png" HorizontalOptions="EndAndExpand" IsVisible="True"/>
-          </StackLayout>
-          <StackLayout  Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="True">
-            <Image x:Name="_imgClose"  Aspect="AspectFit" Source="cross.png" IsVisible="False" Margin="0, -10, 0, 0"/>
-          </StackLayout>
-        </StackLayout>
-        
-       <StackLayout x:Name="_SearchOptionsLayout" IsVisible="False" VerticalOptions="Fill">
-          <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-            <Image Aspect="AspectFit" Source="info.png"></Image>
-            <Label Text="Za kratki i brzi prigovor upišite # ispred pojma kojeg pretražujete" TextColor="Teal" FontSize="Small"></Label>
-          </StackLayout>
+    <ContentView.Content>
+        <Frame x:Name="frmFrame" Padding="10,10,0,-2" HasShadow="True" BackgroundColor="#79b2d6">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <StackLayout x:Name="imgMenuLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
+                        <Views:FontAwesomeLabel x:Name="imgMenu" FontSize="Large" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                    </StackLayout>
+                    <StackLayout x:Name="_imgComplaintsLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="True" Spacing="1">
+                        <Views:FontAwesomeLabel x:Name="imgComplaints" FontSize="Large" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" ></Views:FontAwesomeLabel>
+                        <!--<Label x:Name="_lblNumOfUnreadResponses" Text ="2" TextColor="#FF7e65" FontSize="Medium" FontAttributes="Bold"></Label>-->
+                    </StackLayout>
+                    <StackLayout x:Name="_imgLogoLayout" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" IsVisible="True">
+                        <Image x:Name="_imgLogo" Aspect="AspectFit" Scale="0.75" Source="LOGO.png" HorizontalOptions="CenterAndExpand"/>
+                        <Label x:Name="_lblNavigationTitle" Text="Konzum" TextColor="Black" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,0, -6, 0" IsVisible="True">
+                        <Views:FontAwesomeLabel x:Name="imgQRCode" FontSize="30" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                    </StackLayout>
+                    <StackLayout x:Name="_imgSearchLayout" Orientation="Horizontal" HorizontalOptions="EndAndExpand" IsVisible="True">
+                        <Views:FontAwesomeLabel x:Name="imgSearch" FontSize="20" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                    </StackLayout>
+                </StackLayout>
 
-         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-           <Image Aspect="AspectFit" Source="info.png"></Image>
-           <Label Text="Ako znate oznaku poslovnice upišite @ ispred oznake poslovnice" TextColor="Teal" FontSize="Small"></Label>
-         </StackLayout>
-         
-         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-           <Image Aspect="AspectFit" Source="info.png"></Image>
-           <Label Text="Možete istovremeno koristiti obje opcije" TextColor="Teal" FontSize="Small"></Label>
-         </StackLayout>
+                <StackLayout x:Name="_MenuFrame" Padding="25, 10, 25, 5" Spacing="15" IsVisible="False">
+                    <Label x:Name="lblMyProfile"  Text="Moj profil" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                    <Label x:Name="lblMyComplaints"  Text="Moji prigovori" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                    <Label x:Name="lblAboutUs"  Text="O nama" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                    <Label x:Name="lblContactUs" Text="Kontakt" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                    <Label x:Name="lblLogOut" Text="Odjavi se" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start"  />
+                </StackLayout>
+                <Label Text="________________________________________________________________________________________________" 
+               TextColor="Silver" Margin="-10,-16, -10,0" LineBreakMode="NoWrap" FontSize="Small"></Label>
 
-         <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-            <Label Text="Skeniraj QR kod" TextColor="Black" FontSize="Medium"></Label>
-            <Switch x:Name="_swcScanQRCode" IsToggled="False" HorizontalOptions="EndAndExpand"></Switch>
-          </StackLayout>
-          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-            <Label Text="Znam oznaku subjekta" TextColor="Black" FontSize="Medium"></Label>
-            <Switch x:Name="_swcIKnowMarkOfSubject" IsToggled="False" HorizontalOptions="EndAndExpand"></Switch>
-          </StackLayout>-->
-          <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" IsVisible="False">
-            <Label Text="Pokaži subjekte u blizini" TextColor="Black" FontSize="Medium"></Label>
-            <Switch x:Name="_swcShowSubjectsNearBy" IsToggled="False" HorizontalOptions="EndAndExpand"></Switch>
-          </StackLayout>
-        </StackLayout>
+            </StackLayout>
 
-        <!--<Frame x:Name="_MenuFrame" IsVisible="False">-->
-        <StackLayout x:Name="_MenuFrame" Padding="25, 10, 25, 5" Spacing="15" IsVisible="False">
-          <Label x:Name="_lblMyProfile"  Text="Moj profil" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-          <Label x:Name="_lblMyComplaints"  Text="Moji prigovori" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-          <Label x:Name="_lblAboutUs"  Text="O nama" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-          <Label x:Name="_lblContactUs" Text="Kontakt" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-          <Label x:Name="_lblLogOut" Text="Odjavi se" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start"  />
-        </StackLayout>
-        <!--</Frame>-->
-        <Label Text="________________________________________________________________________________________________" 
-               TextColor="Black" Margin="-10,-16, -10,0" LineBreakMode="NoWrap" FontSize="Small"></Label>
-
-      </StackLayout>
-
-    </Frame>
-  </ContentView.Content>
+        </Frame>
+    </ContentView.Content>
 </ContentView>
 

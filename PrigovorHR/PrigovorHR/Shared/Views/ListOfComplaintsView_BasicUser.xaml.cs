@@ -95,8 +95,6 @@ namespace PrigovorHR.Shared.Views
 
                 DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                     (await DataExchangeServices.GetMyComplaints());
-
-                MainNavigationBar._RefToView.NumOfUnreadedComplaints = ComplaintModel.RefToAllComplaints.user.unread_complaints.Count;
             }
             catch
             (Exception ex)
@@ -119,6 +117,7 @@ namespace PrigovorHR.Shared.Views
                 VisibleLayout.Children.Clear();
                 DisplayData();
                 CalculateMaximumScroll();
+                MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
             }
         }
 

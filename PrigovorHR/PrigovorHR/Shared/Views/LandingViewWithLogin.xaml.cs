@@ -24,19 +24,6 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
             _TopNavigationBar.ChangeNavigationTitle("Prigovor.hr");
-            _TopNavigationBar.SearchActivated += _TopNavigationBar_SearchActivated;
-            _TopNavigationBar._ShowProfileEvent += MenuPage_ShowProfileEvent;
-            _TopNavigationBar._ShowComplaintsEvent += _TopNavigationBar__ShowComplaintsEvent;
-            //ComplaintListTabView.SelectedTabChangedEvent += ComplaintListTabView_SelectedTabChangedEvent;
-            //CompanysFoundListView = new CompanysStoreFoundListView();
-            //ListOfComplaints = new ListOfComplaintsView_BasicUser();
-
-            //_StackLayout.Children.Add(_TopNavigationBar);
-            //_StackLayout.Children.Add(ListOfComplaints);
-            //_StackLayout.Children.Add(CompanysFoundListView);
-            //_StackLayout.Children.Add(ProfileView);
-           // CompanysFoundListView.IsVisible = false;
-            Content = _StackLayout;
 
             //When logged in, check if there is complaint that wasnt sent for some reason.
             object objuser;
@@ -47,36 +34,9 @@ namespace PrigovorHR.Shared.Views
             if (objuser != null && WriteNewComplaintModel.QuickComplaint)
             {
                 var QuickComplaintPage = new QuickComplaintPage(null, WriteNewComplaintModel);
-            //    QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaintsView.LoadComplaints(); });
+                QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaintsView.LoadComplaints(); });
                 Navigation.PushPopupAsync(QuickComplaintPage);
             }
-        }
-
-        private void ComplaintListTabView_SelectedTabChangedEvent(ComplaintListTabView.Tabs SelectedTab)
-        {
-            //scrview.Scrolled -= Scrview_Scrolled;
-            //DisplayedComplaints = 0;
-            //DisplayClosedComplaints = SelectedTab == ComplaintListTabView.enumTabs.ClosedComplaints;
-            //scrview.Scrolled += Scrview_Scrolled;
-            //DataSource = DataSource;
-        }
-    
-        private void _TopNavigationBar_SearchActivated(string searchtext, bool isQRCoded)
-        {
-            //ListOfComplaints.IsVisible = false;
-            //CompanysFoundListView.IsVisible = true;
-        }
-
-        private void _TopNavigationBar__ShowComplaintsEvent()
-        {
-            //ListOfComplaints.IsVisible = true;
-            //CompanysFoundListView.IsVisible = false;
-            //ListOfComplaints.LoadComplaints();
-        }
-
-        private async void MenuPage_ShowProfileEvent()
-        {
-            await Navigation.PushModalAsync(new ProfilePage(), true);
         }
     }
 }

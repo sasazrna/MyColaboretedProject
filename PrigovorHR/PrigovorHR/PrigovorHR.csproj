@@ -38,6 +38,9 @@
     <Compile Include="App.cs" />
     <Compile Include="Shared\Controllers\TranslateController.cs" />
     <Compile Include="Shared\Models\ExceptionInfoModel.cs" />
+    <Compile Include="Shared\Pages\CompanySearchPage.xaml.cs">
+      <DependentUpon>CompanySearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\Pages\MainSideMenuPage.cs" />
     <Compile Include="Shared\Pages\OtherCompanyStoresPage.xaml.cs">
       <DependentUpon>OtherCompanyStoresPage.xaml</DependentUpon>
@@ -62,9 +65,6 @@
     <Compile Include="Shared\Interfaces\IAndroidCallers.cs" />
     <Compile Include="Shared\Controllers\SearchController.cs" />
     <Compile Include="Shared\DataExchangeServices.cs" />
-    <Compile Include="Shared\Views\LastComplaintResponseView.xaml.cs">
-      <DependentUpon>LastComplaintResponseView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Shared\Models\CityModel.cs" />
     <Compile Include="Shared\Models\CompanyModel.cs" />
     <Compile Include="Shared\Models\ComplaintModel.cs" />
@@ -474,7 +474,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\QuickComplaintPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -580,12 +579,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Views\LastComplaintResponseView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\OtherCompanyStoresPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -593,6 +586,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\ProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Pages\CompanySearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

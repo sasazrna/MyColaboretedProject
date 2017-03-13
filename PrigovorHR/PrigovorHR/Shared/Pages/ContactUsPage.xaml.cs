@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class ContactUsPage : ContentPage
     {
         public ContactUsPage()

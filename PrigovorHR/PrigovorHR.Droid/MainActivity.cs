@@ -52,7 +52,7 @@ namespace PrigovorHR.Droid
             if ((int)Build.VERSION.SdkInt >= 21)
             {
                 Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FF6A00"));
-                KeyBoardOverlayFix.assistActivity(this, WindowManager);
+               // KeyBoardOverlayFix.assistActivity(this, WindowManager);
             }
             else
             {

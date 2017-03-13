@@ -26,7 +26,7 @@ namespace PrigovorHR.Shared.Controllers
             OnScanResult += QRScannerController_OnScanResult;
         }
 
-        private void QRScannerController_OnScanResult(ZXing.Result result)
+        private async void QRScannerController_OnScanResult(ZXing.Result result)
         {
             //await Navigation.PopModalAsync(true);
             IsScanning = false;
@@ -41,14 +41,6 @@ namespace PrigovorHR.Shared.Controllers
             IsTorchOn = true;
             IsAnalyzing = true;
             IsVisible = true;
-        }
-
-        public async void StopScan()
-        {
-            IsScanning = false;
-            IsAnalyzing = false;
-            await Navigation.PopModalAsync(true);
-            PauseAnalysis();
         }
     }
 }
