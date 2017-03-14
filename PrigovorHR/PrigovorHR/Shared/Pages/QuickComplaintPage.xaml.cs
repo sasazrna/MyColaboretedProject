@@ -12,7 +12,6 @@ using Xamarin.Forms.Xaml;
 
 namespace PrigovorHR.Shared.Pages
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
 
     public partial class QuickComplaintPage : PopupPage
     {

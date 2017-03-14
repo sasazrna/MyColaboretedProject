@@ -40,7 +40,7 @@ namespace PrigovorHR.Shared.Views
 
             lytAttachmentsLayout.Children.Clear();
             foreach (var Attachment in Complaint.attachments)
-                lytAttachmentsLayout.Children.Add(new AttachmentView(false, Complaint.id, Attachment.id, Attachment.attachment_url));
+                lytAttachmentsLayout.Children.Add(new AttachmentView(false, Complaint.id, Attachment.id, Attachment.attachment_url, false, null));
 
             lblProblemDateTime.Text = !string.IsNullOrEmpty(Complaint.problem_occurred) ? DateTime.Parse(Complaint.problem_occurred).ToString() : "nedefinirano";
             lblComplaintDateTime.Text = DateTime.Parse( Complaint.created_at).ToString();

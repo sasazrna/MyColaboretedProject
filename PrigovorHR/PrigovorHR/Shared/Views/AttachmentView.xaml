@@ -2,13 +2,16 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              BackgroundColor="White"
+              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Views.AttachmentView">
-  <ContentView.Content>
-    <StackLayout>
-    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-      <Image Source="attach.png" WidthRequest="15"  />
-      <Label x:Name="lblAttachmentName" Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" HorizontalOptions = "Start"/>
-    </StackLayout>
-    </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                <Image Source="attach.png" WidthRequest="15"  />
+                <Label x:Name="lblAttachmentName" Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" LineBreakMode="TailTruncation" HorizontalOptions = "Start"/>
+                <Views:FontAwesomeLabel x:Name="imgClose" FontSize="Large" HorizontalOptions="End" IsVisible="False">
+                </Views:FontAwesomeLabel>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

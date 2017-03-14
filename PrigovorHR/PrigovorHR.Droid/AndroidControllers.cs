@@ -59,32 +59,39 @@ namespace PrigovorHR.Droid
             FileStream FS = new FileStream(Android.OS.Environment.ExternalStorageDirectory.Path + "/PrigovorHR/" + FileName, FileMode.Create);
             BinaryWriter BW = new BinaryWriter(FS);
             BW.Write(FileData);
-            //FS.Flush();
-            //FS.Close();
             BW.Close();
             FS.Close();
             BW.Dispose();
             FS.Dispose();
         }
-            
-        
 
+        public void DeleteFile(string FileName)
+        {
+            try
+            {
+                File.Delete(Android.OS.Environment.ExternalStorageDirectory.Path + "/PrigovorHR/" + FileName);
+            }
+            catch (Exception ex)
+            {
+                ExceptionController.HandleException(ex, "Greška u brisanju datoteke kod class AndroidCallers : IAndroidCallers public void DeleteFile(string FileName)");
+            }
+        }
 
         public void OpenFile(string FileName)
         {
-         //   var path = System.IO.Path.Combine(global::Android.OS.Environment.ExternalStorageDirectory.Path, "doc" + FixedDocumentationLanguageCode + ".pdf");
+            //   var path = System.IO.Path.Combine(global::Android.OS.Environment.ExternalStorageDirectory.Path, "doc" + FixedDocumentationLanguageCode + ".pdf");
 
             var FullAddress = Android.OS.Environment.ExternalStorageDirectory.Path + "/PrigovorHR/" + FileName;
             var FileInfo = new System.IO.FileInfo(FullAddress);
-             var intent = new Intent(Intent.ActionView);
-           Android.Net.Uri pdfFile = Android.Net.Uri.FromFile(new Java.IO.File(FullAddress));
-            var MimeType = MimeTypeMap.Singleton.GetMimeTypeFromExtension(FileInfo.Extension.Replace(".",""));
-            intent.SetDataAndType(pdfFile, MimeType );
+            var intent = new Intent(Intent.ActionView);
+            Android.Net.Uri pdfFile = Android.Net.Uri.FromFile(new Java.IO.File(FullAddress));
+            var MimeType = MimeTypeMap.Singleton.GetMimeTypeFromExtension(FileInfo.Extension.Replace(".", ""));
+            intent.SetDataAndType(pdfFile, MimeType);
             intent.SetFlags(ActivityFlags.GrantReadUriPermission);
             intent.SetFlags(ActivityFlags.NewTask);
             intent.SetFlags(ActivityFlags.ClearWhenTaskReset);
 
-           new ContextWrapper(Forms.Context).StartActivity(intent);
+            new ContextWrapper(Forms.Context).StartActivity(intent);
             //   Device.OpenUri(new Uri(Android.OS.Environment.ExternalStorageDirectory.Path + "/PrigovorHR/" + FileName));
         }
 

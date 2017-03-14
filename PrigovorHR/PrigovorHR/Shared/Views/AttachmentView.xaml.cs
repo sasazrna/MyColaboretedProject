@@ -16,14 +16,17 @@ namespace PrigovorHR.Shared.Views
     {
         private Controllers.TAPController TAPController;
         private int AttachmentId = 0;
-        private string AttachmentFileName = string.Empty;
+        public string AttachmentFileName = string.Empty;
         private int ComplaintReplyId = 0;
         private bool IsReply = false;
+        public byte[] Data = null;
         public delegate void AttachmentClickedHandler(Models.ComplaintModel.ComplaintAttachmentModel Attachment);
         public event AttachmentClickedHandler AttachmentClickedEvent;
+        public delegate void AttachmentDeletedHandler(View view);
+        public event AttachmentDeletedHandler AttachmentDeletedEvent;
 
         public AttachmentView() { }
-        public AttachmentView(bool isReply, int complaintreplyId, int attachmentId, string attachmentFileName)
+        public AttachmentView(bool isReply, int complaintreplyId, int attachmentId, string attachmentFileName, bool disposable, byte[] data)
         {
             InitializeComponent();
 
@@ -31,30 +34,50 @@ namespace PrigovorHR.Shared.Views
             AttachmentFileName = attachmentFileName;
             ComplaintReplyId = complaintreplyId;
             lblAttachmentName.Text = attachmentFileName;
+            imgClose.IsVisible = disposable;
+            imgClose.Text = "\xf2d4";
+            Data = data;
             IsReply = isReply;
-            TAPController = new Controllers.TAPController(lblAttachmentName);
+            TAPController = new Controllers.TAPController(lblAttachmentName, imgClose);
             TAPController.SingleTaped += TAPController_SingleTaped;
         }
 
         private async void TAPController_SingleTaped(string viewId, View view)
         {
-            Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Otvaram " + AttachmentFileName);
-            AttachmentClickedEvent?.Invoke(new Models.ComplaintModel.ComplaintAttachmentModel() { attachment_url = AttachmentFileName, id = AttachmentId });
-
-            var result = !IsReply ?
-                 await DataExchangeServices.GetComplaintAttachmentData(ComplaintReplyId, AttachmentFileName) :
-                 await DataExchangeServices.GetReplyAttachmentData(ComplaintReplyId, AttachmentFileName);
-
-            if (!result.Contains("Error:"))
+            if (view == lblAttachmentName)
             {
-                DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Convert.FromBase64String(result));
-                DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
+                if (Data == null)
+                {
+                    Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Otvaram " + AttachmentFileName);
+                    AttachmentClickedEvent?.Invoke(new Models.ComplaintModel.ComplaintAttachmentModel() { attachment_url = AttachmentFileName, id = AttachmentId });
+
+                    var result = !IsReply ?
+                         await DataExchangeServices.GetComplaintAttachmentData(ComplaintReplyId, AttachmentFileName) :
+                         await DataExchangeServices.GetReplyAttachmentData(ComplaintReplyId, AttachmentFileName);
+
+                    if (!result.Contains("Error:"))
+                    {
+                        DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Convert.FromBase64String(result));
+                        DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
+                    }
+                    else
+                    {
+                        Acr.UserDialogs.UserDialogs.Instance.Alert(result);
+                    }
+                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+                }
+                else
+                {
+                    DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Data);
+                    DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
+                    DependencyService.Get<Controllers.IAndroidCallers>().DeleteFile(AttachmentFileName);
+                }
             }
             else
             {
-                Acr.UserDialogs.UserDialogs.Instance.Alert(result);
+                Data = null;
+                AttachmentDeletedEvent?.Invoke(this);
             }
-            Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
     }
 }

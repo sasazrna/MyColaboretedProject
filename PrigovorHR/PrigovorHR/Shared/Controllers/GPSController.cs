@@ -60,7 +60,7 @@ namespace PrigovorHR.Shared.Controllers
             retry:
             try
             {
-               return await CrossGeolocator.Current.GetPositionAsync(10000);
+                return await CrossGeolocator.Current.GetPositionAsync(15000);
             }
             catch (Exception Err)
             {

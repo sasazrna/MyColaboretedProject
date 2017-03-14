@@ -25,22 +25,11 @@ namespace PrigovorHR.Shared.Views
 
         private string _Title { get; set; }
 
-        public delegate void GPSActivationRequestedHandler();
-        public event GPSActivationRequestedHandler _GPSActivationRequestedEvent;
-
-        public delegate void ShowComplaintsHandler();
-        public event ShowComplaintsHandler _ShowComplaintsEvent;
-
-        private enum eGPSOptionStatus : int { unvailable = 0, available = 1, activated = 2 };
-        private eGPSOptionStatus _CurrentGPSStatus = eGPSOptionStatus.unvailable;
-
         public static MainNavigationBar ReferenceToView;
 
         public bool HasUnreadedReplys { set { imgComplaints.Text = !value ? Views.FontAwesomeLabel.Images.FAPEnvelopeOpen : Views.FontAwesomeLabel.Images.FAPEnvelopeOpen; 
-                                              imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00");
-            }
-        }
-
+                                              imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00");}}
+ 
         public MainNavigationBar()
         {
             InitializeComponent();
@@ -51,17 +40,14 @@ namespace PrigovorHR.Shared.Views
             imgComplaints.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
             imgComplaints.TextColor = Color.Gray;
 
-            //imgComplaintsOpen.Text = Views.FontAwesomeLabel.Images.FAEnvelopeO;
-
-
             imgQRCode.Text = Views.FontAwesomeLabel.Images.FAQrcode;
-            imgQRCode.TextColor = Color.Black;
+            imgQRCode.TextColor = Color.Gray;
 
             imgMenu.Text = Views.FontAwesomeLabel.Images.FABars;
-            imgMenu.TextColor = Color.Black;
+            imgMenu.TextColor = Color.Gray;
 
             imgSearch.Text = Views.FontAwesomeLabel.Images.FASearch;
-            imgSearch.TextColor = Color.Black;
+            imgSearch.TextColor = Color.Gray;
 
             TAPController = new Controllers.TAPController( _ListOfChildViews);
             TAPController.SingleTaped += _TAPController_SingleTaped;
@@ -150,13 +136,9 @@ namespace PrigovorHR.Shared.Views
             {
                 await Navigation.PushModalAsync(new ProfilePage(), true);
             }
-            else if (view == lblMyComplaints | view == imgComplaints)
-            {
-                _ShowComplaintsEvent?.Invoke();
-                _MenuFrame.IsVisible = false;
-            }
             else if (view == lblLogOut)
             {
+
                 Acr.UserDialogs.UserDialogs.Instance.Confirm(
                     new Acr.UserDialogs.ConfirmConfig()
                     {

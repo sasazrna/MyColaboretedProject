@@ -82,9 +82,30 @@ namespace PrigovorHR.Shared
 
         public static async Task<int> SendComplaintAttachment(byte[] ByteData, string FileName)
         {
-            var Result = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendComplaintAttachment, FileName, ByteData);
-            JObject Jobj = JObject.Parse(Result);
-            return (int)Jobj?["attachments_id"]?.FirstOrDefault();
+            try
+            {
+                var Result = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendComplaintAttachment, FileName, ByteData);
+                JObject Jobj = JObject.Parse(Result);
+                return (int)Jobj["attachments_id"][0];
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public static async Task<int> SendReplyAttachment(byte[] ByteData, string FileName)
+        {
+            try
+            {
+                var Result = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendReplyAttachment, FileName, ByteData);
+                JObject Jobj = JObject.Parse(Result);
+                return (int)Jobj["attachments_id"][0];
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public static async Task<string> SendComplaint(string jsonvalue)
@@ -92,6 +113,10 @@ namespace PrigovorHR.Shared
             return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendComplaint, jsonvalue);
         }
 
+        public static async Task<string> SendReply(string jsonvalue)
+        {
+            return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendReply, jsonvalue);
+        }
 
         public static async Task<string> GetLongLatFromAddress(string Address)
         {
@@ -135,6 +160,7 @@ namespace PrigovorHR.Shared
                 ResetPassword,
                 ComplaintReaded,
                 SendComplaint,
+                SendReply,
                 GetLongLatFromAddress,
                 SendComplaintAttachment,
                 SendReplyAttachment,
@@ -157,6 +183,7 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.ResetPassword, "zahtjev-za-novu-lozinku" },
                                                           { ServiceCommands.ComplaintReaded, "prigovor-procitan" },
                                                           { ServiceCommands.SendComplaint, "predaj-prigovor" },
+                                                          { ServiceCommands.SendReply, "prigovor/odgovor" },
                                                           { ServiceCommands.GetLongLatFromAddress, "https://maps.googleapis.com/maps/api/geocode/json?address=" },
                                                           { ServiceCommands.SendComplaintAttachment,"predaj-prigovor/single-upload" },
                                                           { ServiceCommands.SendReplyAttachment, "odgovori-na-prigovor/single-upload" },
@@ -238,7 +265,9 @@ namespace PrigovorHR.Shared
                         }
                         else
                         {
-                            return "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
+                            var ErrorMessage =  "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
+                            ExceptionController.HandleException(new Exception(ErrorMessage), "Došlo je do greške na  internal async Task<string> SendData");
+                            return ErrorMessage;
                         }
                     }
                 }
@@ -274,6 +303,7 @@ namespace PrigovorHR.Shared
                                 break;
 
                             case ServiceCommands.SendComplaintAttachment:
+                            case ServiceCommands.SendReplyAttachment:
                                 multipartData.Add(new ByteArrayContent(byteData), "file", value);
                                 response = await client.PostAsync(urlAddress, multipartData);
                                 break;
@@ -296,7 +326,12 @@ namespace PrigovorHR.Shared
                             try { Models.UserToken.token = response.Headers.GetValues("Authorization").Last(); } catch { }
                             return await response.Content.ReadAsStringAsync();
                         }
-                        else return "Error:";
+                        else
+                        {
+                            var ErrorMessage = "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
+                            ExceptionController.HandleException(new Exception(ErrorMessage), "Došlo je do greške na  internal async Task<string> SendData");
+                            return ErrorMessage;
+                        }
                     }
                 }
                 catch (Exception ex)

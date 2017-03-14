@@ -15,6 +15,7 @@ namespace PrigovorHR.Shared.Pages
     {
         private int _clickedTotal=1;
         private Models.ComplaintModel Complaint;
+
         public ComplaintPage()
         {
             InitializeComponent();
@@ -27,7 +28,7 @@ namespace PrigovorHR.Shared.Pages
             lytAllResponses.Children.Clear();
             lytOriginalComplaint.Children.Clear();
             scrView.IsVisible = false;
-
+            
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ? 
                 Complaint.replies.LastOrDefault(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" : 
                 "nepoznato", Complaint.element.name, false);
@@ -84,7 +85,11 @@ namespace PrigovorHR.Shared.Pages
                 }
             }
             else if (ClickedButton == Btn2)
-                await Navigation.PushModalAsync(new NewComplaintResponsePage(Complaint));
+            {
+                var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
+                await Navigation.PushModalAsync(NewComplaintReplyPage);
+                NewComplaintReplyPage.ReplaySentEvent += () => { Navigation.PopModalAsync(true); };
+            }
             else
                 await Navigation.PushModalAsync(new CloseComplaintPage());
         }

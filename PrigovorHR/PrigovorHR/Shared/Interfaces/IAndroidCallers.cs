@@ -18,6 +18,9 @@ namespace PrigovorHR.Shared.Controllers
         void CloseApp();
         void SaveFile(string FileName, byte[] FileData);
         void OpenFile(string FileName);
+
+        void DeleteFile(string FileName);
+
         ImageSource ConvertUrlToImage(string url);
     }
 
