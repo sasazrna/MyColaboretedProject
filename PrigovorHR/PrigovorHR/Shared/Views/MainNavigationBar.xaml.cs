@@ -27,7 +27,7 @@ namespace PrigovorHR.Shared.Views
 
         public static MainNavigationBar ReferenceToView;
 
-        public bool HasUnreadedReplys { set { imgComplaints.Text = !value ? Views.FontAwesomeLabel.Images.FAPEnvelopeOpen : Views.FontAwesomeLabel.Images.FAPEnvelopeOpen; 
+        public bool HasUnreadedReplys { set { imgComplaints.Text = !value ? Views.FontAwesomeLabel.Images.FAPEnvelopeOpen : Views.FontAwesomeLabel.Images.FAPEnvelopeClosed; 
                                               imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00");}}
  
         public MainNavigationBar()
@@ -97,7 +97,7 @@ namespace PrigovorHR.Shared.Views
      
             var CompanyElement = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
             if (CompanyElement.Count == 1)
-                await Navigation.PushAsync(new NewComplaint(), true);
+                await Navigation.PushAsync(new NewComplaintPage(), true);
             else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
 
             }

@@ -35,24 +35,32 @@ namespace PrigovorHR.Shared.Pages
             imgTakeGPSLocation.Text = '\uf041'.ToString();
             imgTakeGPSLocation.TextColor = Color.Gray;
 
+            btnSendReply.TranslateTo(0, -60, 0);
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
                           Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
-                          "nepoznato", Complaint.element.name, true);
+                          "nepoznato", Complaint.element.name);
 
             TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto);
+            btnSaveReply.Clicked += BtnSaveReply_Clicked;
+            btnSendReply.Clicked += BtnSendReply_Clicked;
             TAPController.SingleTaped += TAPController_SingleTaped;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
-            ComplaintCoversationHeaderView.SendComplaintEvent += ComplaintCoversationHeaderView_SendComplaintEvent;
         }
 
-        private async void ComplaintCoversationHeaderView_SendComplaintEvent()
+        private async void BtnSendReply_Clicked(object sender, EventArgs e)
         {
+            if(editReplyText.Text.Length<20)
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš odgovor treba biti duži od 20 znakova!", null, "OK");
+                return;
+            }
+
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Šaljem vaš prigovor");
             await Task.Delay(19);
             List<int> attachment_ids = new List<int>();
 
             foreach (var Attachment in lytAttachments.Children.OfType<AttachmentView>().Cast<AttachmentView>())
-                attachment_ids.Add((int)await DataExchangeServices.SendReplyAttachment(Attachment.Data, Attachment.AttachmentFileName));
+                attachment_ids.Add(await DataExchangeServices.SendReplyAttachment(Attachment.Data, Attachment.AttachmentFileName));
 
             if (lytAttachments.Children.Any() && (attachment_ids == null | attachment_ids.Any(aid => aid == 0)))
             {
@@ -86,6 +94,11 @@ namespace PrigovorHR.Shared.Pages
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora!" + System.Environment.NewLine + "Provjerite vašu internet konekciju te kliknite ponovno za slanje", "Greška u slanju prigovora", "OK");
             }
         }
+
+        private void BtnSaveReply_Clicked(object sender, EventArgs e)
+        {
+        }
+
 
         private async void TAPController_SingleTaped(string viewId, View view)
         {

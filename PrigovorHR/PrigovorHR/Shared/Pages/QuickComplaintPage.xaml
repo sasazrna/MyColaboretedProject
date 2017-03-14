@@ -52,7 +52,7 @@
             </StackLayout>
           </StackLayout>
 
-          <Label Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" Margin="0, 5, 0, 5" />
+          <Label x:Name="lblElementName" Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" Margin="0, 5, 0, 5" />
 
           <StackLayout x:Name="_complaintLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
             <Label Text="Napišite prigovor" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />

@@ -55,9 +55,15 @@ namespace PrigovorHR.Shared.Views
 
         private async void TAPController_SingleTaped(string viewId, View view)
         {
-         //   await AnimateColor(view);
+            //   await AnimateColor(view);
             await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
+            var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.SingleOrDefault(uc => uc.id == Complaint.id);
+
+            if (UnreadComplaint != null)
+                ComplaintModel.RefToAllComplaints.user.unread_complaints.Remove(UnreadComplaint);
+
+            MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
             lblShortComplaint.FontAttributes = FontAttributes.None;
         }
 

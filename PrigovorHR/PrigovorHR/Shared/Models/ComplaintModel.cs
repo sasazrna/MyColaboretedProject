@@ -54,6 +54,7 @@ namespace PrigovorHR.Shared.Models
         {
             public bool QuickComplaint { get; set; } = false;
             public int element_id { get; set; }
+            public string ElementName { get; set; }
             public string complaint { get; set; }
             public string problem_occurred { get; set; }
             public string suggestion { get; set; }

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
+             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
+             x:Class="PrigovorHR.Shared.Pages.NewComplaintPage">
+
+    <RelativeLayout x:Name="lytRelative">
+        <ContentView x:Name="cvTopContentView"
+      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+
+            <StackLayout>
+                <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+                <StackLayout Padding="25,30,25,30">
+                    <Label Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" Margin="0, 15, 0, 10" />
+                    <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
+                    <Label Text="Kada se problem dogodio?" FontSize="Medium" HorizontalTextAlignment="Center" Margin="0,0,0,15" TextColor="Silver" />
+                    <DatePicker x:Name = "arrivalDatePicker"/>
+                    <TimePicker x:Name = "arrivalTimePicke"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10" >
+                        <StackLayout HorizontalOptions="StartAndExpand">
+                            <Label x:Name="SadaStackButton" Text="Dogodio se sada!" HorizontalTextAlignment="Center" ></Label>
+                        </StackLayout>
+                        <StackLayout Padding="0.35,1.5,0.35,1.5" BackgroundColor="Silver" HorizontalOptions="CenterAndExpand"></StackLayout>
+                        <StackLayout HorizontalOptions="EndAndExpand">
+                            <Label x:Name="RanijeStackButton" Text="Dogodio se ranije!" HorizontalTextAlignment="Center"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout  x:Name="ZaPopunit_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label Text="dmeodied" HorizontalTextAlignment="Center" TextColor="White" FontSize="Small" ></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout  x:Name="Sada_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label x:Name="labela_vremena_sad" HorizontalTextAlignment="Center" TextColor="Silver" FontSize="Small" ></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout x:Name="Ranije_stack" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                            <Label x:Name="labelavremena" Text="12.1.2017." TextColor="White" HorizontalTextAlignment="Center"  FontSize="Small" ></Label>
+                            <Label x:Name="labelasati" Text="03:13:12" TextColor="White" FontSize="Small" HorizontalTextAlignment="Center" ></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <Frame>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Label Text="Opis problema" FontSize="Small" HorizontalTextAlignment="Center" TextColor="Silver" Margin="0, 0, 0, 0" />
+                            <StackLayout Orientation="Horizontal" Padding="20,0.45,20,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
+                            <Editor BackgroundColor="White" HeightRequest="220"  />
+                            <StackLayout Orientation="Horizontal" Padding="25,0,25,0" HorizontalOptions="FillAndExpand" >
+                                <views:FontAwesomeLabel x:Name="attach_pdf_font" FontSize="Large" HorizontalOptions="StartAndExpand"></views:FontAwesomeLabel>
+                                <views:FontAwesomeLabel x:Name="attach_photo_font" FontSize="Large" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
+                                <views:FontAwesomeLabel x:Name="attach_voice_font" FontSize="Large" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
+                            </StackLayout>
+                            <StackLayout x:Name="stack_dodanih_attachmenta" HorizontalOptions="FillAndExpand">
+                                <ProgressBar x:Name="progres_memorije_attachmenta"></ProgressBar>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <views:FontAwesomeLabel x:Name="dodani_pdf"  FontSize="Micro" VerticalTextAlignment="Center"  HorizontalOptions="Start" HorizontalTextAlignment="Center"></views:FontAwesomeLabel>
+                                    <Label Text="nekik.pdf" FontSize="Small" HorizontalOptions="Start" HorizontalTextAlignment="Start" TextColor="Blue"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                            <views:FontAwesomeLabel x:Name="send_font"  HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </ContentView>
+        
+<fab:FloatingActionButton
+   x:Name="btnWriteComplaint"
+   NormalColor="#FF7e65"
+   RippleColor="Blue"
+   Size="Normal"
+   Source="edit.png"
+    
+   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Width,
+                                                              Factor=1,
+                                                              Constant=-75}"
+   
+   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                     Property=Height,
+                                                     Factor=1,
+                                                     Constant=-75}"/>
+
+    </RelativeLayout>
+</ContentPage>

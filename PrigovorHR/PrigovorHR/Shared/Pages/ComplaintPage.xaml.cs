@@ -31,7 +31,7 @@ namespace PrigovorHR.Shared.Pages
             
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ? 
                 Complaint.replies.LastOrDefault(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" : 
-                "nepoznato", Complaint.element.name, false);
+                "nepoznato", Complaint.element.name);
 
             NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
             NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
@@ -88,7 +88,7 @@ namespace PrigovorHR.Shared.Pages
             {
                 var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
                 await Navigation.PushModalAsync(NewComplaintReplyPage);
-                NewComplaintReplyPage.ReplaySentEvent += () => { Navigation.PopModalAsync(true); };
+                NewComplaintReplyPage.ReplaySentEvent += () => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();  };
             }
             else
                 await Navigation.PushModalAsync(new CloseComplaintPage());

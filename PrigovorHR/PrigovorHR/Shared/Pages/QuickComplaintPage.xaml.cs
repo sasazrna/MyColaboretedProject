@@ -33,6 +33,7 @@ namespace PrigovorHR.Shared.Pages
             {
                 WriteNewComplaintModel.element_id = _CompanyElement.id;
                 WriteNewComplaintModel.complaint_received_message = _CompanyElement.root_business.complaint_received_message;
+                lblElementName.Text = _CompanyElement.name;
             }
             //a gdje je povratak slike natrag u bytearray?? Napravi to
 
@@ -47,6 +48,7 @@ namespace PrigovorHR.Shared.Pages
                     _cameraButton.Image.File = "cameracancel.png";
                   PhotoData = Convert.FromBase64String(WriteNewComplaintModel.attachments[0].attachment_data);
                 }
+                lblElementName.Text = _WriteNewComplaintModel.ElementName;
 
                 PrigEditor_TextChanged(null, new TextChangedEventArgs(_suggestionEditor.Text, _suggestionEditor.Text));
             }

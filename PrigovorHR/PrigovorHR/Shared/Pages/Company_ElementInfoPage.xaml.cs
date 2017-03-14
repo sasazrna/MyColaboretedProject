@@ -28,13 +28,14 @@ namespace PrigovorHR.Shared.Pages
             TAPController = new Controllers.TAPController(lytPreviousElementControl, lytCompanyInfo, imgCompanyDetails, NavigationBar.imgBack, lblOtherCompanyElements);
             TAPController.SingleTaped += TAPController_SingleTaped;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            btnWriteComplaint.Clicked += BtnWriteComplaint_Clicked;
             imgCompanyDetails.Text = Views.FontAwesomeLabel.Images.FAEllipsisH;
             ReferenceToView = this;
         }
 
-        private async void FabButtonView_ButtonClickedEvent(int ButtonId)
+        private void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NewComplaint());
+            Navigation.PushModalAsync(new NewComplaintPage(), true);
         }
 
         private async void NavigationBar_BackButtonPressedEvent()

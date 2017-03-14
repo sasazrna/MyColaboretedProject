@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PrigovorHR.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewComplaint : ContentPage
+    public partial class NewComplaintPage : ContentPage
     {
-        public NewComplaint()
+        public NewComplaintPage()
         {
             InitializeComponent();
             attach_pdf_font.Text = '\uf1c1'.ToString();

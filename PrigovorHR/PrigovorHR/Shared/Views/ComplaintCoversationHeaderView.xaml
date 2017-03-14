@@ -15,10 +15,10 @@
                         <Label Text="Razgovaram s:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
                         <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "End"/>
                     </StackLayout>
-                <StackLayout x:Name="lytSendResponse" Orientation="Horizontal" HorizontalOptions="End" Spacing="30" >
+                <!--<StackLayout x:Name="lytSendResponse" Orientation="Horizontal" HorizontalOptions="End" Spacing="30" >
                    <views:FontAwesomeLabel x:Name="imgSave" FontSize="50" TextColor="#FF7e65" Margin="-20,0,0,0"></views:FontAwesomeLabel>
                     <views:FontAwesomeLabel x:Name="imgSend" FontSize="50" TextColor="#FF7e65" Margin=" 0, 0,20, 0"></views:FontAwesomeLabel>
-                </StackLayout>
+                </StackLayout>-->
             </StackLayout>
         </Frame>
     </ContentView.Content>

@@ -97,8 +97,8 @@
     <Compile Include="Shared\Pages\MessageSentPage.xaml.cs">
       <DependentUpon>MessageSentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Pages\NewComplaint.xaml.cs">
-      <DependentUpon>NewComplaint.xaml</DependentUpon>
+    <Compile Include="Shared\Pages\NewComplaintPage.xaml.cs">
+      <DependentUpon>NewComplaintPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Pages\NewComplaintReplyPage.xaml.cs">
       <DependentUpon>NewComplaintReplyPage.xaml</DependentUpon>
@@ -367,7 +367,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Auth, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Auth.1.3.2.5\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Auth.1.3.2.6\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -562,7 +562,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Pages\NewComplaint.xaml">
+    <EmbeddedResource Include="Shared\Pages\NewComplaintPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
