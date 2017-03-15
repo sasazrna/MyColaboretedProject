@@ -382,6 +382,7 @@ namespace PrigovorHR.Shared.Views
             public static string FAPlusSquareO = "\uf196";
             public static string FAPEnvelopeOpen = "\uf2b6";
             public static string FAPEnvelopeClosed = "\xf0e0";
+            public static string FAFile_pdf = "\uf1c1";
         }
         public FontAwesomeLabel()
         {

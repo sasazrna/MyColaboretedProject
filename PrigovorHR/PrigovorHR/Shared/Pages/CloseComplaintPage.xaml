@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
              x:Class="PrigovorHR.Shared.Pages.CloseComplaintPage">
 
     <StackLayout>
-        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
         <ScrollView>
             <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand"  >
                 <Label Text="Zahvaljujemo na Vašem angažmanu i želji da unaprijedite našu uslugu." FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
@@ -47,8 +47,8 @@
                 </StackLayout>
 
                 <StackLayout>
-                    <Editor x:Name="entryLastMessage" Placeholder="Navedite razlog zatvaranja ili dodajte komentar za kraj" PlaceholderColor="Silver">
-                    </Editor>
+                    <!--<Editor x:Name="entryLastMessage" Placeholder="Navedite razlog zatvaranja ili dodajte komentar za kraj" PlaceholderColor="Silver">
+                    </Editor>-->
                 </StackLayout>
                 <Button x:Name="btnZatvoriPrigovor" Text="ZATVORI PRIGOVOR"  TextColor="White" VerticalOptions="EndAndExpand" BackgroundColor="#FF7e65"/>
 
