@@ -16,6 +16,7 @@ namespace PrigovorHR.Shared.Pages
         private Controllers.TAPController TAPController;
         private View[] AllEvaluationsStars;
         private Dictionary<View, int> StoredEvaluationGrades = new Dictionary<View, int>();
+        private const string StarFont = "\xf005";
 
         public CloseComplaintPage()
         {
@@ -28,19 +29,21 @@ namespace PrigovorHR.Shared.Pages
             //imgReset.TextColor = Color.FromHex("#FF7e65");
 
 
-
-
-
-
-
             AllEvaluationsStars = AnswerEvaluationLayout.Children.Concat(
                                                                         SpeedEvaluationLayout.Children.Concat(
                                                                         CommunicationEvaluationLayout.Children))
                                                                  .ToArray();
 
-            foreach (var star in AllEvaluationsStars)
-                star.BackgroundColor = Color.Gray;
+            foreach (var star in AllEvaluationsStars.Cast<Views.FontAwesomeLabel>())
+            {
+                star.TextColor = Color.Gray;
+                star.Text = Views.FontAwesomeLabel.Images.FAStar;
+            }
 
+            Reset3.Text= Views.FontAwesomeLabel.Images.FABan;
+            Reset2.Text = Views.FontAwesomeLabel.Images.FABan;
+            Reset1.Text = Views.FontAwesomeLabel.Images.FABan;
+          
             TAPController = new Controllers.TAPController( AllEvaluationsStars);
             TAPController.SingleTaped += TAPController_SingleTaped;
         }
@@ -60,18 +63,18 @@ namespace PrigovorHR.Shared.Pages
             if (ResetStars)
                 StoredEvaluationGrades.Remove(StarParent);
 
-            foreach (var EvaluationStar in StarParent.Children.Where(child => child != StarParent.Children.First()))
+            foreach (var EvaluationStar in StarParent.Children.Where(child => child != StarParent.Children.First()).Cast<Views.FontAwesomeLabel>())
             {
                 if (ResetStars)
                 {
-                    EvaluationStar.BackgroundColor = Color.Gray;
+                    EvaluationStar.TextColor = Color.Gray;
                     continue;
                 }
 
                 if (EvaluationStar != SelectedEvaluationStar & !StarIsFound)
                 {
                     StarValue++;
-                    EvaluationStar.BackgroundColor = Color.Orange;
+                    EvaluationStar.TextColor = Color.Orange;
                 }
                 else
                 {
@@ -79,14 +82,14 @@ namespace PrigovorHR.Shared.Pages
                     {
                         StarIsFound = true;
                         StarValue++;
-                        EvaluationStar.BackgroundColor = Color.Orange;
+                        EvaluationStar.TextColor = Color.Orange;
 
                         if (!StoredEvaluationGrades.ContainsKey(StarParent))
                             StoredEvaluationGrades.Add(StarParent, StarValue);
                         else
                             StoredEvaluationGrades[StarParent] = StarValue;
                     }
-                    else EvaluationStar.BackgroundColor = Color.Gray;
+                    else EvaluationStar.TextColor = Color.Gray;
                 }
             }
         }
