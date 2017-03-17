@@ -28,7 +28,8 @@ namespace PrigovorHR.Shared.Pages
             lytAllResponses.Children.Clear();
             lytOriginalComplaint.Children.Clear();
             scrView.IsVisible = false;
-            
+            btnCloseComplaint.IsVisible = !complaint.closed;
+
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ? 
                 Complaint.replies.LastOrDefault(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" : 
                 "nepoznato", Complaint.element.name);
@@ -36,14 +37,12 @@ namespace PrigovorHR.Shared.Pages
             NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
             NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
 
-            Btn3.TranslateTo(0, 0, 100);
-            Btn3.RotateTo(360, 0);
+            btnCloseComplaint.TranslateTo(0, 0, 100);
 
-            Btn2.TranslateTo(0, 0, 100);
-            Btn2.RotateTo(360, 100);
+            btnReplay.TranslateTo(0, 0, 100);
             Btn1.Clicked += FabButton_Click;
-            Btn2.Clicked += FabButton_Click;
-            Btn3.Clicked += FabButton_Click;
+            btnReplay.Clicked += FabButton_Click;
+            btnCloseComplaint.Clicked += FabButton_Click;
             scrView.Scrolled += ScrView_Scrolled;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
 
@@ -69,29 +68,27 @@ namespace PrigovorHR.Shared.Pages
                 _clickedTotal += 1;
                 if (_clickedTotal % 2 == 0)
                 {
-                    await Btn2.TranslateTo(0, -60, 70);
-                    await Btn2.RotateTo(360, 70);
-
-                    await Btn3.TranslateTo(0, -120, 70);
-                    await Btn3.RotateTo(360, 70);
+                    await btnReplay.TranslateTo(0, -60, 70);
+                    await btnCloseComplaint.TranslateTo(0, -120, 70);
                 }
                 else
                 {
-                    await Btn3.TranslateTo(0, 0, 70);
-                    await Btn3.RotateTo(360, 70);
-
-                    await Btn2.TranslateTo(0, 0, 70);
-                    await Btn2.RotateTo(360, 70);
+                    await btnCloseComplaint.TranslateTo(0, 0, 70);
+                    await btnReplay.TranslateTo(0, 0, 70);
                 }
             }
-            else if (ClickedButton == Btn2)
+            else if (ClickedButton == btnReplay)
             {
                 var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
                 await Navigation.PushModalAsync(NewComplaintReplyPage);
-                NewComplaintReplyPage.ReplaySentEvent += () => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();  };
+                NewComplaintReplyPage.ReplaySentEvent += (int id) => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
             }
             else
-                await Navigation.PushModalAsync(new CloseComplaintPage());
+            {
+                var CloseComplaintPage = new CloseComplaintPage(Complaint);
+                await Navigation.PushModalAsync(CloseComplaintPage);
+                CloseComplaintPage.ComplaintClosed += (int id) => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+            }
         }
 
         private void DisplayData(Models.ComplaintModel Complaint)

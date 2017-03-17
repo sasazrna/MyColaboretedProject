@@ -34,7 +34,7 @@ namespace PrigovorHR
 
         private void SetMainPage()
         {
-            MainPage = new NavigationPage(new NewComplaintPage())
+            MainPage = new NavigationPage(new LandingPage())
             {
                 BarBackgroundColor = Color.FromHex("#7dbbe6"),
                 BarTextColor = Color.Black

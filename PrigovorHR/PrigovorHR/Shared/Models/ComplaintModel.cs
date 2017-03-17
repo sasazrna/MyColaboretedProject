@@ -9,6 +9,8 @@ namespace PrigovorHR.Shared.Models
     public class ComplaintModel
     {
         public static RootComplaintModel RefToAllComplaints;
+        public enum TypeOfComplaint { Active = 1, Closed = 2, Draft = 3, Unsent = 4 }
+        public TypeOfComplaint typeOfComplaint { get; set; }
 
         public int id { get; set; }
         public string created_at { get; set; }
@@ -20,6 +22,9 @@ namespace PrigovorHR.Shared.Models
         public string problem_occurred { get; set; }//??
         public string suggestion { get; set; }
         public string last_event { get; set; }
+
+        public string lat { get; set; }
+      //  public string long
         public List<ComplaintAttachmentModel> attachments { get; set; }
         public CompanyElementModel element { get; set; }
         public IList<ComplaintReplyModel> replies { get; set; }
@@ -54,6 +59,8 @@ namespace PrigovorHR.Shared.Models
         {
             public bool QuickComplaint { get; set; } = false;
             public int element_id { get; set; }
+            public int complaint_id { get; set; }
+            public string element_slug { get; set; }
             public string ElementName { get; set; }
             public string complaint { get; set; }
             public string problem_occurred { get; set; }

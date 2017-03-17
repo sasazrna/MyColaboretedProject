@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,84 +14,45 @@ namespace PrigovorHR.Shared.Pages
 
     public partial class CloseComplaintPage
     {
-        private Controllers.TAPController TAPController;
-        private View[] AllEvaluationsStars;
-        private Dictionary<View, int> StoredEvaluationGrades = new Dictionary<View, int>();
-        private const string StarFont = "\xf005";
+        private Models.ComplaintModel Complaint;
+        public delegate void ComplaintClosedHandler(int id);
+        public event ComplaintClosedHandler ComplaintClosed;
 
-        public CloseComplaintPage()
+        public CloseComplaintPage(Models.ComplaintModel complaint)
         {
             InitializeComponent();
-
-
-            //imgStar.Text = Views.FontAwesomeLabel.Images.FAStar;
-            //imgStar.TextColor = Color.FromHex("#FF7e65");
-            //imgReset.Text = Views.FontAwesomeLabel.Images.FABan;
-            //imgReset.TextColor = Color.FromHex("#FF7e65");
-
-
-            AllEvaluationsStars = AnswerEvaluationLayout.Children.Concat(
-                                                                        SpeedEvaluationLayout.Children.Concat(
-                                                                        CommunicationEvaluationLayout.Children))
-                                                                 .ToArray();
-
-            foreach (var star in AllEvaluationsStars.Cast<Views.FontAwesomeLabel>())
-            {
-                star.TextColor = Color.Gray;
-                star.Text = Views.FontAwesomeLabel.Images.FAStar;
-            }
-
-            Reset3.Text= Views.FontAwesomeLabel.Images.FABan;
-            Reset2.Text = Views.FontAwesomeLabel.Images.FABan;
-            Reset1.Text = Views.FontAwesomeLabel.Images.FABan;
-          
-            TAPController = new Controllers.TAPController( AllEvaluationsStars);
-            TAPController.SingleTaped += TAPController_SingleTaped;
+            Complaint = complaint;
+            btnZatvoriPrigovor.Clicked += BtnZatvoriPrigovor_Clicked;
         }
 
-        private void TAPController_SingleTaped(string viewId, View view)
+        private async void BtnZatvoriPrigovor_Clicked(object sender, EventArgs e)
         {
-            ColorTheStar(view);
-        }
-
-        private void ColorTheStar(View SelectedEvaluationStar)
-        {
-            var StarParent = (StackLayout)SelectedEvaluationStar.Parent;
-            int StarValue = 0;
-            bool StarIsFound = false;
-            bool ResetStars = SelectedEvaluationStar == StarParent.Children.First();
-
-            if (ResetStars)
-                StoredEvaluationGrades.Remove(StarParent);
-
-            foreach (var EvaluationStar in StarParent.Children.Where(child => child != StarParent.Children.First()).Cast<Views.FontAwesomeLabel>())
+            if (ComplaintEvaluationView.StoredEvaluationGrades.Count == 3)
             {
-                if (ResetStars)
+                var CloseComplaintData = new
                 {
-                    EvaluationStar.TextColor = Color.Gray;
-                    continue;
-                }
+                    satisfaction = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[0],
+                    speed = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[1],
+                    communication_level_user = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[2],
+                    message=editorLastMessage.Text,
+                    complaint_id = Complaint.id
+                };
 
-                if (EvaluationStar != SelectedEvaluationStar & !StarIsFound)
+                if (await DataExchangeServices.CloseComplaint(JsonConvert.SerializeObject(CloseComplaintData)))
                 {
-                    StarValue++;
-                    EvaluationStar.TextColor = Color.Orange;
+                    Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaš prigovor je uspješno zatvoren!", 3500);
+                    await Task.Delay(3500);
+                    await Navigation.PopModalAsync(true);
+                    ComplaintClosed?.Invoke(Complaint.id);
                 }
                 else
                 {
-                    if (!StarIsFound)
-                    {
-                        StarIsFound = true;
-                        StarValue++;
-                        EvaluationStar.TextColor = Color.Orange;
-
-                        if (!StoredEvaluationGrades.ContainsKey(StarParent))
-                            StoredEvaluationGrades.Add(StarParent, StarValue);
-                        else
-                            StoredEvaluationGrades[StarParent] = StarValue;
-                    }
-                    else EvaluationStar.TextColor = Color.Gray;
+                    Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom zatvaranja prigovora!" + System.Environment.NewLine + "Pokušajte ponovno", "Greška", "OK");
                 }
+            }
+            else
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Molimo vas, prije zatvaranja prigovora ocijenite rješenje vašeg prigovora!", "Prigovor.hr", "OK");
             }
         }
     }

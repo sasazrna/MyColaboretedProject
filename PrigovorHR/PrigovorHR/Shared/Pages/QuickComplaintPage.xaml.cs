@@ -21,7 +21,6 @@ namespace PrigovorHR.Shared.Pages
         private string PhotoName = string.Empty;
         internal event Controllers.EventHandlers.ComplaintSentHandler ComplaintSentEvent;
 
-
         public QuickComplaintPage(Models.CompanyElementModel _CompanyElement=null, Models.ComplaintModel.WriteNewComplaintModel _WriteNewComplaintModel=null)
         {
             InitializeComponent();

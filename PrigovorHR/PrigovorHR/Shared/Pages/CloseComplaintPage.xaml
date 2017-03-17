@@ -6,7 +6,7 @@
              x:Class="PrigovorHR.Shared.Pages.CloseComplaintPage">
 
     <StackLayout>
-        <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
+        <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
         <ScrollView>
             <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand"  >
                 <Label Text="Zahvaljujemo na Vašem angažmanu i želji da unaprijedite našu uslugu." FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
@@ -14,41 +14,14 @@
                 <Label Text="Želite li ocjeniti komunikaciju?" FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 20"/>
 
                 <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
-                <Label Text="Zadovoljstvo odgovorom" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 10" />
-
-                <StackLayout x:Name="AnswerEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">
-                    <Views:FontAwesomeLabel x:Name="Reset1" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"  ></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                </StackLayout>
-
-                <Label Text="Brzina rješavanja" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 25, 0, 10" />
-                <StackLayout x:Name="SpeedEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">
-                    <Views:FontAwesomeLabel x:Name="Reset2" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                </StackLayout>
-
-                <Label Text="Komunikacija" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 25, 0, 10" />
-
-                <StackLayout x:Name="CommunicationEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">
-                    <Views:FontAwesomeLabel x:Name="Reset3" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                    <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-                </StackLayout>
-
-                <StackLayout>
-                    <!--<Editor x:Name="entryLastMessage" Placeholder="Navedite razlog zatvaranja ili dodajte komentar za kraj" PlaceholderColor="Silver">
-                    </Editor>-->
+             
+                <Views:ComplaintEvaluationView x:Name="ComplaintEvaluationView">
+                </Views:ComplaintEvaluationView>
+                
+                    <StackLayout>
+                    <Label Text="Navedite razlog zatvaranja ili nam ostavite komentar" FontSize="Small"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
+                    <Editor x:Name="editorLastMessage">
+                    </Editor>
                 </StackLayout>
                 <Button x:Name="btnZatvoriPrigovor" Text="ZATVORI PRIGOVOR"  TextColor="White" VerticalOptions="EndAndExpand" BackgroundColor="#FF7e65"/>
 

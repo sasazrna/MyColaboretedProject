@@ -14,7 +14,7 @@ namespace PrigovorHR.Shared.Views
     public partial class ComplaintListTabView 
     {
         public static ComplaintListTabView ReferenceToView;
-        public enum Tabs { ActiveComplaints, ClosedComplaints, StoredComplaints, UnsentComplaints }
+        public enum Tabs { ActiveComplaints=1, ClosedComplaints=2, DraftComplaints=3, UnsentComplaints=4 }
         private Dictionary<FontAwesomeLabel, Tabs> LabelsToTabsConnection;
         private Tabs SelectedTab { get; set; }
 
@@ -41,7 +41,7 @@ namespace PrigovorHR.Shared.Views
 
             LabelsToTabsConnection = new Dictionary<FontAwesomeLabel, Tabs>() { { lblActiveComplaints, Tabs.ActiveComplaints },
                                                                                 { lblClosedComplaints, Tabs.ClosedComplaints },
-                                                                                { lblStoredComplaints, Tabs.StoredComplaints },
+                                                                                { lblStoredComplaints, Tabs.DraftComplaints },
                                                                                 { lblUnsentComplaints, Tabs.UnsentComplaints } };
         }
 

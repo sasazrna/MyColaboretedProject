@@ -22,6 +22,12 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
 
+            if(Complaint.closed)
+            {
+                lytComplaintEvaluationLayout.Children.Add(new ComplaintEvaluationView(Complaint));
+                lytComplaintEvaluationLayout.IsVisible = true;
+            }
+
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading();
             Task.Run(() => { Device.BeginInvokeOnMainThread(() => { DisplayData(Complaint); }); });
             lblOriginalComplaint_TextLong.IsVisible = true;
@@ -44,7 +50,7 @@ namespace PrigovorHR.Shared.Views
 
             lblProblemDateTime.Text = !string.IsNullOrEmpty(Complaint.problem_occurred) ? DateTime.Parse(Complaint.problem_occurred).ToString() : "nedefinirano";
             lblComplaintDateTime.Text = DateTime.Parse( Complaint.created_at).ToString();
-            lytLine.IsVisible = false;// !LastReplyId.HasValue;
+            //lytLine.IsVisible = false;// !LastReplyId.HasValue;
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 

@@ -48,7 +48,7 @@
         </ContentView>
 
         <fab:FloatingActionButton
-   x:Name="Btn3"
+   x:Name="btnCloseComplaint"
    NormalColor="#FF7e65"
    RippleColor="Blue"
    Size="Normal"
@@ -64,7 +64,7 @@
                                                               Constant=-75}"/>
 
         <fab:FloatingActionButton
-        x:Name="Btn2"
+        x:Name="btnReplay"
         NormalColor="#FF7e65"
         RippleColor="Blue"
         Size="Normal"

@@ -17,39 +17,101 @@ namespace PrigovorHR.Shared.Pages
         private Controllers.TAPController TAPController;
         private double Latitude, Longitude;
         private Models.ComplaintModel Complaint;
-        //  internal event Controllers.EventHandlers.ComplaintSentHandler ComplaintSentEvent;
-        public delegate void ReplySentHandler();
+        public delegate void ReplySentHandler(int id);
         public event ReplySentHandler ReplaySentEvent;
+        private Models.ComplaintModel.WriteNewComplaintModel WriteNewComplaintModel;
 
-        public NewComplaintReplyPage(Models.ComplaintModel complaint)
+        public NewComplaintReplyPage(Models.ComplaintModel complaint, Models.ComplaintModel.WriteNewComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
             Complaint = complaint;
 
-            imgAttachDocs.Text = '\uf1c1'.ToString();
-            imgAttachDocs.TextColor = Color.Gray;
+                WriteNewComplaintModel = _WriteNewComplaintModel;
 
-            imgTakePhoto.Text = '\uf030'.ToString();
-            imgTakePhoto.TextColor = Color.Gray;
+                if (WriteNewComplaintModel == null)
+                {
+                    WriteNewComplaintModel = new Models.ComplaintModel.WriteNewComplaintModel();
+                    WriteNewComplaintModel.QuickComplaint = false;
+                    WriteNewComplaintModel.element_id = complaint.element_id;
+                    WriteNewComplaintModel.complaint_id = complaint.id;
+                    WriteNewComplaintModel.element_slug = complaint.element.slug;
+                }
+                else
+                {
+                    foreach (var Attachment in WriteNewComplaintModel.attachments ?? new List<Models.ComplaintModel.ComplaintAttachmentModel>())
+                    {
+                        var AttachmentView = new AttachmentView(true, 0, 0, Attachment.attachment_url, true, Convert.FromBase64String(Attachment.attachment_data));
+                        lytAttachments.Children.Add(AttachmentView);
+                        AttachmentView.AutomationId = Attachment.attachment_mime;
 
-            imgTakeGPSLocation.Text = '\uf041'.ToString();
-            imgTakeGPSLocation.TextColor = Color.Gray;
+                        AttachmentView.AttachmentDeletedEvent += (View v) =>
+                        {
+                            lytAttachments.Children.Remove(v);
+                            WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.AutomationId.ToString()));
+                        };
+                    }
 
-            btnSendReply.TranslateTo(0, -60, 0);
-            ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                          Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
-                          "nepoznato", Complaint.element.name);
+                    Complaint.complaint = WriteNewComplaintModel.complaint;
+                    editReplyText.Text = complaint.complaint;
+                }
 
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto);
-            btnSaveReply.Clicked += BtnSaveReply_Clicked;
-            btnSendReply.Clicked += BtnSendReply_Clicked;
-            TAPController.SingleTaped += TAPController_SingleTaped;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+                ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
+                           Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
+                           "nepoznato", Complaint.element.name);
+
+                btnSendReply.TranslateTo(0, -60, 0);
+
+                imgAttachDocs.Text = '\uf1c1'.ToString();
+                imgAttachDocs.TextColor = Color.Gray;
+
+                imgTakePhoto.Text = '\uf030'.ToString();
+                imgTakePhoto.TextColor = Color.Gray;
+
+                imgTakeGPSLocation.Text = '\uf041'.ToString();
+                imgTakeGPSLocation.TextColor = Color.Gray;
+
+                TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto);
+                btnSaveReply.Clicked += BtnSaveReply_Clicked;
+                btnSendReply.Clicked += BtnSendReply_Clicked;
+
+                TAPController.SingleTaped += TAPController_SingleTaped;
+                NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+                editReplyText.TextChanged += EditReplyText_TextChanged;
         }
 
-        private async void BtnSendReply_Clicked(object sender, EventArgs e)
+        private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(editReplyText.Text.Length<20)
+            WriteNewComplaintModel.complaint = editReplyText.Text;
+            SaveToDevice();
+        }
+
+        private void SaveToDevice()
+        {
+            Application.Current.Properties.Remove("WriteComplaintAutoSave");
+            Application.Current.Properties.Add("WriteComplaintAutoSave", JsonConvert.SerializeObject(WriteNewComplaintModel));
+            Application.Current.SavePropertiesAsync();
+        }
+
+        private void BtnSendReply_Clicked(object sender, EventArgs e)
+        {
+            if (Complaint.closed)
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Confirm(new Acr.UserDialogs.ConfirmConfig()
+                {
+                    Message = "Ovaj prigovor je zatvoren, slanjem vašeg odgovora će biti ponovno aktivan!" + Environment.NewLine +
+                              "Jeste li sigurni u aktiviranje ovog prigovora?",
+                    CancelText = "NE",
+                    OkText = "DA",
+                    Title = "Aktivacija prigovora",
+                    OnAction = (bool b) => { if (b) SendReply(); else return; }
+                });
+            }
+            else SendReply();
+        }
+
+        private async void SendReply()
+        {
+            if (editReplyText.Text.Length < 20)
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš odgovor treba biti duži od 20 znakova!", null, "OK");
                 return;
@@ -74,18 +136,17 @@ namespace PrigovorHR.Shared.Pages
              {
                  reply = editReplyText.Text,
                  complaint_id = Complaint.id,
-                 attachment_ids = attachment_ids
+                 attachment_ids = attachment_ids,
+                 close = false
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 
             if (!result.Contains("Error"))
             {
-                //await Rg.Plugins.Popup.Services.PopupNavigation.PopAsync(true);
-                //Application.Current.Properties.Remove("WriteComplaintAutoSave");
-                //await Application.Current.SavePropertiesAsync();
-
+                Application.Current.Properties.Remove("WriteComplaintAutoSave");
+                await Application.Current.SavePropertiesAsync();
                 var ComplaintSentPage = new ComplaintSentPage(Complaint.element.root_business.complaint_received_message, false);
-                ComplaintSentPage._PageClosed += (() => { Navigation.PopModalAsync(); ReplaySentEvent?.Invoke(); });
+                ComplaintSentPage._PageClosed += (() => { Navigation.PopModalAsync(); ReplaySentEvent?.Invoke(0); });
                 await Navigation.PushModalAsync(ComplaintSentPage);
                 return;
             }
@@ -97,11 +158,14 @@ namespace PrigovorHR.Shared.Pages
 
         private void BtnSaveReply_Clicked(object sender, EventArgs e)
         {
-        }
 
+        }
 
         private async void TAPController_SingleTaped(string viewId, View view)
         {
+            if (WriteNewComplaintModel.attachments == null)
+                WriteNewComplaintModel.attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>();
+
             if (view == imgAttachDocs)
             {
                 var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
@@ -109,7 +173,19 @@ namespace PrigovorHR.Shared.Pages
                 {
                     var AttachmentView = new AttachmentView(false, 0, 0, Picker.FileName, true, Picker.DataArray);
                     lytAttachments.Children.Add(AttachmentView);
-                    AttachmentView.AttachmentDeletedEvent += (View v) => { lytAttachments.Children.Remove(v); };
+
+                    AttachmentView.AttachmentDeletedEvent += (View v) =>
+                    {
+                        lytAttachments.Children.Remove(v);
+                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.Id.ToString()));
+                    };
+
+                    WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
+                    {
+                        attachment_data = Convert.ToBase64String(Picker.DataArray),
+                        attachment_extension = Picker.FileName.Substring(Picker.FileName.LastIndexOf(".")),
+                        attachment_url = Picker.FileName, attachment_mime = AttachmentView.Id.ToString()
+                    });
                 }
             }
             else if (view == imgTakePhoto)
@@ -122,7 +198,20 @@ namespace PrigovorHR.Shared.Pages
                     var PhotoName = photo.Path.Substring(photo.Path.LastIndexOf("/") + 1);
                     var AttachmentView = new AttachmentView(false, 0, 0, PhotoName, true, MS.ToArray());
                     lytAttachments.Children.Add(AttachmentView);
-                    AttachmentView.AttachmentDeletedEvent += (View v) => { lytAttachments.Children.Remove(v); };
+
+                    AttachmentView.AttachmentDeletedEvent += (View v) =>
+                    {
+                        lytAttachments.Children.Remove(v);
+                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.Id.ToString()));
+                    };
+
+                    WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
+                    {
+                        attachment_data =  Convert.ToBase64String(MS.ToArray()),
+                        attachment_extension = PhotoName.Substring(PhotoName.LastIndexOf(".")),
+                        attachment_url = PhotoName,
+                        attachment_mime = AttachmentView.Id.ToString()
+                    });
                 }
             }
             else if (view == imgTakeGPSLocation)
@@ -150,6 +239,7 @@ namespace PrigovorHR.Shared.Pages
                     imgTakeGPSLocation.BackgroundColor = Color.Gray;
                 }
             }
+            SaveToDevice();
         }
 
         protected override bool OnBackButtonPressed()
@@ -175,6 +265,9 @@ namespace PrigovorHR.Shared.Pages
                     });
             }
             else await Navigation.PopModalAsync(true);
+
+            Application.Current.Properties.Remove("WriteComplaintAutoSave");
+            await Application.Current.SavePropertiesAsync();
         }
     }
 }

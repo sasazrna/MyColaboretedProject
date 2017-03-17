@@ -32,11 +32,6 @@
                 </StackLayout>
             </StackLayout >
 
-            <StackLayout x:Name="lytSuggestion"  Orientation="Vertical" HorizontalOptions="FillAndExpand" IsVisible="False">
-                <Label Text="SUGESTIJA" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Start" TextColor="#FF7e65" Margin="0,15,0,0" />
-                <Label x:Name="lblSuggestion" Text="text sugestije" FontSize="Small" HorizontalOptions="Start" TextColor="Black"   />
-            </StackLayout>
-
             <StackLayout x:Name="lytAttachmentsLayout">
                 <views:AttachmentView></views:AttachmentView>
             </StackLayout>
@@ -50,6 +45,17 @@
                     <Label Text="Vrijeme prijave"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
                     <Label x:Name="lblComplaintDateTime" Text="24/08/2016 22:11" FontSize="Small" TextColor="Silver" HorizontalOptions = "End"/>
                 </StackLayout>
+            </StackLayout>
+
+            <StackLayout x:Name="lytSuggestion"  Orientation="Vertical" HorizontalOptions="FillAndExpand" IsVisible="False">
+                <Label Text="SUGESTIJA" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Start" TextColor="#FF7e65" Margin="0,15,0,0" />
+                <Label x:Name="lblSuggestion" Text="text sugestije" FontSize="Small" HorizontalOptions="Start" TextColor="Black"   />
+            </StackLayout>
+            
+            <StackLayout x:Name="lytComplaintEvaluationLayout" IsVisible="False">
+                <!--<views:ComplaintEvaluationView>
+                    
+                </views:ComplaintEvaluationView>-->
             </StackLayout>
             <StackLayout x:Name="lytLine" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand"></StackLayout>
         </StackLayout>

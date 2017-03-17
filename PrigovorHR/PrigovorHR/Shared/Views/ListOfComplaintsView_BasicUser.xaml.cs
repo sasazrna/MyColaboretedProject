@@ -26,7 +26,7 @@ namespace PrigovorHR.Shared.Views
         private bool AllComplaintsVisible = false;
         private Dictionary<ComplaintListTabView.Tabs, StackLayout> Layouts = new Dictionary<ComplaintListTabView.Tabs, StackLayout>();
         private StackLayout VisibleLayout;
-
+        private ComplaintListTabView.Tabs SelectedTab;
         public ListOfComplaintsView_BasicUser()
         {
             InitializeComponent();
@@ -42,20 +42,24 @@ namespace PrigovorHR.Shared.Views
             DisplayedComplaints.Add(lytUnsentComplaints.Id.ToString(), 0);
             Layouts.Add(ComplaintListTabView.Tabs.ActiveComplaints, lytActiveComplaints);
             Layouts.Add(ComplaintListTabView.Tabs.ClosedComplaints, lytClosedComplaints);
-            Layouts.Add(ComplaintListTabView.Tabs.StoredComplaints, lytStoredComplaints);
+            Layouts.Add(ComplaintListTabView.Tabs.DraftComplaints, lytStoredComplaints);
             Layouts.Add(ComplaintListTabView.Tabs.UnsentComplaints, lytUnsentComplaints);
+            SelectedTab = ComplaintListTabView.Tabs.ActiveComplaints;
             VisibleLayout = Layouts[ComplaintListTabView.Tabs.ActiveComplaints];
             LoadComplaints();
             scrview.Scrolled += Scrview_Scrolled;
             ReferenceToView = this;
         }
 
-        public void ChangeVisibleLayout(ComplaintListTabView.Tabs SelectedTab)
+        public void ChangeVisibleLayout(ComplaintListTabView.Tabs selectedTab)
         {
-            VisibleLayout = Layouts[SelectedTab];
+            SelectedTab = selectedTab;
+            VisibleLayout = Layouts[selectedTab];
             VisibleLayout.IsVisible = true;
-            foreach (var Layout in Layouts.Where(l => l.Key != SelectedTab))
+            foreach (var Layout in Layouts.Where(l => l.Key != selectedTab))
                 Layout.Value.IsVisible = false;
+
+            DisplayData();
         }
 
         private void Scrview_Scrolled(object sender, ScrolledEventArgs e)
@@ -69,14 +73,17 @@ namespace PrigovorHR.Shared.Views
 
         private void CalculateMaximumScroll()
         {
-            new Task(async () =>
+            if (VisibleLayout.Children.Any())
             {
-                scrview.Scrolled -= Scrview_Scrolled;
-                await scrview.ScrollToAsync(VisibleLayout.Children.Last(), ScrollToPosition.Start, false);
-                CurrentMaximumScrollValue = scrview.ScrollY;
-                await scrview.ScrollToAsync(VisibleLayout.Children.First(), ScrollToPosition.Start, false);
-                scrview.Scrolled += Scrview_Scrolled;
-            }).RunSynchronously();
+                new Task(async () =>
+                {
+                    scrview.Scrolled -= Scrview_Scrolled;
+                    await scrview.ScrollToAsync(VisibleLayout.Children.LastOrDefault(), ScrollToPosition.Start, false);
+                    CurrentMaximumScrollValue = scrview.ScrollY;
+                    await scrview.ScrollToAsync(VisibleLayout.Children.FirstOrDefault(), ScrollToPosition.Start, false);
+                    scrview.Scrolled += Scrview_Scrolled;
+                }).RunSynchronously();
+            }
         }
 
         public void LoadComplaints()
@@ -128,17 +135,20 @@ namespace PrigovorHR.Shared.Views
 
             if (VisibleLayout == lytClosedComplaints | VisibleLayout == lytActiveComplaints)
             {
-                if (displayedComplaints != _DataSource.user?.complaints.Count - 1 | displayedComplaints == 0)
+               var MaxOfVisibleComplaints = _DataSource.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
+                if (displayedComplaints != MaxOfVisibleComplaints | displayedComplaints == 0)
                 {
                     foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
                                                                .Where(c => c.closed == ClosedComplaintsVisible)
                                                                .Skip(displayedComplaints)
                                                                .Take(MaximumDisplayedComplaintsPerRequest))
                     {
+                        Complaint.typeOfComplaint = 
+                            (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
                         var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
                         VisibleLayout.Children.Add(ComplaintListView);
                         displayedComplaints++;
-                        AllComplaintsVisible = displayedComplaints >= _DataSource.user?.complaints.Count - 1;
+                        AllComplaintsVisible = displayedComplaints >= MaxOfVisibleComplaints;
                     }
 
                     DisplayedComplaints[VisibleLayout.Id.ToString()] = displayedComplaints;

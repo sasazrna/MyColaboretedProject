@@ -137,8 +137,16 @@ namespace PrigovorHR.Shared
 
         public static async Task<bool> SendExceptionData(string jsonvalue)
         {
-            return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendExceptionData, jsonvalue) != "Error:";
+            var ResultData = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.SendExceptionData, jsonvalue);
+            return !ResultData.Contains("Error:");
         }
+
+        public static async Task<bool> CloseComplaint(string jsonvalue)
+        {
+            var ResultData = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.CloseComplaint, jsonvalue);
+            return !ResultData.Contains("Error:");
+        }
+
         /// <summary>
         /// Private class that handles all the communications and returns result to root dataexchangeservices class
         /// </summary>
@@ -167,7 +175,8 @@ namespace PrigovorHR.Shared
                 GetComplaintAttachmentData,
                 GetReplyAttachmentData,
                 GetCompanyElementData,
-                SendExceptionData
+                SendExceptionData,
+                CloseComplaint,
             };
 
 
@@ -190,7 +199,8 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.GetComplaintAttachmentData, "prilozi/" },
                                                           { ServiceCommands.GetReplyAttachmentData, "odgovor-prilozi/" },
                                                           { ServiceCommands.GetCompanyElementData, "prigovori/" },
-                                                          { ServiceCommands.SendExceptionData, "xamarin-exceptions"} };
+                                                          { ServiceCommands.SendExceptionData, "xamarin-exceptions"} ,
+                                                          { ServiceCommands.CloseComplaint, "prigovor/zatvori/" } };
 
 
 

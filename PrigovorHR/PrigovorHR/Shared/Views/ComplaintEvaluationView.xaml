@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
+             x:Class="PrigovorHR.Shared.Views.ComplaintEvaluationView">
+    
+  <ContentView.Content>
+        <StackLayout>
+            <Label Text="Zadovoljstvo odgovorom" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 10" />
+       
+            <StackLayout x:Name="SatisfactionEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">
+            <Views:FontAwesomeLabel x:Name="Reset1" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"  ></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+        </StackLayout>
+
+        <Label Text="Brzina rješavanja" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 25, 0, 10" />
+        <StackLayout x:Name="SpeedEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">
+            <Views:FontAwesomeLabel x:Name="Reset2" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+        </StackLayout>
+
+        <Label Text="Komunikacija" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 25, 0, 10" />
+
+            <StackLayout x:Name="CommunicationEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">
+                <Views:FontAwesomeLabel x:Name="Reset3" FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,10,0"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

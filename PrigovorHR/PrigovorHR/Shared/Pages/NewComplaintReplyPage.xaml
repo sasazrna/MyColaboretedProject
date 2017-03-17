@@ -28,14 +28,7 @@
                             </StackLayout>
                         </StackLayout>
 
-                        <StackLayout x:Name="lytAttachments" HorizontalOptions="FillAndExpand">
-                            <!--<views:AttachmentView></views:AttachmentView>
-                    -->
-                            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                        <views:FontAwesomeLabel x:Name="dodani_pdf" FontSize="Micro" VerticalTextAlignment="Center" HorizontalOptions="Start" HorizontalTextAlignment="Center"></views:FontAwesomeLabel>
-                        <Label Text="nekik.pdf" FontSize="Small" HorizontalOptions="Start" HorizontalTextAlignment="Start" TextColor="Blue"></Label>
-                    </StackLayout>-->
-                        </StackLayout>
+                        <StackLayout x:Name="lytAttachments"></StackLayout>
                     </StackLayout>
                 </ScrollView>
             </StackLayout>

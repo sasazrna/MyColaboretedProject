@@ -19,6 +19,7 @@ namespace PrigovorHR.Shared.Views
         private ComplaintModel Complaint;
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public bool IsUnreaded = false;
+
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
@@ -49,6 +50,34 @@ namespace PrigovorHR.Shared.Views
                 "nepoznato" : "nepoznato";
 
             lblStoreName.Text = _Complaint.element.name;
+
+            if (Complaint.closed)
+            {
+                var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
+                if (Evaluation != null)
+                {
+                    var Grades = new List<int>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed };
+                    var AverageGrade = Grades.Average();
+
+                    int starId = 0;
+                    bool IsDecimal = Grades.Average() != Convert.ToInt32(AverageGrade);
+                    bool First = false;
+                    foreach (var star in lytEvaluationLayout.Children.Cast<FontAwesomeLabel>())
+                    {
+                        bool IsGradeBiggerThanStar = ++starId <= AverageGrade;
+                        star.TextColor = IsGradeBiggerThanStar ? Color.Orange : Color.Gray;
+
+                        if (!First & IsGradeBiggerThanStar & IsDecimal)
+                        {
+                            star.Text = FontAwesomeLabel.Images.FAStarHalf;
+                            First = true;
+                        }
+                        else star.Text = FontAwesomeLabel.Images.FAStar;
+                    }
+                    lytEvaluationLayout.IsVisible = true;
+                }
+            }
+
             TAPController = new Controllers.TAPController(this.Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
         }
