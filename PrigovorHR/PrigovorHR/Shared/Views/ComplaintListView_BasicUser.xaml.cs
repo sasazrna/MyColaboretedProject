@@ -25,23 +25,25 @@ namespace PrigovorHR.Shared.Views
             InitializeComponent();
         }
 
-        public ComplaintListView_BasicUser(ComplaintModel _Complaint)
+        public ComplaintListView_BasicUser(ComplaintModel complaint)
         {
             InitializeComponent();
             this.BackgroundColor = Color.White.WithLuminosity(1);
-             var Reply = _Complaint.replies.LastOrDefault();
-            Complaint = _Complaint;
+             var Reply = complaint.replies.LastOrDefault();
+            Complaint = complaint;
+            var ClosedComplaintMessage = Complaint.complaint_events?.LastOrDefault(ce=>ce.closed)?.message;
 
-            lblShortComplaint.Text = Reply == null ? _Complaint.complaint :  Reply.reply;
+            lblShortComplaint.Text = Complaint.closed & !string.IsNullOrEmpty(ClosedComplaintMessage) ? ClosedComplaintMessage :
+                                      Reply == null ? Complaint.complaint : Reply.reply;
 
-            var LastResponse = Reply == null ? DateTime.Parse(_Complaint.updated_at) : DateTime.Parse(Reply.updated_at);
+            var LastResponse = Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);
 
             if (LastResponse.Date == DateTime.Now.Date)
                 lblComplaintResponseDate.Text = LastResponse.ToString().Substring(0, LastResponse.ToString().LastIndexOf(":"));
             else
                 lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
 
-            IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == _Complaint.id);
+            IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
             lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
 
             lblNameOfContactPerson.Text =
@@ -49,28 +51,31 @@ namespace PrigovorHR.Shared.Views
                 Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? 
                 "nepoznato" : "nepoznato";
 
-            lblStoreName.Text = _Complaint.element.name;
+            lblStoreName.Text = complaint.element.name;
 
             if (Complaint.closed)
             {
+                var reviews = ComplaintModel.RefToAllComplaints.user.element_reviews.ToList();
                 var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
                 if (Evaluation != null)
                 {
                     var Grades = new List<int>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed };
-                    var AverageGrade = Grades.Average();
+                    double SumOfGrades = Grades[0] + Grades[1] + Grades[2] - 1;
+                    var AverageGrade = Convert.ToDouble(SumOfGrades / 3D);
 
                     int starId = 0;
-                    bool IsDecimal = Grades.Average() != Convert.ToInt32(AverageGrade);
+                    bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);
                     bool First = false;
                     foreach (var star in lytEvaluationLayout.Children.Cast<FontAwesomeLabel>())
                     {
                         bool IsGradeBiggerThanStar = ++starId <= AverageGrade;
                         star.TextColor = IsGradeBiggerThanStar ? Color.Orange : Color.Gray;
 
-                        if (!First & IsGradeBiggerThanStar & IsDecimal)
+                        if (!First & !IsGradeBiggerThanStar & IsDecimal)
                         {
-                            star.Text = FontAwesomeLabel.Images.FAStarHalf;
                             First = true;
+                            star.Text = FontAwesomeLabel.Images.FAStarHalfO;
+                            star.TextColor = Color.Orange;
                         }
                         else star.Text = FontAwesomeLabel.Images.FAStar;
                     }

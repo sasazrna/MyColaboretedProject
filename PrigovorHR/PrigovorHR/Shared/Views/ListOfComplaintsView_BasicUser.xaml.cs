@@ -99,7 +99,7 @@ namespace PrigovorHR.Shared.Views
             try
             {
                 DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
-
+                var Json = await DataExchangeServices.GetMyComplaints();
                 DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                     (await DataExchangeServices.GetMyComplaints());
             }

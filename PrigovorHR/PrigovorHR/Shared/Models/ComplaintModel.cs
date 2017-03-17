@@ -22,7 +22,7 @@ namespace PrigovorHR.Shared.Models
         public string problem_occurred { get; set; }//??
         public string suggestion { get; set; }
         public string last_event { get; set; }
-
+        public List<ComplaintEvent> complaint_events { get; set; }
         public string lat { get; set; }
       //  public string long
         public List<ComplaintAttachmentModel> attachments { get; set; }
@@ -53,6 +53,19 @@ namespace PrigovorHR.Shared.Models
             public string attachment_extension { get; set; }
             public string attachment_mime { get; set; }
             public string attachment_data { get; set; }
+        }
+
+        public class ComplaintEvent
+        {
+            public int id { get; set; }
+            public string created_at { get; set; }
+            public string updated_at { get; set; }
+            public bool opened { get; set; }
+            public bool closed { get; set; }
+            public int user_id { get; set; }
+            public int complaint_id { get; set; }
+            public string message { get; set; }
+            public int? reply_id { get; set; }
         }
 
         public class WriteNewComplaintModel
