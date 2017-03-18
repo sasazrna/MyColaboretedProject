@@ -26,7 +26,7 @@ namespace PrigovorHR.Shared.Controllers
             OnScanResult += QRScannerController_OnScanResult;
         }
 
-        private async void QRScannerController_OnScanResult(ZXing.Result result)
+        private void QRScannerController_OnScanResult(ZXing.Result result)
         {
             //await Navigation.PopModalAsync(true);
             IsScanning = false;

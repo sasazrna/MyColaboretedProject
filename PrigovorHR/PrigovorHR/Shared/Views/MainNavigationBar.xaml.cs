@@ -85,20 +85,24 @@ namespace PrigovorHR.Shared.Views
             try
             {
                 await Navigation.PopModalAsync(true);
+                result = result.Substring(0, result.LastIndexOf("/"));
+                result = result.Remove(0, result.LastIndexOf("/") + 1);
+                var Result = await DataExchangeServices.GetCompanyElementData(result);
 
-                var Result = await DataExchangeServices.GetSearchResults(result);
-
-                if (Result == "Error:")
+                if (Result.Contains("Error:"))
                 {
                     Controllers.VibrationController.Vibrate();
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom pretraživanja!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Prigovor.HR", "OK");
                     return;
                 }
-     
-            var CompanyElement = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
-            if (CompanyElement.Count == 1)
-                await Navigation.PushAsync(new NewComplaintPage(), true);
-            else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
+
+                var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
+                if (CompanyElement != null)
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Navigation.PushModalAsync(new Pages.Company_ElementInfoPage(CompanyElement), true);
+                    });
+                else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
 
             }
             catch (Exception ex)

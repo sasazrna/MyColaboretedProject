@@ -19,9 +19,10 @@ namespace PrigovorHR.Shared.Pages
         private Models.ComplaintModel Complaint;
         public delegate void ReplySentHandler(int id);
         public event ReplySentHandler ReplaySentEvent;
-        private Models.ComplaintModel.WriteNewComplaintModel WriteNewComplaintModel;
+        private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel;
+        private Guid ComplaintDraftGuid;
 
-        public NewComplaintReplyPage(Models.ComplaintModel complaint, Models.ComplaintModel.WriteNewComplaintModel _WriteNewComplaintModel = null)
+        public NewComplaintReplyPage(Models.ComplaintModel complaint, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
             Complaint = complaint;
@@ -30,7 +31,7 @@ namespace PrigovorHR.Shared.Pages
 
                 if (WriteNewComplaintModel == null)
                 {
-                    WriteNewComplaintModel = new Models.ComplaintModel.WriteNewComplaintModel();
+                    WriteNewComplaintModel = new Models.ComplaintModel.DraftComplaintModel();
                     WriteNewComplaintModel.QuickComplaint = false;
                     WriteNewComplaintModel.element_id = complaint.element_id;
                     WriteNewComplaintModel.complaint_id = complaint.id;
@@ -152,13 +153,38 @@ namespace PrigovorHR.Shared.Pages
             }
             else
             {
-                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora!" + System.Environment.NewLine + "Provjerite vašu internet konekciju te kliknite ponovno za slanje", "Greška u slanju prigovora", "OK");
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora, moguće zbog internet konekcije" + Environment.NewLine + 
+                    "Vaš prigovor je spremljen na vašem mobitelu te će biti automatski poslan prvom prilikom", "Greška u slanju prigovora", "OK");
+                SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Unsent);
             }
+        }
+
+        private void SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType DraftType)
+        {
+            var DraftReply = new Models.ComplaintModel.ComplaintReplyModel()
+            {
+                attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>(),
+                reply = editReplyText.Text,
+                complaint_id = Complaint.id,
+                user_id = Controllers.LoginRegisterController.LoggedUser.id.Value
+            };
+
+            foreach (var Attachment in lytAttachments.Children.OfType<AttachmentView>().Cast<AttachmentView>())
+                DraftReply.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
+                {
+                    attachment_data = Convert.ToBase64String(Attachment.Data),
+                    attachment_url = Attachment.AttachmentFileName,
+                    complaint_reply_id = Complaint.id,
+                    user_id = Controllers.LoginRegisterController.LoggedUser.id.Value
+                });
+
+            ComplaintDraftGuid = Controllers.ComplaintDraftController.SaveDraft(null, DraftReply, ComplaintDraftGuid, Complaint.element.slug, DraftType);
         }
 
         private void BtnSaveReply_Clicked(object sender, EventArgs e)
         {
-
+            SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Draft);
+            Acr.UserDialogs.UserDialogs.Instance.Toast("Vaš odgovor je spremljen u skice", new TimeSpan(0, 0, 3));
         }
 
         private async void TAPController_SingleTaped(string viewId, View view)

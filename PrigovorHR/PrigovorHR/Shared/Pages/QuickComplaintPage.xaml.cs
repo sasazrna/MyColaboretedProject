@@ -16,12 +16,12 @@ namespace PrigovorHR.Shared.Pages
     public partial class QuickComplaintPage : PopupPage
     {
         private Controllers.TAPController _tapController;
-        private Models.ComplaintModel.WriteNewComplaintModel WriteNewComplaintModel = new Models.ComplaintModel.WriteNewComplaintModel();
+        private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel = new Models.ComplaintModel.DraftComplaintModel();
         private byte[] PhotoData;
         private string PhotoName = string.Empty;
         internal event Controllers.EventHandlers.ComplaintSentHandler ComplaintSentEvent;
 
-        public QuickComplaintPage(Models.CompanyElementModel _CompanyElement=null, Models.ComplaintModel.WriteNewComplaintModel _WriteNewComplaintModel=null)
+        public QuickComplaintPage(Models.CompanyElementModel _CompanyElement=null, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel=null)
         {
             InitializeComponent();
             _tapController = new Controllers.TAPController( _complaintLabel, _suggestionLabel);

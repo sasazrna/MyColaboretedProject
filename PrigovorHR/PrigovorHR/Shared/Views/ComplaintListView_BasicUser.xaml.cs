@@ -28,15 +28,15 @@ namespace PrigovorHR.Shared.Views
         public ComplaintListView_BasicUser(ComplaintModel complaint)
         {
             InitializeComponent();
-            this.BackgroundColor = Color.White.WithLuminosity(1);
-             var Reply = complaint.replies.LastOrDefault();
+            BackgroundColor = Color.White.WithLuminosity(1);
+            var Reply = complaint.replies?.LastOrDefault();
             Complaint = complaint;
             var ClosedComplaintMessage = Complaint.complaint_events?.LastOrDefault(ce=>ce.closed)?.message;
 
             lblShortComplaint.Text = Complaint.closed & !string.IsNullOrEmpty(ClosedComplaintMessage) ? ClosedComplaintMessage :
                                       Reply == null ? Complaint.complaint : Reply.reply;
 
-            var LastResponse = Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);
+            var LastResponse = Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);//updateat ne postoji kod skica.
 
             if (LastResponse.Date == DateTime.Now.Date)
                 lblComplaintResponseDate.Text = LastResponse.ToString().Substring(0, LastResponse.ToString().LastIndexOf(":"));
@@ -55,13 +55,11 @@ namespace PrigovorHR.Shared.Views
 
             if (Complaint.closed)
             {
-                var reviews = ComplaintModel.RefToAllComplaints.user.element_reviews.ToList();
                 var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
                 if (Evaluation != null)
                 {
-                    var Grades = new List<int>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed };
-                    double SumOfGrades = Grades[0] + Grades[1] + Grades[2] - 1;
-                    var AverageGrade = Convert.ToDouble(SumOfGrades / 3D);
+                    var Grades = new List<double>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed };
+                    var AverageGrade = Grades.Average();
 
                     int starId = 0;
                     bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);

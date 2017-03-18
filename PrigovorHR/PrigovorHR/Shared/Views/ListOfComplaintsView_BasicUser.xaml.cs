@@ -128,14 +128,14 @@ namespace PrigovorHR.Shared.Views
             }
         }
 
-        private void DisplayData()
+        private async void DisplayData()
         {
             var displayedComplaints = DisplayedComplaints[VisibleLayout.Id.ToString()];
             var ClosedComplaintsVisible = VisibleLayout == lytClosedComplaints;
 
             if (VisibleLayout == lytClosedComplaints | VisibleLayout == lytActiveComplaints)
             {
-               var MaxOfVisibleComplaints = _DataSource.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
+                var MaxOfVisibleComplaints = _DataSource.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
                 if (displayedComplaints != MaxOfVisibleComplaints | displayedComplaints == 0)
                 {
                     foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
@@ -143,7 +143,7 @@ namespace PrigovorHR.Shared.Views
                                                                .Skip(displayedComplaints)
                                                                .Take(MaximumDisplayedComplaintsPerRequest))
                     {
-                        Complaint.typeOfComplaint = 
+                        Complaint.typeOfComplaint =
                             (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
                         var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
                         VisibleLayout.Children.Add(ComplaintListView);
@@ -156,7 +156,22 @@ namespace PrigovorHR.Shared.Views
             }
             else
             {
-                //Load stored or 
+                foreach (var Draft in ComplaintDraftController.LoadDrafts())
+                {
+                    var Complaint = new Models.ComplaintModel();
+                    Complaint.attachments = Draft.attachments;
+                    Complaint.closed = false;
+                    Complaint.complaint = Draft.complaint;
+                    Complaint.id = Draft.complaint_id;
+                    Complaint.element = JsonConvert.DeserializeObject<CompanyElementRootModel>(await DataExchangeServices.GetCompanyElementData(Draft.element_slug)).element;
+                    Complaint.element_id = Complaint.element.id;
+                    Complaint.typeOfComplaint =
+                     (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
+                    Complaint.user_id = Draft.user_id;
+                    var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
+                    VisibleLayout.Children.Add(ComplaintListView);
+                }
+                AllComplaintsVisible = true;
             }
         }
     }

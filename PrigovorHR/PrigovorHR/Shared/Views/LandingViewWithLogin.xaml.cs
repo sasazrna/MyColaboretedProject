@@ -28,9 +28,9 @@ namespace PrigovorHR.Shared.Views
         private async void LoadComplaintAutoSaveData()
         {
             object objuser;
-            ComplaintModel.WriteNewComplaintModel WriteNewComplaintModel = null;
+            ComplaintModel.DraftComplaintModel WriteNewComplaintModel = null;
             if (Application.Current.Properties.TryGetValue("WriteComplaintAutoSave", out objuser))
-                WriteNewComplaintModel = JsonConvert.DeserializeObject<ComplaintModel.WriteNewComplaintModel>((string)objuser);
+                WriteNewComplaintModel = JsonConvert.DeserializeObject<ComplaintModel.DraftComplaintModel>((string)objuser);
 
             if (objuser != null)
             {

@@ -38,7 +38,7 @@ namespace PrigovorHR.Shared.Models
             public int user_id { get; set; }
             public string reply { get; set; }
             public int by_contact { get; set; }
-            public IList<ComplaintAttachmentModel> attachments { get; set; }
+            public List<ComplaintAttachmentModel> attachments { get; set; }
             public User user { get; set; }
         }
 
@@ -68,9 +68,15 @@ namespace PrigovorHR.Shared.Models
             public int? reply_id { get; set; }
         }
 
-        public class WriteNewComplaintModel
+        public class DraftComplaintModel
         {
+            public enum DraftType { AutoSave=1, Draft=2, Unsent=3 };
+            public DraftType draftType { get; set; }
+
+            private Guid draftguid;
+            public Guid DraftGuid { get { return draftguid; } set { value = new Guid(); draftguid = value; } }
             public bool QuickComplaint { get; set; } = false;
+            public int user_id { get; set; }
             public int element_id { get; set; }
             public int complaint_id { get; set; }
             public string element_slug { get; set; }
