@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" x:Class="PrigovorHR.Shared.Views.CompanyTabView">
+    <ContentView.Content>
+        <StackLayout Padding="5,0,5,5">
+
+
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                <!--<Views:FontAwesomeLabel x:Name="lblStore" FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"></Views:FontAwesomeLabel>-->
+                <Image Source="domain.png" x:Name="lblStore" HorizontalOptions="FillAndExpand" WidthRequest="20"></Image>
+                <Image Source="domain.png" x:Name="lblCompany" HorizontalOptions="FillAndExpand" WidthRequest="20"></Image>
+                <Image Source="domain.png" x:Name="lblOtherStores" HorizontalOptions="FillAndExpand" WidthRequest="20"></Image>
+                <!--<Views:FontAwesomeLabel x:Name="lblCompany" FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"></Views:FontAwesomeLabel>
+                <Views:FontAwesomeLabel x:Name="lblOtherStores" FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"></Views:FontAwesomeLabel>-->
+            </StackLayout>
+
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                    <StackLayout x:Name="StoreUnder" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                    <StackLayout x:Name="CompanyUnder" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                    <StackLayout x:Name="OtherStoresUnder" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </StackLayout>
+
+
+           
+
+
+
+        </StackLayout>
+
+    </ContentView.Content>
+</ContentView>

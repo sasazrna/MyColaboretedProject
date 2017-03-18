@@ -5,7 +5,7 @@
   <ContentView.Content>
     <Frame x:Name="frmTopBar" Padding="0" VerticalOptions="Start" >
       <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="White">
-        <Image x:Name="ImgBack" Source="arrow_right.png" WidthRequest="40" Rotation="180"></Image>
+        <Image x:Name="ImgBack" Source="arrowBetter.png" WidthRequest="40" Rotation="180"></Image>
         <StackLayout x:Name="imgLogoLayout" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="-60,0,0,0" IsVisible="True">
           <Image x:Name="imgLogo" Aspect="AspectFit" Scale="0.85" Source="LOGO.png" HorizontalOptions="CenterAndExpand" />
           <StackLayout Orientation="Vertical" VerticalOptions="Center">

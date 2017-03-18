@@ -22,7 +22,7 @@ namespace PrigovorHR.Shared.Pages
         public CompanySearchPage()
         {
             InitializeComponent();
-            imgClose.Text = "\xf2d4";
+            imgClose.Text = Views.FontAwesomeLabel.Images.FATimes;
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () => { entrySearch.Focus(); return false; });
 
             SearchController = new Controllers.SearchController(null, entrySearch);
