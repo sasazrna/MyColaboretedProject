@@ -100,7 +100,7 @@ namespace PrigovorHR.Shared.Views
                 if (CompanyElement != null)
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await Navigation.PushModalAsync(new Pages.Company_ElementInfoPage(CompanyElement), true);
+                        await Navigation.PushModalAsync(new Pages.Company_ElementInfoPage(CompanyElement, true), true);
                     });
                 else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
 

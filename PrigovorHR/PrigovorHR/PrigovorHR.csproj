@@ -43,8 +43,17 @@
       <DependentUpon>CompanySearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Pages\MainSideMenuPage.cs" />
-    <Compile Include="Shared\Pages\OtherCompanyStoresPage.xaml.cs">
-      <DependentUpon>OtherCompanyStoresPage.xaml</DependentUpon>
+    <Compile Include="Shared\Views\CompanyElementInfoView.xaml.cs">
+      <DependentUpon>CompanyElementInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\Views\CompanyElementSectionView.xaml.cs">
+      <DependentUpon>CompanyElementSectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\Views\CompanyInfoView.xaml.cs">
+      <DependentUpon>CompanyInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\Views\CompanyOtherElementsView.xaml.cs">
+      <DependentUpon>CompanyOtherElementsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
@@ -78,7 +87,6 @@
     <Compile Include="Shared\Models\DeviceInfoModel.cs" />
     <Compile Include="Shared\Models\EditProfileModel.cs" />
     <Compile Include="Shared\Models\ElementReviewModel.cs" />
-    <Compile Include="Shared\Models\ElementsModel.cs" />
     <Compile Include="Shared\Models\ElementTypeModel.cs" />
     <Compile Include="Shared\Models\EMailLoginModel.cs" />
     <Compile Include="Shared\Models\GoogleUserModel.cs" />
@@ -170,8 +178,8 @@
     <Compile Include="Shared\Views\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Views\SectionView.xaml.cs">
-      <DependentUpon>SectionView.xaml</DependentUpon>
+    <Compile Include="Shared\Views\CompanyElementSectionViewList.xaml.cs">
+      <DependentUpon>CompanyElementSectionViewList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Views\SplashScreenView.xaml.cs">
       <DependentUpon>SplashScreenView.xaml</DependentUpon>
@@ -590,7 +598,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Pages\OtherCompanyStoresPage.xaml">
+    <EmbeddedResource Include="Shared\Views\CompanyOtherElementsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -608,7 +616,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Views\SectionView.xaml">
+    <EmbeddedResource Include="Shared\Views\CompanyElementSectionViewList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Views\CompanyInfoView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Views\CompanyElementInfoView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Views\CompanyElementSectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

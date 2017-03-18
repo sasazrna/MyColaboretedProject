@@ -47,7 +47,7 @@ namespace PrigovorHR.Shared.Pages
             if (!entrySearch.Text.Contains("#"))
             {
                 await Navigation.PopPopupAsync(true);
-                await Navigation.PushModalAsync(new Company_ElementInfoPage(CompanyElement) { Title = "Natrag na pretragu" }, true);
+                await Navigation.PushModalAsync(new Company_ElementInfoPage(CompanyElement, true) { Title = "Natrag na pretragu" }, true);
             }
             else
             {

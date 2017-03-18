@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PrigovorHR.Shared.Pages.OtherCompanyStoresPage" 
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" BackgroundColor="White"
-             Title="OtherStorePage">
+             x:Class="PrigovorHR.Shared.Views.CompanyOtherElementsView" 
+             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" BackgroundColor="White">
 
     <StackLayout>
-        <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+        <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
         <StackLayout HorizontalOptions="FillAndExpand" BackgroundColor="#f3f3f3">
             <Label x:Name="lblElementCounty" Text="Grad Zagreb" TextColor="Gray" FontSize="Medium" HorizontalOptions="Center"></Label>
         </StackLayout>
@@ -20,4 +19,4 @@
             </StackLayout>
         </ScrollView>
     </StackLayout>
-</ContentPage>
+</ContentView>
