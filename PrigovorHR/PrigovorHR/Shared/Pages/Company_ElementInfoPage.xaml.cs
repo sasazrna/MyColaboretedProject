@@ -29,9 +29,83 @@ namespace PrigovorHR.Shared.Pages
             TAPController.SingleTaped += TAPController_SingleTaped;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             btnWriteComplaint.Clicked += BtnWriteComplaint_Clicked;
-            imgCompanyDetails.Text = Views.FontAwesomeLabel.Images.FAEllipsisH;
+            imgCompanyDetails.Text = Views.FontAwesomeLabel.Images.FAMapMarker;
             ReferenceToView = this;
+            //lblStore.Text = Views.FontAwesomeLabel.Images.FACube;
+            //lblStore.TextColor = Color.FromHex("FF7e65");
+
+            //lblCompany.Text = Views.FontAwesomeLabel.Images.FACubes;
+            //lblCompany.TextColor = Color.FromHex("FF7e65");
+
+            //lblOtherStores.Text = Views.FontAwesomeLabel.Images.FAList;
+            //lblOtherStores.TextColor = Color.FromHex("FF7e65");
+            StoreUnder.IsVisible = true;
+            CompanyUnder.IsVisible = false;
+            OtherStoresUnder.IsVisible = false;
+
+            LogoStack.IsVisible = true;
+            ElementMap.IsVisible = false;
+
+
+
+            OtherStoresStack.IsVisible = false;
+            StoreStack.IsVisible = true;
+            CompanyDescriptionStack.IsVisible = false;
+
+            imgElementDetails.Text = Views.FontAwesomeLabel.Images.FAMapMarker;
+
+
+            var StoreGestureRecognizer = new TapGestureRecognizer();
+            StoreGestureRecognizer.Tapped += (s, e) =>
+            {
+                StoreUnder.IsVisible = true;
+                CompanyUnder.IsVisible = false;
+                OtherStoresUnder.IsVisible = false;
+                StoreStack.IsVisible = true;
+                CompanyDescriptionStack.IsVisible = false;
+                OtherStoresStack.IsVisible = false;
+                LogoStack.IsVisible = true;
+            };
+            lblStore.GestureRecognizers.Add(StoreGestureRecognizer);
+
+
+            //Paljenje taba zatvorenih prigovora, gašenje taba aktivnih prigovora
+
+            var CompanyGestureRecognizer = new TapGestureRecognizer();
+            CompanyGestureRecognizer.Tapped += (s, e) =>
+            {
+                StoreUnder.IsVisible = false;
+                CompanyUnder.IsVisible = true;
+                OtherStoresUnder.IsVisible = false;
+                CompanyDescriptionStack.IsVisible = true;
+                StoreStack.IsVisible = false;
+                OtherStoresStack.IsVisible = false;
+                LogoStack.IsVisible = true;
+            };
+            lblCompany.GestureRecognizers.Add(CompanyGestureRecognizer);
+
+            var OtherStoresGestureRecognizer = new TapGestureRecognizer();
+            OtherStoresGestureRecognizer.Tapped += (s, e) =>
+            {
+                StoreUnder.IsVisible = false;
+                CompanyUnder.IsVisible = false;
+                OtherStoresUnder.IsVisible = true;
+                StoreStack.IsVisible = false;
+                CompanyDescriptionStack.IsVisible = false;
+                OtherStoresStack.IsVisible = true;
+                LogoStack.IsVisible = false;
+            };
+            lblOtherStores.GestureRecognizers.Add(OtherStoresGestureRecognizer);
+
         }
+
+        public Company_ElementInfoPage()
+
+        {
+
+        }
+
+
 
         private void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
@@ -58,13 +132,13 @@ namespace PrigovorHR.Shared.Pages
             SetData(CompanyElement, ElementId);
         }
 
-        private async void SetData(CompanyElementRootModel companyElement, int ElementId=0)
+        private async void SetData(CompanyElementRootModel companyElement, int ElementId = 0)
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavanje poslovnice", Acr.UserDialogs.MaskType.Clear);
 
-            var CompanyElement = ElementId == 0 ? 
-                companyElement.element : 
-                companyElement.siblings?.SingleOrDefault(sib => sib.id == ElementId) ?? 
+            var CompanyElement = ElementId == 0 ?
+                companyElement.element :
+                companyElement.siblings?.SingleOrDefault(sib => sib.id == ElementId) ??
                 companyElement.element.children?.SingleOrDefault(sib => sib.id == ElementId);
 
 
@@ -76,7 +150,7 @@ namespace PrigovorHR.Shared.Pages
             lblCompanyWebAddress.Text = "CompanyStore.root_business.web";
 
             lblElementAddress.Text = CompanyElement.address;
-            lblElementDescription.Text = CompanyElement.description;
+            lblCompanyDescription.Text = CompanyElement.description;
             lblElementType.Text = CompanyElement.type?.name;
             lblLocation.Text = CompanyElement.location_tag;
             lblStoreName.Text = CompanyElement.name;
@@ -119,7 +193,7 @@ namespace PrigovorHR.Shared.Pages
         {
             if (view == lytCompanyInfo | view == imgCompanyDetails)
             {
-                lytCompanyDescription.IsVisible = !lytCompanyDescription.IsVisible;
+                CompanyMapStack.IsVisible = !CompanyMapStack.IsVisible;
 
                 if (!CompanyMap.Pins.Any())
                 {
@@ -146,9 +220,9 @@ namespace PrigovorHR.Shared.Pages
                     else CompanyMap.IsVisible = false;
                 }
             }
-            else if(view == lblOtherCompanyElements)
+            else if (view == lblOtherCompanyElements)
             {
-               await Navigation.PushModalAsync(new OtherCompanyStoresPage(CompanyElement));
+                await Navigation.PushModalAsync(new OtherCompanyStoresPage(CompanyElement));
             }
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;

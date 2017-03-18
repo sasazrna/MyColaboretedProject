@@ -1,82 +1,220 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
-              xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
-              x:Class="PrigovorHR.Shared.Pages.Company_ElementInfoPage" BackgroundColor="White">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" x:Class="PrigovorHR.Shared.Pages.Company_ElementInfoPage" BackgroundColor="White">
 
     <RelativeLayout x:Name="lytRelative">
-        <ContentView x:Name="cvTopContentView"
-      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+        <ContentView x:Name="cvTopContentView" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 
             <StackLayout VerticalOptions="FillAndExpand">
                 <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
-                <StackLayout Padding="15, 10, 15, 5">
-                    <Image x:Name="imgCompanyLogo" Source="DM.jpg" Scale="1.5" HorizontalOptions="CenterAndExpand"></Image>
-                    <StackLayout x:Name="lytPreviousElementControl" Orientation="Horizontal" HorizontalOptions="Center" Margin="0,0,0,0">
-                        <StackLayout x:Name="lytCompanyInfo" VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" Margin="0,10,0,0">
-                            <Label x:Name="lblCompanyName" Text="dm-drogeriemarkt d.o.o."  FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start"  />
-                            <Label x:Name="lblCompanyAddress" Text="Savski gaj XII 9" FontSize="Small" TextColor="Black" HorizontalTextAlignment="Start"  />
-                            <Label x:Name="lblCompanyCity" Text="10000 Zagreb" FontSize="Small" TextColor="Black" HorizontalTextAlignment="Start"  />
-                        </StackLayout>
-                    </StackLayout>
 
-                    <StackLayout x:Name="lytCompanyDescription" IsVisible="False">
-                        <Label x:Name="lblCompanyDescription" Text="Detaljan opis kompanije" FontSize="Small" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start"  />
-                        <Label x:Name="lblCompanyWebAddress" Text="http://www.dm-drogeriemarkt.hr/" FontSize="Small" FontAttributes="Bold" TextColor="Blue" HorizontalTextAlignment="Start"  />
-                        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                            <maps:Map MinimumHeightRequest ="300" x:Name="CompanyMap" IsShowingUser="true" MapType="Street"/>
-                        </StackLayout>
-                    </StackLayout>
-                    <Views:FontAwesomeLabel x:Name="imgCompanyDetails" HorizontalOptions="Center" VerticalOptions="End" TextColor="Gray" FontSize="Medium"></Views:FontAwesomeLabel>
-                    <ScrollView x:Name="scrView">
-                        <StackLayout >
-                            <StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="0">
-                                <Label x:Name="lblElementType" Text="POSLOVNICA"  FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
-                            </StackLayout>
 
-                            <StackLayout Spacing="2">
-                                <Label x:Name="lblStoreName" Text="dm Kvaternikov trg"  FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start"  />
-                                <Label x:Name="lblElementAddress" Text="Ul. Marijana Čavića"  FontSize="Small"  TextColor="Black" HorizontalTextAlignment="Start" />
-                                <Label x:Name="lblWorkTime" Text="Pon-Sub: 07:00-21:00 Ned 07:00-18:00"  FontSize="Small" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start"    />
-                                <Label x:Name="lblLocation" Text="Arena centar Zagreb"  FontSize="Small" FontAttributes="Italic, Bold" TextColor="Blue" HorizontalTextAlignment="Start"  />
-                                <Label x:Name="lblElementDescription" Margin="0,10,0,0" Text="Internacionalno uspješan dm-drogerie markt je jedan od najvećih drogerijskih lanaca u srednjoj i jugoistočnoj Europi. 1973. otvorena je prva dm prodavaonica u Njemačkoj (Karlsruhe), 1976. prva dm prodavaonica u Austriji (Linz), a 1996. prva dm prodavaonica u Hrvatskoj (Zagreb). Danas je dm s 156 prodavaonica zastupljen po cijeloj Hrvatskoj. Upravno-distributivni centar u Zagrebu središte je za cijelu Hrvatsku, kao i poveznica za susjedne zemlje u jugoistočnoj Europi." FontSize="Small" TextColor="Black" HorizontalTextAlignment="Start"  />
-                            </StackLayout>
+                <!--Početak TabView dijela-->
 
-                            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                                <maps:Map MinimumHeightRequest ="300" x:Name="ElementMap" IsShowingUser="true" MapType="Street"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </ScrollView>
-
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                    <Image Source="storeElement.png" x:Name="lblStore" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
+                    <Image Source="domain.png" x:Name="lblCompany" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
+                    <Image Source="StoreList.png" x:Name="lblOtherStores" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
                 </StackLayout>
-                <StackLayout x:Name="lytOtherCompanyElements" VerticalOptions="EndAndExpand">
-                    <Frame>
+
+
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                        <StackLayout x:Name="StoreUnder" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                        <StackLayout x:Name="CompanyUnder" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                        <StackLayout x:Name="OtherStoresUnder" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+
+                <!--Kraj TabView dijela-->
+
+
+
+
+                <ScrollView x:Name="scrView">
+
+                    <StackLayout Padding="15, 10, 15, 5">
+
+
+                        <!--Dio stranice ispod TabViewa-->
+
+                        <StackLayout x:Name="LogoStack" Margin="0,10,0,10" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                        <Image Source="LOGO.png" Scale="1.5" HorizontalOptions="CenterAndExpand"></Image>
+                        </StackLayout>
+                        <!--Stack sa Viewom trenutno poslovice-->
+
+                        <StackLayout x:Name="StoreStack">
+
+
+                           
+                            <StackLayout Spacing="2" Margin="0,10,0,0">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                                <Label Text="dm Kvaternikov trg" FontSize="Large" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                    <Views:FontAwesomeLabel x:Name="imgElementDetails" HorizontalOptions="EndAndExpand" VerticalOptions="End" TextColor="Gray" FontSize="Large" Margin="0,0,10,0"></Views:FontAwesomeLabel>
+                                </StackLayout>
+                                <Label Text="Ul. Marijana Čavića" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label Text="Pon-Sub: 07:00-21:00 Ned 07:00-18:00" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label Text="Arena centar Zagreb" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <maps:Map MinimumHeightRequest="300" x:Name="ElementMap" IsShowingUser="true" MapType="Street" />
+
+
+
+                                <Views:SectionView></Views:SectionView>
+                            </StackLayout>
+                            
+
+
+
+
+
+                            <StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" IsVisible="False">
+                                <Label x:Name="lblElementType" Text="POSLOVNICA" FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
+                            </StackLayout>
+
+                            <StackLayout  IsVisible="False" Spacing="2">
+                                <Label x:Name="lblStoreName" Text="dm Kvaternikov trg" FontSize="Medium" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label x:Name="lblElementAddress" Text="Ul. Marijana Čavića" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label x:Name="lblWorkTime" Text="Pon-Sub: 07:00-21:00 Ned 07:00-18:00" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label x:Name="lblLocation" Text="Arena centar Zagreb" FontSize="Small" FontAttributes="Italic, Bold" TextColor="Gray" HorizontalTextAlignment="Start" />
+
+                            </StackLayout>
+                            <!--<StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <maps:Map MinimumHeightRequest="300" x:Name="ElementMap" IsShowingUser="true" MapType="Street" />
+                            </StackLayout>-->
+                        </StackLayout>
+
+
+
+                        <!--Stack sa Viewom sjedišta kompanije-->
+
+
+                        <StackLayout x:Name="CompanyDescriptionStack">
+
+
+                            <StackLayout Spacing="2" Margin="0,10,0,0">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                                    <Label Text="dm Kvaternikov trg" FontSize="Large" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                    <Views:FontAwesomeLabel x:Name="imgCompanyDetails" HorizontalOptions="EndAndExpand" VerticalOptions="End" TextColor="Gray" FontSize="Large" Margin="0,0,10,0"></Views:FontAwesomeLabel>
+                                </StackLayout>
+                                <Label Text="Savski gaj XII 9" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label Text="10000 Zagreb" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                <Label Margin="0,10,0,0" Text="Internacionalno uspješan dm-drogerie markt je jedan od najvećih drogerijskih lanaca u srednjoj i jugoistočnoj Europi. 1973. otvorena je prva dm prodavaonica u Njemačkoj (Karlsruhe), 1976. prva dm prodavaonica u Austriji (Linz), a 1996. prva dm prodavaonica u Hrvatskoj (Zagreb). Danas je dm s 156 prodavaonica zastupljen po cijeloj Hrvatskoj. Upravno-distributivni centar u Zagrebu središte je za cijelu Hrvatsku, kao i poveznica za susjedne zemlje u jugoistočnoj Europi." FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                            </StackLayout>
+
+
+
+
+
+                            <Image x:Name="imgCompanyLogo" Source="DM.jpg" Scale="1.5" HorizontalOptions="CenterAndExpand"></Image>
+                            <StackLayout IsVisible="False" x:Name="lytPreviousElementControl" Orientation="Horizontal" HorizontalOptions="Center" Margin="0,0,0,0">
+                                <StackLayout x:Name="lytCompanyInfo" VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" Margin="0,10,0,0">
+                                    <Label x:Name="lblCompanyName" Text="dm-drogeriemarkt d.o.o." FontSize="Medium" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                    <Label x:Name="lblCompanyAddress" Text="Savski gaj XII 9" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                    <Label x:Name="lblCompanyCity" Text="10000 Zagreb" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                    <Label x:Name="lblElementDescription" Margin="0,10,0,0" Text="Internacionalno uspješan dm-drogerie markt je jedan od najvećih drogerijskih lanaca u srednjoj i jugoistočnoj Europi. 1973. otvorena je prva dm prodavaonica u Njemačkoj (Karlsruhe), 1976. prva dm prodavaonica u Austriji (Linz), a 1996. prva dm prodavaonica u Hrvatskoj (Zagreb). Danas je dm s 156 prodavaonica zastupljen po cijeloj Hrvatskoj. Upravno-distributivni centar u Zagrebu središte je za cijelu Hrvatsku, kao i poveznica za susjedne zemlje u jugoistočnoj Europi." FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout x:Name="CompanyMapStack" IsVisible="False">
+                                <Label IsVisible="False" x:Name="lblCompanyDescription" Text="Detaljan opis kompanije" FontSize="Small" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label IsVisible="False" x:Name="lblCompanyWebAddress" Text="http://www.dm-drogeriemarkt.hr/" FontSize="Small" FontAttributes="Bold" TextColor="Blue" HorizontalTextAlignment="Start" />
+                                
+                                
+                                
+                                
+                                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                    <maps:Map MinimumHeightRequest="300" x:Name="CompanyMap" IsShowingUser="true" MapType="Street" />
+                                </StackLayout>
+                            </StackLayout>
+                            <!--<Views:FontAwesomeLabel x:Name="imgCompanyDetails" HorizontalOptions="Center" VerticalOptions="End" TextColor="Gray" FontSize="Medium"></Views:FontAwesomeLabel>-->
+
+                        </StackLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!--Stack sa ListViewom ostalih poslovnica-->
+
+                        <StackLayout x:Name="OtherStoresStack">
+                            <Views:CompanyStoreFoundView></Views:CompanyStoreFoundView>
+                        </StackLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+                    </StackLayout>
+                </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!--Zasad samo ugašeni Stack, Frame i View za prebacivnje na stranicu OtherCompanyStorePage da nešto ne razjebem u kodu-->
+
+                <StackLayout x:Name="lytOtherCompanyElements" VerticalOptions="EndAndExpand" IsVisible="False">
+                    <Frame IsVisible="False">
                         <Label Text="Ostale poslovnice" x:Name="lblOtherCompanyElements" FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Center" />
                     </Frame>
-                    <!--<Views:CompanyElementsListView x:Name="CompanyElementsListView" IsVisible="False">
-                    </Views:CompanyElementsListView>-->
+                    <Views:CompanyElementsListView x:Name="CompanyElementsListView" IsVisible="False">
+                    </Views:CompanyElementsListView>
                 </StackLayout>
             </StackLayout>
         </ContentView>
 
- <fab:FloatingActionButton
-   x:Name="btnWriteComplaint"
-   NormalColor="#FF7e65"
-   RippleColor="Blue"
-   Size="Normal"
-   Source="edit.png"
-    
-   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+        <fab:FloatingActionButton x:Name="btnWriteComplaint" NormalColor="#FF7e65" RippleColor="Blue" Size="Normal" Source="edit.png" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Width,
                                                               Factor=1,
-                                                              Constant=-75}"
-   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Constant=-75}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Height,
                                                               Factor=1,
-                                                              Constant=-75}"/>
+                                                              Constant=-75}" />
 
     </RelativeLayout>
 </ContentPage>
