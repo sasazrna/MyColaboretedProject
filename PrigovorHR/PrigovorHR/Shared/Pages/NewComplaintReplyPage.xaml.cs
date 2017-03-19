@@ -242,7 +242,7 @@ namespace PrigovorHR.Shared.Pages
             }
             else if (view == imgTakeGPSLocation)
             {
-                if (imgTakeGPSLocation.BackgroundColor != Color.FromHex("#FF6A00"))
+                if (imgTakeGPSLocation.TextColor != Color.FromHex("#FF6A00"))
                 {
                     Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Tražim vašu lokaciju", Acr.UserDialogs.MaskType.Clear);
 
@@ -251,18 +251,20 @@ namespace PrigovorHR.Shared.Pages
                     {
                         Latitude = MyLocation.Latitude;
                         Longitude = MyLocation.Longitude;
+                        imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
                     }
                     else
                     {
-                        Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                         Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom dobivanja vaše lokacije!" + Environment.NewLine + "Provjerite jeli vam GPS uključen te da aplikaciji dozvolite pristup GPS-u", "Greška", "OK");
                     }
+
+                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                 }
                 else
                 {
                     Latitude = 0;
                     Longitude = 0;
-                    imgTakeGPSLocation.BackgroundColor = Color.Gray;
+                    imgTakeGPSLocation.TextColor = Color.Gray;
                 }
             }
             SaveToDevice();

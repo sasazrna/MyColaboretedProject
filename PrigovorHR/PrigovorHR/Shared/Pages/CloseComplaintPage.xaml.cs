@@ -35,6 +35,7 @@ namespace PrigovorHR.Shared.Pages
                     speed = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[1],
                     communication_level_user = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[2],
                     message=editorLastMessage.Text,
+                    rate_element=1,
                     complaint_id = Complaint.id
                 };
 
