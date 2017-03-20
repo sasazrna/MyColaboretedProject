@@ -45,7 +45,7 @@
                     </StackLayout>
 
                 </StackLayout>
-                <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 2, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="Silver"/>
+                <!--<StackLayout HorizontalOptions="FillAndExpand" Padding="0, 2, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="Silver"/>-->
 
                 <Views:CompanysStoreFoundListView x:Name="CompanyStoreFoundListView" Margin="0, -6,0,0">
 

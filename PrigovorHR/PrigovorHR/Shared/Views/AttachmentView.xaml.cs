@@ -35,7 +35,7 @@ namespace PrigovorHR.Shared.Views
             ComplaintReplyId = complaintreplyId;
             lblAttachmentName.Text = attachmentFileName;
             imgClose.IsVisible = disposable;
-            imgClose.Text = "\xf2d4";
+            imgClose.Text = Views.FontAwesomeLabel.Images.FATimes;
             Data = data;
             IsReply = isReply;
             TAPController = new Controllers.TAPController(lblAttachmentName, imgClose);

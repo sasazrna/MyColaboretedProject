@@ -29,8 +29,13 @@ namespace PrigovorHR.Shared.Pages
             attach_voice_font.TextColor = Color.Gray;
 
 
-            dodani_pdf.Text = Views.FontAwesomeLabel.Images.FAFile_pdf;
-            dodani_pdf.TextColor = Color.Gray;
+            //dodani_pdf.Text = Views.FontAwesomeLabel.Images.FAFile_pdf;
+            //dodani_pdf.TextColor = Color.Gray;
+
+
+            Send_font.Text = Views.FontAwesomeLabel.Images.FASend_msg;
+            Send_font.TextColor = Color.FromHex("#FF7e65");
+
 
             Sada_stack.IsVisible = false;
             Ranije_stack.IsVisible = false;

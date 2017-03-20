@@ -71,7 +71,10 @@ namespace PrigovorHR.Shared.Pages
                 imgTakeGPSLocation.Text = '\uf041'.ToString();
                 imgTakeGPSLocation.TextColor = Color.Gray;
 
-                TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto);
+                Send_font.Text = Views.FontAwesomeLabel.Images.FASend_msg;
+                Send_font.TextColor = Color.FromHex("#FF7e65");
+
+            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto);
                 btnSaveReply.Clicked += BtnSaveReply_Clicked;
                 btnSendReply.Clicked += BtnSendReply_Clicked;
 

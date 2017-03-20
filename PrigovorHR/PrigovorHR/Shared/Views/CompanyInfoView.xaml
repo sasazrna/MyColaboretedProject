@@ -18,8 +18,8 @@
             <Label IsVisible="False" x:Name="lblCompanyWebAddress" Text="http://www.dm-drogeriemarkt.hr/" FontSize="Small" FontAttributes="Bold" TextColor="Blue" HorizontalTextAlignment="Start" />
         </StackLayout>
 
-        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <maps:Map MinimumHeightRequest="300" x:Name="CompanyMap" IsShowingUser="true" MapType="Street" />
+        <StackLayout  Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <maps:Map HeightRequest="200" x:Name="CompanyMap" IsShowingUser="true" MapType="Street" />
         </StackLayout>
         </StackLayout>
     </ContentView.Content>

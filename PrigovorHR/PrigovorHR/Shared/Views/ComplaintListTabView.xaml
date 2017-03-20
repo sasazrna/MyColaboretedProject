@@ -4,9 +4,9 @@
              BackgroundColor="White" xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Views.ComplaintListTabView">
 
-    <Frame Padding="0, 0, 0, 0" >
+    <Frame Padding="0, 0, 0, 0" MinimumHeightRequest="70" >
         <!--<StackLayout Margin="0,-1,0,0" Spacing="10" VerticalOptions="FillAndExpand">-->
-            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Spacing="40">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Spacing="40">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Spacing="1">
                     <StackLayout x:Name="lytActiveComplaintsUnderline" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF7e65" />
                 </StackLayout>
@@ -22,27 +22,27 @@
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Spacing="1" IsVisible="False">
                     <StackLayout x:Name="lytUnsentComplaintsUnderline" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF7e65" />
                 </StackLayout>
-            </StackLayout>-->
+            </StackLayout>
         <StackLayout VerticalOptions="EndAndExpand">
-            <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 1, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="Black"/>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,-4,0,0">
-                <StackLayout x:Name="lytActiveComplaints" Orientation="Horizontal" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand" >
-                    <Views:FontAwesomeLabel x:Name="lblActiveComplaints" FontSize="Large" HeightRequest="40" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="0,-5,0,0"  >
+            <!--<StackLayout HorizontalOptions="FillAndExpand" Padding="0, 1, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="Black"/>-->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,10,0,10">
+                <StackLayout x:Name="lytActiveComplaints" Orientation="Horizontal" HorizontalOptions="FillAndExpand"  VerticalOptions="CenterAndExpand" >
+                    <Views:FontAwesomeLabel x:Name="lblActiveComplaints" FontSize="Large"  HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,10,0,10"  >
                     </Views:FontAwesomeLabel>
                 </StackLayout>
 
-                <StackLayout x:Name="lytClosedComplaints"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
-                    <Views:FontAwesomeLabel x:Name="lblClosedComplaints" FontSize="Large" HeightRequest="40" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="0,-5,0,0"  >
+                <StackLayout x:Name="lytClosedComplaints"  Orientation="Horizontal" HorizontalOptions="FillAndExpand"  VerticalOptions="CenterAndExpand">
+                    <Views:FontAwesomeLabel x:Name="lblClosedComplaints" FontSize="Large"  HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Margin="0,10,0,10"  >
                     </Views:FontAwesomeLabel>
                 </StackLayout>
 
-                <StackLayout x:Name="lytStoredComplaints"  Orientation="Horizontal"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
-                    <Views:FontAwesomeLabel x:Name="lblStoredComplaints" FontSize="Large" HeightRequest="40" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="0,-5,0,0"  >
+                <StackLayout IsVisible="False" x:Name="lytStoredComplaints"  Orientation="Horizontal"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand">
+                    <Views:FontAwesomeLabel x:Name="lblStoredComplaints" FontSize="Large" HeightRequest="40" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="0,0,0,0"  >
                     </Views:FontAwesomeLabel>
                 </StackLayout>
 
-                <StackLayout x:Name="lytUnsentComplaints"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                    <Views:FontAwesomeLabel x:Name="lblUnsentComplaints" FontSize="Large" HeightRequest="40" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="0,-5,0,0"  >
+                <StackLayout IsVisible="False" x:Name="lytUnsentComplaints"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Views:FontAwesomeLabel x:Name="lblUnsentComplaints" FontSize="Large" HeightRequest="40" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="0,0,0,0"  >
                     </Views:FontAwesomeLabel>
                 </StackLayout>
             </StackLayout>

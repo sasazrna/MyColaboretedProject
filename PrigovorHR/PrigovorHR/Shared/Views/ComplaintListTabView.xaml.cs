@@ -27,6 +27,7 @@ namespace PrigovorHR.Shared.Views
         public ComplaintListTabView()
         {
             InitializeComponent();
+
             new Controllers.TAPController(lytActiveComplaints, lytClosedComplaints, lytStoredComplaints, lytUnsentComplaints).SingleTaped += ComplaintListTabView_SingleTaped;
             ReferenceToView = this;
 
@@ -55,6 +56,10 @@ namespace PrigovorHR.Shared.Views
 
             SelectedTabChangedEvent?.Invoke(SelectedTab);
             ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(SelectedTab);
+
+
+           
+
         }
     }
 }

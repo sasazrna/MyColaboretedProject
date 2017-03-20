@@ -9,11 +9,15 @@
       <!--<Entry x:Name="_NameSurnameEntry" IsEnabled="False" Placeholder="Ime i prezime..." TextColor="Black" PlaceholderColor="Silver" FontSize="Small"  Margin="0, 15, 0, 10"/>
       <Entry x:Name="_PhonenumberEntry" Placeholder="Broj telefona..." TextColor="Black" Keyboard="Numeric" PlaceholderColor="Silver" FontSize="Small" Margin="0,15,0,0"></Entry>
       <Entry x:Name="_EmailEntry" Placeholder="Email adresa..." IsEnabled="False" TextColor="Black" PlaceholderColor="Silver" FontSize="Small" Margin="0, 15, 0, 10"/>-->
-     
-       <StackLayout Padding="1" BackgroundColor="White" VerticalOptions ="FillAndExpand">
-       <Label Text="Napišite naslov poruke" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Start" Margin="0, 25, 0, 5"/>
-         <Entry x:Name="_TitleOfMessageEntry"></Entry>
-         <Label Text="Napišite nam poruku" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Start" Margin="0, 25, 0, 5"/>
+
+            <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,15,120,15" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
+
+            <StackLayout Padding="1" BackgroundColor="White" VerticalOptions ="FillAndExpand">
+       <Label Text="Napišite naslov poruke" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Center" Margin="0, 25, 0, 5"/>
+
+  
+                <Entry x:Name="_TitleOfMessageEntry"></Entry>
+         <Label Text="Napišite nam poruku" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Center" Margin="0, 25, 0, 5"/>
         <Editor x:Name="_MessageEntry" BackgroundColor="White" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Black"/>
       </StackLayout>
        <Button x:Name="_btnSend" Text="Pošalji" TextColor="White" BackgroundColor="#FF7e65"/>

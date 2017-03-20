@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
              x:Class="PrigovorHR.Shared.Views.CompanysStoreFoundListView">
   <ContentView.Content>
+       
     <StackLayout VerticalOptions="FillAndExpand">
-      <!--<Frame Padding="0, 0, 0, 3">-->
+            
+            <!--<Frame Padding="0, 0, 0, 3">-->
         <ScrollView x:Name="_ScrollView">
-          <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand">
+
+               
+                <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand">
 
           </StackLayout>
         </ScrollView>

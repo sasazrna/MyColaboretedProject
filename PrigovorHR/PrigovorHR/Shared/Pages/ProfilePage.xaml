@@ -8,10 +8,10 @@
 
     <StackLayout Spacing="0">
         <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
-        <ScrollView>
-            <StackLayout Padding="25, 20, 25, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
-                <CircleImage:CircleImage x:Name="_imgProfilePicture" Source="Person.png" BorderColor="#FF7e65" BorderThickness="1" />
-                <Image Source="edit.png" HorizontalOptions="Start"  WidthRequest="30" HeightRequest="30" Margin="160, -40, 0, 0"/>
+        
+            <StackLayout Padding="25, 10, 25, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
+                <CircleImage:CircleImage x:Name="_imgProfilePicture" Source="Person.png" WidthRequest="75" HeightRequest="75" BorderColor="#FF7e65" BorderThickness="1" />
+                <!--<Image Source="edit.png" HorizontalOptions="Start"  WidthRequest="30" HeightRequest="30" Margin="160, -40, 0, 0"/>-->
                 <Entry x:Name="_NameEntry" Placeholder="Ime..." TextColor="Black" PlaceholderColor="Silver" FontSize="Medium" Margin="0, 15, 0, 0"/>
 
                 <Entry x:Name="_SurnameEntry" Placeholder="Prezime..." IsPassword="False" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium"  Margin="0, 5, 0, 0"/>
@@ -24,6 +24,6 @@
                 <Entry x:Name="_PasswordAgainEntry" Placeholder="Ponovi lozinku..." IsPassword="true" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium"  Margin="0, 5, 0, 0"/>
                 <Button x:Name="_btnSaveChanges" Text="Spremi promjene" TextColor="White" VerticalOptions="End" BackgroundColor="#FF7e65"  Margin="0, 10, 0, 25"/>
             </StackLayout>
-        </ScrollView>
+       
     </StackLayout>
 </ContentPage>
