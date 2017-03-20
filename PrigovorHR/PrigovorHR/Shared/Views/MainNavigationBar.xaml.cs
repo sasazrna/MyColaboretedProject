@@ -17,7 +17,6 @@ namespace PrigovorHR.Shared.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainNavigationBar : ContentView
     {
-        private Dictionary<View, bool> LastViewed = new Dictionary<View, bool>();
         private bool TrackLastViewed = true;
         private Controllers.TAPController TAPController;
 
@@ -29,13 +28,15 @@ namespace PrigovorHR.Shared.Views
 
         public bool HasUnreadedReplys { set { imgComplaints.Text = !value ? Views.FontAwesomeLabel.Images.FAPEnvelopeOpen : Views.FontAwesomeLabel.Images.FAPEnvelopeClosed; 
                                               imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00");}}
- 
+
+        public void HideMenuFrame() => _MenuFrame.IsVisible = false;
+
         public MainNavigationBar()
         {
             InitializeComponent();
 
             View[] _ListOfChildViews = new View[] { imgMenuLayout,
-                imgComplaints, imgSearch, imgQRCode, lblAboutUs, lblContactUs, lblLogOut, lblMyProfile, lblMyComplaints };
+                imgComplaints, imgSearch, imgQRCode, lblContactUs, lblLogOut, lblMyProfile };
 
             imgComplaints.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
             imgComplaints.TextColor = Color.Gray;
@@ -116,28 +117,30 @@ namespace PrigovorHR.Shared.Views
             if (view == imgMenuLayout)
             {
                 _MenuFrame.IsVisible = !_MenuFrame.IsVisible;
-                if (!LastViewed.ContainsKey(imgMenuLayout) & TrackLastViewed)
-                    LastViewed.Add(imgMenuLayout, false);
             }
             else if (view == imgSearch)
             {
+                _MenuFrame.IsVisible = false;
                 await Navigation.PushPopupAsync(new CompanySearchPage());
             }
             else if (view == imgQRCode)
             {
-               await Navigation.PushModalAsync(QRScannerController, true);
+                _MenuFrame.IsVisible = false;
+                await Navigation.PushModalAsync(QRScannerController, true);
                 QRScannerController.StartScan();
             }
-            if (view == lblAboutUs)
-            {
+            //if (view == lblAboutUs)
+            //{
 
-            }
+            //}
             else if (view == lblContactUs)
             {
+                _MenuFrame.IsVisible = false;
                 await Navigation.PushModalAsync(new ContactUsPage());
             }
             else if (view == lblMyProfile)
             {
+                _MenuFrame.IsVisible = false;
                 await Navigation.PushModalAsync(new ProfilePage(), true);
             }
             else if (view == lblLogOut)
@@ -165,27 +168,6 @@ namespace PrigovorHR.Shared.Views
             if (newtitle == "Prigovor.hr")
                 _imgLogo.IsVisible = true;
             else _imgLogo.IsVisible = false;
-        }
-
-        public  bool BackButtonPressedEvent()
-        {
-            if (LastViewed.Count > 0)
-            {
-                TrackLastViewed = false;
-               _TAPController_SingleTaped(string.Empty, LastViewed.Last().Key);
-
-                if (LastViewed.Count > 1)
-                   _TAPController_SingleTaped(string.Empty, LastViewed.First().Key);
-
-                LastViewed.Remove(LastViewed.Last().Key);
-                TrackLastViewed = true;
-                return true;
-            }
-            else
-            {
-                TrackLastViewed = true;
-                return false;
-            }
         }
     }
 }

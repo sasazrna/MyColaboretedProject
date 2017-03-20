@@ -92,7 +92,7 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            return MainNavigationBar.ReferenceToView?.BackButtonPressedEvent() ?? false;
+            return false;
         }
     }
 }

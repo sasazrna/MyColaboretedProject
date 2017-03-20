@@ -52,9 +52,11 @@ namespace PrigovorHR.Shared.Pages
         }
 
 
-        private void BtnWriteComplaint_Clicked(object sender, EventArgs e)
+        private async void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new NewComplaintPage(), true);
+            var NewComplaintPage = new NewComplaintPage(CompanyElement.element);
+           await Navigation.PushModalAsync(NewComplaintPage, true);
+            NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopModalAsync(true); };
         }
 
         private async void NavigationBar_BackButtonPressedEvent()

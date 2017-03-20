@@ -57,9 +57,7 @@ namespace PrigovorHR.Shared.Views
             SelectedTabChangedEvent?.Invoke(SelectedTab);
             ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(SelectedTab);
 
-
-           
-
+            MainNavigationBar.ReferenceToView.HideMenuFrame();
         }
     }
 }
