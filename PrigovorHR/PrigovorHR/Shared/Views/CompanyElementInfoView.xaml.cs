@@ -23,11 +23,11 @@ namespace PrigovorHR.Shared.Views
             lblElementName.Text = CompanyElement.name;
             lblElementAddress.Text = CompanyElement.address;
             lblElementDescription.Text = CompanyElement.description;
-            lblElementType.Text = CompanyElement.type?.name;
+            //lblElementType.Text = CompanyElement.type?.name;
             lblLocation.Text = CompanyElement.location_tag;
             lblWorkTime.Text = CompanyElement.working_hours;
-            LoadMap(CompanyElement.address, CompanyElement.name);
             LoadCompanySections(CompanyElement);
+            LoadMap(CompanyElement.address, CompanyElement.name);
         }
 
         private async void LoadMap(string address, string name)
@@ -63,7 +63,10 @@ namespace PrigovorHR.Shared.Views
         private void LoadCompanySections(CompanyElementModel CompanyElement)
         {
             if (CompanyElement.children.Any())
-                CompanyElementSectionViewList = new CompanyElementSectionViewList(CompanyElement);
+            {
+                lytCompanyElementSectionViewList.Children.Clear();
+                lytCompanyElementSectionViewList.Children.Add( new CompanyElementSectionViewList(CompanyElement));
+            }
             else CompanyElementSectionViewList.IsVisible = false;
         }
     }

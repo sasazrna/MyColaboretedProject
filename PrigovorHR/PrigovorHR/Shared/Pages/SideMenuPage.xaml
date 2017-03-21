@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PrigovorHR.Shared.Pages.SideMenuPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="Aqua"
+    xmlns:PrigovorHR="clr-namespace:PrigovorHR;assembly=PrigovorHR">
+    <!--<ScrollView>-->
+        <StackLayout>
+            <RelativeLayout>
+                <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" 
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                    <StackLayout>
+                        
+                        <views:FontAwesomeLabel x:Name="Menu" HorizontalOptions="Start" Margin="30,30,0,0"></views:FontAwesomeLabel>
+                    </StackLayout>
+                </ContentView>
+                <Frame x:Name="MenuStack" BackgroundColor="White" HeightRequest="600" WidthRequest="300" TranslationX="-300" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.001, Constant=-40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.001, Constant=-25}">
+                    <StackLayout>
+                        <views:FontAwesomeLabel x:Name="MenuBack" Margin="0,30,30,0" HorizontalOptions="End"></views:FontAwesomeLabel>
+                        <Label x:Name="lblMyProfile"  Text="Moj profil" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                        <Label x:Name="lblContactUs" Text="Kontakt" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                        <Label x:Name="lblLogOut" Text="Odjavi se" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start"  />
+                    </StackLayout>
+                </Frame>
+            </RelativeLayout>
+        </StackLayout>
+    <!--</ScrollView>-->
+</ContentPage>

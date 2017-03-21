@@ -42,7 +42,10 @@ namespace PrigovorHR.Shared.Views
             lblNameInitials.Text = NameSurname.Substring(0, 1) + "." + NameSurname.Substring(NameSurname.LastIndexOf(" ") + 1, 1);
 
             if (!string.IsNullOrEmpty(Complaint.suggestion))
+            {
                 lytSuggestion.IsVisible = true;
+                lblSuggestion.Text = Complaint.suggestion;
+            }
 
             lytAttachmentsLayout.Children.Clear();
             foreach (var Attachment in Complaint.attachments)

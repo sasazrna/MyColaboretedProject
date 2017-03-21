@@ -15,16 +15,16 @@ namespace PrigovorHR.Shared.Pages
 
     public partial class QuickComplaintPage : PopupPage
     {
-        private Controllers.TAPController _tapController;
+        private Controllers.TAPController TapController;
         private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel = new Models.ComplaintModel.DraftComplaintModel();
         private byte[] PhotoData;
         private string PhotoName = string.Empty;
         internal event Controllers.EventHandlers.ComplaintSentHandler ComplaintSentEvent;
 
-        public QuickComplaintPage(Models.CompanyElementModel _CompanyElement=null, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel=null)
+        public QuickComplaintPage(Models.CompanyElementModel _CompanyElement = null, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
-            _tapController = new Controllers.TAPController( _complaintLabel, _suggestionLabel);
+            TapController = new Controllers.TAPController(complaintLabel, suggestionLabel, imgTakePhoto, btnSendComplaint);
 
             WriteNewComplaintModel.QuickComplaint = true;
 
@@ -39,51 +39,55 @@ namespace PrigovorHR.Shared.Pages
             if (_WriteNewComplaintModel != null)
             {
                 WriteNewComplaintModel = _WriteNewComplaintModel;
-                _suggestionEditor.Text = WriteNewComplaintModel.suggestion;
-                _complaintEditor.Text = WriteNewComplaintModel.complaint;
+                suggestionEditor.Text = WriteNewComplaintModel.suggestion;
+                complaintEditor.Text = WriteNewComplaintModel.complaint;
 
                 if (WriteNewComplaintModel.attachments != null)
                 {
-                    _cameraButton.Image.File = "cameracancel.png";
-                  PhotoData = Convert.FromBase64String(WriteNewComplaintModel.attachments[0].attachment_data);
+                    imgTakePhoto.TextColor = Color.Orange;
+                    PhotoData = Convert.FromBase64String(WriteNewComplaintModel.attachments[0].attachment_data);
                 }
                 lblElementName.Text = _WriteNewComplaintModel.ElementName;
 
-                PrigEditor_TextChanged(null, new TextChangedEventArgs(_suggestionEditor.Text, _suggestionEditor.Text));
+                PrigEditor_TextChanged(null, new TextChangedEventArgs(suggestionEditor.Text, suggestionEditor.Text));
             }
 
             if (WriteNewComplaintModel.attachments == null)
                 WriteNewComplaintModel.attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>();
 
-            _tapController.SingleTaped += TapController_SingleTaped;
-            _complaintEditor.TextChanged += PrigEditor_TextChanged;
-            _suggestionEditor.TextChanged += PrigEditor_TextChanged;
-            _cameraButton.Clicked += CameraButton_Clicked;
-            btnSendComplaint.Clicked += BtnSendComplaint_Clicked;
+            imgTakePhoto.Text = Views.FontAwesomeLabel.Images.FACamera;
+            imgTakePhoto.TextColor = imgTakePhoto.TextColor != Color.Orange ? Color.Gray : Color.Orange;
+
+            btnSendComplaint.Text = Views.FontAwesomeLabel.Images.FASend_msg;
+            btnSendComplaint.TextColor = Color.FromHex("#ff7e65");
+
+            TapController.SingleTaped += TapController_SingleTaped;
+            complaintEditor.TextChanged += PrigEditor_TextChanged;
+            suggestionEditor.TextChanged += PrigEditor_TextChanged;
         }
 
 
         private void PrigEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _suggestionLabel.TextColor = _complaintEditor.Text?.Length > 9 ? Color.FromHex("#FF6A00") : Color.Gray;
+            suggestionLabel.TextColor = complaintEditor.Text?.Length > 9 ? Color.FromHex("#FF6A00") : Color.Gray;
             if (e.NewTextValue?.Length > 200)
-                _complaintEditor.Text = e.OldTextValue;
+                complaintEditor.Text = e.OldTextValue;
             else
             {
-                WriteNewComplaintModel.complaint = _complaintEditor.Text;
-                WriteNewComplaintModel.suggestion = _suggestionEditor.Text;
+                WriteNewComplaintModel.complaint = complaintEditor.Text;
+                WriteNewComplaintModel.suggestion = suggestionEditor.Text;
                 SaveToDevice();
             }
         }
 
-        private async void CameraButton_Clicked(object sender, EventArgs e)
+ private async void TakePhoto()
         {
-            if (_cameraButton.Image.File == "camera.png")
+            if (imgTakePhoto.TextColor != Color.Orange)
             {
                 var photo = await Controllers.CameraController.TakePhoto();
                 if (photo != null)
                 {
-                    _cameraButton.Image.File = "cameracancel.png";
+                    imgTakePhoto.TextColor = Color.Orange;
                     var MS = new System.IO.MemoryStream();
                     photo.GetStream().CopyTo(MS);
                     PhotoData = MS.ToArray();
@@ -101,7 +105,7 @@ namespace PrigovorHR.Shared.Pages
             {
                 if (await Acr.UserDialogs.UserDialogs.Instance.ConfirmAsync("Želite li poništiti fotografiju?", "Poništavanje fotografije", "DA", "NE"))
                 {
-                    _cameraButton.Image.File = "camera.png";
+                    imgTakePhoto.TextColor = Color.Gray;
                     WriteNewComplaintModel.attachments.Clear();
                     PhotoData = null;
                     SaveToDevice();
@@ -118,14 +122,18 @@ namespace PrigovorHR.Shared.Pages
 
         private void TapController_SingleTaped(string viewId, View view)
         {
-            if (view == _complaintLabel)
+            if (view == complaintLabel)
                 _complaintLayout.IsVisible = true;
-            else if (view == _suggestionLabel & _suggestionLabel.TextColor != Color.Gray)
+            else if (view == suggestionLabel & suggestionLabel.TextColor != Color.Gray)
                 _complaintLayout.IsVisible = false;
+            else if (view == btnSendComplaint)
+                SendComplaint();
+            else if(view== imgTakePhoto)
+                TakePhoto();
 
-            _complaintUnderlineLayout.IsVisible = _complaintLayout.IsVisible;
-            _suggestionLayout.IsVisible = !_complaintLayout.IsVisible;
-            _suggestionUnderlineLayout.IsVisible = !_complaintLayout.IsVisible;
+            complaintUnderlineLayout.IsVisible = _complaintLayout.IsVisible;
+            suggestionLayout.IsVisible = !_complaintLayout.IsVisible;
+            suggestionUnderlineLayout.IsVisible = !_complaintLayout.IsVisible;
         }
 
         protected override bool OnBackButtonPressed()
@@ -136,8 +144,8 @@ namespace PrigovorHR.Shared.Pages
 
         private void Close(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_complaintEditor.Text) |
-                !string.IsNullOrEmpty(_suggestionEditor.Text))
+            if (!string.IsNullOrEmpty(complaintEditor.Text) |
+                !string.IsNullOrEmpty(suggestionEditor.Text))
             {
                 Acr.UserDialogs.UserDialogs.Instance.Confirm(
                     new Acr.UserDialogs.ConfirmConfig()
@@ -160,7 +168,7 @@ namespace PrigovorHR.Shared.Pages
             else Rg.Plugins.Popup.Services.PopupNavigation.PopAsync(true);
         }
 
-        private async void BtnSendComplaint_Clicked(object sender, EventArgs e)
+        private async void SendComplaint()
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Šaljem vaš prigovor");
             await Task.Delay(19);

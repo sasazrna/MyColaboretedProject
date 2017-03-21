@@ -61,6 +61,11 @@
                             <!--<views:FontAwesomeLabel x:Name="send_font" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>-->
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" Padding="5,0.45,5,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
+                      
+                        <StackLayout>
+                        <Label Text="Ostavite sugestiju" FontSize="Medium"  TextColor="#ff7e65" HorizontalOptions="Center" Margin="0, 15, 0, 5"/>
+                        <Editor x:Name="editSuggestionText" BackgroundColor="White" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Black"/>
+                        </StackLayout>
                         
                         <views:FontAwesomeLabel x:Name="btnSendComplaint" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>
                     </StackLayout>

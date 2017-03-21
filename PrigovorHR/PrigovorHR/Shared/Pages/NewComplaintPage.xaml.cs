@@ -20,6 +20,7 @@ namespace PrigovorHR.Shared.Pages
         private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel;
         private Guid ComplaintDraftGuid;
         private Models.CompanyElementModel CompanyElement;
+        private string ProblemOccurred;
 
         public NewComplaintPage()
         {
@@ -38,6 +39,7 @@ namespace PrigovorHR.Shared.Pages
                 WriteNewComplaintModel.QuickComplaint = false;
                 WriteNewComplaintModel.element_id = companyElement.id;
                 WriteNewComplaintModel.element_slug = companyElement.slug;
+                ComplaintCoversationHeaderView.SetHeaderInfo("nepoznato", CompanyElement.name);
             }
             else
             {
@@ -54,10 +56,21 @@ namespace PrigovorHR.Shared.Pages
                     };
                 }
 
-                editComplaintText.Text = _WriteNewComplaintModel.complaint;
-            }
+                editComplaintText.Text = WriteNewComplaintModel.complaint;
+                Task.Run(async () =>
+                {
+                    var CompanyElementRoot =
+                    JsonConvert.DeserializeObject<Models.CompanyElementRootModel>
+                    (await DataExchangeServices.GetCompanyElementData(WriteNewComplaintModel.element_slug));
+                    CompanyElement = CompanyElementRoot.element;
+                    ComplaintCoversationHeaderView.SetHeaderInfo("nepoznato", CompanyElement.name);
+                });
 
-            ComplaintCoversationHeaderView.SetHeaderInfo("nepoznato", CompanyElement.name);
+                editSuggestionText.Text = WriteNewComplaintModel.suggestion;
+                ProblemOccurred = WriteNewComplaintModel.problem_occurred;
+                labela_vremena_sad.Text = ProblemOccurred;
+                labela_vremena_sad.IsVisible = true;
+            }
         
             imgAttachDocs.Text = '\uf1c1'.ToString();
             imgAttachDocs.TextColor = Color.Gray;
@@ -84,6 +97,7 @@ namespace PrigovorHR.Shared.Pages
             TAPController.SingleTaped += TAPController_SingleTaped;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editComplaintText.TextChanged += EditComplaintText_TextChanged;
+            editSuggestionText.TextChanged += EditComplaintText_TextChanged;
             arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
         }
         private void TAPController_SingleTaped(string viewId, View view)
@@ -103,6 +117,9 @@ namespace PrigovorHR.Shared.Pages
                 Ranije_stack.IsVisible = false;
                 Sada_stack.IsVisible = true;
                 labela_vremena_sad.Text = DateTime.Now.ToString();
+                ProblemOccurred = DateTime.Now.ToString();
+                WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+                SaveToDevice();
             }
             else if (view == RanijeStackButton)
             {
@@ -137,6 +154,7 @@ namespace PrigovorHR.Shared.Pages
                     attachment_url = Picker.FileName,
                     attachment_mime = AttachmentView.Id.ToString()
                 });
+                SaveToDevice();
             }
         }
 
@@ -164,6 +182,7 @@ namespace PrigovorHR.Shared.Pages
                     attachment_url = PhotoName,
                     attachment_mime = AttachmentView.Id.ToString()
                 });
+                SaveToDevice();
             }
         }
 
@@ -193,6 +212,7 @@ namespace PrigovorHR.Shared.Pages
                 Longitude = 0;
                 imgTakeGPSLocation.TextColor = Color.Gray;
             }
+            SaveToDevice();
         }
 
         private async void SendComplaint()
@@ -223,8 +243,8 @@ namespace PrigovorHR.Shared.Pages
                  complaint = editComplaintText.Text,
                  element_id = CompanyElement.id,
                  attachment_ids = attachment_ids,
-                 suggestion = "editComplaintText.Text",
-                 problem_occurred = !string.IsNullOrEmpty(labela_vremena_sad.Text) ? labela_vremena_sad.Text : labelavremena.Text
+                 suggestion = editSuggestionText.Text,
+                 problem_occurred = ProblemOccurred
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 
@@ -244,9 +264,11 @@ namespace PrigovorHR.Shared.Pages
                 //    SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Unsent);
             }
         }
+
         private void EditComplaintText_TextChanged(object sender, TextChangedEventArgs e)
         {
             WriteNewComplaintModel.complaint = editComplaintText.Text;
+            WriteNewComplaintModel.suggestion = editSuggestionText.Text;
             SaveToDevice();
         }
 
@@ -263,16 +285,22 @@ namespace PrigovorHR.Shared.Pages
             {
                 labelasati.Text = arrivalTimePicke.Time.ToString();
                 labelasati.TextColor = Color.Silver;
+                ProblemOccurred += arrivalTimePicke.Time.ToString().Substring(0, arrivalTimePicke.Time.ToString().LastIndexOf(":"));
+                WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+                SaveToDevice();
             }
         }
 
         private void ArrivalDatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            labelavremena.Text = e.NewDate.ToString("dd.MM.yyyy.");
+            labelavremena.Text = e.NewDate.ToString("dd.MM.yyyy ");
             labelavremena.TextColor = Color.Silver;
             labelasati.Text = arrivalTimePicke.Time.ToString();
             labelasati.TextColor = Color.Silver;
             arrivalTimePicke.Focus();
+            ProblemOccurred = e.NewDate.ToString("dd.MM.yyyy ");
+            WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+            SaveToDevice();
         }
 
         protected override bool OnBackButtonPressed()

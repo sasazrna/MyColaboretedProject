@@ -1,20 +1,40 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Views.LandingViewWithLogin">
-  <ContentView.Content>
-    <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
-      <Views:MainNavigationBar x:Name="_TopNavigationBar" BackgroundColor="Silver">
-      </Views:MainNavigationBar>
-            <StackLayout VerticalOptions="End">
-            <Views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView">
-            </Views:ListOfComplaintsView_BasicUser>
-            </StackLayout>
-            <StackLayout  VerticalOptions="EndAndExpand">
-                <Views:ComplaintListTabView x:Name="ComplaintListTabView">
-                </Views:ComplaintListTabView>
-            </StackLayout>
-        </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <!--<StackLayout>
+            <RelativeLayout>
+                <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" 
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">-->
+
+                    <StackLayout>
+                        <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
+                            <views:MainNavigationBar x:Name="_TopNavigationBar" BackgroundColor="Silver">
+                            </views:MainNavigationBar>
+                            <StackLayout VerticalOptions="End">
+                                <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView">
+                                </views:ListOfComplaintsView_BasicUser>
+                            </StackLayout>
+                            <StackLayout  VerticalOptions="EndAndExpand">
+                                <views:ComplaintListTabView x:Name="ComplaintListTabView">
+                                </views:ComplaintListTabView>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+
+                <!--</ContentView>-->
+
+                <!--<Frame x:Name="MenuStack" BackgroundColor="White" WidthRequest="300" TranslationX="-300" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.001, Constant=-40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.001, Constant=-25}">
+                    <StackLayout>
+                        <views:FontAwesomeLabel x:Name="MenuBack" Margin="0,30,30,0" HorizontalOptions="End"></views:FontAwesomeLabel>
+                        <Label x:Name="lblMyProfile" Text="Moj profil" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                        <Label x:Name="lblContactUs" Text="Kontakt" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
+                        <Label x:Name="lblLogOut" Text="Odjavi se" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start"  />
+                    </StackLayout>
+                </Frame>-->
+            <!--</RelativeLayout>
+        </StackLayout>-->
+    </ContentView.Content>
 </ContentView>

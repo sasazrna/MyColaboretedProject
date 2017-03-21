@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
              CloseWhenBackgroundIsClicked="False"
              x:Class="PrigovorHR.Shared.Pages.QuickComplaintPage" BackgroundColor="Transparent">
 
@@ -38,17 +39,17 @@
       <Frame x:Name="Frame" BackgroundColor="White" Margin="20,30,20,40" HorizontalOptions="Center">
         <StackLayout>
           <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-            <Label x:Name="_complaintLabel" Text="Prigovor" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="#FF6A00"></Label>
-            <Label x:Name="_suggestionLabel" Text="Sugestija" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="Gray"></Label>
+            <Label x:Name="complaintLabel" Text="Prigovor" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="#FF6A00"></Label>
+            <Label x:Name="suggestionLabel" Text="Sugestija" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="Gray"></Label>
           </StackLayout>
 
           <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-              <StackLayout x:Name="_complaintUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00"/>
+              <StackLayout x:Name="complaintUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00"/>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-              <StackLayout x:Name="_suggestionUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00" IsVisible="False"/>
+              <StackLayout x:Name="suggestionUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00" IsVisible="False"/>
             </StackLayout>
           </StackLayout>
 
@@ -56,15 +57,16 @@
 
           <StackLayout x:Name="_complaintLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
             <Label Text="Napišite prigovor" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
-            <Editor x:Name="_complaintEditor"  BackgroundColor="White" TextColor="Black"  HeightRequest="180" />
-            <Button x:Name="_cameraButton" Image="camera.png" BorderWidth="2" HorizontalOptions="Start" />
+            <Editor x:Name="complaintEditor"  BackgroundColor="White" TextColor="Black"  HeightRequest="180" />
+         <!--<Button x:Name="_cameraButton" Image="camera.png" BorderWidth="2" HorizontalOptions="Start" />-->
+            <views:FontAwesomeLabel x:Name="imgTakePhoto" FontSize="Large" HorizontalOptions="Start"></views:FontAwesomeLabel>
           </StackLayout>
 
-          <StackLayout x:Name="_suggestionLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand" IsVisible="False">
+          <StackLayout x:Name="suggestionLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand" IsVisible="False">
             <Label Text="Napišite sugestiju" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
-            <Editor x:Name="_suggestionEditor" BackgroundColor="White" TextColor="Black" HeightRequest="180" />
+            <Editor x:Name="suggestionEditor" BackgroundColor="White" TextColor="Black" HeightRequest="180" />
           </StackLayout>
-          <Button x:Name="btnSendComplaint" Text="Pošalji Prigovor" TextColor="White" VerticalOptions="Start" BackgroundColor="#FF6A00" />
+          <views:FontAwesomeLabel x:Name="btnSendComplaint" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>
         </StackLayout>
       </Frame>
     </AbsoluteLayout>

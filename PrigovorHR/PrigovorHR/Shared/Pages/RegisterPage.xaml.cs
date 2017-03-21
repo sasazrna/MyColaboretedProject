@@ -16,6 +16,7 @@ namespace PrigovorHR.Shared.Pages
 
     public partial class RegisterPage : ContentPage
     {
+        private TAPController TAPController;
         public RegisterPage()
         {
             InitializeComponent();
@@ -26,11 +27,20 @@ namespace PrigovorHR.Shared.Pages
             SurnameEntry.Completed += Entry_Completed;
             PasswordEntry.Completed += Entry_Completed;
             btnRegister.Clicked += btnRegister_Clicked;
+            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            TAPController = new TAPController(lblTerms);
+            TAPController.SingleTaped += (string id, View view) => { Device.OpenUri(new Uri("http://138.68.85.217/hr/uvjeti-koristenja-fizicke-osobe")); };
         }
 
-        private void BtnZaboravioSamLozinku_Clicked(object sender, EventArgs e)
+        private async void NavigationBar_BackButtonPressedEvent()
         {
-         //otvori prozor za povrat lozinke
+            await Navigation.PopModalAsync();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationBar.InitBackButtonPressed();
+            return true;
         }
 
         private async void btnRegister_Clicked(object sender, EventArgs e)

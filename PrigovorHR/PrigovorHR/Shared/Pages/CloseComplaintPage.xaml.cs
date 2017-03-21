@@ -23,6 +23,7 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
             Complaint = complaint;
             btnZatvoriPrigovor.Clicked += BtnZatvoriPrigovor_Clicked;
+            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         private async void BtnZatvoriPrigovor_Clicked(object sender, EventArgs e)
@@ -55,6 +56,18 @@ namespace PrigovorHR.Shared.Pages
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Molimo vas, prije zatvaranja prigovora ocijenite rješenje vašeg prigovora!", "Prigovor.hr", "OK");
             }
+        }
+
+
+        private async void NavigationBar_BackButtonPressedEvent()
+        {
+            await Navigation.PopModalAsync(true);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationBar.InitBackButtonPressed();
+            return true;
         }
     }
 }

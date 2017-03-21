@@ -9,7 +9,7 @@
   <ScrollView x:Name="LoginScrollView">
     <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
       <Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Silver" LineBreakMode="CharacterWrap" />
-       <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 20, 15, 20">
+       <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 20, 15, 20">
          <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
            <Image Source="fb_art.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
            <Label Text="Facebook" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" LineBreakMode="TailTruncation" />
@@ -19,11 +19,11 @@
            <Image Source="google.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
            <Label Text="Google" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black"  LineBreakMode="TailTruncation"/>
          </StackLayout>
-        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        --><!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
           <Image Source="linked.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
           <Label Text="LinkedIn" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" LineBreakMode="TailTruncation" />
-        </StackLayout>-->
-      </StackLayout>
+        </StackLayout>--><!--
+      </StackLayout>-->
        
 
       <StackLayout Padding="0, 30, 0, 0" >

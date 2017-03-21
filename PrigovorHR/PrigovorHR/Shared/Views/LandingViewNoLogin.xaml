@@ -7,8 +7,8 @@
        
         <ScrollView>
           <StackLayout>
-          <Label Text="Prigovor.hr aplikacija omogućava vam ostvarivanje vaših potrošačkih i građanskih prava na brz i jednostavan način" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,30,0,0"  />
-          <Label Text="Koristeći našu aplikaciju možete pronaći tvrtku/grad kojima želite uputiti prigovor ili sugestiju u par klikova" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,10,0,0"  />
+          <Label Text="Prigovor.hr aplikacija omogućava vam ostvarivanje vaših potrošačkih prava na brz i jednostavan način" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,30,0,0"  />
+          <Label Text="Koristeći našu aplikaciju možete pronaći tvrtku kojoj želite uputiti prigovor ili sugestiju u par klikova" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,10,0,0"  />
           <Label Text="Da bi ste krenuli koristiti aplikaciju prijavite se ili kreirajte korisnički račun" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Start" Margin="0,10,0,0"  />
           </StackLayout>
         </ScrollView>
@@ -20,7 +20,7 @@
       </StackLayout>
       
       <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="15, 0, 15, 5">
-        <Button x:Name="btnAboutUs" Text="O nama"  TextColor="White"  HorizontalOptions="FillAndExpand" BackgroundColor="#30343f"/>
+        <!--<Button x:Name="btnAboutUs" Text="O nama"  TextColor="White"  HorizontalOptions="FillAndExpand" BackgroundColor="#30343f"/>-->
         <!--<Button x:Name="btnContact" Text="Kontakt"  TextColor="White" HorizontalOptions="FillAndExpand" BackgroundColor="#30343f"/>-->
       </StackLayout>
       

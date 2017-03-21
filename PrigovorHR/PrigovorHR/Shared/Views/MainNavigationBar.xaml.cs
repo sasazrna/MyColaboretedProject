@@ -116,6 +116,7 @@ namespace PrigovorHR.Shared.Views
         {
             if (view == imgMenuLayout)
             {
+             //   LandingViewWithLogin.ReferenceToView.ShowMenu();
                 _MenuFrame.IsVisible = !_MenuFrame.IsVisible;
             }
             else if (view == imgSearch)

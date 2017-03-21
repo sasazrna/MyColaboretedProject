@@ -16,6 +16,8 @@ namespace PrigovorHR.Shared.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LandingViewWithLogin : ContentView
     {
+        public static LandingViewWithLogin ReferenceToView;
+        private Controllers.TAPController TAPController;
         public LandingViewWithLogin()
         {
             InitializeComponent();
@@ -23,7 +25,23 @@ namespace PrigovorHR.Shared.Views
 
             //When logged in, check if there is complaint that wasnt sent for some reason.
             LoadComplaintAutoSaveData();
+
+            Device.StartTimer(new TimeSpan(0, 0, 30), () =>
+            {
+                //  Acr.Notifications.CrossNotifications.Current.Send("Prigovor.hr - Nova poruka od: " + "Vivas caffe bar Vrbani", "Poštovani, zahvaljujemo na vašoj prijavi te se nadamo.....", )
+                return true;
+            });
+            //MenuBack.Text = '\uf060'.ToString();
+            //MenuBack.TextColor = Color.Gray;
+            //MenuBack.FontSize = 35;
+            //MenuStack.HeightRequest = ((Page)Parent).HeightRequest;
+            //TAPController = new Controllers.TAPController(MenuBack);
+            //  TAPController.SingleTaped += (string id, View view) => { HideMenu(); };
+            ReferenceToView = this;
         }
+
+        //public async void ShowMenu()=> await MenuStack.TranslateTo(0, 0, 250);
+        //public async void HideMenu() => await MenuStack.TranslateTo(-450, 0, 250);
 
         private async void LoadComplaintAutoSaveData()
         {
@@ -45,15 +63,24 @@ namespace PrigovorHR.Shared.Views
                     while (ComplaintModel.RefToAllComplaints == null)
                         await Task.Delay(200);
 
-                    var NewComplaintReplyPage =
-                        new NewComplaintReplyPage(ComplaintModel.RefToAllComplaints.user.complaints.Single(c => c.id == WriteNewComplaintModel.complaint_id),
-                                                  WriteNewComplaintModel);
+                    if (WriteNewComplaintModel.complaint_id > 0)
+                    {
+                        var NewComplaintReplyPage =
+                            new NewComplaintReplyPage(ComplaintModel.RefToAllComplaints.user.complaints.Single(c => c.id == WriteNewComplaintModel.complaint_id),
+                                                      WriteNewComplaintModel);
 
-                   await Navigation.PushModalAsync(NewComplaintReplyPage);
-                    NewComplaintReplyPage.ReplaySentEvent += (int id) => { Navigation.PopModalAsync(true); ListOfComplaintsView.LoadComplaints(); };
+                        await Navigation.PushModalAsync(NewComplaintReplyPage);
+                        NewComplaintReplyPage.ReplaySentEvent += (int id) => { Navigation.PopModalAsync(true); ListOfComplaintsView.LoadComplaints(); };
+                    }
+                    else
+                    {
+                        var NewComplaintPage = new NewComplaintPage(null, WriteNewComplaintModel);
+
+                        await Navigation.PushModalAsync(NewComplaintPage);
+                        NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopModalAsync(true); ListOfComplaintsView.LoadComplaints(); };
+                    }
                 }
             }
-
         }
     }
 }

@@ -6,7 +6,7 @@
     <ContentView.Content>
         <StackLayout Spacing="0">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,5,0,5">
-                <Label x:Name="lblSectionName" Text="Prehrana" TextColor="Gray" FontSize="Small" HorizontalOptions="Start"></Label>
+                <Label x:Name="lblSectionName" Text="Prehrana" TextColor="Gray" FontSize="Medium" HorizontalOptions="Start"></Label>
                 <Views:FontAwesomeLabel x:Name="lblSectionIcon" TextColor="Gray" FontSize="Medium" HorizontalOptions="EndAndExpand"></Views:FontAwesomeLabel>
             </StackLayout>
             <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" BackgroundColor="Silver"/>

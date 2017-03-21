@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" 
+             BackgroundColor="White"
              x:Class="PrigovorHR.Shared.Views.CompanyElementInfoView">
     <ContentView.Content>
+        <ScrollView>
         <StackLayout>
             <StackLayout Spacing="2" Margin="0,10,0,0">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
@@ -12,20 +14,24 @@
                     <Views:FontAwesomeLabel x:Name="imgElementDetails" HorizontalOptions="EndAndExpand" VerticalOptions="End" TextColor="Gray" FontSize="Large" Margin="0,0,10,0"></Views:FontAwesomeLabel>
                 </StackLayout>
 
-                <Label  x:Name="lblElementAddress" Text="Ul. Marijana Čavića" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
-                <Label  x:Name="lblWorkTime" Text="Pon-Sub: 07:00-21:00 Ned 07:00-18:00" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
-                <Label  x:Name="lblLocation" Text="Arena centar Zagreb" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
-                <Label  x:Name="lblElementDescription" Text="Detaljan opis kompanije" FontSize="Small" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
+                <Label x:Name="lblElementAddress" Text="Ul. Marijana Čavića" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                <Label x:Name="lblWorkTime" Text="Pon-Sub: 07:00-21:00 Ned 07:00-18:00" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                <Label x:Name="lblLocation" Text="Arena centar Zagreb" FontSize="Small" TextColor="Gray" HorizontalTextAlignment="Start" />
+                <Label x:Name="lblElementDescription" Text="Detaljan opis kompanije" FontSize="Small" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
             </StackLayout>
 
             <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <maps:Map MinimumHeightRequest="300" x:Name="ElementMap" IsShowingUser="true" MapType="Street" />
-                <Views:CompanyElementSectionViewList x:Name="CompanyElementSectionViewList"></Views:CompanyElementSectionViewList>
+                <maps:Map MinimumHeightRequest="200" x:Name="ElementMap" IsShowingUser="true" MapType="Street"/>
             </StackLayout>
 
-            <StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" IsVisible="False">
-                <Label x:Name="lblElementType" Text="POSLOVNICA" FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
+            <StackLayout x:Name="lytCompanyElementSectionViewList">
+                <Views:CompanyElementSectionViewList x:Name="CompanyElementSectionViewList"></Views:CompanyElementSectionViewList>
             </StackLayout>
+            
+            <!--<StackLayout Margin="0,10,0,0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="0" IsVisible="False">
+                <Label x:Name="lblElementType" Text="POSLOVNICA" FontSize="Medium" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
+            </StackLayout>-->
         </StackLayout>
+        </ScrollView>
     </ContentView.Content>
 </ContentView>

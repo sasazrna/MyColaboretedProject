@@ -51,12 +51,11 @@ namespace PrigovorHR.Shared.Pages
             catch (Exception ex) { Acr.UserDialogs.UserDialogs.Instance.Alert(ex.ToString()); }
         }
 
-
         private async void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
             var NewComplaintPage = new NewComplaintPage(CompanyElement.element);
-           await Navigation.PushModalAsync(NewComplaintPage, true);
-            NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopModalAsync(true); };
+            await Navigation.PushModalAsync(NewComplaintPage, true);
+            NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
         }
 
         private async void NavigationBar_BackButtonPressedEvent()

@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Pages.RegisterPage">
-  <ScrollView x:Name="LoginScrollView">
-    <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
 
-      <Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" LineBreakMode="CharacterWrap" />
-       <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 20, 15, 20">
-         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+    <StackLayout>
+        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
+            <ScrollView x:Name="LoginScrollView">
+                <!--<Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" LineBreakMode="CharacterWrap" />-->
+                <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 20, 15, 20">-->
+                <!--<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
            <Image Source="fb_art.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
            <Label Text="Facebook" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" LineBreakMode="TailTruncation" />
          </StackLayout>
@@ -15,36 +18,39 @@
          <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
            <Image Source="google.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
            <Label Text="Google" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black"  LineBreakMode="TailTruncation"/>
-         </StackLayout>
+         </StackLayout>-->
 
-        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
           <Image Source="linked.png" HorizontalOptions="Start" WidthRequest="25" HeightRequest="25" />
           <Label Text="LinkedIn" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" LineBreakMode="TailTruncation" />
         </StackLayout>-->
-      </StackLayout>
+                <!--</StackLayout>-->
+                <StackLayout>
+                    <StackLayout Padding="0, 30, 0, 0" >
+                        <Label Text="Registracija email adresom:" FontSize="Large" HorizontalTextAlignment="Center" TextColor="Black" />
+                    </StackLayout>
 
-      <StackLayout Padding="0, 30, 0, 0" >
-        <Label Text="Registracija email adresom:" FontSize="Large" HorizontalTextAlignment="Center" TextColor="Black" />
-      </StackLayout>
-    
-      <Frame HasShadow="True" OutlineColor="#FF6A00">
-       <StackLayout Padding="0,0,0,0" Spacing="-2">
-        <Label Text="Vaše ime:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="NameEntry"  Placeholder="Upišite vaše ime" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
-        <Label Text="Vaše prezime:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="SurnameEntry" Placeholder="Upišite vaše prezime" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+                    <Frame HasShadow="True" OutlineColor="#FF6A00">
+                        <StackLayout Padding="0,0,0,0" Spacing="-2">
+                            <Label Text="Vaše ime:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
+                            <Entry x:Name="NameEntry"  Placeholder="Upišite vaše ime" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+                            <Label Text="Vaše prezime:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
+                            <Entry x:Name="SurnameEntry" Placeholder="Upišite vaše prezime" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
 
-        <Label x:Name="lblEmail" Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="EmailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
-        <Label x:Name="lblPassword" Text="Upišite lozinku:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
-      </StackLayout>
-      </Frame>
+                            <Label x:Name="lblEmail" Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
+                            <Entry x:Name="EmailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+                            <Label x:Name="lblPassword" Text="Upišite lozinku:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
+                            <Entry x:Name="PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+                        </StackLayout>
+                    </Frame>
+                    <Label x:Name="lblTerms" Text="Registracijom prihvaćate uvjete korištenja" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Blue" Margin="0,50,0,0"/>
 
-      <StackLayout VerticalOptions="CenterAndExpand">
-        <Button x:Name="btnRegister" Text="Registriraj me" TextColor="White" FontSize="Medium"  BackgroundColor="#FF6A00"/>
-      </StackLayout>
+                    <StackLayout VerticalOptions="CenterAndExpand" Margin="0,20,0,0">
+                        <Button x:Name="btnRegister" Text="Registriraj me" TextColor="White" FontSize="Medium"  BackgroundColor="#FF6A00"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </StackLayout>
-  </ScrollView>
 </ContentPage>
 

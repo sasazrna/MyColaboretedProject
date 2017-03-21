@@ -36,11 +36,7 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-               await NavigationBar.imgBack.RotateTo(90, 75);
-                await Navigation.PopModalAsync();
-            });
+            NavigationBar.InitBackButtonPressed();
             return true;
         }
 

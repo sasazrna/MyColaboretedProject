@@ -9,7 +9,7 @@
                 <Label Text="Odjeli" HorizontalOptions="Center" TextColor="Gray" FontSize="Medium" Margin="0,5,0,5"></Label>
             </StackLayout>
             <StackLayout x:Name="lytCompanyElementSectionView">
-                <Views:CompanyElementSectionView></Views:CompanyElementSectionView>
+                <!--<Views:CompanyElementSectionView></Views:CompanyElementSectionView>-->
             </StackLayout>
             
             <Label x:Name="lblNoSections" Text="Ova poslovnica nema odjele"></Label>
