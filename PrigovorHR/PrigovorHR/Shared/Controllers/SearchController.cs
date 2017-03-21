@@ -15,7 +15,7 @@ namespace PrigovorHR.Shared.Controllers
 {
     class SearchController:IDisposable
     {
-        public delegate void SearchActivatedHandler(string searchtext);
+        public delegate void SearchActivatedHandler(string searchtext, bool IsDirectTag);
         public delegate void SearchDeactivatedHandler();
         public event SearchActivatedHandler SearchActivated;
         public event SearchDeactivatedHandler SearchDeactivated;
@@ -23,7 +23,6 @@ namespace PrigovorHR.Shared.Controllers
         public bool isTyping = false;
         public bool isSpecial = false;//označavati će dali se nešto specifično pretražuje, treba definirati
         public bool stopTextChangedEvent = false;
-        public bool isQRTextActive = false;
         private SearchBar SearchBarField;
         private Entry EntryBarField;
 
@@ -70,18 +69,8 @@ namespace PrigovorHR.Shared.Controllers
                         NumberOfActivatedTimers = 0;
                         NumberOfTextChangesBeforeSearchStart = 0;
                         isTyping = false;
-                        if (!isQRTextActive || (isQRTextActive & e.NewTextValue != string.Empty))
-                        {
-                            SearchActivated?.Invoke(typedtext);
-                            if (isQRTextActive)
-                            {
-                                if (SearchBarField != null)
-                                    SearchBarField.Text = string.Empty;
-                                else EntryBarField.Text = string.Empty;
-                            }
-                        }
-                        else if (isQRTextActive & e.NewTextValue == string.Empty)
-                            isQRTextActive = false;
+                        if (e.NewTextValue != string.Empty)
+                            SearchActivated?.Invoke(typedtext, e.NewTextValue.Contains("@"));
                     }
                     return false;//Stop the timer
                 });

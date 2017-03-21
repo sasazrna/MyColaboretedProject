@@ -198,6 +198,7 @@ namespace PrigovorHR.Shared.Pages
                     Latitude = MyLocation.Latitude;
                     Longitude = MyLocation.Longitude;
                     imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
+                    Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaša lokacija je pronađena");
                 }
                 else
                 {

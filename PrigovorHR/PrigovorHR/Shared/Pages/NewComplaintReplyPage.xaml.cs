@@ -255,11 +255,10 @@ namespace PrigovorHR.Shared.Pages
                         Latitude = MyLocation.Latitude;
                         Longitude = MyLocation.Longitude;
                         imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
+                        Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaša lokacija je pronađena");
                     }
                     else
-                    {
                         Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom dobivanja vaše lokacije!" + Environment.NewLine + "Provjerite jeli vam GPS uključen te da aplikaciji dozvolite pristup GPS-u", "Greška", "OK");
-                    }
 
                     Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                 }
@@ -281,18 +280,33 @@ namespace PrigovorHR.Shared.Pages
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
+            //if (!string.IsNullOrEmpty(editReplyText.Text) | lytAttachments.Children.Any())
+            //{
+            //    Acr.UserDialogs.UserDialogs.Instance.ActionSheet(
+            //        new Acr.UserDialogs.ActionSheetConfig()
+            //        {
+            //            Title = "Izlazak",
+            //            Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
+            //            UseBottomSheet = true,
+            //            Options = new List<Acr.UserDialogs.ActionSheetOption>()
+            //        { new Acr.UserDialogs.ActionSheetOption("DA", (()=> {  })),
+            //          new Acr.UserDialogs.ActionSheetOption("NE", (async()=> {await Navigation.PopModalAsync(true); })),
+            //          new Acr.UserDialogs.ActionSheetOption("Nemoj prekinuti", ()=>{ })}
+            //        });
+            //}
+            //else await Navigation.PopModalAsync(true);
+
             if (!string.IsNullOrEmpty(editReplyText.Text) | lytAttachments.Children.Any())
             {
                 Acr.UserDialogs.UserDialogs.Instance.ActionSheet(
                     new Acr.UserDialogs.ActionSheetConfig()
                     {
-                        Title = "Izlazak",
-                        Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
-                        UseBottomSheet = true,
+                        Title = "Jeste li sigurni u prekid?",
+                        // Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
+                        UseBottomSheet = false,
                         Options = new List<Acr.UserDialogs.ActionSheetOption>()
-                    { new Acr.UserDialogs.ActionSheetOption("DA", (()=> {  })),
-                      new Acr.UserDialogs.ActionSheetOption("NE", (async()=> {await Navigation.PopModalAsync(true); })),
-                      new Acr.UserDialogs.ActionSheetOption("Nemoj prekinuti", ()=>{ })}
+                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopModalAsync(true); })),
+                      new Acr.UserDialogs.ActionSheetOption("NE", ()=> { return; } ) }
                     });
             }
             else await Navigation.PopModalAsync(true);

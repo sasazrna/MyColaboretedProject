@@ -25,6 +25,11 @@ namespace PrigovorHR.Shared
             return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetSearchResults, searchfor);
         }
 
+        public static async Task<string> GetDirectTagResult(string searchfor)
+        {
+            return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetDirectTagResult, searchfor);
+        }
+
         public static async Task<string> GetCompanyElementData(string ElementSlug)
         {
             return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetCompanyElementData, ElementSlug);
@@ -147,6 +152,11 @@ namespace PrigovorHR.Shared
             return !ResultData.Contains("Error:");
         }
 
+        public static async Task<string> GetCompanyLogo(string jsonvalue)
+        {
+            return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetCompanyLogo, jsonvalue);
+        }
+
         /// <summary>
         /// Private class that handles all the communications and returns result to root dataexchangeservices class
         /// </summary>
@@ -177,12 +187,13 @@ namespace PrigovorHR.Shared
                 GetCompanyElementData,
                 SendExceptionData,
                 CloseComplaint,
+                GetCompanyLogo
             };
 
 
             private Dictionary<ServiceCommands, string> APIAdresses =
                 new Dictionary<ServiceCommands, string> { { ServiceCommands.GetSearchResults, "pretraga/" },
-                                                          { ServiceCommands.GetDirectTagResult, "direktni-pristup/" },
+                                                          { ServiceCommands.GetDirectTagResult, "qr/" },
                                                           { ServiceCommands.RegisterUser, "register" },
                                                           { ServiceCommands.LoginUser, "login" },
                                                           { ServiceCommands.GetUserAvatar, "avatar" } ,
@@ -200,8 +211,8 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.GetReplyAttachmentData, "odgovor-prilozi/" },
                                                           { ServiceCommands.GetCompanyElementData, "prigovori/" },
                                                           { ServiceCommands.SendExceptionData, "xamarin-exceptions"} ,
-                                                          { ServiceCommands.CloseComplaint, "prigovor/zatvori/" } };
-
+                                                          { ServiceCommands.CloseComplaint, "prigovor/zatvori/" },
+                                                          {ServiceCommands.GetCompanyLogo, "logo-tvrtke/" } };
 
 
 
@@ -225,6 +236,7 @@ namespace PrigovorHR.Shared
                             case ServiceCommands.GetSearchResults:
                             case ServiceCommands.GetDirectTagResult:
                             case ServiceCommands.GetCompanyElementData:
+                            case ServiceCommands.GetCompanyLogo:
                                 response = await client.GetAsync(serviceAddress + APIAdresses[ServiceCommand] + value);
                                 break;
 
@@ -257,7 +269,7 @@ namespace PrigovorHR.Shared
 
                             case ServiceCommands.GetLongLatFromAddress:
                                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-                                var bundle = Android.App.Application.Context.PackageManager.GetApplicationInfo("com.prigovorhr.android", PackageInfoFlags.MetaData).MetaData;
+                                var bundle = Android.App.Application.Context.PackageManager.GetApplicationInfo("com.prigovorHR.android", PackageInfoFlags.MetaData).MetaData;
 
                                 response = await client.GetAsync(string.Format(APIAdresses[ServiceCommand] + "{0}" + "&key={1}", value, bundle.Get("com.google.android.maps.v2.API_KEY")));
                                 break;
@@ -269,7 +281,8 @@ namespace PrigovorHR.Shared
 
                             if (ServiceCommand == ServiceCommands.GetUserAvatar |
                                 ServiceCommand == ServiceCommands.GetComplaintAttachmentData |
-                                ServiceCommand == ServiceCommands.GetReplyAttachmentData)
+                                ServiceCommand == ServiceCommands.GetReplyAttachmentData | 
+                                ServiceCommand == ServiceCommands.GetCompanyLogo)
                                 return Convert.ToBase64String(await response.Content.ReadAsByteArrayAsync());
                             else return await response.Content.ReadAsStringAsync();
                         }

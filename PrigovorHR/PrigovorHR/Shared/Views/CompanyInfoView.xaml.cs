@@ -24,8 +24,8 @@ namespace PrigovorHR.Shared.Views
             lblCompanyCity.Text = Company.city?.name;
             lblCompanyDescription.Text = Company.description;
             lblCompanyName.Text = Company.name;
-            lblCompanyWebAddress.Text = "CompanyStore.root_business.web";
-            LoadMap(Company.address, Company.name);
+          //  lblCompanyWebAddress.Text = "CompanyStore.root_business.web";
+           LoadMap(Company.address, Company.name);
         }
 
         private async void LoadMap(string address, string name)

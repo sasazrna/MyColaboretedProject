@@ -44,6 +44,7 @@ namespace PrigovorHR.Shared.Pages
 
         private async void CompanyStoreFoundListView_CompanyStoreClickedEvent(Models.CompanyElementRootModel CompanyElement)
         {
+            Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam....", Acr.UserDialogs.MaskType.Clear);
             if (!entrySearch.Text.Contains("#"))
             {
                 await Navigation.PopPopupAsync(true);
@@ -56,12 +57,14 @@ namespace PrigovorHR.Shared.Pages
                 QuickComplaintPage.ComplaintSentEvent += (() => { ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); });
                 await Navigation.PushPopupAsync(QuickComplaintPage);
             }
+
+            Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 
-        private void SearchController_SearchActivated(string searchtext)
+        private void SearchController_SearchActivated(string searchtext, bool IsDirectTag)
         {
             entrySearch.Unfocus();
-            CompanyStoreFoundListView.DoSearch(searchtext);
+            CompanyStoreFoundListView.DoSearch(searchtext, IsDirectTag,  entrySearch);
         }
     }
 }

@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using PrigovorHR.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,11 +45,26 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyUnderline.IsVisible = false;
                 lytCompanyOtherElementsUnderline.IsVisible = false;
 
+               // SetCompanyLogo();
+
                 TAPController_SingleTaped(null, lblStore);
 
                 LogoStack.IsVisible = true;
             }
             catch (Exception ex) { Acr.UserDialogs.UserDialogs.Instance.Alert(ex.ToString()); }
+        }
+
+        private async void SetCompanyLogo()
+        {
+            try
+            {
+                var CompanyLogo = await DataExchangeServices.GetCompanyLogo(CompanyElement.element.root_business.id.ToString());
+                imgCompanyLogo.Source = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(CompanyLogo)));
+            }
+            catch(Exception ex)
+            {
+                Controllers.ExceptionController.HandleException(ex, "Greška kod private async void SetCompanyLogo()");
+            }
         }
 
         private async void BtnWriteComplaint_Clicked(object sender, EventArgs e)

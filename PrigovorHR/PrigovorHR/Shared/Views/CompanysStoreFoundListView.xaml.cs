@@ -27,39 +27,52 @@ namespace PrigovorHR.Shared.Views
             InitializeComponent();
         }
 
-        public async void DoSearch(string searchtext)
+        public async void DoSearch(string searchtext, bool IsDirectTag, Entry entrySearch)
         {
-
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Pretražujem " + searchtext, Acr.UserDialogs.MaskType.Clear);
             await Task.Delay(20);
 
-            await Task.Run(async () =>
+            string Result;
+
+            if (!IsDirectTag)
+                Result = await DataExchangeServices.GetSearchResults(searchtext);
+            else
+                Result = await DataExchangeServices.GetDirectTagResult(searchtext);
+
+            if (Result.Contains("Error:"))
             {
-                var Result = await DataExchangeServices.GetSearchResults(searchtext);
+                Controllers.VibrationController.Vibrate();
+                Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom pretraživanja!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Prigovor.HR", "OK");
+                return;
+            }
 
-                if (Result == "Error:")
-                {
-                    Controllers.VibrationController.Vibrate();
-                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                    Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom pretraživanja!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Prigovor.HR", "OK");
-                    return;
-                }
-
+            if (!IsDirectTag)
+            {
                 CompaniesStoresFoundInfo = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
-
                 Device.BeginInvokeOnMainThread(() =>
                {
                    DisplayData(CompaniesStoresFoundInfo);
                });
+            }
+            else
+            {
+                try
+                {
+                    var res = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
+                    await Navigation.PushModalAsync(new Company_ElementInfoPage(res, true));
 
-                Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-            });
-
-            //if (_CompaniesStoresFoundInfo.Any() && isDifferentResult(_CompaniesStoresFoundInfo.Select(sr => sr.slug).ToList(), _LastSearchResults))
-            //{
-            //    _LastSearchResults.Clear();
-            //    _LastSearchResults.AddRange(_CompaniesStoresFoundInfo.Select(sr => sr.slug));
-            //}
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Navigation.PopPopupAsync(true);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    entrySearch.Focus();
+                }
+            }
+            Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 
         private bool isDifferentResult(List<string> old, List<string> _new)
