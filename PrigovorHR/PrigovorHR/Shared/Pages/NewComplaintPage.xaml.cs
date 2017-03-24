@@ -20,7 +20,7 @@ namespace PrigovorHR.Shared.Pages
         private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel;
         private Guid ComplaintDraftGuid;
         private Models.CompanyElementModel CompanyElement;
-        private string ProblemOccurred;
+        private DateTime ProblemOccurred;
 
         public NewComplaintPage()
         {
@@ -67,8 +67,8 @@ namespace PrigovorHR.Shared.Pages
                 });
 
                 editSuggestionText.Text = WriteNewComplaintModel.suggestion;
-                ProblemOccurred = WriteNewComplaintModel.problem_occurred;
-                labela_vremena_sad.Text = ProblemOccurred;
+                ProblemOccurred = DateTime.Parse( WriteNewComplaintModel.problem_occurred);
+                labela_vremena_sad.Text = ProblemOccurred.ToString();
                 labela_vremena_sad.IsVisible = true;
             }
         
@@ -117,8 +117,8 @@ namespace PrigovorHR.Shared.Pages
                 Ranije_stack.IsVisible = false;
                 Sada_stack.IsVisible = true;
                 labela_vremena_sad.Text = DateTime.Now.ToString();
-                ProblemOccurred = DateTime.Now.ToString();
-                WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+                ProblemOccurred = DateTime.Now;
+                WriteNewComplaintModel.problem_occurred = ProblemOccurred.ToString();
                 SaveToDevice();
             }
             else if (view == RanijeStackButton)
@@ -286,11 +286,16 @@ namespace PrigovorHR.Shared.Pages
             {
                 labelasati.Text = arrivalTimePicke.Time.ToString();
                 labelasati.TextColor = Color.Silver;
-                ProblemOccurred += arrivalTimePicke.Time.ToString().Substring(0, arrivalTimePicke.Time.ToString().LastIndexOf(":"));
-                WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+                //ProblemOccurred += arrivalTimePicke.Time.ToString().Substring(0, arrivalTimePicke.Time.ToString().LastIndexOf(":"));
+                //WriteNewComplaintModel.problem_occurred = ProblemOccurred;
                 SaveToDevice();
             }
         }
+
+      
+//"problemOccurred" => "21. ožujak 2017."
+// "problemOccurred_submit" => "21. 3. 2017"
+// "problemOccurredTime" => "19:09"
 
         private void ArrivalDatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
@@ -299,8 +304,8 @@ namespace PrigovorHR.Shared.Pages
             labelasati.Text = arrivalTimePicke.Time.ToString();
             labelasati.TextColor = Color.Silver;
             arrivalTimePicke.Focus();
-            ProblemOccurred = e.NewDate.ToString("dd.MM.yyyy ");
-            WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+            //ProblemOccurred = e.NewDate.ToString("dd.MM.yyyy ");
+            //WriteNewComplaintModel.problem_occurred = ProblemOccurred;
             SaveToDevice();
         }
 

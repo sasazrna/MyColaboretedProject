@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace PrigovorHR.Shared.CustomControls
+{
+    public class Entry : Xamarin.Forms.Entry
+    {
+        private Xamarin.Forms.Label lblLabel = new Label() {
+            FontSize = Device.GetNamedSize(NamedSize.Micro, 
+                typeof(Label)), FontAttributes = FontAttributes.Bold};
+        private int EntryPositionInStack = 0;
+
+        public Entry()
+        {
+            lblLabel.TextColor = Color.FromHex("#ff7e65");
+            lblLabel.FadeTo(0, 0);
+            lblLabel.TranslateTo(0, 40, 0);
+            Focused += Entry_Focused;
+            Unfocused += Entry_Unfocused;
+        }
+
+        private  void Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+             lblLabel.FadeTo(0, 200);
+             lblLabel.TranslateTo(0, 40, 200);
+        }
+
+        private  void Entry_Focused(object sender, FocusEventArgs e)
+        {
+            var StackChildren = ((StackLayout)Parent).Children;
+
+            if (EntryPositionInStack == 0)
+            {
+                for (int i = 0; i < StackChildren.Count; i++)
+                    if (StackChildren[i] == this)
+                    {
+                        EntryPositionInStack = i;
+                        break;
+                    }
+
+                ((StackLayout)Parent).Children.Insert(EntryPositionInStack, lblLabel);
+            }
+
+            lblLabel.Text = Placeholder;
+             lblLabel.FadeTo(1, 200);
+             lblLabel.TranslateTo(0, 20, 200);
+        }
+    }
+}

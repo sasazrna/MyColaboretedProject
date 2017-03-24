@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms.Xaml;
+using PrigovorHR.Shared.Controllers;
 
 namespace PrigovorHR.Shared.Views
 {

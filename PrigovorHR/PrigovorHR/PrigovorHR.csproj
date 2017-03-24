@@ -37,7 +37,9 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Shared\Controllers\ComplaintDraftController.cs" />
+    <Compile Include="Shared\Controllers\Exstension.cs" />
     <Compile Include="Shared\Controllers\TranslateController.cs" />
+    <Compile Include="Shared\CustomControls\Entry.cs" />
     <Compile Include="Shared\Models\ExceptionInfoModel.cs" />
     <Compile Include="Shared\Pages\CompanySearchPage.xaml.cs">
       <DependentUpon>CompanySearchPage.xaml</DependentUpon>

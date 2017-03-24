@@ -50,22 +50,17 @@ namespace PrigovorHR.Shared.Views
             if (!IsDirectTag)
             {
                 CompaniesStoresFoundInfo = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
-                Device.BeginInvokeOnMainThread(() =>
-               {
-                   DisplayData(CompaniesStoresFoundInfo);
-               });
+                Device.BeginInvokeOnMainThread(() => DisplayData(CompaniesStoresFoundInfo));
             }
             else
             {
                 try
                 {
-                    var res = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
-                    await Navigation.PushModalAsync(new Company_ElementInfoPage(res, true));
+                    var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
+                    var NewCompanyElementInfoPage = new Company_ElementInfoPage(CompanyElement, true);
+                    await Navigation.PushModalAsync(NewCompanyElementInfoPage);
 
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await Navigation.PopPopupAsync(true);
-                    });
+                    Device.BeginInvokeOnMainThread(async () => await Navigation.PopPopupAsync(true));
                 }
                 catch (Exception ex)
                 {

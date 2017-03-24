@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Xaml;
 using Xamarin.Forms;
+using PrigovorHR.Shared.Controllers;
 
 namespace PrigovorHR.Shared.Pages
 {
@@ -81,13 +82,13 @@ namespace PrigovorHR.Shared.Pages
             {
                 var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
                 await Navigation.PushModalAsync(NewComplaintReplyPage);
-                NewComplaintReplyPage.ReplaySentEvent += (int id) => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+                NewComplaintReplyPage.ReplaySentEvent += (int id) => {  Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
             }
             else
             {
                 var CloseComplaintPage = new CloseComplaintPage(Complaint);
                 await Navigation.PushModalAsync(CloseComplaintPage);
-                CloseComplaintPage.ComplaintClosed += (int id) => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+                CloseComplaintPage.ComplaintClosed += (int id) => {  Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
             }
         }
 
