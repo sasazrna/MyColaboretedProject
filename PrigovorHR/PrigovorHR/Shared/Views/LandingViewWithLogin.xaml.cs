@@ -22,6 +22,59 @@ namespace PrigovorHR.Shared.Views
         public LandingViewWithLogin()
         {
             InitializeComponent();
+
+            backMenu.Text = Views.FontAwesomeLabel.Images.FAArrowLeft;
+            backMenu.TextColor = Color.Gray;
+
+
+            _imgProfilePicture.TranslateTo(0, 30, 100);
+            _imgProfilePicture.FadeTo(1, 100);
+
+
+
+            profil.TranslateTo(0, 110, 100);
+            profil.FadeTo(1, 100);
+
+            kotakt.TranslateTo(0, 150, 100);
+            kotakt.FadeTo(1, 100);
+
+            odjava.TranslateTo(0, 190, 100);
+            odjava.FadeTo(1, 100);
+
+            backMenu.TranslateTo(0, 0, 100);
+            backMenu.FadeTo(1, 100);
+
+
+
+
+            //_imgProfilePicture.TranslateTo(0, 0, 100);
+            //_imgProfilePicture.FadeTo(0, 100);
+
+            //profil.TranslateTo(0, 0, 100);
+            //profil.FadeTo(0, 100);
+
+            //kotakt.TranslateTo(0, 0, 100);
+            //kotakt.FadeTo(0, 100);
+
+            //odjava.TranslateTo(0, 0, 100);
+            //odjava.FadeTo(0, 100);
+
+            //backMenu.TranslateTo(0, 0, 100);
+            //backMenu.FadeTo(0, 100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             _TopNavigationBar.ChangeNavigationTitle("Prigovor.hr");
 
             //When logged in, check if there is complaint that wasnt sent for some reason.

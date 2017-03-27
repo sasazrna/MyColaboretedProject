@@ -19,17 +19,19 @@
             <Label x:Name="lblStoreName" Text="SuperKonzum Varaždin"  FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" />
         </StackLayout>
 
+        <StackLayout x:Name="lytEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" IsVisible="False">
+            <Views:FontAwesomeLabel FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+            <Views:FontAwesomeLabel FontSize="Micro" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+        </StackLayout>
+
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
             <Views:MultiLineLabel x:Name="lblShortComplaint" Lines="3" LineBreakMode="TailTruncation" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
         </StackLayout>
         
-        <StackLayout x:Name="lytEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0" IsVisible="False">
-            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-            <Views:FontAwesomeLabel  FontSize="Large" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
-        </StackLayout>
+        
 
         <StackLayout HorizontalOptions="FillAndExpand" Padding="0, 0.3, 0, 0" Margin="-15, 0 , -15, 0" BackgroundColor="Silver"/>
     </StackLayout>

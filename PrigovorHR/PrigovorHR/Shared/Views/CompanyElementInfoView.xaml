@@ -20,8 +20,8 @@
                 <Label x:Name="lblElementDescription" Text="Detaljan opis kompanije" FontSize="Small" FontAttributes="Bold" TextColor="Black" HorizontalTextAlignment="Start" />
             </StackLayout>
 
-            <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <maps:Map MinimumHeightRequest="200" x:Name="ElementMap" IsShowingUser="true" MapType="Street"/>
+                <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" MinimumHeightRequest="200" HeightRequest="200" HorizontalOptions="FillAndExpand">
+                <maps:Map MinimumHeightRequest="200" HeightRequest="200" x:Name="ElementMap" IsShowingUser="true" MapType="Street"/>
             </StackLayout>
 
             <StackLayout x:Name="lytCompanyElementSectionViewList">
