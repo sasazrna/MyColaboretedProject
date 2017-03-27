@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR" BackgroundColor="White"
-             x:Class="PrigovorHR.Shared.Views.FirstTimeLoginView">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            
+             x:Class="PrigovorHR.Shared.Views.FirstTimeLoginView" xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR" BackgroundColor="White">
     <ContentView.Content>
+        <ScrollView>
         <StackLayout Padding="10">
-            <StackLayout Padding="10,10,10,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="0,10,0,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
 
 
                 <Label Text="Kako prigovor kao usluga funkcionira" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Black" Margin="0,0,0,15"></Label>
@@ -14,13 +16,17 @@
 
                 <!--prvi-->
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,10,10,25">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,35">
                     <StackLayout HorizontalOptions="FillAndExpand">
-                        <Label Text="1. Korisnik sastavlja prigovor" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
-                        <Label Text="Putem mobilne aplikacije ili web stranice korisnik piše prigovor ili sugestiju." TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <views:CurvedCornersLabel x:Name="lblNumber1" Text="1." CurvedBackgroundColor="#FF7e65" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
+                                <Label Text="Pronađite tvrtku/poslovnicu" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                            </StackLayout>
+                            
                     </StackLayout>
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Image Source="icon.png" WidthRequest="80" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
+                    <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                            <views:FontAwesomeLabel HorizontalOptions="End" HorizontalTextAlignment="End" x:Name="lblSearch"></views:FontAwesomeLabel>
                     </StackLayout>
                 </StackLayout>
 
@@ -29,56 +35,72 @@
 
                 <!--drugi-->
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,10,10,25">
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Image Source="icon.png" WidthRequest="80" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,35">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <views:CurvedCornersLabel x:Name="lblNumber2" Text="2." CurvedBackgroundColor="#5178D0" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
+                                <Label Text="Sazajte detalje o tvrtci ili usluzi" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="End">
+                            <views:FontAwesomeLabel HorizontalOptions="End" HorizontalTextAlignment="End" x:Name="lblInfo"></views:FontAwesomeLabel>
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Label Text="2. Obrada prigovora" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
-                        <Label Text="Tvrtka dobiva informaciju o zaprimljenom prigovoru ili sugestiji i započinje s obradom." TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
+
+
+
+
+
+
+                    <!--treci-->
+
+
+
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,45">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <views:CurvedCornersLabel x:Name="lblNumber3" Text="3." CurvedBackgroundColor="#FF7e65" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
+                                <Label Text="Ostavite prigovor ili sugestiju" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="End">
+                            <views:FontAwesomeLabel HorizontalOptions="End" HorizontalTextAlignment="End" x:Name="lblPen"></views:FontAwesomeLabel>
+                        </StackLayout>
                     </StackLayout>
+
+
+
+
+
+                    <!--cetvrti-->
+
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,45">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <views:CurvedCornersLabel x:Name="lblNumber4" Text="4." CurvedBackgroundColor="#5178D0" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
+                                <Label Text="Sudjelujte u poboljšanju usluge" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="End">
+                            <views:FontAwesomeLabel HorizontalOptions="End" HorizontalTextAlignment="End" x:Name="lblHandShake"></views:FontAwesomeLabel>
+                        </StackLayout>
+                    </StackLayout>
+
+
+
+
+
                 </StackLayout>
-
-
-
-
-
-
-                <!--treci-->
-
-
-
-
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,10,10,25">
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Label Text="3. Korisnik zaprima odgovor" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
-                        <Label Text="Prigovor.hr se brine o tome da korisnik bude obaviješten o odgovoru i statusu prigovora ili sugestije korisnika." TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Image Source="icon.png" WidthRequest="80" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
-                    </StackLayout>
-                </StackLayout>
-
-
-
-
-
-                <!--cetvrti-->
-
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,10,10,0">
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Image Source="icon.png" WidthRequest="80" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="FillAndExpand">
-                        <Label Text="4. Prigovor.hr obrađuje podatke" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
-                        <Label Text="Zadnji korak ali najbitniji je da Prigovor.hr obrađuje podatke i provodi statistiku kako bi tvrtka bila upućena u detalje i kako bi se kvaliteta usluge poboljšala." TextColor="Silver" FontSize="Micro" HorizontalTextAlignment="Start"></Label>
-                    </StackLayout>
-                </StackLayout>
-
-
-
-
-            </StackLayout>
         </StackLayout>
+        </ScrollView>
     </ContentView.Content>
+        
 </ContentView>
