@@ -157,6 +157,11 @@ namespace PrigovorHR.Shared
             return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetCompanyLogo, jsonvalue);
         }
 
+        public static async Task<string> CheckForNewReplys(string jsonvalue)
+        {
+           return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.CheckForNewReplys, jsonvalue);
+        }
+
         /// <summary>
         /// Private class that handles all the communications and returns result to root dataexchangeservices class
         /// </summary>
@@ -187,7 +192,8 @@ namespace PrigovorHR.Shared
                 GetCompanyElementData,
                 SendExceptionData,
                 CloseComplaint,
-                GetCompanyLogo
+                GetCompanyLogo,
+                CheckForNewReplys
             };
 
 
@@ -212,7 +218,8 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.GetCompanyElementData, "prigovori/" },
                                                           { ServiceCommands.SendExceptionData, "xamarin-exceptions"} ,
                                                           { ServiceCommands.CloseComplaint, "prigovor/zatvori/" },
-                                                          {ServiceCommands.GetCompanyLogo, "logo-tvrtke/" } };
+                                                          { ServiceCommands.GetCompanyLogo, "logo-tvrtke/" },
+                                                          { ServiceCommands.CheckForNewReplys, "svi-moji-prigovori-nakon-datuma/" } };
 
 
 
@@ -244,6 +251,7 @@ namespace PrigovorHR.Shared
                             case ServiceCommands.GetMyComplaints:
                             case ServiceCommands.GetComplaintAttachmentData:
                             case ServiceCommands.GetReplyAttachmentData:
+                            case ServiceCommands.CheckForNewReplys:
                                 header = new AuthenticationHeaderValue("Bearer", Models.UserToken.token);
                                 client.DefaultRequestHeaders.Authorization = header;
                                 var fullAddress = serviceAddress + APIAdresses[ServiceCommand];
@@ -254,6 +262,7 @@ namespace PrigovorHR.Shared
                                     JObject Jobj = JObject.Parse(value);
                                     fullAddress += Jobj["Id"] + "/" + Jobj["FileName"];
                                 }
+                                else fullAddress += value;
                                 response = await client.GetAsync(fullAddress);
                                 break;
 

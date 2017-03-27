@@ -31,8 +31,8 @@ namespace PrigovorHR.Shared.Pages
             scrView.IsVisible = false;
             btnCloseComplaint.IsVisible = !complaint.closed;
 
-            ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ? 
-                Complaint.replies.LastOrDefault(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" : 
+            ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
+                Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
                 "nepoznato", Complaint.element.name);
 
             NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
@@ -47,12 +47,13 @@ namespace PrigovorHR.Shared.Pages
             scrView.Scrolled += ScrView_Scrolled;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
 
-            Device.StartTimer(new TimeSpan(0, 0, 0, 0,500), () =>
-               {
-                   DisplayData(Complaint);
-                   return false;
-               });
+            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 500), () =>
+                {
+                    DisplayData(Complaint);
+                    return false;
+                });
         }
+        
 
         private void ScrView_Scrolled(object sender, ScrolledEventArgs e)
         {

@@ -45,6 +45,10 @@ namespace PrigovorHR.Shared.Controllers
         private static async void DeleteUserData()
         {
             Application.Current.Properties.Remove("User");
+            Application.Current.Properties.Remove("AllComplaints");
+            Application.Current.Properties.Remove("DraftComplaints");
+            Application.Current.Properties.Remove("WriteComplaintAutoSave");
+            Shared.Models.ComplaintModel.RefToAllComplaints = null;
             await Application.Current.SavePropertiesAsync();
             LoggedUser = null;
         }
