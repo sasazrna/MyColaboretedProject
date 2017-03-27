@@ -134,8 +134,6 @@ namespace PrigovorHR.Droid
             var webClient = new WebClient();
             return ImageSource.FromStream(() => new MemoryStream(webClient.DownloadData(new Uri(url))));
         }
-
-
     }
 
     public class DroidGoogleOAuth2Authenticator : OAuth2Authenticator
@@ -192,5 +190,4 @@ namespace PrigovorHR.Droid
             base.OnPageEncountered(url, query, fragment);
         }
     }
-
 }

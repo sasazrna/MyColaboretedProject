@@ -17,7 +17,6 @@ namespace PrigovorHR.Shared.Views
     public partial class ListOfComplaintsView_BasicUser : ContentView
     {
         private PullToRefreshModel PullToRefreshModel = new PullToRefreshModel();
-        public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public static ListOfComplaintsView_BasicUser ReferenceToView;
         private RootComplaintModel _DataSource;
         private Dictionary<string, int> DisplayedComplaints = new Dictionary<string, int>();
@@ -27,6 +26,7 @@ namespace PrigovorHR.Shared.Views
         private Dictionary<ComplaintListTabView.Tabs, StackLayout> Layouts = new Dictionary<ComplaintListTabView.Tabs, StackLayout>();
         private StackLayout VisibleLayout;
         private ComplaintListTabView.Tabs SelectedTab;
+
         public ListOfComplaintsView_BasicUser()
         {
             InitializeComponent();
@@ -49,6 +49,42 @@ namespace PrigovorHR.Shared.Views
             LoadComplaints();
             scrview.Scrolled += Scrview_Scrolled;
             ReferenceToView = this;
+        }
+
+        public async void FindAndOpenComplaint(int ComplaintId)
+        {
+            try
+            {
+                var ComplaintLastEvent = ComplaintModel.RefToAllComplaints.user.complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm");
+                var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
+
+                var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
+                await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
+                await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
+                var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.SingleOrDefault(uc => uc.id == Complaint.id);
+
+                if (UnreadComplaint != null)
+                {
+                    ComplaintModel.RefToAllComplaints.user.unread_complaints.Remove(UnreadComplaint);
+                    Application.Current.Properties.Remove("AllComplaints");
+                    Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                    await Application.Current.SavePropertiesAsync();
+
+                }
+
+                MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
+
+                foreach (var lyt in VisibleLayout.Children)
+                {
+                    Complaint = ((ComplaintListView_BasicUser)lyt).Complaint;
+                    if (Complaint.id == ComplaintId)
+                    {
+                        ((ComplaintListView_BasicUser)lyt).MarkAsReaded();
+                        break;
+                    }
+                }
+            }
+            catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
         }
 
         public void ChangeVisibleLayout(ComplaintListTabView.Tabs selectedTab)
@@ -88,7 +124,7 @@ namespace PrigovorHR.Shared.Views
 
         public void LoadComplaints()
         {
-            PullToRefreshModel_Pulled();
+            Device.BeginInvokeOnMainThread(() => PullToRefreshModel_Pulled());
         }
 
         private async void PullToRefreshModel_Pulled()
@@ -99,9 +135,19 @@ namespace PrigovorHR.Shared.Views
             try
             {
                 DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
-                var Json = await DataExchangeServices.GetMyComplaints();
-                DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
-                    (await DataExchangeServices.GetMyComplaints());
+
+                object objallcomplaints;
+                if (Application.Current.Properties.TryGetValue("AllComplaints", out objallcomplaints))
+                {
+                    DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>((string)objallcomplaints);
+                }
+                else
+                {
+                    DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
+                        (await DataExchangeServices.GetMyComplaints());
+                    Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                    await Application.Current.SavePropertiesAsync();
+                }
             }
             catch
             (Exception ex)
@@ -113,6 +159,7 @@ namespace PrigovorHR.Shared.Views
 
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             PullToRefreshModel.IsBusy = false;
+            AppGlobal.AppLoaded = true;
         }
 
         public Models.RootComplaintModel DataSource

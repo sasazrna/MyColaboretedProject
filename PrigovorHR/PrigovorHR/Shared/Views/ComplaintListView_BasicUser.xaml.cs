@@ -16,10 +16,10 @@ namespace PrigovorHR.Shared.Views
     public partial class ComplaintListView_BasicUser : ContentView
     {
         private Controllers.TAPController TAPController;
-        private ComplaintModel Complaint;
+        public ComplaintModel Complaint;
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public bool IsUnreaded = false;
-
+       
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
@@ -81,8 +81,18 @@ namespace PrigovorHR.Shared.Views
                 }
             }
 
-            TAPController = new Controllers.TAPController(this.Content);
+            TAPController = new Controllers.TAPController(Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
+        }
+
+        public void OpenComplaint()
+        {
+            TAPController_SingleTaped(null, null);
+        }
+
+        public void MarkAsReaded()
+        {
+            lblShortComplaint.FontAttributes = FontAttributes.None;
         }
 
         private async void TAPController_SingleTaped(string viewId, View view)
@@ -91,10 +101,16 @@ namespace PrigovorHR.Shared.Views
 
             await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
-            var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.SingleOrDefault(uc => uc.id == Complaint.id);
+            var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 
             if (UnreadComplaint != null)
-                ComplaintModel.RefToAllComplaints.user.unread_complaints.Remove(UnreadComplaint);
+            {
+                ComplaintModel.RefToAllComplaints.user.unread_complaints = 
+                    ComplaintModel.RefToAllComplaints.user.unread_complaints.Where(uc => uc.id != Complaint.id).ToList();
+                Application.Current.Properties.Remove("AllComplaints");
+                Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                await Application.Current.SavePropertiesAsync();
+            }
 
             MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
             lblShortComplaint.FontAttributes = FontAttributes.None;

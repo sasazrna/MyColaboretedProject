@@ -462,6 +462,7 @@
   <ItemGroup>
     <Compile Include="AndroidControllers.cs" />
     <Compile Include="AndroidRenderers.cs" />
+    <Compile Include="AndroidServices.cs" />
     <Compile Include="FacebookCallback.cs" />
     <Compile Include="KeyBoardOverlayFix.cs" />
     <Compile Include="LoginZajebancija.cs" />
