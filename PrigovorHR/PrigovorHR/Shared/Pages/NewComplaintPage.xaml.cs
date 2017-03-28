@@ -21,6 +21,8 @@ namespace PrigovorHR.Shared.Pages
         private Guid ComplaintDraftGuid;
         private Models.CompanyElementModel CompanyElement;
         private DateTime ProblemOccurred;
+        private DateTime DateProblem;
+        private DateTime TimeProblem;
 
         public NewComplaintPage()
         {
@@ -56,7 +58,7 @@ namespace PrigovorHR.Shared.Pages
                     };
                 }
 
-                editComplaintText.Text = WriteNewComplaintModel.complaint;
+                editComplaintText.Text = WriteNewComplaintModel.complaint ?? string.Empty;
                 Task.Run(async () =>
                 {
                     var CompanyElementRoot =
@@ -66,8 +68,8 @@ namespace PrigovorHR.Shared.Pages
                     ComplaintCoversationHeaderView.SetHeaderInfo("nepoznato", CompanyElement.name);
                 });
 
-                editSuggestionText.Text = WriteNewComplaintModel.suggestion;
-                ProblemOccurred = DateTime.Parse( WriteNewComplaintModel.problem_occurred);
+                editSuggestionText.Text = WriteNewComplaintModel.suggestion ?? string.Empty;
+                ProblemOccurred = DateTime.Parse(WriteNewComplaintModel.problem_occurred ?? DateTime.Now.ToString());
                 labela_vremena_sad.Text = ProblemOccurred.ToString();
                 labela_vremena_sad.IsVisible = true;
             }
@@ -98,8 +100,9 @@ namespace PrigovorHR.Shared.Pages
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editComplaintText.TextChanged += EditComplaintText_TextChanged;
             editSuggestionText.TextChanged += EditComplaintText_TextChanged;
-            arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
+            arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;           
         }
+
         private void TAPController_SingleTaped(string viewId, View view)
         {
             if (WriteNewComplaintModel.attachments == null)
@@ -127,6 +130,7 @@ namespace PrigovorHR.Shared.Pages
                 Sada_stack.IsVisible = false;
                 Ranije_stack.IsVisible = true;
                 arrivalDatePicker.Focus();
+                ProblemOccurred = DateTime.Now;
             }
             else if (view == btnSendComplaint)
                 SendComplaint();
@@ -218,9 +222,9 @@ namespace PrigovorHR.Shared.Pages
 
         private async void SendComplaint()
         {
-            if (editComplaintText.Text.Length < 20)
+            if (editComplaintText.Text == null | editSuggestionText.Text == null | editComplaintText.Text?.Length < 20)
             {
-                Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš odgovor treba biti duži od 20 znakova!", null, "OK");
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš prigovor treba biti duži od 20 znakova!", null, "OK");
                 return;
             }
 
@@ -245,7 +249,11 @@ namespace PrigovorHR.Shared.Pages
                  element_id = CompanyElement.id,
                  attachment_ids = attachment_ids,
                  suggestion = editSuggestionText.Text,
-                 problem_occurred = ProblemOccurred
+                 problemOccurred = ProblemOccurred.ToString("dd.MMMMM yyyy"),
+                 problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
+                 problemOccurredTime = ProblemOccurred.ToString("hh:mm"), 
+                 latitude=Latitude,
+                 longitude=Longitude
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 
@@ -286,16 +294,12 @@ namespace PrigovorHR.Shared.Pages
             {
                 labelasati.Text = arrivalTimePicke.Time.ToString();
                 labelasati.TextColor = Color.Silver;
-                //ProblemOccurred += arrivalTimePicke.Time.ToString().Substring(0, arrivalTimePicke.Time.ToString().LastIndexOf(":"));
-                //WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+                ProblemOccurred = new DateTime(ProblemOccurred.Year, ProblemOccurred.Month, ProblemOccurred.Day, arrivalTimePicke.Time.Hours, arrivalTimePicke.Time.Minutes, 0);
+                TimeProblem = ProblemOccurred;
+                WriteNewComplaintModel.problem_occurred = ProblemOccurred.ToString();
                 SaveToDevice();
             }
         }
-
-      
-//"problemOccurred" => "21. ožujak 2017."
-// "problemOccurred_submit" => "21. 3. 2017"
-// "problemOccurredTime" => "19:09"
 
         private void ArrivalDatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
@@ -303,10 +307,11 @@ namespace PrigovorHR.Shared.Pages
             labelavremena.TextColor = Color.Silver;
             labelasati.Text = arrivalTimePicke.Time.ToString();
             labelasati.TextColor = Color.Silver;
-            arrivalTimePicke.Focus();
-            //ProblemOccurred = e.NewDate.ToString("dd.MM.yyyy ");
-            //WriteNewComplaintModel.problem_occurred = ProblemOccurred;
+            ProblemOccurred = e.NewDate;
+            ProblemOccurred = new DateTime(ProblemOccurred.Year, ProblemOccurred.Month, ProblemOccurred.Day, TimeProblem.Hour, TimeProblem.Minute, 0);
+            WriteNewComplaintModel.problem_occurred = ProblemOccurred.ToString();
             SaveToDevice();
+            arrivalTimePicke.Focus();
         }
 
         protected override bool OnBackButtonPressed()

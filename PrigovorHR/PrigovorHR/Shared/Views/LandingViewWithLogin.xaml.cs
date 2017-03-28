@@ -22,69 +22,15 @@ namespace PrigovorHR.Shared.Views
         public LandingViewWithLogin()
         {
             InitializeComponent();
-
-            backMenu.Text = Views.FontAwesomeLabel.Images.FAArrowLeft;
-            backMenu.TextColor = Color.Gray;
-
-
-            _imgProfilePicture.TranslateTo(0, 30, 100);
-            _imgProfilePicture.FadeTo(1, 100);
-
-
-
-            profil.TranslateTo(0, 110, 100);
-            profil.FadeTo(1, 100);
-
-            kotakt.TranslateTo(0, 150, 100);
-            kotakt.FadeTo(1, 100);
-
-            odjava.TranslateTo(0, 190, 100);
-            odjava.FadeTo(1, 100);
-
-            backMenu.TranslateTo(0, 0, 100);
-            backMenu.FadeTo(1, 100);
-
-
-
-
-            //_imgProfilePicture.TranslateTo(0, 0, 100);
-            //_imgProfilePicture.FadeTo(0, 100);
-
-            //profil.TranslateTo(0, 0, 100);
-            //profil.FadeTo(0, 100);
-
-            //kotakt.TranslateTo(0, 0, 100);
-            //kotakt.FadeTo(0, 100);
-
-            //odjava.TranslateTo(0, 0, 100);
-            //odjava.FadeTo(0, 100);
-
-            //backMenu.TranslateTo(0, 0, 100);
-            //backMenu.FadeTo(0, 100);
-
-
-
-
-
-
-
-
-
-
-
-
-
+            //_TopNavigationBar.OpenCloseMenuEvent += _TopNavigationBar_OpenCloseMenuEvent;
+            //backMenu.Text = Views.FontAwesomeLabel.Images.FAArrowLeft;
+            //backMenu.TextColor = Color.Gray;
 
             _TopNavigationBar.ChangeNavigationTitle("Prigovor.hr");
 
             //When logged in, check if there is complaint that wasnt sent for some reason.
             LoadComplaintAutoSaveData();
 
-            Device.StartTimer(new TimeSpan(0, 0, 30), () =>
-            {
-                //  Acr.Notifications.CrossNotifications.Current.Send("Prigovor.hr - Nova poruka od: " + "Vivas caffe bar Vrbani", "Poštovani, zahvaljujemo na vašoj prijavi te se nadamo.....", )
-                return true;
-            });
             //MenuBack.Text = '\uf060'.ToString();
             //MenuBack.TextColor = Color.Gray;
             //MenuBack.FontSize = 35;
@@ -92,7 +38,50 @@ namespace PrigovorHR.Shared.Views
             //TAPController = new Controllers.TAPController(MenuBack);
             //  TAPController.SingleTaped += (string id, View view) => { HideMenu(); };
             ReferenceToView = this;
+            //_TopNavigationBar_OpenCloseMenuEvent(false);
         }
+
+        //private async void _TopNavigationBar_OpenCloseMenuEvent(bool IsMenuOpen)
+        //{
+        //    if (IsMenuOpen)
+        //    {
+        //        lytStack.Opacity = 0;
+        //        await Task.Delay(100);
+        //        _imgProfilePicture.TranslateTo(0, 30, 100);
+        //        _imgProfilePicture.FadeTo(1, 100);
+
+        //        profil.TranslateTo(0, 110, 100);
+        //        profil.FadeTo(1, 100);
+
+        //        kotakt.TranslateTo(0, 150, 100);
+        //        kotakt.FadeTo(1, 100);
+
+        //        //odjava.TranslateTo(0, 190, 100);
+        //        //odjava.FadeTo(1, 100);
+
+        //        backMenu.TranslateTo(0, 0, 100);
+        //        backMenu.FadeTo(1, 100);
+        //    }
+        //    else
+        //    {
+        //        _imgProfilePicture.TranslateTo(0, 0, 100);
+        //        _imgProfilePicture.FadeTo(0, 100);
+
+        //        profil.TranslateTo(0, 0, 100);
+        //        profil.FadeTo(0, 100);
+
+        //        kotakt.TranslateTo(0, 0, 100);
+        //        kotakt.FadeTo(0, 100);
+
+        //        //odjava.TranslateTo(0, 0, 100);
+        //        //odjava.FadeTo(0, 100);
+
+        //        backMenu.TranslateTo(0, 0, 100);
+        //        backMenu.FadeTo(0, 100);
+        //        await Task.Delay(100);
+        //        lytStack.Opacity = 1;
+        //    }
+        //}
 
         //public async void ShowMenu()=> await MenuStack.TranslateTo(0, 0, 250);
         //public async void HideMenu() => await MenuStack.TranslateTo(-450, 0, 250);

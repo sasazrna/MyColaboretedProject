@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace PrigovorHR.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class SideMenuPage : ContentPage
     {
         public SideMenuPage()

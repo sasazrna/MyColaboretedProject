@@ -36,7 +36,7 @@ namespace PrigovorHR.Droid
     {
         public static ICallbackManager CallbackManager = CallbackManagerFactory.Create();
         public static readonly string[] PERMISSIONS = new[] { "publish_actions" };
-        private static Intent BackgroundService = null;
+        public static Intent BackgroundService = null;
         public static bool IsUserActive = false;
 
         protected override void OnCreate(Bundle bundle)
@@ -88,11 +88,12 @@ namespace PrigovorHR.Droid
             IsUserActive = true;
 
             LoadApplication(new App());
-            if (!AndroidServices.GetNewComplaintsBackgroundService.IsRunning)
-            {
-                BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
-                StartService(BackgroundService);
-            }
+            //if (!AndroidServices.GetNewComplaintsBackgroundService.IsRunning)
+            //{
+              BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+              StartService(BackgroundService);
+          
+            //}
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -104,7 +105,9 @@ namespace PrigovorHR.Droid
         protected override void OnDestroy()
         {
           base.OnDestroy();
-            IsUserActive = false;    
+          IsUserActive = false;
+          //BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+          //StartService(BackgroundService);
         }
 
         protected override void OnPause()

@@ -27,60 +27,56 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
             Complaint = complaint;
 
-                WriteNewComplaintModel = _WriteNewComplaintModel;
+            WriteNewComplaintModel = _WriteNewComplaintModel;
 
-                if (WriteNewComplaintModel == null)
+            if (WriteNewComplaintModel == null)
+            {
+                WriteNewComplaintModel = new Models.ComplaintModel.DraftComplaintModel();
+                WriteNewComplaintModel.QuickComplaint = false;
+                WriteNewComplaintModel.element_id = complaint.element_id;
+                WriteNewComplaintModel.complaint_id = complaint.id;
+                WriteNewComplaintModel.element_slug = complaint.element.slug;
+            }
+            else
+            {
+                foreach (var Attachment in WriteNewComplaintModel.attachments ?? new List<Models.ComplaintModel.ComplaintAttachmentModel>())
                 {
-                    WriteNewComplaintModel = new Models.ComplaintModel.DraftComplaintModel();
-                    WriteNewComplaintModel.QuickComplaint = false;
-                    WriteNewComplaintModel.element_id = complaint.element_id;
-                    WriteNewComplaintModel.complaint_id = complaint.id;
-                    WriteNewComplaintModel.element_slug = complaint.element.slug;
-                }
-                else
-                {
-                    foreach (var Attachment in WriteNewComplaintModel.attachments ?? new List<Models.ComplaintModel.ComplaintAttachmentModel>())
+                    var AttachmentView = new AttachmentView(true, 0, 0, Attachment.attachment_url, true, Convert.FromBase64String(Attachment.attachment_data));
+                    lytAttachments.Children.Add(AttachmentView);
+                    AttachmentView.AutomationId = Attachment.attachment_mime;
+
+                    AttachmentView.AttachmentDeletedEvent += (View v) =>
                     {
-                        var AttachmentView = new AttachmentView(true, 0, 0, Attachment.attachment_url, true, Convert.FromBase64String(Attachment.attachment_data));
-                        lytAttachments.Children.Add(AttachmentView);
-                        AttachmentView.AutomationId = Attachment.attachment_mime;
-
-                        AttachmentView.AttachmentDeletedEvent += (View v) =>
-                        {
-                            lytAttachments.Children.Remove(v);
-                            WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.AutomationId.ToString()));
-                        };
-                    }
-
-                    Complaint.complaint = WriteNewComplaintModel.complaint;
-                    editReplyText.Text = complaint.complaint;
+                        lytAttachments.Children.Remove(v);
+                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.AutomationId.ToString()));
+                    };
                 }
 
-                ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                           Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
-                           "nepoznato", Complaint.element.name);
+                Complaint.complaint = WriteNewComplaintModel.complaint;
+                editReplyText.Text = complaint.complaint;
+            }
 
-                btnSendReply.TranslateTo(0, -60, 0);
+            ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
+                       Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
+                       "nepoznato", Complaint.element.name);
 
-                imgAttachDocs.Text = '\uf1c1'.ToString();
-                imgAttachDocs.TextColor = Color.Gray;
+            imgAttachDocs.Text = '\uf1c1'.ToString();
+            imgAttachDocs.TextColor = Color.Gray;
 
-                imgTakePhoto.Text = '\uf030'.ToString();
-                imgTakePhoto.TextColor = Color.Gray;
+            imgTakePhoto.Text = '\uf030'.ToString();
+            imgTakePhoto.TextColor = Color.Gray;
 
-                imgTakeGPSLocation.Text = '\uf041'.ToString();
-                imgTakeGPSLocation.TextColor = Color.Gray;
+            imgTakeGPSLocation.Text = '\uf041'.ToString();
+            imgTakeGPSLocation.TextColor = Color.Gray;
 
-                Send_font.Text = Views.FontAwesomeLabel.Images.FASend_msg;
-                Send_font.TextColor = Color.FromHex("#FF7e65");
+            btnSendReply.Text = Views.FontAwesomeLabel.Images.FASend_msg;
+            btnSendReply.TextColor = Color.FromHex("#FF7e65");
 
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto);
-                btnSaveReply.Clicked += BtnSaveReply_Clicked;
-                btnSendReply.Clicked += BtnSendReply_Clicked;
+            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendReply);
 
-                TAPController.SingleTaped += TAPController_SingleTaped;
-                NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
-                editReplyText.TextChanged += EditReplyText_TextChanged;
+            TAPController.SingleTaped += TAPController_SingleTaped;
+            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            editReplyText.TextChanged += EditReplyText_TextChanged;
         }
 
         private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
@@ -96,7 +92,7 @@ namespace PrigovorHR.Shared.Pages
             Application.Current.SavePropertiesAsync();
         }
 
-        private void BtnSendReply_Clicked(object sender, EventArgs e)
+        private void BtnSendReply_Clicked()
         {
             if (Complaint.closed)
             {
@@ -115,7 +111,7 @@ namespace PrigovorHR.Shared.Pages
 
         private async void SendReply()
         {
-            if (editReplyText.Text.Length < 20)
+            if (editReplyText.Text == null | editReplyText.Text == null | editReplyText.Text?.Length < 20)
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš odgovor treba biti duži od 20 znakova!", null, "OK");
                 return;
@@ -213,7 +209,8 @@ namespace PrigovorHR.Shared.Pages
                     {
                         attachment_data = Convert.ToBase64String(Picker.DataArray),
                         attachment_extension = Picker.FileName.Substring(Picker.FileName.LastIndexOf(".")),
-                        attachment_url = Picker.FileName, attachment_mime = AttachmentView.Id.ToString()
+                        attachment_url = Picker.FileName,
+                        attachment_mime = AttachmentView.Id.ToString()
                     });
                 }
             }
@@ -236,7 +233,7 @@ namespace PrigovorHR.Shared.Pages
 
                     WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
                     {
-                        attachment_data =  Convert.ToBase64String(MS.ToArray()),
+                        attachment_data = Convert.ToBase64String(MS.ToArray()),
                         attachment_extension = PhotoName.Substring(PhotoName.LastIndexOf(".")),
                         attachment_url = PhotoName,
                         attachment_mime = AttachmentView.Id.ToString()
@@ -269,6 +266,8 @@ namespace PrigovorHR.Shared.Pages
                     imgTakeGPSLocation.TextColor = Color.Gray;
                 }
             }
+            else if (view == btnSendReply)
+                BtnSendReply_Clicked();
             SaveToDevice();
         }
 

@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace PrigovorHR.Shared.Controllers
 {
-    class NetworkController
+    public class NetworkController
     {
         public delegate void InternetStatusChangedHandler(bool IsAvailable);
         public static event InternetStatusChangedHandler InternetStatusChanged;

@@ -22,19 +22,24 @@ namespace PrigovorHR.Droid
 {
     class AndroidServices
     {
-        [Service(IsolatedProcess = false)]
+        [Service]
         public class GetNewComplaintsBackgroundService : Service
         {
             private string ComplaintLastEvent;
             public static bool IsRunning = false;
             private static Dictionary<int, int> FechedNewReplys = new Dictionary<int, int>();
             private Dictionary<bool, Dictionary<int, double>> RefreshValues = new Dictionary<bool, Dictionary<int, double>>();
-            private static List<Intent> ListOfIntent=new List<Intent>();
 
             public override IBinder OnBind(Intent intent)
             {
-
                 return null;
+            }
+
+            public override void OnDestroy()
+            {
+                base.OnDestroy();
+                //if ((bool)Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints.Any(c => !c.closed))
+                //    SendBroadcast(new Intent("RestartService"));
             }
 
             public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
@@ -55,8 +60,8 @@ namespace PrigovorHR.Droid
 
                             await Task.Delay(RefreshTime);
                             var complaints = PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints;
-                           
-                            if (complaints != null && complaints.Any(c => !c.closed))
+
+                            if (complaints != null && complaints.Any(c => !c.closed) && Shared.Controllers.NetworkController.IsInternetAvailable)
                             {
                                 ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm");
                                 var NewComplaintReplys = JsonConvert.DeserializeObject<Shared.Models.RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
@@ -74,8 +79,7 @@ namespace PrigovorHR.Droid
 
                                     Intent resultIntent = new Intent(this, typeof(MainActivity)).AddFlags(ActivityFlags.BroughtToFront);
                                     resultIntent.PutExtra("ComplaintId", Complaint.id);
-                                    ListOfIntent.Add(resultIntent);
-                                    PendingIntent resultPendingIntent = PendingIntent.GetActivity(this, Complaint.id, ListOfIntent.Last(), PendingIntentFlags.UpdateCurrent);
+                                    PendingIntent resultPendingIntent = PendingIntent.GetActivity(this, Complaint.id, resultIntent, PendingIntentFlags.UpdateCurrent);
 
                                     Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
 
@@ -90,6 +94,7 @@ namespace PrigovorHR.Droid
                                           .SetDefaults(NotificationDefaults.All)
                                           .SetStyle(textStyle)
                                           .SetPriority(7)
+                                          .SetAutoCancel(true)
                                           .Build();
                                     Notification.ContentIntent = resultPendingIntent;
                                     var NotificationManager = (NotificationManager)GetSystemService(NotificationService);
@@ -118,8 +123,9 @@ namespace PrigovorHR.Droid
                         }
                         catch (Exception ex)
                         {
-                            Shared.Controllers.ExceptionController.HandleException(ex, "public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)"); }
+                            Shared.Controllers.ExceptionController.HandleException(ex, "public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)");
                         }
+                    }
                 });
 
                 return StartCommandResult.Sticky;

@@ -11,8 +11,8 @@
                 <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" 
                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                     <StackLayout>
-                        
                         <views:FontAwesomeLabel x:Name="Menu" HorizontalOptions="Start" Margin="30,30,0,0"></views:FontAwesomeLabel>
+                   
                     </StackLayout>
                 </ContentView>
                 <Frame x:Name="MenuStack" BackgroundColor="White" HeightRequest="600" WidthRequest="300" TranslationX="-300" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.001, Constant=-40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.001, Constant=-25}">

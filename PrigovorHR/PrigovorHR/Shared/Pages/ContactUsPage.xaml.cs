@@ -16,9 +16,8 @@ namespace PrigovorHR.Shared.Pages
         public ContactUsPage()
         {
             InitializeComponent();
-           
-
-            _btnSend.Clicked += _btnSend_Clicked;
+            btnSend.Clicked += _btnSend_Clicked;
+            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         private async void _btnSend_Clicked(object sender, EventArgs e)
@@ -26,7 +25,7 @@ namespace PrigovorHR.Shared.Pages
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Šaljem poruku...");
             var User = Controllers.LoginRegisterController.LoggedUser;
             
-            var ContactInfo = new Models.ContactUsModel(User.name_surname, User.telephone, User.email, User.id, _TitleOfMessageEntry.Text, _MessageEntry.Text);
+            var ContactInfo = new Models.ContactUsModel(User.name_surname, User.telephone, User.email, User.id, MessageTitleEntry.Text, MessageEntry.Text);
 
             if (await DataExchangeServices.ContactUs(JsonConvert.SerializeObject(ContactInfo)))
             {
@@ -38,6 +37,17 @@ namespace PrigovorHR.Shared.Pages
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja poruke!" + Environment.NewLine + "Provjerite internet konekciju i pokušajte ponovno", "Greška", "OK");
 
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+        }
+
+        private async void NavigationBar_BackButtonPressedEvent()
+        {
+            await Navigation.PopModalAsync(true);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationBar.InitBackButtonPressed();
+            return true;
         }
     }
 }

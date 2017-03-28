@@ -11,7 +11,7 @@ using static PrigovorHR.AndroidRenderers.AndroidRenderers;
 
 [assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(CurvedCornersLabelRenderer))]
 [assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(FontAwesomeLabelRenderer))]
-[assembly: ExportRenderer(typeof(MultiLineLabel), typeof(CustomMultiLineLabelRenderer))]
+//[assembly: ExportRenderer(typeof(MultiLineLabel), typeof(CustomMultiLineLabelRenderer))]
 
 namespace PrigovorHR.AndroidRenderers
 {
@@ -77,20 +77,20 @@ namespace PrigovorHR.AndroidRenderers
             }
         }
 
-        public class CustomMultiLineLabelRenderer : LabelRenderer
-        {
-            protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
-            {
-                base.OnElementChanged(e);
+        //public class CustomMultiLineLabelRenderer : LabelRenderer
+        //{
+        //    protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
+        //    {
+        //        base.OnElementChanged(e);
 
-                MultiLineLabel multiLineLabel = (MultiLineLabel)Element;
+        //        MultiLineLabel multiLineLabel = (MultiLineLabel)Element;
 
-                if (multiLineLabel != null && multiLineLabel.Lines != -1)
-                {
-                    Control.SetSingleLine(false);
-                    Control.SetLines(multiLineLabel.Lines);
-                }
-            }
-        }
+        //        if (multiLineLabel != null && multiLineLabel.Lines != -1)
+        //        {
+        //            Control.SetSingleLine(false);
+        //            Control.SetLines(multiLineLabel.Lines);
+        //        }
+        //    }
+        //}
     }
 }

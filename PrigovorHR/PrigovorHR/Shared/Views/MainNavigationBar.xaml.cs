@@ -17,10 +17,11 @@ namespace PrigovorHR.Shared.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainNavigationBar : ContentView
     {
-        private bool TrackLastViewed = true;
         private Controllers.TAPController TAPController;
-
         public static Controllers.QRScannerController QRScannerController = new Controllers.QRScannerController();
+        public delegate void OpenCloseMenuDelegate(bool Open);
+        public event OpenCloseMenuDelegate OpenCloseMenuEvent;
+        private bool IsMenuOpen = false;
 
         private string _Title { get; set; }
 
@@ -116,7 +117,8 @@ namespace PrigovorHR.Shared.Views
         {
             if (view == imgMenuLayout)
             {
-             //   LandingViewWithLogin.ReferenceToView.ShowMenu();
+                OpenCloseMenuEvent?.Invoke(IsMenuOpen  = !IsMenuOpen);
+             //  LandingViewWithLogin.ReferenceToView.ShowMenu();
                 _MenuFrame.IsVisible = !_MenuFrame.IsVisible;
             }
             else if (view == imgSearch)

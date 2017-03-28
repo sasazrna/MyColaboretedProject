@@ -44,7 +44,6 @@
     <Compile Include="Shared\Pages\CompanySearchPage.xaml.cs">
       <DependentUpon>CompanySearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Pages\MainSideMenuPage.cs" />
     <Compile Include="Shared\Pages\SideMenuPage.xaml.cs">
       <DependentUpon>SideMenuPage.xaml</DependentUpon>
     </Compile>

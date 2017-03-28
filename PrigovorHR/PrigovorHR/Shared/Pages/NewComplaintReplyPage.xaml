@@ -5,69 +5,32 @@
               xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              x:Class="PrigovorHR.Shared.Pages.NewComplaintReplyPage" BackgroundColor="White">
 
-    <RelativeLayout x:Name="lytRelative">
-        <ContentView x:Name="cvTopContentView"
-      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+    <StackLayout>
+        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView" Margin="0, 15,0,0">
+        </views:ComplaintCoversationHeaderView>
 
-            <StackLayout>
-                <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
-                <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView" Margin="0, 15,0,0">
-                </views:ComplaintCoversationHeaderView>
-
-                <ScrollView>
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="25,15,25,30">
-                        <Label Text="Vaš odgovor" FontSize="Small" HorizontalTextAlignment="Center" TextColor="Silver" Margin="0, 10, 0, 0" />
-                        <StackLayout Orientation="Horizontal" Padding="20,0.45,20,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
-                        <StackLayout>
-                            <Editor x:Name="editReplyText" BackgroundColor="White" HeightRequest="220"  />
-                            <StackLayout Orientation="Horizontal" Padding="25,0,25,0" HorizontalOptions="FillAndExpand" >
-                                <views:FontAwesomeLabel x:Name="imgAttachDocs" FontSize="Large"  HorizontalOptions="StartAndExpand"></views:FontAwesomeLabel>
-                                <views:FontAwesomeLabel x:Name="imgTakePhoto" FontSize="Large" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
-                                <views:FontAwesomeLabel x:Name="imgTakeGPSLocation" FontSize="Large" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
-                            </StackLayout>
-                        </StackLayout>
-
-                        <StackLayout x:Name="lytAttachments"></StackLayout>
-                        <StackLayout Orientation="Horizontal" Padding="5,0.45,5,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
-                        <views:FontAwesomeLabel x:Name="Send_font" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="25,15,25,30">
+                <Label Text="Vaš odgovor" FontSize="Small" HorizontalTextAlignment="Center" TextColor="Silver" Margin="0, 10, 0, 0" />
+                <StackLayout Orientation="Horizontal" Padding="20,0.45,20,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
+                <StackLayout>
+                    <Editor x:Name="editReplyText" BackgroundColor="White" HeightRequest="220"  />
+                    <StackLayout Orientation="Horizontal" Padding="25,0,25,0" HorizontalOptions="FillAndExpand" >
+                        <views:FontAwesomeLabel x:Name="imgAttachDocs" FontSize="Large"  HorizontalOptions="StartAndExpand"></views:FontAwesomeLabel>
+                        <views:FontAwesomeLabel x:Name="imgTakePhoto" FontSize="Large" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
+                        <views:FontAwesomeLabel x:Name="imgTakeGPSLocation" FontSize="Large" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
                     </StackLayout>
-                </ScrollView>
-            </StackLayout>
-        </ContentView>
-        
-  <fab:FloatingActionButton
-   IsVisible="False"
-   x:Name="btnSendReply"
-   NormalColor="#FF7e65"
-   RippleColor="Blue"
-   Size="Normal"
-   Source="arrowtrans.png"
-    
-   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Width,
-                                                              Factor=1,
-                                                              Constant=-75}"
-   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Height,
-                                                              Factor=1,
-                                                              Constant=-75}"/>
+                </StackLayout>
 
-        <fab:FloatingActionButton
-        IsVisible="False"
-        x:Name="btnSaveReply"
-        NormalColor="#FF7e65"
-        RippleColor="Blue"
-        Size="Normal"
-        Source="Save.png"
-        
-        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Width,
-                                                              Factor=1,
-                                                              Constant=-75}"
-        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Height,
-                                                              Factor=1,
-                                                              Constant=-75}"/>
-    </RelativeLayout>
+                <StackLayout x:Name="lytAttachments">
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="5,0.45,5,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <StackLayout>
+            <views:FontAwesomeLabel x:Name="btnSendReply" HorizontalOptions="Center" VerticalOptions="Start" FontSize="55"></views:FontAwesomeLabel>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

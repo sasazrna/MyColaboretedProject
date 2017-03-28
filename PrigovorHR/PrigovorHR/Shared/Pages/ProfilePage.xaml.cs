@@ -58,13 +58,21 @@ namespace PrigovorHR.Shared.Pages
             _PasswordAgainEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
             _PasswordEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
 
-            if (!string.IsNullOrEmpty(Controllers.LoginRegisterController.LoggedUser.profileimage))
+            try
             {
-                ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController.LoggedUser.profileimage);
-                _imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
+                if (!string.IsNullOrEmpty(Controllers.LoginRegisterController.LoggedUser.profileimage))
+                {
+                    ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController.LoggedUser.profileimage);
+                    _imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
+                }
+                else
+                    _imgProfilePicture.Source = "person.png";
             }
-            else
+            catch (Exception ex)
+            {
+                Controllers.ExceptionController.HandleException(ex, "public void LoadData() " + "Greška u učitavanju profilne slike");
                 _imgProfilePicture.Source = "person.png";
+            }
         }
 
         private async void _TAPController_SingleTaped(string viewId, View view)

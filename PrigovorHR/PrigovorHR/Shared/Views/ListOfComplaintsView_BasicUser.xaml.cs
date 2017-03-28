@@ -26,6 +26,7 @@ namespace PrigovorHR.Shared.Views
         private Dictionary<ComplaintListTabView.Tabs, StackLayout> Layouts = new Dictionary<ComplaintListTabView.Tabs, StackLayout>();
         private StackLayout VisibleLayout;
         private ComplaintListTabView.Tabs SelectedTab;
+        private bool LoadOnlyNewComplaints = false;
 
         public ListOfComplaintsView_BasicUser()
         {
@@ -61,15 +62,16 @@ namespace PrigovorHR.Shared.Views
                 var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
                 await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
                 await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
-                var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.SingleOrDefault(uc => uc.id == Complaint.id);
+                var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 
                 if (UnreadComplaint != null)
                 {
-                    ComplaintModel.RefToAllComplaints.user.unread_complaints.Remove(UnreadComplaint);
+                    ComplaintModel.RefToAllComplaints.user.unread_complaints =
+                             ComplaintModel.RefToAllComplaints.user.unread_complaints.Where(uc => uc.id != Complaint.id).ToList();
+
                     Application.Current.Properties.Remove("AllComplaints");
                     Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
                     await Application.Current.SavePropertiesAsync();
-
                 }
 
                 MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
@@ -134,15 +136,42 @@ namespace PrigovorHR.Shared.Views
             await Task.Delay(19);
             try
             {
-                DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
-
                 object objallcomplaints;
                 if (Application.Current.Properties.TryGetValue("AllComplaints", out objallcomplaints))
                 {
                     DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>((string)objallcomplaints);
+
+                    var Complaints = ComplaintModel.RefToAllComplaints?.user.complaints;
+                    var UnreadComplaints = ComplaintModel.RefToAllComplaints?.user.unread_complaints;
+
+                    var ComplaintLastEvent = Complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm");
+                    var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
+
+                    foreach (var Complaint in NewComplaintReplys.user.complaints)
+                    {
+                        var LastReply = Complaint?.replies?.Last();
+
+                        if (Complaint == null)
+                            continue;
+
+                        Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
+                        Complaints.Add(Complaint);
+
+                        foreach (var UnreadedComplaint in NewComplaintReplys.user.unread_complaints.Where(uc => uc.id == Complaint.id))
+                            if (!UnreadComplaints.Select(uc => uc.id).Contains(UnreadedComplaint.id))
+                                UnreadComplaints.Add(UnreadedComplaint);
+                    }
+
+                    Application.Current.Properties.Remove("AllComplaints");
+                    Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                    await Application.Current.SavePropertiesAsync();
+
+                    DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                    DataSource = ComplaintModel.RefToAllComplaints;
                 }
                 else
                 {
+                    DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
                     DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                         (await DataExchangeServices.GetMyComplaints());
                     Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
@@ -185,7 +214,7 @@ namespace PrigovorHR.Shared.Views
                 var MaxOfVisibleComplaints = _DataSource.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
                 if (displayedComplaints != MaxOfVisibleComplaints | displayedComplaints == 0)
                 {
-                    foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.last_event))
+                    foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.updated_at))
                                                                .Where(c => c.closed == ClosedComplaintsVisible)
                                                                .Skip(displayedComplaints)
                                                                .Take(MaximumDisplayedComplaintsPerRequest))
