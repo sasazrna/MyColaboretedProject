@@ -97,8 +97,6 @@ namespace PrigovorHR.Shared.Views
 
         private async void TAPController_SingleTaped(string viewId, View view)
         {
-            MainNavigationBar.ReferenceToView.HideMenuFrame();
-
             await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
             var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);

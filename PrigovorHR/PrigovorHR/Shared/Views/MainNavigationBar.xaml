@@ -29,13 +29,6 @@
                     </StackLayout>
                 </StackLayout>
 
-                <StackLayout x:Name="_MenuFrame" Padding="25, 10, 25, 5" Spacing="15" IsVisible="False">
-                    <Label x:Name="lblMyProfile"  Text="Moj profil" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-                    <!--<Label x:Name="lblMyComplaints"  Text="Moji prigovori" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />-->
-                    <!--<Label x:Name="lblAboutUs"  Text="O nama" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />-->
-                    <Label x:Name="lblContactUs" Text="Kontakt" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-                    <Label x:Name="lblLogOut" Text="Odjavi se" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start"  />
-                </StackLayout>
                 <Label Text="________________________________________________________________________________________________" 
                TextColor="Silver" Margin="-10,-16, -10,0" LineBreakMode="NoWrap" FontSize="Small"></Label>
 

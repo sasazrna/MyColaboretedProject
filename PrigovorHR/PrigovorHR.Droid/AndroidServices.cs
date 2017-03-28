@@ -45,8 +45,12 @@ namespace PrigovorHR.Droid
             public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
             {
                 RefreshValues.Clear();
-                RefreshValues.Add(false, new Dictionary<int, double>() { { 0, 0.25 }, { 1, 0.25 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 0.25 }, { 5, 0.25 } });
-                RefreshValues.Add(true, new Dictionary<int, double>() { { 0, 0.25 }, { 1, 0.25 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 0.25 }, { 5, 0.25 } });
+
+                //RefreshValues.Add(false, new Dictionary<int, double>() { { 0, 0.25 }, { 1, 0.25 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 0.25 }, { 5, 0.25 } });
+                //RefreshValues.Add(true, new Dictionary<int, double>() { { 0, 0.25 }, { 1, 0.25 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 0.25 }, { 5, 0.25 } });
+
+                RefreshValues.Add(false, new Dictionary<int, double>() { { 0, 120 }, { 1, 120 }, { 2, 5 }, { 3, 5 }, { 4, 30 }, { 5, 60 } });
+                RefreshValues.Add(true, new Dictionary<int, double>() { { 0, 5 }, { 1, 5 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 5 }, { 5, 5 } });
 
                 IsRunning = true;
                 Task.Run(async () =>

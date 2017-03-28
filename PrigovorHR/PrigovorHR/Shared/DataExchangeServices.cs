@@ -167,7 +167,13 @@ namespace PrigovorHR.Shared
         /// </summary>
         private class ServerCommuncationServices
         {
-            private const string ServiceAddress = "http://138.68.85.217/api/"; /* //"https://prigovor.hr/api/";*/
+
+            #if RELEASE
+            private const string ServiceAddress = "http://138.68.85.217/api/";
+            #else
+            private const string ServiceAddress = "https://prigovor.hr/api/";
+           #endif
+
             public enum ServiceCommands : int
             {
                 GetSearchResults,
@@ -262,7 +268,8 @@ namespace PrigovorHR.Shared
                                     JObject Jobj = JObject.Parse(value);
                                     fullAddress += Jobj["Id"] + "/" + Jobj["FileName"];
                                 }
-                                else fullAddress += value;
+                                if (ServiceCommand != ServiceCommands.GetUserAvatar)
+                                    fullAddress += value;
                                 response = await client.GetAsync(fullAddress);
                                 break;
 

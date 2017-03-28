@@ -10,6 +10,10 @@ namespace PrigovorHR.Shared.Views
 {
     public partial class FirstTimeLoginView : ContentView
     {
+        private Controllers.TAPController TAPController;
+        public delegate void SearchIconClickedHandler();
+        public event SearchIconClickedHandler SearchIconClickedEvent;
+
         public FirstTimeLoginView()
         {
             InitializeComponent();
@@ -29,7 +33,14 @@ namespace PrigovorHR.Shared.Views
             lblHandShake.TextColor = Color.Gray;
             lblHandShake.FontSize = 25;
 
-            
+            TAPController = new Controllers.TAPController(lblSearch);
+            TAPController.SingleTaped += TAPController_SingleTaped;
+        }
+
+        private  void TAPController_SingleTaped(string viewId, View view)
+        {
+            SearchIconClickedEvent?.Invoke();
+          //  await ((Page)Parent).Navigation.PushPopupAsync(new Pages.CompanySearchPage());
         }
     }
 }

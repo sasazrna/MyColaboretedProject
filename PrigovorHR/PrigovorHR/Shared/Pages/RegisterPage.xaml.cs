@@ -29,7 +29,7 @@ namespace PrigovorHR.Shared.Pages
             btnRegister.Clicked += btnRegister_Clicked;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             TAPController = new TAPController(lblTerms);
-            TAPController.SingleTaped += (string id, View view) => { Device.OpenUri(new Uri("http://138.68.85.217/hr/uvjeti-koristenja-fizicke-osobe")); };
+            TAPController.SingleTaped += (string id, View view) => { Device.OpenUri(new Uri("https://www.prigovor.hr/hr/uvjeti-koristenja-fizicke-osobe")); };
         }
 
         private async void NavigationBar_BackButtonPressedEvent()

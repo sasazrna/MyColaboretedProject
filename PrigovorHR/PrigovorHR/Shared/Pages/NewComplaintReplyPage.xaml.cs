@@ -111,7 +111,7 @@ namespace PrigovorHR.Shared.Pages
 
         private async void SendReply()
         {
-            if (editReplyText.Text == null | editReplyText.Text == null | editReplyText.Text?.Length < 20)
+            if (editReplyText.Text == null || editReplyText.Text?.Length < 20)
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš odgovor treba biti duži od 20 znakova!", null, "OK");
                 return;

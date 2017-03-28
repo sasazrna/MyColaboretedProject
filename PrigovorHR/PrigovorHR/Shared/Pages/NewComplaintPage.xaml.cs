@@ -222,7 +222,7 @@ namespace PrigovorHR.Shared.Pages
 
         private async void SendComplaint()
         {
-            if (editComplaintText.Text == null | editSuggestionText.Text == null | editComplaintText.Text?.Length < 20)
+            if (editComplaintText.Text == null || editComplaintText.Text?.Length < 20)
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš prigovor treba biti duži od 20 znakova!", null, "OK");
                 return;
@@ -251,9 +251,9 @@ namespace PrigovorHR.Shared.Pages
                  suggestion = editSuggestionText.Text,
                  problemOccurred = ProblemOccurred.ToString("dd.MMMMM yyyy"),
                  problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
-                 problemOccurredTime = ProblemOccurred.ToString("hh:mm"), 
-                 latitude=Latitude,
-                 longitude=Longitude
+                 problemOccurredTime = ProblemOccurred.ToString("hh:mm")
+                 //latitude=Latitude,
+                 //longitude=Longitude
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 

@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms.Xaml;
 using PrigovorHR.Shared.Controllers;
+using System.IO;
 
 namespace PrigovorHR.Shared.Views
 {
@@ -19,75 +20,99 @@ namespace PrigovorHR.Shared.Views
     {
         public static LandingViewWithLogin ReferenceToView;
         private Controllers.TAPController TAPController;
+
         public LandingViewWithLogin()
         {
             InitializeComponent();
-            //_TopNavigationBar.OpenCloseMenuEvent += _TopNavigationBar_OpenCloseMenuEvent;
-            //backMenu.Text = Views.FontAwesomeLabel.Images.FAArrowLeft;
-            //backMenu.TextColor = Color.Gray;
+            TopNavigationBar_OpenCloseMenuEvent(false);
 
-            _TopNavigationBar.ChangeNavigationTitle("Prigovor.hr");
+            TopNavigationBar.OpenCloseMenuEvent += TopNavigationBar_OpenCloseMenuEvent;
+
+            imgBack.Text = FontAwesomeLabel.Images.FAArrowLeft;
+            imgBack.TextColor = Color.Gray;
+
+            TopNavigationBar.ChangeNavigationTitle("Prigovor.hr");
 
             //When logged in, check if there is complaint that wasnt sent for some reason.
             LoadComplaintAutoSaveData();
 
-            //MenuBack.Text = '\uf060'.ToString();
-            //MenuBack.TextColor = Color.Gray;
-            //MenuBack.FontSize = 35;
-            //MenuStack.HeightRequest = ((Page)Parent).HeightRequest;
-            //TAPController = new Controllers.TAPController(MenuBack);
-            //  TAPController.SingleTaped += (string id, View view) => { HideMenu(); };
             ReferenceToView = this;
-            //_TopNavigationBar_OpenCloseMenuEvent(false);
+            TAPController = new TAPController(lblContact, lblLogOut, lblProfile, imgBack);
+            TAPController.SingleTaped += TAPController_SingleTaped;
+            FirstTimeLoginView.SearchIconClickedEvent += () => Navigation.PushPopupAsync(new CompanySearchPage(), true);
         }
 
-        //private async void _TopNavigationBar_OpenCloseMenuEvent(bool IsMenuOpen)
-        //{
-        //    if (IsMenuOpen)
-        //    {
-        //        lytStack.Opacity = 0;
-        //        await Task.Delay(100);
-        //        _imgProfilePicture.TranslateTo(0, 30, 100);
-        //        _imgProfilePicture.FadeTo(1, 100);
+        public static bool CloseMenu()
+        {
+            if (!ReferenceToView.lytContent.IsVisible)
+                ReferenceToView.TopNavigationBar_OpenCloseMenuEvent(false);
+            else return false;
 
-        //        profil.TranslateTo(0, 110, 100);
-        //        profil.FadeTo(1, 100);
+            return true;
+        }
 
-        //        kotakt.TranslateTo(0, 150, 100);
-        //        kotakt.FadeTo(1, 100);
+        private async void TAPController_SingleTaped(string viewId, View view)
+        {
+            if (view == lblContact)
+                await Navigation.PushModalAsync(new ContactUsPage(), true);
+            else if (view == lblProfile)
+                await Navigation.PushModalAsync(new ProfilePage(), true);
+            else if (view == imgBack)
+                TopNavigationBar_OpenCloseMenuEvent(lytContent.IsVisible);
+            else if (view == lblLogOut)
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Confirm(
+                    new Acr.UserDialogs.ConfirmConfig()
+                    {
+                        Title = "Odjava",
+                        CancelText = "Odustani",
+                        OkText = "Odjavi me",
+                        Message = "Jeste li sigurni u odjavu iz aplikacije?",
+                        OnAction = (Confirm) => { if (Confirm) LoginRegisterController.UserLogOut(); }
+                    });
+            }
+        }
 
-        //        //odjava.TranslateTo(0, 190, 100);
-        //        //odjava.FadeTo(1, 100);
+        private async void TopNavigationBar_OpenCloseMenuEvent(bool IsMenuOpen)
+        {
+            lytContent.IsVisible = !IsMenuOpen;
 
-        //        backMenu.TranslateTo(0, 0, 100);
-        //        backMenu.FadeTo(1, 100);
-        //    }
-        //    else
-        //    {
-        //        _imgProfilePicture.TranslateTo(0, 0, 100);
-        //        _imgProfilePicture.FadeTo(0, 100);
+            if (!string.IsNullOrEmpty(LoginRegisterController.LoggedUser.profileimage))
+            {
+                var ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController.LoggedUser.profileimage);
+                imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
+            }
+            else imgProfilePicture.Source = "person.png";
 
-        //        profil.TranslateTo(0, 0, 100);
-        //        profil.FadeTo(0, 100);
+            imgProfilePicture.TranslateTo(0, IsMenuOpen ? 30 : 0, 100);
+            imgProfilePicture.FadeTo(IsMenuOpen ? 1 : 0, 100);
 
-        //        kotakt.TranslateTo(0, 0, 100);
-        //        kotakt.FadeTo(0, 100);
+            lblProfile.TranslateTo(0, IsMenuOpen ? 110 : 0, 100);
+            lblProfile.FadeTo(IsMenuOpen ? 1 : 0, 100);
 
-        //        //odjava.TranslateTo(0, 0, 100);
-        //        //odjava.FadeTo(0, 100);
+            lblContact.TranslateTo(0, IsMenuOpen ? 150 : 0, 100);
+            lblContact.FadeTo(IsMenuOpen ? 1 : 0, 100);
 
-        //        backMenu.TranslateTo(0, 0, 100);
-        //        backMenu.FadeTo(0, 100);
-        //        await Task.Delay(100);
-        //        lytStack.Opacity = 1;
-        //    }
-        //}
+            lblLogOut.TranslateTo(0, IsMenuOpen ? 190 : 0, 100);
+            lblLogOut.FadeTo(IsMenuOpen ? 1 : 0, 100);
 
-        //public async void ShowMenu()=> await MenuStack.TranslateTo(0, 0, 250);
-        //public async void HideMenu() => await MenuStack.TranslateTo(-450, 0, 250);
+            imgBack.TranslateTo(0, 0, 100);
+            imgBack.FadeTo(IsMenuOpen ? 1 : 0, 100);
+
+            await Task.Delay(100);
+
+            imgProfilePicture.IsVisible = lblProfile.IsVisible = lblContact.IsVisible = lblLogOut.IsVisible = lblLogOut.IsVisible = imgBack.IsVisible = true;
+        }
 
         private async void LoadComplaintAutoSaveData()
         {
+            while (ComplaintModel.RefToAllComplaints == null)
+                await Task.Delay(200);
+
+            FirstTimeLoginView.IsVisible = !ComplaintModel.RefToAllComplaints.user.complaints.Any();
+            ListOfComplaintsView.IsVisible = !FirstTimeLoginView.IsVisible;
+            ComplaintListTabView.IsVisible = !FirstTimeLoginView.IsVisible;
+
             object objuser;
             ComplaintModel.DraftComplaintModel WriteNewComplaintModel = null;
             if (Application.Current.Properties.TryGetValue("WriteComplaintAutoSave", out objuser))
@@ -102,11 +127,7 @@ namespace PrigovorHR.Shared.Views
                     await Navigation.PushPopupAsync(QuickComplaintPage);
                 }
                 else
-                {
-                    while (ComplaintModel.RefToAllComplaints == null)
-                        await Task.Delay(200);
-
-                    if (WriteNewComplaintModel.complaint_id > 0)
+                {   if (WriteNewComplaintModel.complaint_id > 0)
                     {
                         var NewComplaintReplyPage =
                             new NewComplaintReplyPage(ComplaintModel.RefToAllComplaints.user.complaints.Single(c => c.id == WriteNewComplaintModel.complaint_id),

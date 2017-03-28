@@ -1,46 +1,41 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-            
-             x:Class="PrigovorHR.Shared.Views.FirstTimeLoginView" xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR" BackgroundColor="White">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"           
+             x:Class="PrigovorHR.Shared.Views.FirstTimeLoginView" 
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR" 
+             BackgroundColor="White">
+
     <ContentView.Content>
         <ScrollView>
-        <StackLayout Padding="10">
-            <StackLayout Padding="0,10,0,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="10">
+                <StackLayout Padding="0,10,0,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <!--<Label Text="Što prigovor.hr aplikacija može učiniti za vas" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Black" Margin="0,0,0,15"></Label>
+                    <Label Text="Pojednostavili smo proces prigovora kako bi vi kao potrošač mogli napisati i poslati prigovor lako i brzo" HorizontalTextAlignment="Center" FontSize="Small" TextColor="Black" Margin="0,0,0,25"></Label>-->
 
+                    <!--prvi-->
 
-                <Label Text="Kako prigovor kao usluga funkcionira" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Black" Margin="0,0,0,15"></Label>
-                <Label Text="Pojednostavili smo proces prigovora kako bi krajnji korisnici imali što bržu i lakšu komunikaciju s tvrtkom" HorizontalTextAlignment="Center" FontSize="Small" TextColor="Black" Margin="0,0,0,25"></Label>
-
-
-
-                <!--prvi-->
-
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,35">
-                    <StackLayout HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,35">
+                        <StackLayout HorizontalOptions="FillAndExpand">
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <views:CurvedCornersLabel x:Name="lblNumber1" Text="1." CurvedBackgroundColor="#FF7e65" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
                                 <Label Text="Pronađite tvrtku/poslovnicu" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                             </StackLayout>
-                            
-                    </StackLayout>
-                    <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand">
+
+                        </StackLayout>
+                        <StackLayout VerticalOptions="End" HorizontalOptions="FillAndExpand">
                             <views:FontAwesomeLabel HorizontalOptions="End" HorizontalTextAlignment="End" x:Name="lblSearch"></views:FontAwesomeLabel>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
 
-
-
-
-                <!--drugi-->
+                    <!--drugi-->
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,35">
                         <StackLayout HorizontalOptions="FillAndExpand">
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <views:CurvedCornersLabel x:Name="lblNumber2" Text="2." CurvedBackgroundColor="#5178D0" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
-                                <Label Text="Sazajte detalje o tvrtci ili usluzi" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                                <Label Text="Kliknite na željenu tvrtku za detalje" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                             </StackLayout>
 
                         </StackLayout>
@@ -49,22 +44,14 @@
                         </StackLayout>
                     </StackLayout>
 
-
-
-
-
-
                     <!--treci-->
-
-
-
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,45">
                         <StackLayout HorizontalOptions="FillAndExpand">
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <views:CurvedCornersLabel x:Name="lblNumber3" Text="3." CurvedBackgroundColor="#FF7e65" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
-                                <Label Text="Ostavite prigovor ili sugestiju" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                                <Label Text="Napišite prigovor ili sugestiju" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                             </StackLayout>
 
                         </StackLayout>
@@ -73,12 +60,7 @@
                         </StackLayout>
                     </StackLayout>
 
-
-
-
-
                     <!--cetvrti-->
-
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,20,10,45">
                         <StackLayout HorizontalOptions="FillAndExpand">
@@ -93,14 +75,8 @@
                             <views:FontAwesomeLabel HorizontalOptions="End" HorizontalTextAlignment="End" x:Name="lblHandShake"></views:FontAwesomeLabel>
                         </StackLayout>
                     </StackLayout>
-
-
-
-
-
                 </StackLayout>
-        </StackLayout>
+            </StackLayout>
         </ScrollView>
     </ContentView.Content>
-        
 </ContentView>

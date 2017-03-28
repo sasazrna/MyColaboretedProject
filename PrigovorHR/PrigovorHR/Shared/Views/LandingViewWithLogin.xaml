@@ -4,9 +4,8 @@
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views" 
              xmlns:CircleImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions" 
              x:Class="PrigovorHR.Shared.Views.LandingViewWithLogin">
-    
-    <ContentView.Content>
 
+    <ContentView.Content>
         <RelativeLayout BackgroundColor="White" Padding="10,10,0,0">
             <ContentView  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <!--<StackLayout>
@@ -14,75 +13,44 @@
                 <ContentView RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" 
                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">-->
 
-                <StackLayout>
-                    <StackLayout x:Name="_StackLayout" VerticalOptions="FillAndExpand" Spacing="0">
-                        <views:MainNavigationBar x:Name="_TopNavigationBar" BackgroundColor="Silver">
-                        </views:MainNavigationBar>
-                        <StackLayout VerticalOptions="End">
-                            <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView">
-                            </views:ListOfComplaintsView_BasicUser>
-                            
-                                <views:FirstTimeLoginView IsVisible="False"></views:FirstTimeLoginView>
-                          
+                <StackLayout x:Name="lytContent">
+                    <views:MainNavigationBar x:Name="TopNavigationBar" BackgroundColor="Silver">
+                    </views:MainNavigationBar>
+                    <StackLayout VerticalOptions="End">
+                        <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView">
+                        </views:ListOfComplaintsView_BasicUser>
 
-                        </StackLayout>
+                        <views:FirstTimeLoginView x:Name="FirstTimeLoginView" IsVisible="False"></views:FirstTimeLoginView>
+                    </StackLayout>
 
-                      
-                        
-                        <StackLayout TranslationY="25" Margin="0,-25,0,0" VerticalOptions="EndAndExpand">
-                            <views:ComplaintListTabView x:Name="ComplaintListTabView">
-                            </views:ComplaintListTabView>
-                        </StackLayout>
+                    <StackLayout TranslationY="25" Margin="0,-25,0,0" VerticalOptions="EndAndExpand">
+                        <views:ComplaintListTabView x:Name="ComplaintListTabView">
+                        </views:ComplaintListTabView>
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <!--</ContentView>-->
 
-                <!--<Frame x:Name="MenuStack" BackgroundColor="White" WidthRequest="300" TranslationX="-300" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.001, Constant=-40}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.001, Constant=-25}">
-                    <StackLayout>
-                        <views:FontAwesomeLabel x:Name="MenuBack" Margin="0,30,30,0" HorizontalOptions="End"></views:FontAwesomeLabel>
-                        <Label x:Name="lblMyProfile" Text="Moj profil" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-                        <Label x:Name="lblContactUs" Text="Kontakt" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start" />
-                        <Label x:Name="lblLogOut" Text="Odjavi se" FontSize="30"  TextColor="#FF7e65" HorizontalTextAlignment="Start"  />
-                    </StackLayout>
-                </Frame>-->
-            <!--</RelativeLayout>
-        </StackLayout>-->
-
-            <CircleImage:CircleImage  x:Name="_imgProfilePicture" Source="Person.png" WidthRequest="75" HeightRequest="75" BorderColor="#FF7e65" BorderThickness="1" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
+            <CircleImage:CircleImage IsVisible="False"  x:Name="imgProfilePicture" Source="person.png" WidthRequest="75" HeightRequest="75" BorderColor="#FF7e65" BorderThickness="1" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=10}" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=20}" />
 
-            <Label  x:Name="profil" Text="Moj profil" FontSize="30" TextColor="#FF7e65" HorizontalTextAlignment="Start" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
+            <Label IsVisible="False"  x:Name="lblProfile" Text="Moj profil" FontSize="30" TextColor="#FF7e65" HorizontalTextAlignment="Start" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=10}" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=20}" />
 
-            <Label x:Name="kotakt" Text="Kontakt" FontSize="30" TextColor="#FF7e65" HorizontalTextAlignment="Start" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
+            <Label IsVisible="False"  x:Name="lblContact" Text="Kontakt" FontSize="30" TextColor="#FF7e65" HorizontalTextAlignment="Start" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=10}" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=20}" />
 
-            <Label  x:Name="odjava" Text="Odjavi se" FontSize="30" TextColor="#FF7e65" HorizontalTextAlignment="Start" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
+            <Label IsVisible="False"  x:Name="lblLogOut" Text="Odjavi se" FontSize="30" TextColor="#FF7e65" HorizontalTextAlignment="Start" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=10}" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=20}" />
 
-            <views:FontAwesomeLabel x:Name="backMenu" FontSize="Large" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
+            <views:FontAwesomeLabel IsVisible="False"  x:Name="imgBack" FontSize="Large" RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=10}" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, 
                                         Constant=20}" />
-
-
-
-
-
-
-
 
 
         </RelativeLayout>
-
-
-
-
-
-
     </ContentView.Content>
 </ContentView>

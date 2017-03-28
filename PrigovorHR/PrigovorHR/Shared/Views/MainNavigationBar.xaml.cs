@@ -30,14 +30,12 @@ namespace PrigovorHR.Shared.Views
         public bool HasUnreadedReplys { set { imgComplaints.Text = !value ? Views.FontAwesomeLabel.Images.FAPEnvelopeOpen : Views.FontAwesomeLabel.Images.FAPEnvelopeClosed; 
                                               imgComplaints.TextColor = !value ? Color.Gray : Color.FromHex("#FF6A00");}}
 
-        public void HideMenuFrame() => _MenuFrame.IsVisible = false;
-
         public MainNavigationBar()
         {
             InitializeComponent();
 
             View[] _ListOfChildViews = new View[] { imgMenuLayout,
-                imgComplaints, imgSearch, imgQRCode, lblContactUs, lblLogOut, lblMyProfile };
+                imgComplaints, imgSearch, imgQRCode};
 
             imgComplaints.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
             imgComplaints.TextColor = Color.Gray;
@@ -55,31 +53,6 @@ namespace PrigovorHR.Shared.Views
             TAPController.SingleTaped += _TAPController_SingleTaped;
             Controllers.QRScannerController.ScanCompletedEvent += QRScannerController__ScanCompletedEvent;
             ReferenceToView = this;
-
-            //_CurrentGPSStatus = ((eGPSOptionStatus)(Convert.ToInt32(Controllers.GPSController._GPSEnabled)));
-
-            //if (_CurrentGPSStatus != eGPSOptionStatus.unvailable)
-            //{
-            //    if (_CurrentGPSStatus == eGPSOptionStatus.activated)
-            //        _CurrentGPSStatus = ((eGPSOptionStatus)(Convert.ToInt32(Controllers.GPSController._GPSEnabled)));
-            //    else
-            //        _CurrentGPSStatus = eGPSOptionStatus.activated;
-
-            //    btn.Image = Enum.GetName(typeof(eGPSOptionStatus), (int)_CurrentGPSStatus) + ".png";
-            //}
-            //else
-            //    Acr.UserDialogs.UserDialogs.Instance.Confirm(new Acr.UserDialogs.ConfirmConfig()
-            //    {
-            //        OkText = "DA",
-            //        CancelText = "NE",
-            //        //  IsCancellable = true,
-            //        Message = "GPS nije uključen ili dostupan!" + Environment.NewLine + "Želite li otvoriti postavke i aktivirati GPS?",
-            //        Title = "PrigovorHR"
-            //    }.SetAction((re) => { if (re) { Controllers.GPSController.OpenGPSOptions(); } }));
-
-            // Device.StartTimer(new TimeSpan(0, 0, 1), (() => { UpdateChildrenLayout(); return true; }));
-
-            //_SearchOptionsLayout.SizeChanged += _SearchOptionsLayout_SizeChanged;
         }
 
         private async void QRScannerController__ScanCompletedEvent(string result, bool isQRFormat)
@@ -116,52 +89,13 @@ namespace PrigovorHR.Shared.Views
         private  async void _TAPController_SingleTaped(string viewId, View view)
         {
             if (view == imgMenuLayout)
-            {
                 OpenCloseMenuEvent?.Invoke(IsMenuOpen  = !IsMenuOpen);
-             //  LandingViewWithLogin.ReferenceToView.ShowMenu();
-                _MenuFrame.IsVisible = !_MenuFrame.IsVisible;
-            }
             else if (view == imgSearch)
-            {
-                _MenuFrame.IsVisible = false;
                 await Navigation.PushPopupAsync(new CompanySearchPage());
-            }
             else if (view == imgQRCode)
             {
-                _MenuFrame.IsVisible = false;
                 await Navigation.PushModalAsync(QRScannerController, true);
                 QRScannerController.StartScan();
-            }
-            //if (view == lblAboutUs)
-            //{
-
-            //}
-            else if (view == lblContactUs)
-            {
-                _MenuFrame.IsVisible = false;
-                await Navigation.PushModalAsync(new ContactUsPage());
-            }
-            else if (view == lblMyProfile)
-            {
-                _MenuFrame.IsVisible = false;
-                await Navigation.PushModalAsync(new ProfilePage(), true);
-            }
-            else if (view == lblLogOut)
-            {
-
-                Acr.UserDialogs.UserDialogs.Instance.Confirm(
-                    new Acr.UserDialogs.ConfirmConfig()
-                    {
-                        Title = "Odjava",
-                        CancelText = "Odustani",
-                        OkText = "Odjavi me",
-                        Message = "Jeste li sigurni u odjavu iz aplikacije?",
-                        OnAction = (Confirm) =>
-                        {
-                            if (Confirm)
-                                Controllers.LoginRegisterController.UserLogOut();
-                        }
-                    });
             }
         }
 
