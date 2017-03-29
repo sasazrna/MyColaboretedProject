@@ -168,7 +168,7 @@ namespace PrigovorHR.Shared
         private class ServerCommuncationServices
         {
 
-            #if !DEBUG
+            #if DEBUG
             private const string ServiceAddress = "http://138.68.85.217/api/";
             #else
             private const string ServiceAddress = "https://prigovor.hr/api/";

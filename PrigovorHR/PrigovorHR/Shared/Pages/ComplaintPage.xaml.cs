@@ -98,18 +98,24 @@ namespace PrigovorHR.Shared.Pages
 
             if (Complaint.replies.Any())
             {
-                foreach (var Reply in Complaint.replies.OrderByDescending(r => DateTime.Parse( r.updated_at)))
-                    lytAllResponses.Children.Add(new Views.ComplaintReplyListView(Complaint, Reply));
-
-                //prikaži zadnju poruku u listi replyova
-                //if(Complaint.closed)
-                //var LastMessage = Complaint.complaint_events?.LastOrDefault(ce => ce.closed).message
-                //    lytAllResponses.Children.Add(new Views.ComplaintReplyListView(Complaint, Reply));
-
-                lblNumberOfResponses.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label));
-                lblNumberOfResponses.Text = "+" + Convert.ToString(lytAllResponses.Children.Count);
+                foreach (var Reply in Complaint.replies.OrderByDescending(r => DateTime.Parse(r.updated_at)))
+                {
+                    lytAllResponses.Children.Add(new Views.ComplaintReplyListView(Complaint, Reply, null));
+                    var ComplaintEvent = Complaint.complaint_events.FirstOrDefault(ce => ce.reply_id == Reply.id);
+                    if (ComplaintEvent != null && !string.IsNullOrEmpty(ComplaintEvent.message))
+                        lytAllResponses.Children.Add(new Views.ComplaintReplyListView(Complaint, null, ComplaintEvent));
+                }
             }
             else
+            {
+                if (Complaint.closed & Complaint.complaint_events.Any(ce => !string.IsNullOrEmpty(ce.message)))
+                    lytAllResponses.Children.Add(new Views.ComplaintReplyListView(Complaint, null, Complaint.complaint_events.LastOrDefault()));
+            }
+
+            lblNumberOfResponses.FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label));
+            lblNumberOfResponses.Text = "+" + Convert.ToString(lytAllResponses.Children.Count);
+
+            if (!lytAllResponses.Children.Any())
             {
                 lblNumberOfResponses.IsVisible = false;
                 lytAllResponses.IsVisible = false;

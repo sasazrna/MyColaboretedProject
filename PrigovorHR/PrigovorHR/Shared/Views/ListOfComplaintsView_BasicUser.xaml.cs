@@ -178,9 +178,9 @@ namespace PrigovorHR.Shared.Views
                         Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
                         await Application.Current.SavePropertiesAsync();
 
-                        LandingViewWithLogin.ReferenceToView.FirstTimeLoginView.IsVisible = false;
-                        LandingViewWithLogin.ReferenceToView.ListOfComplaintsView.IsVisible = true;
-                        LandingViewWithLogin.ReferenceToView.ComplaintListTabView.IsVisible = true;
+                        LandingViewWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
+                        LandingViewWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
+                        LandingViewWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
                     }
                 }
                 else

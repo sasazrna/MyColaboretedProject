@@ -29,9 +29,9 @@
 
             <StackLayout x:Name="lytAttachmentsLayout">
                 <views:AttachmentView></views:AttachmentView>
-
             </StackLayout>
-            <StackLayout Margin="-15,5,-15,5" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand"/>
+            
+            <StackLayout x:Name="lytBottomLine" Margin="-15,5,-15,5" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand"/>
         </StackLayout>
 
     </ContentView.Content>

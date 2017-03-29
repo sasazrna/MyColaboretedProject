@@ -15,28 +15,37 @@ namespace PrigovorHR.Shared.Views
     {
         private Models.ComplaintModel Complaint;
         private Models.ComplaintModel.ComplaintReplyModel ComplaintReply;
-
+        private Models.ComplaintModel.ComplaintEvent ComplaintEvent;
         public ComplaintReplyListView()
         {
             InitializeComponent();
         }
 
-        public ComplaintReplyListView(Models.ComplaintModel complaint, Models.ComplaintModel.ComplaintReplyModel complaintReply)
+        public ComplaintReplyListView(Models.ComplaintModel complaint, Models.ComplaintModel.ComplaintReplyModel complaintReply, Models.ComplaintModel.ComplaintEvent complaintEvent)
         {
             InitializeComponent();
 
             Complaint = complaint;
             ComplaintReply = complaintReply;
-            
-            lblDateTimeOfResponse.Text = DateTime.Parse(ComplaintReply.created_at).ToString();
-            lblDateTimeOfResponse.Text = lblDateTimeOfResponse.Text.Substring(0, lblDateTimeOfResponse.Text.LastIndexOf(":") );
-            lblReplyTextLong.Text = ComplaintReply.reply;
-            lblUsername.Text = complaintReply.user.name_surname;
-            lblNameInitials.Text = lblUsername.Text.Substring(0, 1) + "." + lblUsername.Text.Substring(lblUsername.Text.LastIndexOf(" ")+1, 1);
+            ComplaintEvent = complaintEvent;
+
+            string created_at = ComplaintReply != null ? ComplaintReply.created_at : ComplaintEvent.created_at;
+            string replytext = ComplaintReply != null ? ComplaintReply.reply : ComplaintEvent.message;
+            string username = ComplaintReply != null ? ComplaintReply.user.name_surname : ComplaintEvent.user_id.ToString();
+
+            lblDateTimeOfResponse.Text = DateTime.Parse(created_at).ToString();
+            lblDateTimeOfResponse.Text = lblDateTimeOfResponse.Text.Substring(0, lblDateTimeOfResponse.Text.LastIndexOf(":"));
+            lblReplyTextLong.Text = replytext;
+            lblUsername.Text = username;
+            lblNameInitials.Text = lblUsername.Text.Substring(0, 1) + "." + lblUsername.Text.Substring(lblUsername.Text.LastIndexOf(" ") + 1, 1);
 
             lytAttachmentsLayout.Children.Clear();
-            foreach (var Attachment in complaintReply.attachments)
-                lytAttachmentsLayout.Children.Add(new AttachmentView(true, ComplaintReply.id, Attachment.id, Attachment.attachment_url, false, null));
+
+            if (complaintReply != null)
+                foreach (var Attachment in complaintReply.attachments)
+                    lytAttachmentsLayout.Children.Add(new AttachmentView(true, ComplaintReply.id, Attachment.id, Attachment.attachment_url, false, null));
+
+            lytBottomLine.BackgroundColor = ComplaintEvent != null ? Color.Green : Color.Silver;
         }
     }
 }
