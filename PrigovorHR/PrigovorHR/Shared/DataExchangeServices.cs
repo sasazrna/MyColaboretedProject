@@ -168,7 +168,7 @@ namespace PrigovorHR.Shared
         private class ServerCommuncationServices
         {
 
-            #if RELEASE
+            #if !DEBUG
             private const string ServiceAddress = "http://138.68.85.217/api/";
             #else
             private const string ServiceAddress = "https://prigovor.hr/api/";
@@ -328,7 +328,9 @@ namespace PrigovorHR.Shared
                         string urlAddress = serviceAddress + APIAdresses[ServiceCommand];
                         var multipartData = new MultipartFormDataContent();
 
-                        if (ServiceCommand != ServiceCommands.LoginUser)
+                        if (ServiceCommand != ServiceCommands.LoginUser & 
+                            ServiceCommand != ServiceCommands.ResetPassword & 
+                            ServiceCommand != ServiceCommands.SendExceptionData)
                         {
                             var header = new AuthenticationHeaderValue("Bearer", Models.UserToken.token);
                             client.DefaultRequestHeaders.Authorization = header;

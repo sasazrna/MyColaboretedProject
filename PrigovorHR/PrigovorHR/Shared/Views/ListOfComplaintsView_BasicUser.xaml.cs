@@ -142,35 +142,46 @@ namespace PrigovorHR.Shared.Views
                     DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>((string)objallcomplaints);
 
                     var Complaints = ComplaintModel.RefToAllComplaints?.user.complaints;
-                    var UnreadComplaints = ComplaintModel.RefToAllComplaints?.user.unread_complaints;
-
-                    var ComplaintLastEvent = Complaints.Any() ? 
-                        Complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm") : 
-                        DateTime.Now.ToString("dd.MM.yyyy. H:mm");
-
-                    var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
-
-                    foreach (var Complaint in NewComplaintReplys.user.complaints)
+                    if (Complaints.Any())
                     {
-                        var LastReply = Complaint?.replies?.Last();
+                        var UnreadComplaints = ComplaintModel.RefToAllComplaints?.user.unread_complaints;
 
-                        if (Complaint == null)
-                            continue;
+                        var ComplaintLastEvent = Complaints.Any() ?
+                            Complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm") :
+                            DateTime.Now.ToString("dd.MM.yyyy. H:mm");
 
-                        Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
-                        Complaints.Add(Complaint);
+                        var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
 
-                        foreach (var UnreadedComplaint in NewComplaintReplys.user.unread_complaints.Where(uc => uc.id == Complaint.id))
-                            if (!UnreadComplaints.Select(uc => uc.id).Contains(UnreadedComplaint.id))
-                                UnreadComplaints.Add(UnreadedComplaint);
+                        foreach (var Complaint in NewComplaintReplys.user.complaints)
+                        {
+                            Complaints.Remove(Complaints.FirstOrDefault(c => c.id == Complaint.id));
+                            Complaints.Add(Complaint);
+
+                            foreach (var UnreadedComplaint in NewComplaintReplys.user.unread_complaints.Where(uc => uc.id == Complaint.id))
+                                if (!UnreadComplaints.Select(uc => uc.id).Contains(UnreadedComplaint.id))
+                                    UnreadComplaints.Add(UnreadedComplaint);
+                        }
+
+                        Application.Current.Properties.Remove("AllComplaints");
+                        Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                        await Application.Current.SavePropertiesAsync();
+
+                        DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                        DataSource = ComplaintModel.RefToAllComplaints;
                     }
+                    else
+                    {
+                        DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                        DataSource = ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
+                            (await DataExchangeServices.GetMyComplaints());
+                        Application.Current.Properties.Remove("AllComplaints");
+                        Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                        await Application.Current.SavePropertiesAsync();
 
-                    Application.Current.Properties.Remove("AllComplaints");
-                    Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
-                    await Application.Current.SavePropertiesAsync();
-
-                    DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
-                    DataSource = ComplaintModel.RefToAllComplaints;
+                        LandingViewWithLogin.ReferenceToView.FirstTimeLoginView.IsVisible = false;
+                        LandingViewWithLogin.ReferenceToView.ListOfComplaintsView.IsVisible = true;
+                        LandingViewWithLogin.ReferenceToView.ComplaintListTabView.IsVisible = true;
+                    }
                 }
                 else
                 {

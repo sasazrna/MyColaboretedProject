@@ -14,12 +14,11 @@ using System.IO;
 
 namespace PrigovorHR.Shared.Views
 {
-
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LandingViewWithLogin : ContentView
     {
         public static LandingViewWithLogin ReferenceToView;
-        private Controllers.TAPController TAPController;
+        private TAPController TAPController;
 
         public LandingViewWithLogin()
         {
@@ -42,11 +41,15 @@ namespace PrigovorHR.Shared.Views
             FirstTimeLoginView.SearchIconClickedEvent += () => Navigation.PushPopupAsync(new CompanySearchPage(), true);
         }
 
-        public static bool CloseMenu()
+        public bool CloseMenu()
         {
-            if (!ReferenceToView.lytContent.IsVisible)
-                ReferenceToView.TopNavigationBar_OpenCloseMenuEvent(false);
-            else return false;
+            try
+            {
+                if (lytContent.IsVisible)
+                    TopNavigationBar_OpenCloseMenuEvent(false);
+                else return false;
+            }
+            catch { }
 
             return true;
         }
@@ -86,7 +89,7 @@ namespace PrigovorHR.Shared.Views
 
             imgProfilePicture.TranslateTo(0, IsMenuOpen ? 30 : 0, 100);
             imgProfilePicture.FadeTo(IsMenuOpen ? 1 : 0, 100);
-
+            
             lblProfile.TranslateTo(0, IsMenuOpen ? 110 : 0, 100);
             lblProfile.FadeTo(IsMenuOpen ? 1 : 0, 100);
 
@@ -100,8 +103,7 @@ namespace PrigovorHR.Shared.Views
             imgBack.FadeTo(IsMenuOpen ? 1 : 0, 100);
 
             await Task.Delay(100);
-
-            imgProfilePicture.IsVisible = lblProfile.IsVisible = lblContact.IsVisible = lblLogOut.IsVisible = lblLogOut.IsVisible = imgBack.IsVisible = true;
+            imgProfilePicture.IsVisible = lblProfile.IsVisible = lblContact.IsVisible = lblLogOut.IsVisible = lblLogOut.IsVisible = imgBack.IsVisible = IsMenuOpen;
         }
 
         private async void LoadComplaintAutoSaveData()

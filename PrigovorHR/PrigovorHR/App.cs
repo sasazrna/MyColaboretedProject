@@ -34,12 +34,18 @@ namespace PrigovorHR
 
         private void SetMainPage()
         {
-            MainPage = new NavigationPage(new LandingPage())
+            try
             {
-                BarBackgroundColor = Color.FromHex("#7dbbe6"),
-                BarTextColor = Color.Black
-            };
-            MainPage.SizeChanged += MainPage_SizeChanged1;
+                MainPage = new NavigationPage(new LandingPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#7dbbe6"),
+                    BarTextColor = Color.Black
+                };
+                MainPage.SizeChanged += MainPage_SizeChanged1;
+            }catch
+            {
+                Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+            }
         }
 
         private void MainPage_SizeChanged1(object sender, EventArgs e)

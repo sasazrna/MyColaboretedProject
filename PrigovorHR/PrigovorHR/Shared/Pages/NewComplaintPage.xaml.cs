@@ -251,9 +251,9 @@ namespace PrigovorHR.Shared.Pages
                  suggestion = editSuggestionText.Text,
                  problemOccurred = ProblemOccurred.ToString("dd.MMMMM yyyy"),
                  problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
-                 problemOccurredTime = ProblemOccurred.ToString("hh:mm")
-                 //latitude=Latitude,
-                 //longitude=Longitude
+                 problemOccurredTime = ProblemOccurred.ToString("hh:mm"),
+                 //latitude = Latitude,
+                 //longitude = Longitude
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 

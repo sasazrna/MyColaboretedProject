@@ -17,14 +17,14 @@
 
                 <!--#region TabView dio-->
 
-                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
-                    <Image Source="storeElement.png" x:Name="lblStore" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
-                    <Image Source="domain.png" x:Name="lblCompany" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
-                    <Image Source="StoreList.png" x:Name="lblOtherStores" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
+                <StackLayout x:Name="lytImages" HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                    <Image Source="storeElement.png" x:Name="imgStore" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
+                    <Image Source="domain.png" x:Name="imgCompany" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
+                    <Image Source="StoreList.png" x:Name="imgOtherStores" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
                 </StackLayout>
 
 
-                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
+                <StackLayout x:Name="lytUnderlines" HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
                     <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
                         <StackLayout x:Name="lytCompanyElementUnderline" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand" />
                     </StackLayout>
@@ -37,6 +37,7 @@
                 </StackLayout>
                 <!--#endregion-->
 
+                
                 <StackLayout Padding="15, 10, 15, 5">
                     <!--Dio stranice ispod TabViewa-->
 

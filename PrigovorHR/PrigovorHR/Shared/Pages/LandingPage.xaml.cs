@@ -92,7 +92,10 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            return LandingViewWithLogin.CloseMenu();
+            if (LandingViewWithLogin.ReferenceToView != null)
+                return LandingViewWithLogin.ReferenceToView.CloseMenu();
+            else
+                return base.OnBackButtonPressed();
         }
     }
 }

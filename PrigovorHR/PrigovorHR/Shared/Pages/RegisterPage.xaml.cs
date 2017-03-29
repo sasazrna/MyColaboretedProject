@@ -112,7 +112,7 @@ namespace PrigovorHR.Shared.Pages
             else
             {
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                if (AppGlobal._lastError.Contains("422"))
+                //if (AppGlobal._lastError.Contains("422"))
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Navedeni e-mail već postoji!" + Environment.NewLine + "Odaberite prijavu s tim e-mailom ili registraciju s drugim e-mailom", "E-mail već postoji", "OK");
             }
         }

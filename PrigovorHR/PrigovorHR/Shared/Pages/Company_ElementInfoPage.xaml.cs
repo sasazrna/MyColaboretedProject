@@ -35,9 +35,9 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyInfoView.Children.Clear();
                 lytCompanyElementInfoView.Children.Clear();
                 lytCompanyOtherElementsView.Children.Clear();
-                lblOtherStores.IsEnabled = ShowOtherElements && Convert.ToBoolean(companyElement.siblings?.Any());
+                imgOtherStores.IsEnabled = ShowOtherElements && Convert.ToBoolean(companyElement.siblings?.Any());
                 CompanyElement = companyElement;
-                TAPController = new Controllers.TAPController(lblStore, lblCompany, lblOtherStores);
+                TAPController = new TAPController(imgStore, imgCompany, imgOtherStores);
                 TAPController.SingleTaped += TAPController_SingleTaped;
                 NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
                 btnWriteComplaint.Clicked += BtnWriteComplaint_Clicked;
@@ -46,13 +46,24 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyUnderline.IsVisible = false;
                 lytCompanyOtherElementsUnderline.IsVisible = false;
 
-               // SetCompanyLogo();
+                SetCompanyLogo();
 
-                TAPController_SingleTaped(null, lblStore);
+                if(CompanyElement.element.type == null)
+                {
+                    lytImages.IsVisible = false;
+                    lytUnderlines.IsVisible = false;
+                    lytCompanyElementInfoView.IsVisible = false;
+                    lytCompanyOtherElementsView.IsVisible = false;
+                    TAPController_SingleTaped(null, imgCompany);
+                }
+                else TAPController_SingleTaped(null, imgStore);
 
                 LogoStack.IsVisible = true;
             }
-            catch (Exception ex) { Acr.UserDialogs.UserDialogs.Instance.Alert(ex.ToString()); }
+            catch (Exception ex)
+            {
+                ExceptionController.HandleException(ex, "public Company_ElementInfoPage(CompanyElementRootModel companyElement, bool ShowOtherElements)");
+            }
         }
 
         private async void SetCompanyLogo()
@@ -64,7 +75,7 @@ namespace PrigovorHR.Shared.Pages
             }
             catch(Exception ex)
             {
-                Controllers.ExceptionController.HandleException(ex, "Greška kod private async void SetCompanyLogo()");
+                ExceptionController.HandleException(ex, "Greška kod private async void SetCompanyLogo()");
             }
         }
 
@@ -92,7 +103,7 @@ namespace PrigovorHR.Shared.Pages
 
         private void TAPController_SingleTaped(string viewId, View view)
         {
-            if(view == lblStore)
+            if(view == imgStore)
             {
                 lytCompanyElementUnderline.IsVisible = true;
                 lytCompanyUnderline.IsVisible = false;
@@ -107,7 +118,7 @@ namespace PrigovorHR.Shared.Pages
                 LogoStack.IsVisible = true;
                 btnWriteComplaint.IsVisible = true;
             }
-            else if(view == lblCompany)
+            else if(view == imgCompany)
             {
                 lytCompanyElementUnderline.IsVisible = false;
                 lytCompanyUnderline.IsVisible = true;
@@ -122,7 +133,7 @@ namespace PrigovorHR.Shared.Pages
                 LogoStack.IsVisible = true;
                 btnWriteComplaint.IsVisible = true;
             }
-            else if(view == lblOtherStores)
+            else if(view == imgOtherStores)
             {
                 lytCompanyElementUnderline.IsVisible = false;
                 lytCompanyUnderline.IsVisible = false;

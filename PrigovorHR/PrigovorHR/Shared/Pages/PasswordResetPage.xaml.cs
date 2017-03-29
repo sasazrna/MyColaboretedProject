@@ -29,24 +29,29 @@ namespace PrigovorHR.Shared.Pages
             await Task.Delay(20);
             var Result = await DataExchangeServices.ResetPassword(JsonConvert.SerializeObject(new { email = entryEMail.Text }));
 
-            if (!Result.Contains("Error"))
+            try
             {
-                JObject Jobj = JObject.Parse(Result);
-                if (((string)Jobj["status"]) == "success")
+
+
+                if (!Result.Contains("Error"))
                 {
-                    Acr.UserDialogs.UserDialogs.Instance.Alert("Zahtjev za resetiranjem lozinke uspješno poslan!", "Uspjeh", "OK");
-                    OnBackButtonPressed();
+                    JObject Jobj = JObject.Parse(Result);
+                    if (((string)Jobj["status"]) == "success")
+                    {
+                        Acr.UserDialogs.UserDialogs.Instance.Alert("Zahtjev za resetiranjem lozinke uspješno poslan!", "Uspjeh", "OK");
+                        OnBackButtonPressed();
+                    }
+                    else
+                        Acr.UserDialogs.UserDialogs.Instance.Alert("Zahtjev neuspješan, provjerite jeste li upisali točan e-mail!", "Greška", "OK");
                 }
                 else
-                {
-                    Acr.UserDialogs.UserDialogs.Instance.Alert("Zahtjev neuspješan, provjerite jeste li upisali točan e-mail!", "Greška", "OK");
-                }
+                    Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja zahtjeva!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Greška", "OK");
             }
-            else
+            catch(Exception ex )
             {
+                Controllers.ExceptionController.HandleException(ex, "private async void BtnSendResetRequest_Clicked(object sender, EventArgs e)");
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja zahtjeva!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Greška", "OK");
             }
-
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 

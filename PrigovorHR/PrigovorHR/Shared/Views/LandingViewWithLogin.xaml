@@ -17,14 +17,14 @@
                     <views:MainNavigationBar x:Name="TopNavigationBar" BackgroundColor="Silver">
                     </views:MainNavigationBar>
                     <StackLayout VerticalOptions="End">
-                        <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView">
+                        <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView" x:FieldModifier="Public">
                         </views:ListOfComplaintsView_BasicUser>
 
-                        <views:FirstTimeLoginView x:Name="FirstTimeLoginView" IsVisible="False"></views:FirstTimeLoginView>
+                        <views:FirstTimeLoginView x:Name="FirstTimeLoginView" IsVisible="False" x:FieldModifier="Public"></views:FirstTimeLoginView>
                     </StackLayout>
 
                     <StackLayout TranslationY="25" Margin="0,-25,0,0" VerticalOptions="EndAndExpand">
-                        <views:ComplaintListTabView x:Name="ComplaintListTabView">
+                        <views:ComplaintListTabView x:Name="ComplaintListTabView" x:FieldModifier="Public">
                         </views:ComplaintListTabView>
                     </StackLayout>
                 </StackLayout>

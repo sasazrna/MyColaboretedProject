@@ -104,19 +104,27 @@ namespace PrigovorHR.Shared.Controllers
                     break;
             }
 
-            if (!ReturnedData.Contains("Error"))
+            try
             {
-                LoggedUser = new User();
-                LoggedUser = JsonConvert.DeserializeObject<User>(ReturnedData);
-                LoggedUser.password = EMailLoginModel.password;
-                UserToken.token = LoggedUser.token;
-                LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
-                await SaveUserData(LoggedUser, LoginTypeModel.eLoginType.email, false);
-                Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                _UserLoggedInOutEvent?.Invoke(true);
-                return LoggedUser;
+                if (!ReturnedData.Contains("Error"))
+                {
+                    LoggedUser = new User();
+                    LoggedUser = JsonConvert.DeserializeObject<User>(ReturnedData);
+                    LoggedUser.password = EMailLoginModel.password;
+                    UserToken.token = LoggedUser.token;
+                    LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
+                    await SaveUserData(LoggedUser, LoginTypeModel.eLoginType.email, false);
+                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+                    _UserLoggedInOutEvent?.Invoke(true);
+                    return LoggedUser;
+                }
+                else { AppGlobal._lastError = ReturnedData; return null; }
             }
-            else { AppGlobal._lastError = ReturnedData; return null; }
+            catch (Exception ex)
+            {
+                ExceptionController.HandleException(ex, "private static async Task<User> ExecuteLogin(LoginTypeModel.eLoginType LoginType, dynamic loginData)");
+                return null;
+            }
         }
 
         public static void UserLogOut()

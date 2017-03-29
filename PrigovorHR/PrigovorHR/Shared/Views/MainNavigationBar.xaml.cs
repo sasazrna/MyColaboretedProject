@@ -60,29 +60,30 @@ namespace PrigovorHR.Shared.Views
             try
             {
                 await Navigation.PopModalAsync(true);
-                result = result.Substring(0, result.LastIndexOf("/"));
-                result = result.Remove(0, result.LastIndexOf("/") + 1);
-                var Result = await DataExchangeServices.GetCompanyElementData(result);
-
-                if (Result.Contains("Error:"))
+                if (result.Contains("/"))
                 {
-                    Controllers.VibrationController.Vibrate();
-                    Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom pretraživanja!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Prigovor.HR", "OK");
-                    return;
-                }
+                    result = result.Substring(0, result.LastIndexOf("/"));
+                    result = result.Remove(0, result.LastIndexOf("/") + 1);
+                    var Result = await DataExchangeServices.GetCompanyElementData(result);
 
-                var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
-                if (CompanyElement != null)
-                    Device.BeginInvokeOnMainThread(async () =>
+                    if (Result.Contains("Error:"))
                     {
-                        await Navigation.PushModalAsync(new Pages.Company_ElementInfoPage(CompanyElement, true), true);
-                    });
-                else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
+                        Controllers.VibrationController.Vibrate();
+                        Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom pretraživanja!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Prigovor.HR", "OK");
+                        return;
+                    }
 
+                    var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
+
+                    if (CompanyElement != null)
+                        Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new Company_ElementInfoPage(CompanyElement, true), true));
+                    else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
+                }
+                else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
             }
             catch (Exception ex)
             {
-                Acr.UserDialogs.UserDialogs.Instance.Alert(ex.ToString());
+                Controllers.ExceptionController.HandleException(ex, "private async void QRScannerController__ScanCompletedEvent(string result, bool isQRFormat)");
             }
         }
 

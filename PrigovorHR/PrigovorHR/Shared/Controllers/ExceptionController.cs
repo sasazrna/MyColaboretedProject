@@ -12,30 +12,26 @@ namespace PrigovorHR.Shared.Controllers
     {
         public static async void HandleException(Exception ex, string developermessage)
         {
-            try
+            var ExceptionData = new Models.ExceptionInfoModel.ExceptionInfo()
             {
-                var ExceptionData = new Models.ExceptionInfoModel.ExceptionInfo()
-                {
-                    exception = ex.ToString(),
-                    developer_message = developermessage
-                };
+                exception = ex.ToString(),
+                developer_message = developermessage
+            };
 
-                if (ExceptionData.is_network_available)
-                {
-                    if (!await DataExchangeServices.SendExceptionData(JsonConvert.SerializeObject(ExceptionData)))
-                    {
-                        Application.Current.Properties.Add("Exception_" + GetLastExceptionId(), JsonConvert.SerializeObject(ExceptionData));
-                        await Application.Current.SavePropertiesAsync();
-                    }
-                    else RemoveExceptionDataFiles();
-                }
-                else
+            if (ExceptionData.is_network_available)
+            {
+                if (!await DataExchangeServices.SendExceptionData(JsonConvert.SerializeObject(ExceptionData)))
                 {
                     Application.Current.Properties.Add("Exception_" + GetLastExceptionId(), JsonConvert.SerializeObject(ExceptionData));
                     await Application.Current.SavePropertiesAsync();
                 }
+                else RemoveExceptionDataFiles();
             }
-            catch(Exception err) { Acr.UserDialogs.UserDialogs.Instance.Alert(err.ToString()); }
+            else
+            {
+                Application.Current.Properties.Add("Exception_" + GetLastExceptionId(), JsonConvert.SerializeObject(ExceptionData));
+                await Application.Current.SavePropertiesAsync();
+            }
         }
 
         public static async void CheckAndSendUnsentExceptions()

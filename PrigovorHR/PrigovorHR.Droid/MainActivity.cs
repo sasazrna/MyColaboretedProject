@@ -131,9 +131,12 @@ namespace PrigovorHR.Droid
         {
             base.OnNewIntent(intent);
 
-            MessagingCenter.Subscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint", (sender, arg) => ListOfComplaintsView_BasicUser.ReferenceToView.FindAndOpenComplaint(arg));
-            MessagingCenter.Send(ListOfComplaintsView_BasicUser.ReferenceToView, "OpenComplaint", intent.GetIntExtra("ComplaintId", 0));
-            MessagingCenter.Unsubscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint");
+            if (ListOfComplaintsView_BasicUser.ReferenceToView != null)
+            {
+                MessagingCenter.Subscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint", (sender, arg) => ListOfComplaintsView_BasicUser.ReferenceToView.FindAndOpenComplaint(arg));
+                MessagingCenter.Send(ListOfComplaintsView_BasicUser.ReferenceToView, "OpenComplaint", intent.GetIntExtra("ComplaintId", 0));
+                MessagingCenter.Unsubscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint");
+            }
         }
     }
 }
