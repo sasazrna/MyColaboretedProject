@@ -253,7 +253,7 @@ namespace PrigovorHR.Shared.Pages
                  suggestion = editSuggestionText.Text,
                  problemOccurred = ProblemOccurred.ToString("dd.MMMMM yyyy"),
                  problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
-                 problemOccurredTime = ProblemOccurred.ToString("hh:mm"),
+                 problemOccurredTime = ProblemOccurred.ToString("HH:mm"),
                  latitude = Latitude,
                  longitude = Longitude
              }));
