@@ -81,7 +81,6 @@ namespace PrigovorHR.Shared.Controllers
                 }
                 else
                     break;
-
         }
     }
 }

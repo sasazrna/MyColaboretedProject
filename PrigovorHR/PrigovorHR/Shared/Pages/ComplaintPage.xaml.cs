@@ -82,13 +82,70 @@ namespace PrigovorHR.Shared.Pages
             {
                 var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
                 await Navigation.PushModalAsync(NewComplaintReplyPage);
-                NewComplaintReplyPage.ReplaySentEvent += (int id) => {  Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+                NewComplaintReplyPage.ReplaySentEvent += (int id) => {
+                    Navigation.PopModalAsync(true);
+                    Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
+                    Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Views.ComplaintListTabView.Tabs.ActiveComplaints, false);
+                };
             }
             else
             {
-                var CloseComplaintPage = new CloseComplaintPage(Complaint);
-                await Navigation.PushModalAsync(CloseComplaintPage);
-                CloseComplaintPage.ComplaintClosed += (int id) => {  Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+                if (!Complaint.complaint_events.Any(ce => ce.closed))
+                {
+                    var CloseComplaintPage = new CloseComplaintPage(Complaint);
+                    await Navigation.PushModalAsync(CloseComplaintPage);
+
+                    CloseComplaintPage.ComplaintClosed += (int id) =>
+                    {
+                        Navigation.PopModalAsync(true);
+                        Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
+                        Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Views.ComplaintListTabView.Tabs.ClosedComplaints, false);
+                    };
+                }
+                else
+                {
+                    Acr.UserDialogs.UserDialogs.Instance.Confirm(
+                         new Acr.UserDialogs.ConfirmConfig()
+                         {
+                             Title = "Zatvaranje prigovora",
+                             CancelText = "NE",
+                             OkText = "DA",
+                             Message = "Jeste li sigurni u zatvaranje prigovora?",
+                             OnAction = async (Confirm) =>
+                             {
+                                 if (Confirm)
+                                 {
+                                     if (await CloseComplaintNoReview())
+                                     {
+                                         await Navigation.PopModalAsync(true);
+                                         Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
+                                         Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Views.ComplaintListTabView.Tabs.ClosedComplaints, false);
+                                     }
+                                 }
+                             }
+                         });
+                }
+            }
+        }
+
+        private async Task<bool> CloseComplaintNoReview()
+        {
+            var CloseComplaintData = new
+            {
+                rate_element = 1,
+                complaint_id = Complaint.id
+            };
+
+            if (await DataExchangeServices.CloseComplaint(JsonConvert.SerializeObject(CloseComplaintData)))
+            {
+                Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaš prigovor je uspješno zatvoren!", 3500);
+                await Task.Delay(3500);
+                return true;
+            }
+            else
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom zatvaranja prigovora!" + System.Environment.NewLine + "Pokušajte ponovno", "Greška", "OK");
+                return false;
             }
         }
 
@@ -142,11 +199,6 @@ namespace PrigovorHR.Shared.Pages
         {
             NavigationBar.InitBackButtonPressed();
             return true;
-        }
-
-        private void BtnAddResponse_Clicked(object sender, EventArgs e)
-        {
-            //Open frame to write response
         }
     }
 }

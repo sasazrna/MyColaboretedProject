@@ -14,7 +14,6 @@ namespace PrigovorHR.Shared.Controllers
         public static event InternetStatusChangedHandler InternetStatusChanged;
         public static bool IsInternetAvailable { get { return CrossConnectivity.Current.IsConnected; } }
 
-
         public static void OpenNetworkSettings()
         {
             DependencyService.Get<IAndroidCallers>().OpenNetworkSettings();

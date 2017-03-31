@@ -46,16 +46,27 @@ namespace PrigovorHR.Shared.Views
                                                                                 { lblUnsentComplaints, Tabs.UnsentComplaints } };
         }
 
+        public void InvokeSelectedTabChanged(Tabs SelectedTab)
+        {
+            ComplaintListTabView_SingleTaped("ChangedByOutsideView", LabelsToTabsConnection.First(l => l.Value == SelectedTab).Key);
+        }
+
         private void ComplaintListTabView_SingleTaped(string viewId, View view)
         {
-            var SelectedLabel = ((FontAwesomeLabel)((StackLayout)view).Children.First());
-            SelectedTab = LabelsToTabsConnection[SelectedLabel];
+            try
+            {
+                var SelectedLabel = view.GetType() == typeof(StackLayout) ? ((FontAwesomeLabel)((StackLayout)view).Children.FirstOrDefault()) : (FontAwesomeLabel)view;
 
-            foreach (var label in LabelsToTabsConnection.Keys)
-                label.TextColor = SelectedUnselectedColor[label == SelectedLabel];
+                SelectedTab = LabelsToTabsConnection[SelectedLabel];
+                foreach (var label in LabelsToTabsConnection.Keys)
+                    label.TextColor = SelectedUnselectedColor[label == SelectedLabel];
 
-            SelectedTabChangedEvent?.Invoke(SelectedTab);
-            ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(SelectedTab);
+                if (viewId != "ChangedByOutsideView")
+                {
+                    SelectedTabChangedEvent?.Invoke(SelectedTab);
+                    ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(SelectedTab, true);
+                }
+            }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
         }
     }
 }

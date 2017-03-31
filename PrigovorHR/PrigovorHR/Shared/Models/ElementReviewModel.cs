@@ -13,8 +13,8 @@ namespace PrigovorHR.Shared.Models
             public string updated_at { get; set; }
             public int user_id { get; set; }
             public int complaint_id { get; set; }
-            public int satisfaction { get; set; }
-            public int speed { get; set; }
-            public int communication_level_user { get; set; }
+            public int? satisfaction { get; set; }
+            public int? speed { get; set; }
+            public int? communication_level_user { get; set; }
     }
 }

@@ -23,8 +23,9 @@ namespace PrigovorHR.Shared.Models
         public string suggestion { get; set; }
         public string last_event { get; set; }
         public List<ComplaintEvent> complaint_events { get; set; }
-        public string lat { get; set; }
-      //  public string long
+
+        public string latitude { get; set; }
+
         public List<ComplaintAttachmentModel> attachments { get; set; }
         public CompanyElementModel element { get; set; }
         public List<ComplaintReplyModel> replies { get; set; }

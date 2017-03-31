@@ -47,15 +47,10 @@ namespace PrigovorHR.Shared.Views
 
         public bool CloseMenu()
         {
-            try
-            {
-                if (lytContent.IsVisible)
-                    TopNavigationBar_OpenCloseMenuEvent(false);
-                else return false;
-            }
-            catch { }
+            if (!lytContent.IsVisible)
+                TopNavigationBar_OpenCloseMenuEvent(lytContent.IsVisible);
 
-            return true;
+            return lytContent.IsVisible;
         }
 
         private async void TAPController_SingleTaped(string viewId, View view)

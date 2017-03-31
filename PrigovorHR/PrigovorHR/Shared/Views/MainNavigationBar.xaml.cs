@@ -34,9 +34,6 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
 
-            View[] _ListOfChildViews = new View[] { imgMenuLayout,
-                imgComplaints, imgSearch, imgQRCode};
-
             imgComplaints.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
             imgComplaints.TextColor = Color.Gray;
 
@@ -49,7 +46,7 @@ namespace PrigovorHR.Shared.Views
             imgSearch.Text = Views.FontAwesomeLabel.Images.FASearch;
             imgSearch.TextColor = Color.Gray;
 
-            TAPController = new Controllers.TAPController( _ListOfChildViews);
+            TAPController = new Controllers.TAPController(lytimgMenuLayout, lytSearchLayout, lytImgQRCode);
             TAPController.SingleTaped += _TAPController_SingleTaped;
             Controllers.QRScannerController.ScanCompletedEvent += QRScannerController__ScanCompletedEvent;
             ReferenceToView = this;
@@ -89,11 +86,11 @@ namespace PrigovorHR.Shared.Views
 
         private  async void _TAPController_SingleTaped(string viewId, View view)
         {
-            if (view == imgMenuLayout)
+            if (view == lytimgMenuLayout)
                 OpenCloseMenuEvent?.Invoke(IsMenuOpen  = !IsMenuOpen);
-            else if (view == imgSearch)
+            else if (view == lytSearchLayout)
                 await Navigation.PushPopupAsync(new CompanySearchPage());
-            else if (view == imgQRCode)
+            else if (view == lytImgQRCode)
             {
                 await Navigation.PushModalAsync(QRScannerController, true);
                 QRScannerController.StartScan();
@@ -102,10 +99,10 @@ namespace PrigovorHR.Shared.Views
 
         public void ChangeNavigationTitle(string newtitle)
         {
-            _lblNavigationTitle.Text = newtitle;
+            lblNavigationTitle.Text = newtitle;
             if (newtitle == "Prigovor.hr")
-                _imgLogo.IsVisible = true;
-            else _imgLogo.IsVisible = false;
+                imgLogo.IsVisible = true;
+            else imgLogo.IsVisible = false;
         }
     }
 }

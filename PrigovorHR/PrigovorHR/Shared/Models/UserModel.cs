@@ -31,8 +31,8 @@ namespace PrigovorHR.Shared.Models
         public UserType.eUserType usertype { get; set; }
         public LoginTypeModel.eLoginType LoginType { get; set; }
         public List<ComplaintModel> complaints { get; set; }
-        public IList<ElementReviewModel> element_reviews { get; set; }
-        public IList<ComplaintModel> unread_complaints { get; set; }
+        public List<ComplaintModel> unread_complaints { get; set; }
+        public List<ElementReviewModel> element_reviews { get; set; }
     }
 
     public class UserToken
