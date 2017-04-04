@@ -28,6 +28,7 @@ using ScnViewGestures.Plugin.Forms.Droid.Renderers;
 using Plugin.Permissions;
 using Plugin.Media;
 using PrigovorHR.Shared.Views;
+using static PrigovorHR.Droid.AndroidServices;
 
 namespace PrigovorHR.Droid
 {
@@ -39,6 +40,7 @@ namespace PrigovorHR.Droid
         public static Intent BackgroundService = null;
         public static bool IsUserActive = false;
         public static bool Restarted = false;
+        public static int SDKVersion { get { return (int)Build.VERSION.SdkInt; } }
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -74,8 +76,25 @@ namespace PrigovorHR.Droid
             IsUserActive = true;
 
             LoadApplication(new App());
-            BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
-            StartService(BackgroundService);
+            //BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+            //StartService(BackgroundService);
+
+            var TimeZone = Convert.ToInt32(Convert.ToDouble(DateTime.Now.Hour) / 6D);
+            var RefreshTime = (1000 * 6); /*int)(RefreshValues[MainActivity.IsUserActive][TimeZone]*/
+
+            //if (MainActivity.Restarted)
+            //{
+            //    MainActivity.Restarted = false;
+            //    RefreshTime = 2000;
+            //}
+
+           // Intent alarmIntent = new Intent(this, typeof(AlarmReceiver));
+
+           //var pendingIntent = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
+           // var alarmManager = (AlarmManager)this.GetSystemService(Context.AlarmService);
+
+           // //TODO: For demo set after 5 seconds.
+           // alarmManager.SetInexactRepeating(AlarmType.ElapsedRealtimeWakeup, SystemClock.ElapsedRealtime() + 1000, RefreshTime, pendingIntent);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -88,8 +107,8 @@ namespace PrigovorHR.Droid
         {
           base.OnDestroy();
           IsUserActive = false;
-          //BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
-          //StartService(BackgroundService);
+            //BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+            //StartService(BackgroundService);
         }
 
         protected override void OnPause()
@@ -103,7 +122,9 @@ namespace PrigovorHR.Droid
             base.OnResume();
             IsUserActive = true;
             Restarted = true;
-            StopService(BackgroundService);
+            if (BackgroundService != null)
+                StopService(BackgroundService);
+
             BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
             StartService(BackgroundService);
         }
@@ -113,7 +134,9 @@ namespace PrigovorHR.Droid
             base.OnRestart();
             IsUserActive = true;
             Restarted = true;
-            StopService(BackgroundService);
+            if (BackgroundService != null)
+                StopService(BackgroundService);
+
             BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
             StartService(BackgroundService);
         }

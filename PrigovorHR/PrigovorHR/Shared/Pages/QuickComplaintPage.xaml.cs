@@ -80,7 +80,7 @@ namespace PrigovorHR.Shared.Pages
             }
         }
 
- private async void TakePhoto()
+        private async void TakePhoto()
         {
             if (imgTakePhoto.TextColor != Color.Orange)
             {
@@ -170,6 +170,13 @@ namespace PrigovorHR.Shared.Pages
 
         private async void SendComplaint()
         {
+            if ((string.IsNullOrEmpty(WriteNewComplaintModel.complaint)) ||
+                (!string.IsNullOrEmpty(WriteNewComplaintModel.complaint) & WriteNewComplaintModel.complaint.Length < 20))
+            {
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš prigovor treba biti duži od 20 znakova!", null, "OK");
+                return;
+            }
+
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Šaljem vaš prigovor");
             await Task.Delay(19);
             int[] attachment_ids = new int[1];

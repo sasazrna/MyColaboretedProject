@@ -19,6 +19,8 @@ namespace PrigovorHR.Shared.Pages
     {
         private Controllers.TAPController _TAPController;
         public static byte[] ProfileImageByte;
+        public delegate void ProfileUpdatedDelegate();
+        public static event ProfileUpdatedDelegate ProfileUpdatedEvent;
 
         public ProfilePage()
         {
@@ -31,10 +33,7 @@ namespace PrigovorHR.Shared.Pages
             _PasswordAgainEntry.Completed += _EntryPasswordAgain_Completed;
             NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             _TAPController.SingleTaped += _TAPController_SingleTaped;
-            //_imgProfilePicture.MinimumHeightRequest = 77;
-            //_imgProfilePicture.MinimumWidthRequest = 77;
             LoadData();
-            //  Controllers.TranslateController.Translate(lblPassword);
         }
 
         protected override bool OnBackButtonPressed()
@@ -218,8 +217,10 @@ namespace PrigovorHR.Shared.Pages
             };
 
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Ažuriram podatke");
+
             if (!await Controllers.LoginRegisterController.SaveUserData(NewUser, LoginTypeModel.eLoginType.email, true))
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške tijekom ažuriranja podataka!");
+            else ProfileUpdatedEvent?.Invoke();
 
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }

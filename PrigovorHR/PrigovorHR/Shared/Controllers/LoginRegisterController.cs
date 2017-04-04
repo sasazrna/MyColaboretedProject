@@ -30,7 +30,9 @@ namespace PrigovorHR.Shared.Controllers
                 }
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Vaši podaci su uspješno izmjenjeni", "Izmjena podataka", "OK");
             }
+
             LoggedUser = (User)Data;
+            LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
             SaveUserData();
             return true;
         }

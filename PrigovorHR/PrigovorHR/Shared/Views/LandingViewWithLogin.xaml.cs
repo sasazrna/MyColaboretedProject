@@ -40,9 +40,11 @@ namespace PrigovorHR.Shared.Views
             LoadComplaintAutoSaveData();
 
             ReferenceToView = this;
-            TAPController = new TAPController(lblContact, lblLogOut, lblProfile, imgBack);
+            TAPController = new TAPController(lblContact, lblLogOut, lblProfile, imgBack, imgProfilePicture);
             TAPController.SingleTaped += TAPController_SingleTaped;
             FirstTimeLoginView.SearchIconClickedEvent += () => Navigation.PushPopupAsync(new CompanySearchPage(), true);
+            ProfilePage.ProfileUpdatedEvent += () => imgProfilePicture.Source =
+             ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(LoginRegisterController.LoggedUser.profileimage)));
         }
 
         public bool CloseMenu()
@@ -57,7 +59,7 @@ namespace PrigovorHR.Shared.Views
         {
             if (view == lblContact)
                 await Navigation.PushModalAsync(new ContactUsPage(), true);
-            else if (view == lblProfile)
+            else if (view == lblProfile | view == imgProfilePicture)
                 await Navigation.PushModalAsync(new ProfilePage(), true);
             else if (view == imgBack)
                 TopNavigationBar_OpenCloseMenuEvent(lytContent.IsVisible);
@@ -81,7 +83,7 @@ namespace PrigovorHR.Shared.Views
 
             if (!string.IsNullOrEmpty(LoginRegisterController.LoggedUser.profileimage))
             {
-                var ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController.LoggedUser.profileimage);
+                var ProfileImageByte = Convert.FromBase64String(LoginRegisterController.LoggedUser.profileimage);
                 imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
             }
             else imgProfilePicture.Source = "person.png";

@@ -28,7 +28,6 @@ namespace PrigovorHR.Shared.Views
         public ComplaintListView_BasicUser(ComplaintModel complaint)
         {
             InitializeComponent();
-            BackgroundColor = Color.White.WithLuminosity(1);
             var Reply = complaint.replies?.LastOrDefault();
             Complaint = complaint;
             var ClosedComplaintMessage = Complaint.complaint_events?.LastOrDefault(ce=>ce.closed)?.message;
@@ -46,6 +45,7 @@ namespace PrigovorHR.Shared.Views
             IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
             lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
 
+            //Ako je complaint zatvoren treba dohvatit osobu koja je to odgovorila
             lblNameOfContactPerson.Text =
                 Complaint.replies.Any() ?
                 Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? 
