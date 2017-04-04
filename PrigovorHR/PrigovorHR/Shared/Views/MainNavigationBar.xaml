@@ -9,7 +9,7 @@
         <Frame x:Name="frmFrame" Padding="10,10,0,-2" HasShadow="True" BackgroundColor="White">
             <StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <StackLayout x:Name="lytimgMenuLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" MinimumHeightRequest="50" MinimumWidthRequest="50" >
+                    <StackLayout x:Name="lytimgMenuLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" MinimumHeightRequest="50" MinimumWidthRequest="100" >
                         <Views:FontAwesomeLabel x:Name="imgMenu" FontSize="Large" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
                     </StackLayout>
                     <StackLayout x:Name="lytimgComplaintsLayout" Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="True" Spacing="1">

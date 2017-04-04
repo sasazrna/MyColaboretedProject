@@ -16,6 +16,7 @@ namespace PrigovorHR
         public delegate void OrientationChangedHandler();
         public static event OrientationChangedHandler _OrientationChanged;
         public static string _ApplicationFont = Xamarin.Forms.Device.OnPlatform("MarkerFelt-Thin", "Droid Sans Mono", "Comic Sans MS");
+
         public App()
         {
             //   MainPage = new NavigationPage((Page)new Shared.Pages.MasterDetail());
