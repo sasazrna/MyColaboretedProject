@@ -14,9 +14,9 @@
                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">-->
 
                 <StackLayout x:Name="lytContent">
-                    <views:MainNavigationBar x:Name="TopNavigationBar" BackgroundColor="Silver">
+                    <views:MainNavigationBar x:Name="TopNavigationBar" Margin="0,0,0,-6" BackgroundColor="Silver">
                     </views:MainNavigationBar>
-                    <StackLayout VerticalOptions="End">
+                    <StackLayout Margin="0,0,0,-15" VerticalOptions="End">
                         <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView" x:FieldModifier="Public">
                         </views:ListOfComplaintsView_BasicUser>
 

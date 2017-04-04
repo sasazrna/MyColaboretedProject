@@ -13,10 +13,10 @@
             <StackLayout Padding="25, 10, 25, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
                 <CircleImage:CircleImage x:Name="_imgProfilePicture" Source="Person.png" WidthRequest="75" HeightRequest="75" BorderColor="#FF7e65" BorderThickness="1" />
                 <!--<Image Source="edit.png" HorizontalOptions="Start"  WidthRequest="30" HeightRequest="30" Margin="160, -40, 0, 0"/>-->
-                <customcontrols:Entry x:Name="_NameEntry" Placeholder="Ime" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium" Margin="0, 5, 0, 0"/>
-                <customcontrols:Entry x:Name="_SurnameEntry" Placeholder="Prezime" IsPassword="False" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium"  Margin="0, 5, 0, 0"/>
+                <customcontrols:Entry x:Name="_NameEntry" Placeholder="Ime" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0, 5, 0, 0"/>
+                <customcontrols:Entry x:Name="_SurnameEntry" Placeholder="Prezime" IsPassword="False" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium"  Margin="0, 5, 0, 0"/>
                 <customcontrols:Entry  x:Name="_lblIncorrectEMail" Text="Upišite ispravan email!" FontSize="Medium" TextColor="Red" IsVisible="False"/>
-                <customcontrols:Entry  x:Name="_EMailEntry" Placeholder="Email adresa" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium" Margin="0, 5, 0, 0"/>
+                <customcontrols:Entry x:Name="_EMailEntry" Placeholder="Email adresa" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0, 5, 0, 0"/>
                 <customcontrols:Entry  x:Name="_TelephoneEntry" Placeholder="Telefon" Keyboard="Numeric" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium" Margin="0, 5, 0, 0"/>
                 
                 
@@ -26,10 +26,10 @@
 
                 <Label Text="Lozinka" FontSize="Large" TextColor="Gray" Margin="0,20,0,0" HorizontalOptions="Start"></Label>
                 <Label Text="Ostavite prazno ako ne želite mjenjati lozinku" FontSize="Small" TextColor="Black" HorizontalTextAlignment="Start"></Label>
-                
-                
-                <customcontrols:Entry  x:Name="_PasswordEntry" Placeholder="Lozinka" IsPassword="true" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium"  Margin="0, 5, 0, 0"/>
-                <customcontrols:Entry  x:Name="_PasswordAgainEntry" Placeholder="Ponovi lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Silver" FontSize="Medium"  Margin="0, 5, 0, 0"/>
+
+
+                <customcontrols:Entry x:Name="_PasswordEntry" Placeholder="Lozinka" IsPassword="true" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium"  Margin="0, 5, 0, 0"/>
+                <customcontrols:Entry x:Name="_PasswordAgainEntry" Placeholder="Ponovi lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium"  Margin="0, 5, 0, 0"/>
                 <Button x:Name="_btnSaveChanges" Text="Spremi promjene" TextColor="White" VerticalOptions="End" BackgroundColor="#FF7e65"  Margin="0, 10, 0, 25"/>
             </StackLayout>
         </ScrollView>

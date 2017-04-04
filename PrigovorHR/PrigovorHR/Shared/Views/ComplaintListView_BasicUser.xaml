@@ -13,20 +13,25 @@
                 <Label x:Name="lblComplaintResponseDate" HorizontalOptions="End" Text="21.svib." TextColor="Gray" FontSize="Small" VerticalOptions="End" VerticalTextAlignment="Start"  ></Label>
             </StackLayout>
         </StackLayout>
-        
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <Label Text="(+3)" FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" TextColor="Gray" VerticalOptions="CenterAndExpand" Margin="0,0,5,0"></Label>
+            <Views:FontAwesomeLabel x:Name="lblChecked" FontSize="Small" HorizontalTextAlignment="Start" VerticalOptions="End" VerticalTextAlignment="End" HorizontalOptions="Start"></Views:FontAwesomeLabel>
+            
+        </StackLayout>
+
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" >
             <Image Source="priv3.png" WidthRequest="30" HorizontalOptions="Center"    />
             <Label x:Name="lblStoreName" Text="SuperKonzum Varaždin"  FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" />
         </StackLayout>
-
-        <StackLayout x:Name="lytEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" IsVisible="False">
+        
+            <StackLayout x:Name="lytEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" IsVisible="False">
             <Views:FontAwesomeLabel FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
             <Views:FontAwesomeLabel FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
             <Views:FontAwesomeLabel FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
             <Views:FontAwesomeLabel FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
             <Views:FontAwesomeLabel FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
         </StackLayout>
-
+       
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  >
             <Label x:Name="lblShortComplaint" LineBreakMode="TailTruncation" Text="Ovdje je neki tekst koj opisuje prigovor, ako je duži onda ide u novi red"  FontSize="Small" HorizontalOptions="FillAndExpand" TextColor="Black" />
         </StackLayout>

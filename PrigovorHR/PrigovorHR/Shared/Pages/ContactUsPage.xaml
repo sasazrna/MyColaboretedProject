@@ -6,9 +6,13 @@
 
     <StackLayout>
         <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <StackLayout x:Name="LogoStack" Margin="0,10,0,10" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+            <Image x:Name="imgCompanyLogo" Source="LOGO.png" Scale="1.5" HorizontalOptions="CenterAndExpand"></Image>
+        </StackLayout>
         <ScrollView>
         <StackLayout Padding="15, 20, 15, 5" >
-            <Label Text="Kontaktirajte nas" FontSize="Large" FontAttributes="Bold"  TextColor="Black" HorizontalTextAlignment="Center" />
+               
+                <Label Text="Kontaktirajte nas" FontSize="Large" FontAttributes="Bold"  TextColor="Black" HorizontalTextAlignment="Center" />
             <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,15,120,15" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
 
             <StackLayout Padding="1" BackgroundColor="White" VerticalOptions ="FillAndExpand">
@@ -16,8 +20,8 @@
 
 
                 <Entry x:Name="MessageTitleEntry"></Entry>
-                <Label Text="Napišite nam poruku" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Center" Margin="0, 25, 0, 5"/>
-                <Editor x:Name="MessageEntry" BackgroundColor="White" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Black"/>
+                <Label Text="Napišite nam poruku" FontSize="Medium"  TextColor="Gray" HorizontalTextAlignment="Center" Margin="0, 35, 0, 5"/>
+                <Editor x:Name="MessageEntry" BackgroundColor="White" VerticalOptions="FillAndExpand" FontSize="Medium" HeightRequest="150" TextColor="Black"/>
             </StackLayout>
             <Button x:Name="btnSend" Text="Pošalji" TextColor="White" BackgroundColor="#FF7e65"/>
         </StackLayout>

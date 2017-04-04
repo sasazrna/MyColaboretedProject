@@ -19,15 +19,27 @@ namespace PrigovorHR.Shared.Views
         public ComplaintModel Complaint;
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public bool IsUnreaded = false;
+
+
        
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
+            //lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
+            //lblChecked.TextColor = Color.Green;
+
         }
 
         public ComplaintListView_BasicUser(ComplaintModel complaint)
         {
             InitializeComponent();
+
+            lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
+            lblChecked.TextColor = Color.Green;
+
+
+
+            BackgroundColor = Color.White.WithLuminosity(1);
             var Reply = complaint.replies?.LastOrDefault();
             Complaint = complaint;
             var ClosedComplaintMessage = Complaint.complaint_events?.LastOrDefault(ce=>ce.closed)?.message;
@@ -45,7 +57,6 @@ namespace PrigovorHR.Shared.Views
             IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
             lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
 
-            //Ako je complaint zatvoren treba dohvatit osobu koja je to odgovorila
             lblNameOfContactPerson.Text =
                 Complaint.replies.Any() ?
                 Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? 
