@@ -58,8 +58,7 @@ namespace PrigovorHR.Shared.Views
                 var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
                 if (Evaluation != null)
                 {
-                    var Grades = new List<double>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed };
-                    var AverageGrade = Grades.Average();
+                    var AverageGrade = new List<double?>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed }.Average();
 
                     int starId = 0;
                     bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);

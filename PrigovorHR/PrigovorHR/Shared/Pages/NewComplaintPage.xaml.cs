@@ -14,7 +14,7 @@ namespace PrigovorHR.Shared.Pages
     public partial class NewComplaintPage : ContentPage
     {
         private Controllers.TAPController TAPController;
-        private double Latitude, Longitude;
+        private string Latitude = string.Empty, Longitude = string.Empty;
         public delegate void ComplaintSentHandler(int id);
         public event ComplaintSentHandler ComplaintSentEvent;
         private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel;
@@ -199,22 +199,24 @@ namespace PrigovorHR.Shared.Pages
                 var MyLocation = await Controllers.GPSController.GetPosition();
                 if (MyLocation != null)
                 {
-                    Latitude = MyLocation.Latitude;
-                    Longitude = MyLocation.Longitude;
+                    Latitude = MyLocation.Latitude.ToString().Replace(".", ",");
+                    Longitude = MyLocation.Longitude.ToString().Replace(".", ",");
+
                     imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
+
+                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                     Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaša lokacija je pronađena");
                 }
                 else
                 {
+                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom dobivanja vaše lokacije!" + Environment.NewLine + "Provjerite jeli vam GPS uključen te da aplikaciji dozvolite pristup GPS-u", "Greška", "OK");
                 }
-
-                Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             }
             else
             {
-                Latitude = 0;
-                Longitude = 0;
+                Latitude = string.Empty;
+                Longitude = string.Empty;
                 imgTakeGPSLocation.TextColor = Color.Gray;
             }
             SaveToDevice();
@@ -251,9 +253,9 @@ namespace PrigovorHR.Shared.Pages
                  suggestion = editSuggestionText.Text,
                  problemOccurred = ProblemOccurred.ToString("dd.MMMMM yyyy"),
                  problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
-                 problemOccurredTime = ProblemOccurred.ToString("hh:mm"),
-                 //latitude = Latitude,
-                 //longitude = Longitude
+                 problemOccurredTime = ProblemOccurred.ToString("HH:mm"),
+                 latitude = Latitude,
+                 longitude = Longitude
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 

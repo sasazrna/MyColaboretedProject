@@ -62,14 +62,20 @@ namespace PrigovorHR.Droid
                             var TimeZone = Convert.ToInt32(Convert.ToDouble(DateTime.Now.Hour) / 6D);
                             var RefreshTime = (int)(RefreshValues[MainActivity.IsUserActive][TimeZone] * 1000 * 60);
 
+                            if (MainActivity.Restarted)
+                            {
+                                MainActivity.Restarted = false;
+                                RefreshTime = 2000;
+                            }
                             await Task.Delay(RefreshTime);
                             var complaints = PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints;
 
                             if (complaints != null && complaints.Any(c => !c.closed) && Shared.Controllers.NetworkController.IsInternetAvailable)
                             {
-                                ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm");
+                                ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm");
                                 var NewComplaintReplys = JsonConvert.DeserializeObject<Shared.Models.RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
 
+                                //treba dodati zatvorene prigovore 
                                 foreach (var UnreadComplaint in NewComplaintReplys.user.unread_complaints)
                                 {
                                     var Complaint = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == UnreadComplaint.id);

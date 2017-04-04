@@ -38,32 +38,18 @@ namespace PrigovorHR.Droid
         public static readonly string[] PERMISSIONS = new[] { "publish_actions" };
         public static Intent BackgroundService = null;
         public static bool IsUserActive = false;
+        public static bool Restarted = false;
 
         protected override void OnCreate(Bundle bundle)
         {
-            //TabLayoutResource = Resource.Layout.Tabbar;
-            //ToolbarResource = Resource.Layout.Toolbar;
-     
-
             base.OnCreate(bundle);
-            //var Intent = new Intent(this, typeof(Activity1));
-            //var Activity = new Activity1();
-           
             Forms.Init(this, bundle);
             ViewGesturesRenderer.Init();
 
-            //StartActivity(Intent);
-            //await Task.Delay(500);
-
             if ((int)Build.VERSION.SdkInt >= 21)
-            {
                 Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FF6A00"));
-               // KeyBoardOverlayFix.assistActivity(this, WindowManager);
-            }
             else
-            {
                 Window.SetSoftInputMode(SoftInput.AdjustResize);
-            }
 
             switch (Xamarin.Forms.Device.Idiom)
             {
@@ -88,12 +74,8 @@ namespace PrigovorHR.Droid
             IsUserActive = true;
 
             LoadApplication(new App());
-            //if (!AndroidServices.GetNewComplaintsBackgroundService.IsRunning)
-            //{
-              BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
-              StartService(BackgroundService);
-          
-            //}
+            BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+            StartService(BackgroundService);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -115,28 +97,37 @@ namespace PrigovorHR.Droid
             base.OnPause();
             IsUserActive = false;
         }
+
         protected override void OnResume()
         {
             base.OnResume();
             IsUserActive = true;
+            Restarted = true;
+            StopService(BackgroundService);
+            BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+            StartService(BackgroundService);
         }
 
         protected override void OnRestart()
         {
             base.OnRestart();
             IsUserActive = true;
+            Restarted = true;
+            StopService(BackgroundService);
+            BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
+            StartService(BackgroundService);
         }
 
         protected override void OnNewIntent(Intent intent)
         {
-            base.OnNewIntent(intent);
-
             if (ListOfComplaintsView_BasicUser.ReferenceToView != null)
             {
                 MessagingCenter.Subscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint", (sender, arg) => ListOfComplaintsView_BasicUser.ReferenceToView.FindAndOpenComplaint(arg));
                 MessagingCenter.Send(ListOfComplaintsView_BasicUser.ReferenceToView, "OpenComplaint", intent.GetIntExtra("ComplaintId", 0));
                 MessagingCenter.Unsubscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint");
             }
+
+            base.OnNewIntent(intent);
         }
     }
 }

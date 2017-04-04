@@ -153,7 +153,7 @@ namespace PrigovorHR.Shared.Pages
             else
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora, moguće zbog internet konekcije" + Environment.NewLine + 
-                    "Vaš prigovor je spremljen na vašem mobitelu te će biti automatski poslan prvom prilikom", "Greška u slanju prigovora", "OK");
+              /*      "Vaš prigovor je spremljen na vašem mobitelu te će biti automatski poslan prvom prilikom"*/ "Greška u slanju prigovora", "OK");
                 SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Unsent);
             }
         }

@@ -20,6 +20,10 @@ namespace PrigovorHR.Shared.Views
         public static LandingViewWithLogin ReferenceToView;
         private TAPController TAPController;
 
+        public FirstTimeLoginView firstTimeLoginView { get { return FirstTimeLoginView; } set { FirstTimeLoginView = value; } }
+        public ListOfComplaintsView_BasicUser listOfComplaintsView { get { return ListOfComplaintsView; } set { ListOfComplaintsView = value; } }
+        public ComplaintListTabView complaintListTabView { get { return ComplaintListTabView; } set { ComplaintListTabView = value; } }
+
         public LandingViewWithLogin()
         {
             InitializeComponent();
@@ -43,15 +47,10 @@ namespace PrigovorHR.Shared.Views
 
         public bool CloseMenu()
         {
-            try
-            {
-                if (lytContent.IsVisible)
-                    TopNavigationBar_OpenCloseMenuEvent(false);
-                else return false;
-            }
-            catch { }
+            if (!lytContent.IsVisible)
+                TopNavigationBar_OpenCloseMenuEvent(lytContent.IsVisible);
 
-            return true;
+            return lytContent.IsVisible;
         }
 
         private async void TAPController_SingleTaped(string viewId, View view)

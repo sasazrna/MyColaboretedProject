@@ -42,7 +42,7 @@ namespace PrigovorHR.Shared.Views
 
                 if (Evaluation != null)
                 {
-                    var Grades = new Dictionary<StackLayout, int>() {
+                    var Grades = new Dictionary<StackLayout, int?>() {
                 { SatisfactionEvaluationLayout, Evaluation.satisfaction },
                 { SpeedEvaluationLayout, Evaluation.speed },
                 { CommunicationEvaluationLayout, Evaluation.communication_level_user } };
