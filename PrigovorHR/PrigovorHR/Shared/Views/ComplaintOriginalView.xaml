@@ -57,7 +57,7 @@
                     
                 </views:ComplaintEvaluationView>-->
             </StackLayout>
-            <StackLayout x:Name="lytLine" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand"></StackLayout>
+            <!--<StackLayout x:Name="lytLine" Padding="0,3,0,0" BackgroundColor="#FF7e65" HorizontalOptions="FillAndExpand"></StackLayout>-->
         </StackLayout>
 
     </ContentView.Content>

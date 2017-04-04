@@ -6,15 +6,16 @@
     <ContentView.Content>
         <Frame Margin="0,-20,-15,-5" Padding="10">
                 <StackLayout>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                    <Label Text="Razgovaram s:" FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
+                    <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions="End" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Image HorizontalOptions="Start" Source="priv3.png" VerticalOptions="Start" WidthRequest="30" />
                         <Label x:Name="lblStoreName" FontSize="Medium"  HorizontalOptions="FillAndExpand" Text="SuperKonzum Varaždin" TextColor="Black" VerticalOptions="EndAndExpand" VerticalTextAlignment="Start" />
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                        <Label Text="Razgovaram s:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
-                        <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "End"/>
-                    </StackLayout>
+                  
                 <!--<StackLayout x:Name="lytSendResponse" Orientation="Horizontal" HorizontalOptions="End" Spacing="30" >
                    <views:FontAwesomeLabel x:Name="imgSave" FontSize="50" TextColor="#FF7e65" Margin="-20,0,0,0"></views:FontAwesomeLabel>
                     <views:FontAwesomeLabel x:Name="imgSend" FontSize="50" TextColor="#FF7e65" Margin=" 0, 0,20, 0"></views:FontAwesomeLabel>

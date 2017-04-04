@@ -19,15 +19,26 @@ namespace PrigovorHR.Shared.Views
         public ComplaintModel Complaint;
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public bool IsUnreaded = false;
+
+
        
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
+            //lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
+            //lblChecked.TextColor = Color.Green;
+
         }
 
         public ComplaintListView_BasicUser(ComplaintModel complaint)
         {
             InitializeComponent();
+
+            lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
+            lblChecked.TextColor = Color.Green;
+
+
+
             BackgroundColor = Color.White.WithLuminosity(1);
             var Reply = complaint.replies?.LastOrDefault();
             Complaint = complaint;

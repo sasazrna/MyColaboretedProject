@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
+             xmlns:customcontrols="clr-namespace:PrigovorHR.Shared.CustomControls;assembly=PrigovorHR" BackgroundColor="White" 
              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Pages.LoginPage">
 
@@ -26,24 +28,25 @@
       </StackLayout>-->
        
 
-      <StackLayout Padding="0, 30, 0, 0" >
-        <Label Text="Prijava email adresom:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Silver" />
+      <StackLayout  >
+        <Label Text="Prijava email adresom:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Gray" />
       </StackLayout>
 
-      <StackLayout Padding="0,0,0,0" Spacing="-2">
-        <Label Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="EMailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
-        <Label Text="Upišite lozinku:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>
-        <Entry x:Name="PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="Black" FontSize="Medium" />
+      <StackLayout VerticalOptions="FillAndExpand" Margin="0,15,0,0" >
+        <!--<Label Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>-->
+                    <customcontrols:Entry x:Name="EMailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0,20,0,20" />
+
+                    <customcontrols:Entry x:Name="PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0,20,0,20" />
       </StackLayout>
 
 
       <StackLayout VerticalOptions="EndAndExpand">
-        <Button x:Name="btnLogin" Text="Prijavi me" TextColor="White"  BackgroundColor="#FF6A00"/>
+                    <Button x:Name="btnLogin" Text="Prijavi me" TextColor="White" BackgroundColor="#FF7e65"/>
         <Button x:Name="btnIForgotPassword" Text="Zaboravili ste lozinku?" TextColor="Black" FontSize="Small"  BackgroundColor="Silver" />
       </StackLayout>
     </StackLayout>
-  </ScrollView>
+   </ScrollView>
   </StackLayout>
+   
 </ContentPage>
 
