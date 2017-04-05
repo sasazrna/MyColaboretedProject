@@ -863,7 +863,7 @@
     <AndroidResource Include="Resources\drawable\FaFabButtonRate.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\FaFabButtonUnock.png" />
+    <AndroidResource Include="Resources\drawable\FaFabButtonUnlock.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FaFabClose.png" />

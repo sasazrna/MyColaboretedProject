@@ -5,7 +5,7 @@
              BackgroundColor="White"
              x:Class="PrigovorHR.Shared.Views.ComplaintListView_BasicUser">
 
-    <StackLayout Padding="15, 5, 15, 5" >
+    <StackLayout Padding="15, 5, 15, 5" x:Name="lytRoot" >
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <Label Text="Razgovaram s:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />

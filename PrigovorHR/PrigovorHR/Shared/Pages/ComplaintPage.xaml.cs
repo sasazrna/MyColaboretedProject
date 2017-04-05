@@ -22,9 +22,9 @@ namespace PrigovorHR.Shared.Pages
         private Dictionary<string, View> Fabs = new Dictionary<string, View>();
         private Controllers.TAPController TAPController;
 
-        Dictionary<string, string[]> FabImages = new Dictionary<string, string[]>{ { "fabReply", new string[] { "chat.png", "imgButtonUnlock.png" } },
-               { "fabCloseComplaint", new string[] {"imgButtonLock.png" } },
-               {"fabRateComplaint", new string[] {"imgButtonRate.png" } } , {"fabOpenOptions", new string[] {"fab_add.png" } }, };
+        Dictionary<string, string[]> FabImages = new Dictionary<string, string[]>{ { "fabReply", new string[] { "FaFabButtonMsg.png", "FaFabButtonUnlock.png" } },
+               { "fabCloseComplaint", new string[] { "FaFabButtonLock.png" } },
+               {"fabRateComplaint", new string[] { "FaFabButtonRate.png" } } , {"fabOpenOptions", new string[] { "FaFabButtonAdd.png" } }, };
 
         Dictionary<string, string[]> FabIcons = new Dictionary<string, string[]>{ { "fabReply", new string[] { Views.FontAwesomeLabel.Images.FAReply, Views.FontAwesomeLabel.Images.FAUnlock } },
                { "fabCloseComplaint", new string[] {Views.FontAwesomeLabel.Images.FALock } },
@@ -103,29 +103,31 @@ namespace PrigovorHR.Shared.Pages
             if (AppGlobal.GetAndroidSDKVersion() < 21)
                 FAB = new FloatingActionButton();
             else
-                FAB = new Views.FontAwesomeLabel();
+                FAB = new Image();
 
             FAB.AutomationId = FabImages.Keys.ToList()[i];
 
+            FAB.Source = FabImages.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
             if (FAB.GetType() == typeof(FloatingActionButton))
             {
                 FAB.NormalColor = Color.FromHex("#FF7e65");
                 FAB.RippleColor = Color.Blue;
-                FAB.Source = FabImages.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
                 ((FloatingActionButton)FAB).Clicked += FabButton_Click;
             }
             else
             {
-                var fab = ((Views.FontAwesomeLabel)FAB);
-                fab.TextColor = Color.FromHex("#FF7e65");
-                fab.Text = FabIcons.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
+                var fab = ((Image)FAB);
+                fab.HeightRequest = 55;
+                fab.WidthRequest = 55;
+               // fab.TextColor = Color.FromHex("#FF7e65");
+             //   fab.Text = FabIcons.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
 
-                if (fab.AutomationId != "fabOpenOptions")
-                {
-                    fab.Opacity = 0;
-                    fab.FontSize = 50;
-                }
-                else fab.FontSize = 60;
+                //if (fab.AutomationId != "fabOpenOptions")
+                //{
+                //    fab.Opacity = 0;
+                //    fab.FontSize = 50;
+                //}
+                //else fab.FontSize = 60;
             }
 
             Fabs.Add(FabImages.Keys.ToList()[i], FAB);

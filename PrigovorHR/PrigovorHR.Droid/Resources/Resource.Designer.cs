@@ -9549,7 +9549,7 @@ namespace PrigovorHR.Droid
 			public const int FaFabButtonRate = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int FaFabButtonUnock = 2130837669;
+			public const int FaFabButtonUnlock = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
 			public const int FaFabClose = 2130837670;
