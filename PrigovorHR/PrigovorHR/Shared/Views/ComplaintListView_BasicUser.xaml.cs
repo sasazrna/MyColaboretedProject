@@ -34,6 +34,13 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
 
+            lblRead.Text = Views.FontAwesomeLabel.Images.FAPEnvelopeOpen;
+            lblRead.TextColor = Color.Gray;
+
+            //lblRead.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
+            //lblRead.TextColor = Color.Gray;
+
+
             try
             {
                 //new Task(() =>
@@ -70,9 +77,9 @@ namespace PrigovorHR.Shared.Views
 
                 if (Complaint.closed)
                 {
-                    lblChecked.IsVisible = true;
-                    lblChecked.Text = FontAwesomeLabel.Images.FACheckSquareO;
-                    lblChecked.TextColor = Color.Green;
+                    lblLock.IsVisible = true;
+                    lblLock.Text = FontAwesomeLabel.Images.FAUnlockAlt;
+                    lblLock.TextColor = Color.Black;
 
                     var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
                     if (Evaluation != null)
