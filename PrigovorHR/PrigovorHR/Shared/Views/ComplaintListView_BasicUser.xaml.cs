@@ -65,8 +65,8 @@ namespace PrigovorHR.Shared.Views
 
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
 
-                lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
-                lblNumOfResponses.IsVisible = complaint.replies.Any();
+                //lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
+                //lblNumOfResponses.IsVisible = complaint.replies.Any();
 
                 if (Complaint.closed)
                 {
@@ -78,24 +78,26 @@ namespace PrigovorHR.Shared.Views
                     if (Evaluation != null)
                     {
                         var AverageGrade = new List<double?>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed }.Average();
-
-                        int starId = 0;
-                        bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);
-                        bool First = false;
-                        foreach (var star in lytEvaluationLayout.Children.Cast<FontAwesomeLabel>())
+                        if (AverageGrade != null)
                         {
-                            bool IsGradeBiggerThanStar = ++starId <= AverageGrade;
-                            star.TextColor = IsGradeBiggerThanStar ? Color.Orange : Color.Gray;
-
-                            if (!First & !IsGradeBiggerThanStar & IsDecimal)
+                            int starId = 0;
+                            bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);
+                            bool First = false;
+                            foreach (var star in lytEvaluationLayout.Children.Cast<FontAwesomeLabel>())
                             {
-                                First = true;
-                                star.Text = FontAwesomeLabel.Images.FAStarHalfO;
-                                star.TextColor = Color.Orange;
+                                bool IsGradeBiggerThanStar = ++starId <= AverageGrade;
+                                star.TextColor = IsGradeBiggerThanStar ? Color.Orange : Color.Gray;
+
+                                if (!First & !IsGradeBiggerThanStar & IsDecimal)
+                                {
+                                    First = true;
+                                    star.Text = FontAwesomeLabel.Images.FAStarHalfO;
+                                    star.TextColor = Color.Orange;
+                                }
+                                else star.Text = FontAwesomeLabel.Images.FAStar;
                             }
-                            else star.Text = FontAwesomeLabel.Images.FAStar;
+                            lytEvaluationLayout.IsVisible = true;
                         }
-                        lytEvaluationLayout.IsVisible = true;
                     }
                 }
             }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
