@@ -162,7 +162,7 @@ namespace PrigovorHR.Shared.Views
                         var UnreadComplaints = ComplaintModel.RefToAllComplaints?.user.unread_complaints;
 
                         var ComplaintLastEvent = Complaints.Any() ?
-                            Complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm") :
+                            Complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm") :
                             DateTime.Now.ToString("dd.MM.yyyy. H:mm");
 
                         var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));

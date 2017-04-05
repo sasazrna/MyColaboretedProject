@@ -22,11 +22,13 @@ namespace PrigovorHR.Shared.Pages
         private Dictionary<string, View> Fabs = new Dictionary<string, View>();
         private Controllers.TAPController TAPController;
 
-        Dictionary<string, string> FabImages = new Dictionary<string, string>{ { "fabReply", "chat.png" }, { "fabCloseComplaint", "clear.png" },
-               {"fabRateComplaint", "rate_star.png" } , {"fabOpenOptions", "fab_add.png" }, };
-        Dictionary<string, string> FabIcons = new Dictionary<string, string>{ { "fabReply", Views.FontAwesomeLabel.Images.FAReply},
-               { "fabCloseComplaint", Views.FontAwesomeLabel.Images.FAClose },
-               {"fabRateComplaint", Views.FontAwesomeLabel.Images.FAStar } , {"fabOpenOptions", Views.FontAwesomeLabel.Images.FAPlus }, };
+        Dictionary<string, string[]> FabImages = new Dictionary<string, string[]>{ { "fabReply", new string[] { "chat.png", "imgButtonUnlock.png" } },
+               { "fabCloseComplaint", new string[] {"imgButtonLock.png" } },
+               {"fabRateComplaint", new string[] {"imgButtonRate.png" } } , {"fabOpenOptions", new string[] {"fab_add.png" } }, };
+
+        Dictionary<string, string[]> FabIcons = new Dictionary<string, string[]>{ { "fabReply", new string[] { Views.FontAwesomeLabel.Images.FAReply, Views.FontAwesomeLabel.Images.FAUnlock } },
+               { "fabCloseComplaint", new string[] {Views.FontAwesomeLabel.Images.FALock } },
+               {"fabRateComplaint", new string[] {Views.FontAwesomeLabel.Images.FAStar } } , {"fabOpenOptions", new string[] {  Views.FontAwesomeLabel.Images.FAPlusCircle } } };
 
         public ComplaintPage()
         {
@@ -42,7 +44,7 @@ namespace PrigovorHR.Shared.Pages
             scrView.IsVisible = false;
 
             ComplaintClosed = complaint.closed;
-            ComplaintEvaluated = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint.id) != null;
+            ComplaintEvaluated = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint.id)?.satisfaction != null;
 
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
                 Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
@@ -96,36 +98,39 @@ namespace PrigovorHR.Shared.Pages
 
         private void SetFAB(int i)
         {
-        
-            if (AppGlobal.GetAndroidSDKVersion() >= 21)
+            dynamic FAB;
+
+            if (AppGlobal.GetAndroidSDKVersion() < 21)
+                FAB = new FloatingActionButton();
+            else
+                FAB = new Views.FontAwesomeLabel();
+
+            FAB.AutomationId = FabImages.Keys.ToList()[i];
+
+            if (FAB.GetType() == typeof(FloatingActionButton))
             {
-                var FAB = new FloatingActionButton();
-                FAB.Source = FabImages.Values.ToList()[i];
-                FAB.Size = FabSize.Normal;
                 FAB.NormalColor = Color.FromHex("#FF7e65");
                 FAB.RippleColor = Color.Blue;
-                FAB.Clicked += FabButton_Click;
-                FAB.AutomationId = FabImages.Keys.ToList()[i];
-                Fabs.Add(FabImages.Keys.ToList()[i], FAB);
+                FAB.Source = FabImages.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
+                ((FloatingActionButton)FAB).Clicked += FabButton_Click;
             }
             else
             {
-                var FAB = new Views.FontAwesomeLabel();
-                FAB.Text = FabIcons.Values.ToList()[i];
-                FAB.TextColor = Color.FromHex("#FF7e65");
-                FAB.BackgroundColor = Color.Gray;
-                FAB.FontSize = 50;
-                
-                FAB.AutomationId = FabImages.Keys.ToList()[i];
-                Fabs.Add(FabImages.Keys.ToList()[i], FAB);
+                var fab = ((Views.FontAwesomeLabel)FAB);
+                fab.TextColor = Color.FromHex("#FF7e65");
+                fab.Text = FabIcons.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
+
+                if (fab.AutomationId != "fabOpenOptions")
+                {
+                    fab.Opacity = 0;
+                    fab.FontSize = 50;
+                }
+                else fab.FontSize = 60;
             }
+
+            Fabs.Add(FabImages.Keys.ToList()[i], FAB);
         }
-
-        private void SetRegularButton()
-        {
-
-        }
-
+       
         private void ScrView_Scrolled(object sender, ScrolledEventArgs e)
         {
             if (_clickedTotal % 2 == 0)
@@ -161,17 +166,20 @@ namespace PrigovorHR.Shared.Pages
             if (_clickedTotal % 2 == 0)
             {
                 for (int i = 0; i < FabsToAnimate.Count; i++)
-                   await FabsToAnimate[i].Value.TranslateTo(0, -60 * (i + 1), 70);
-                //await Fabs["fabReplay"].TranslateTo(0, -60, 70);
-                //await Fabs["fabCloseComplaint"].TranslateTo(0, -120, 70);
+                {
+                    if (FabsToAnimate[i].Value.GetType() == typeof(Views.FontAwesomeLabel))
+                        FabsToAnimate[i].Value.Opacity = 1;
+                    await FabsToAnimate[i].Value.TranslateTo(0, -60 * (i + 1), 70);
+                }
             }
             else
             {
                 for (int i = 0; i < FabsToAnimate.Count; i++)
+                {
                     await FabsToAnimate[i].Value.TranslateTo(0, 0, 70);
-
-                //await Fabs["fabCloseComplaint"].TranslateTo(0, 0, 70);
-                //await Fabs["fabReplay"].TranslateTo(0, 0, 70);
+                    if (FabsToAnimate[i].Value.GetType() == typeof(Views.FontAwesomeLabel))
+                        FabsToAnimate[i].Value.Opacity = 0;
+                }
             }
         }
 

@@ -34,17 +34,8 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
 
-            lblRead.Text = Views.FontAwesomeLabel.Images.FAPEnvelopeOpen;
-            lblRead.TextColor = Color.Gray;
-
-            //lblRead.Text = Views.FontAwesomeLabel.Images.FAEnvelope;
-            //lblRead.TextColor = Color.Gray;
-
-
             try
             {
-                //new Task(() =>
-                //{
                 BackgroundColor = Color.White.WithLuminosity(1);
                 var Reply = complaint.replies?.LastOrDefault();
                 Complaint = complaint;
@@ -62,25 +53,35 @@ namespace PrigovorHR.Shared.Views
                     lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
 
                 IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
-                lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
 
-                lblNameOfContactPerson.Text =
-                    Complaint.closed && LastClosedComplaintEvent != null ? LastClosedComplaintEvent.user?.name_surname :
+                if(IsUnreaded)
+                {
+                    lblShortComplaint.FontAttributes = FontAttributes.Bold | FontAttributes.Italic;
+                    lblRead.Text = FontAwesomeLabel.Images.FAEnvelope;
+                    lblRead.TextColor = Color.FromHex("#FF7e65");
+                }
+                else
+                {
+                    lblRead.Text = FontAwesomeLabel.Images.FAEnvelopeO;
+                    lblRead.TextColor = Color.Gray;
+                }
+
+                lblLock.Text = Complaint.closed ? FontAwesomeLabel.Images.FALock : FontAwesomeLabel.Images.FAUnlock;
+                lblLock.TextColor = Color.Black;
+
+                lblNameOfContactPerson.Text = 
+                    Complaint.closed && LastClosedComplaintEvent != null && LastClosedComplaintEvent.user?.id != Controllers.LoginRegisterController.LoggedUser.id ? LastClosedComplaintEvent.user?.name_surname :
                     Complaint.replies.Any() ?
                     Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ??
                     "nepoznato" : "nepoznato";
 
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
 
-                //lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
-                //lblNumOfResponses.IsVisible = complaint.replies.Any();
+                lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
+                lblNumOfResponses.IsVisible = complaint.replies.Any();
 
                 if (Complaint.closed)
                 {
-                    lblLock.IsVisible = true;
-                    lblLock.Text = FontAwesomeLabel.Images.FAUnlockAlt;
-                    lblLock.TextColor = Color.Black;
-
                     var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
                     if (Evaluation != null)
                     {
@@ -108,7 +109,7 @@ namespace PrigovorHR.Shared.Views
                     }
                 }
             }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
-            //}).Start();
+
             TAPController = new Controllers.TAPController(Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
         }

@@ -63,13 +63,13 @@
             </StackLayout>
         </ContentView>
 
-        <fab:FloatingActionButton x:Name="btnWriteComplaint" NormalColor="#FF7e65" RippleColor="Blue" Size="Normal" Source="edit.png" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+        <!--<fab:FloatingActionButton x:Name="btnWriteComplaint" NormalColor="#FF7e65" RippleColor="Blue" Size="Normal" Source="edit.png" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Width,
                                                               Factor=1,
                                                               Constant=-75}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Height,
                                                               Factor=1,
-                                                              Constant=-75}" />
+                                                              Constant=-75}" />-->
 
     </RelativeLayout>
 </ContentPage>

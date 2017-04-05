@@ -11,14 +11,14 @@
             <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand"  >
                 <Label Text="Zahvaljujemo na Vašem angažmanu i želji da unaprijedite našu uslugu." FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
                 <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
-                <Label Text="Želite li ocjeniti komunikaciju?" FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 20"/>
+                <Label Text="Ocijenite rješenje vašeg prigovora/sugestije" FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 20"/>
 
                 <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
              
                 <Views:ComplaintEvaluationView x:Name="ComplaintEvaluationView">
                 </Views:ComplaintEvaluationView>
-                
-                    <StackLayout>
+
+                <StackLayout x:Name="lytLastMessage">
                     <Label Text="Navedite razlog zatvaranja ili nam ostavite komentar" FontSize="Small"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
                     <Editor x:Name="editorLastMessage">
                     </Editor>

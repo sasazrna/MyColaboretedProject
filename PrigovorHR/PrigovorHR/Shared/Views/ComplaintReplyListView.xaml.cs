@@ -32,7 +32,7 @@ namespace PrigovorHR.Shared.Views
 
             string created_at = ComplaintReply != null ? ComplaintReply.created_at : ComplaintEvent.created_at;
             string replytext = ComplaintReply != null ? ComplaintReply.reply : ComplaintEvent.message;
-            string username = ComplaintReply != null ? ComplaintReply.user.name_surname : ComplaintEvent.user_id.ToString();
+            string username = ComplaintReply != null ? ComplaintReply.user.name_surname : ComplaintEvent.user.name_surname;
             CreatedAt = created_at;
 
             lblDateTimeOfResponse.Text = DateTime.Parse(created_at).ToString();

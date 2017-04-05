@@ -59,7 +59,7 @@ namespace PrigovorHR.Shared.Controllers
             object obj;
             var NumOfUnSentExceptions = -1;
             for (int i = 0; i < int.MaxValue; i++)
-                if (App.Current.Properties.TryGetValue("Exception_" + i.ToString(), out obj))
+                if (Application.Current.Properties.TryGetValue("Exception_" + i.ToString(), out obj))
                     NumOfUnSentExceptions = i;
                 else
                 {

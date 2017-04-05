@@ -162,17 +162,22 @@ namespace PrigovorHR.Shared
            return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.CheckForNewReplys, jsonvalue);
         }
 
+        public static async Task<bool> EvaluateComplaint(string jsonvalue)
+        {
+            var ResultData = await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.EvaluateComplaint, jsonvalue);
+            return !ResultData.Contains("Error:");
+        }
+
         /// <summary>
         /// Private class that handles all the communications and returns result to root dataexchangeservices class
         /// </summary>
         private class ServerCommuncationServices
         {
-
             #if DEBUG
             private const string ServiceAddress = "http://138.68.85.217/api/";
             #else
             private const string ServiceAddress = "https://prigovor.hr/api/";
-           #endif
+            #endif
 
             public enum ServiceCommands : int
             {
@@ -199,9 +204,9 @@ namespace PrigovorHR.Shared
                 SendExceptionData,
                 CloseComplaint,
                 GetCompanyLogo,
-                CheckForNewReplys
+                CheckForNewReplys, 
+                EvaluateComplaint
             };
-
 
             private Dictionary<ServiceCommands, string> APIAdresses =
                 new Dictionary<ServiceCommands, string> { { ServiceCommands.GetSearchResults, "pretraga/" },
@@ -225,7 +230,8 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.SendExceptionData, "xamarin-exceptions"} ,
                                                           { ServiceCommands.CloseComplaint, "prigovor/zatvori/" },
                                                           { ServiceCommands.GetCompanyLogo, "logo-tvrtke/" },
-                                                          { ServiceCommands.CheckForNewReplys, "svi-moji-prigovori-nakon-datuma/" } };
+                                                          { ServiceCommands.CheckForNewReplys, "svi-moji-prigovori-nakon-datuma/" },
+                                                          { ServiceCommands.EvaluateComplaint, "element/ocijeni" } };
 
 
 
