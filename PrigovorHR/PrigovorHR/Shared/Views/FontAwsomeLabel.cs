@@ -385,6 +385,7 @@ namespace PrigovorHR.Shared.Views
             public static string FAFile_pdf = "\uf1c1";
             public static string FASend_msg = "\uf2c6";
             public static string FAHandShake = "\uf2b5";
+            public static string FAClose = "\xf00d";
         }
         public FontAwesomeLabel()
         {

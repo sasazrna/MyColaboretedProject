@@ -21,7 +21,7 @@ namespace PrigovorHR.Shared.Controllers
 
         void DeleteFile(string FileName);
 
-        ImageSource ConvertUrlToImage(string url);
+        int GetSDKVersion();
     }
 
     public interface IAndroidFacebookCallers

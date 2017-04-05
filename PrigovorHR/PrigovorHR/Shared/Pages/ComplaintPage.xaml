@@ -47,13 +47,13 @@
             </StackLayout>
         </ContentView>
 
-        <fab:FloatingActionButton
+ <!--<fab:FloatingActionButton
    x:Name="btnCloseComplaint"
    NormalColor="#FF7e65"
    RippleColor="Blue"
    Size="Normal"
    Source="clear.png"
-    
+IsVisible="False"
    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Width,
                                                               Factor=1,
@@ -69,7 +69,7 @@
         RippleColor="Blue"
         Size="Normal"
         Source="chat.png"
-        
+IsVisible="False"
         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Width,
                                                               Factor=1,
@@ -85,7 +85,7 @@
    RippleColor="Blue"
    Size="Normal"
    Source="fab_add.png"
-
+IsVisible="False"
    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Width,
                                                               Factor=1,
@@ -93,8 +93,19 @@
    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Height,
                                                               Factor=1,
-                                                              Constant=-75}" />
+                                                              Constant=-75}" />-->
 
+        <!--<views:FABView x:Name="FABView"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Width,
+                                                              Factor=1,
+                                                              Constant=-75}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                              Property=Height,
+                                                              Factor=1,
+                                                              Constant=-75}">
+            
+        </views:FABView>-->
     </RelativeLayout>
 </ContentPage>
 

@@ -95,6 +95,10 @@ namespace PrigovorHR.Droid
             //   Device.OpenUri(new Uri(Android.OS.Environment.ExternalStorageDirectory.Path + "/PrigovorHR/" + FileName));
         }
 
+        public int GetSDKVersion()
+        {
+            return MainActivity.SDKVersion;
+        }
        
         #region sound recording
         private Android.Media.MediaRecorder _recorder = new Android.Media.MediaRecorder();
@@ -128,12 +132,6 @@ namespace PrigovorHR.Droid
         }
 
         #endregion
-
-        ImageSource IAndroidCallers.ConvertUrlToImage(string url)
-        {
-            var webClient = new WebClient();
-            return ImageSource.FromStream(() => new MemoryStream(webClient.DownloadData(new Uri(url))));
-        }
     }
 
     public class DroidGoogleOAuth2Authenticator : OAuth2Authenticator

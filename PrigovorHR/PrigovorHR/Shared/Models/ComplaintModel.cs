@@ -74,6 +74,7 @@ namespace PrigovorHR.Shared.Models
             public int complaint_id { get; set; }
             public string message { get; set; }
             public int? reply_id { get; set; }
+            public User user { get; set; }
         }
 
         public class DraftComplaintModel

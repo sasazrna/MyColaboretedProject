@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
+             x:Class="PrigovorHR.Shared.Views.FABView">
+    
+    <!--<RelativeLayout x:Name="lytRelative">-->
+
+        <ContentView.Content>
+
+            <!--<fab:FloatingActionButton
+       x:Name="btnCloseComplaint"
+       NormalColor="#FF7e65"
+       RippleColor="Blue"
+       Size="Normal"
+       Source="clear.png"/>-->
+
+        </ContentView.Content>
+    <!--</RelativeLayout>-->
+</ContentView>

@@ -143,6 +143,11 @@ namespace PrigovorHR.Shared.Views
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavanje prigovora");
             VisibleLayout.Children.Clear();
+            DisplayedComplaints[lytActiveComplaints.Id.ToString()] = 0;
+            DisplayedComplaints[lytClosedComplaints.Id.ToString()] = 0;
+            lytActiveComplaints.Children.Clear();
+            lytClosedComplaints.Children.Clear();
+
             await Task.Delay(19);
             try
             {
@@ -231,7 +236,7 @@ namespace PrigovorHR.Shared.Views
             }
         }
 
-        private void DisplayData()
+        public void DisplayData()
         {
             var displayedComplaints = DisplayedComplaints[VisibleLayout.Id.ToString()];
             var ClosedComplaintsVisible = VisibleLayout == lytClosedComplaints;
@@ -246,10 +251,13 @@ namespace PrigovorHR.Shared.Views
                                                                .Skip(displayedComplaints)
                                                                .Take(MaximumDisplayedComplaintsPerRequest))
                     {
-                        Complaint.typeOfComplaint =
-                            (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
-                        var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
-                        VisibleLayout.Children.Add(ComplaintListView);
+                        //new Task(() =>
+                        //{
+                            Complaint.typeOfComplaint =
+                                (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
+                            var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
+                            VisibleLayout.Children.Add(ComplaintListView);
+                        //}).Start();
                         displayedComplaints++;
                         AllComplaintsVisible = displayedComplaints >= MaxOfVisibleComplaints;
                     }

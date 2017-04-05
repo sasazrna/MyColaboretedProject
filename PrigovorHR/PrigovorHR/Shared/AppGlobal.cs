@@ -22,6 +22,10 @@ namespace PrigovorHR.Shared
             DependencyService.Get<IAndroidCallers>().CloseApp();
         }
 
+        public static int GetAndroidSDKVersion()
+        {
+            return DependencyService.Get<Controllers.IAndroidCallers>().GetSDKVersion();
+        }
     }
 }
 

@@ -34,93 +34,155 @@ namespace PrigovorHR.Droid
             public static bool IsRunning = false;
             private static Dictionary<int, int> FechedNewReplys = new Dictionary<int, int>();
             List<Shared.Models.ComplaintModel> complaints = Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints;
+            private static List<int> FechedComplaintEvents = new List<int>();
+            private Dictionary<bool, Dictionary<int, double>> RefreshValues = new Dictionary<bool, Dictionary<int, double>>();
+            private bool HasNewResults , HasClosedComplaintEvent = false;
 
-            [return: GeneratedEnum]
+            //   [return: GeneratedEnum]
             public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
             {
+                RefreshValues.Clear();
+                RefreshValues.Add(false, new Dictionary<int, double>() { { 0, 0.25 }, { 1, 0.25 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 0.25 }, { 5, 0.25 } });
+                RefreshValues.Add(true, new Dictionary<int, double>() { { 0, 0.25 }, { 1, 0.25 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 0.25 }, { 5, 0.25 } });
+
+          
                 Task.Run(async () =>
                 {
-                    var complaints = Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints;
-
-                    if (complaints != null && complaints.Any(c => !c.closed) && Shared.Controllers.NetworkController.IsInternetAvailable)
+                    try
                     {
-                        var ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm");
-                        var NewComplaintReplys = JsonConvert.DeserializeObject<Shared.Models.RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
-
-                        //treba dodati zatvorene prigovore 
-                        foreach (var UnreadComplaint in NewComplaintReplys.user.unread_complaints)
+                        while (true)
                         {
-                            var Complaint = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == UnreadComplaint.id);
-                            var LastReply = Complaint?.replies?.Last();
+                            await Task.Delay(Convert.ToInt32(RefreshValues[MainActivity.IsUserActive][Convert.ToInt32(DateTime.Now.Hour / 6D)] * 1000 * 60));
 
-                            if (Complaint == null)
-                                continue;
+                            var complaints = Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints;
 
-                            if (FechedNewReplys.ContainsKey(Complaint.id) && FechedNewReplys.ContainsValue(LastReply.id))
-                                continue;
-
-                            Intent resultIntent = new Intent(this, typeof(MainActivity)).AddFlags(ActivityFlags.BroughtToFront);
-                            resultIntent.PutExtra("ComplaintId", Complaint.id);
-                            PendingIntent resultPendingIntent = PendingIntent.GetActivity(this, Complaint.id, resultIntent, PendingIntentFlags.UpdateCurrent);
-
-                            Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
-
-                            string longTextMessage = LastReply.reply;
-                            textStyle.BigText(longTextMessage);
-
-                            var Notification = new Notification();
-                            if (MainActivity.SDKVersion >= 21)
+                            if (complaints != null && /*complaints.Any(c => !c.closed)*/ /*&&*/ Shared.Controllers.NetworkController.IsInternetAvailable)
                             {
-                                Notification = new Notification.Builder(this)
-                                 .SetContentTitle(UnreadComplaint.element.name)
-                                 .SetContentText(longTextMessage)
-                                 .SetVisibility(NotificationVisibility.Public)//if <5 remove set visibility
-                                 .SetSmallIcon(Resource.Drawable.LOGO)
-                                 .SetDefaults(NotificationDefaults.All)
-                                 .SetStyle(textStyle)
-                                 .SetPriority(7)
-                                 .SetAutoCancel(true)
-                                 .Build();
+                                var ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm");
+                                var NewComplaintReplys = JsonConvert.DeserializeObject<Shared.Models.RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
+
+                                //Check for new closed complaints
+                                restart:
+                                foreach (var Complaint in complaints)
+                                {
+                                    var NewComplaintEvents = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == Complaint.id)?.complaint_events;
+
+                                    if (NewComplaintEvents != null && NewComplaintEvents.Count > 0 && Complaint.complaint_events?.Count > 0)
+                                        if (NewComplaintEvents.Count != Complaint.complaint_events.Count & !FechedComplaintEvents.Contains(NewComplaintEvents.Last().id))
+                                        {
+                                            FechedComplaintEvents.Add(NewComplaintEvents.Last().id);
+                                            var Complaints = Shared.Models.ComplaintModel.RefToAllComplaints?.user.complaints;
+                                            var NewComplaintEvent = NewComplaintEvents.Last();
+
+                                            ShowNotification(Complaint.id, Complaint.element.name,
+                                                !string.IsNullOrEmpty(NewComplaintEvent.message) ? NewComplaintEvent.message :
+                                                NewComplaintEvent.closed ? "Vaš prigovor je zatvoren" : "Vaš prigovor je otvoren");
+
+                                            HasNewResults = true;
+                                            HasClosedComplaintEvent = NewComplaintEvent.closed;
+
+                                            Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
+                                            Complaints.Add(Complaint);
+                                            goto restart;
+                                        }
+                                }
+
+                                //Novi neproèitani prigovori.
+                                foreach (var UnreadComplaint in NewComplaintReplys.user.unread_complaints)
+                                {
+                                    var Complaint = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == UnreadComplaint.id);
+                                    var LastReply = Complaint?.replies?.Last();
+
+                                    if (Complaint == null)
+                                        continue;
+
+                                    if (FechedNewReplys.ContainsKey(Complaint.id) && FechedNewReplys.ContainsValue(LastReply.id))
+                                        continue;
+
+                                    ShowNotification(Complaint.id, UnreadComplaint.element.name, LastReply.reply);
+
+                                    if (!FechedNewReplys.ContainsKey(Complaint.id))
+                                        FechedNewReplys.Add(Complaint.id, LastReply.id);
+                                    else
+                                        FechedNewReplys[Complaint.id] = LastReply.id;
+
+                                    var Complaints = PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints?.user.complaints;
+                                    Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
+                                    Complaints.Add(Complaint);
+
+                                    var UnreadComplaints = PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints?.user.unread_complaints;
+                                    UnreadComplaints.Add(UnreadComplaint);
+                                    HasNewResults = true;
+                                }
+
+                                if (HasNewResults)
+                                {
+                                    Xamarin.Forms.Application.Current.Properties.Remove("AllComplaints");
+                                    Xamarin.Forms.Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints));
+                                    await Xamarin.Forms.Application.Current.SavePropertiesAsync();
+                                }
+
+                                if (MainActivity.IsUserActive & HasNewResults)
+                                {
+                                    Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
+                                    Device.BeginInvokeOnMainThread(() =>
+                                    {
+                                        if (HasClosedComplaintEvent)
+                                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Shared.Views.ComplaintListTabView.Tabs.ClosedComplaints, false);
+                                        else
+                                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Shared.Views.ComplaintListTabView.Tabs.ActiveComplaints, false);
+                                    });
+                                    HasNewResults = false;
+                                }
                             }
-                            else
-                            {
-                                Notification = new Notification.Builder(this)
-                                   .SetContentTitle(UnreadComplaint.element.name)
-                                   .SetContentText(longTextMessage)
-                                   .SetSmallIcon(Resource.Drawable.LOGO)
-                                   .SetDefaults(NotificationDefaults.All)
-                                   .SetStyle(textStyle)
-                                   .SetPriority(7)
-                                   .SetAutoCancel(true)
-                                   .Build();
-                            }
-
-                            Notification.ContentIntent = resultPendingIntent;
-                            var NotificationMgr = NotificationManager.FromContext(this);
-                            NotificationMgr.Notify("Prigovor", Complaint.id, Notification);
-
-                            if (!FechedNewReplys.ContainsKey(Complaint.id))
-                                FechedNewReplys.Add(Complaint.id, LastReply.id);
-                            else
-                                FechedNewReplys[Complaint.id] = LastReply.id;
-
-                            var Complaints = PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints?.user.complaints;
-                            Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
-                            Complaints.Add(Complaint);
-
-                            var UnreadComplaints = PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints?.user.unread_complaints;
-                            UnreadComplaints.Add(UnreadComplaint);
                         }
-
-                        Xamarin.Forms.Application.Current.Properties.Remove("AllComplaints");
-                        Xamarin.Forms.Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(PrigovorHR.Shared.Models.ComplaintModel.RefToAllComplaints));
-                        await Xamarin.Forms.Application.Current.SavePropertiesAsync();
-
-                        if (MainActivity.IsUserActive)
-                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
-                    }
+                    }catch(Exception ex) { Shared.Controllers.ExceptionController.HandleException(ex, ""); }
                 });
+           
                 return StartCommandResult.Sticky;
+            }
+
+            private void ShowNotification(int ComplaintId, string Title, string Text)
+            {
+                Intent resultIntent = new Intent(this, typeof(MainActivity)).AddFlags(ActivityFlags.BroughtToFront);
+                resultIntent.PutExtra("ComplaintId", ComplaintId);
+                PendingIntent resultPendingIntent = PendingIntent.GetActivity(this, ComplaintId, resultIntent, PendingIntentFlags.UpdateCurrent);
+
+                Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
+
+                string longTextMessage = Text;
+                textStyle.BigText(longTextMessage);
+
+                var Notification = new Notification();
+                if (MainActivity.SDKVersion >= 21)
+                {
+                    Notification = new Notification.Builder(this)
+                     .SetContentTitle(Title)
+                     .SetContentText(longTextMessage)
+                     .SetVisibility(NotificationVisibility.Public)//if <5 remove set visibility
+                     .SetSmallIcon(Resource.Drawable.LOGO)
+                     .SetDefaults(NotificationDefaults.All)
+                     .SetStyle(textStyle)
+                     .SetPriority(7)
+                     .SetAutoCancel(true)
+                     .Build();
+                }
+                else
+                {
+                    Notification = new Notification.Builder(this)
+                    .SetContentTitle(Title)
+                    .SetContentText(longTextMessage)
+                    .SetSmallIcon(Resource.Drawable.LOGO)
+                    .SetDefaults(NotificationDefaults.All)
+                    .SetStyle(textStyle)
+                    .SetPriority(7)
+                    .SetAutoCancel(true)
+                    .Build();
+                }
+
+                Notification.ContentIntent = resultPendingIntent;
+                var NotificationMgr = NotificationManager.FromContext(this);
+                NotificationMgr.Notify("Prigovor", ComplaintId, Notification);
             }
         }
 

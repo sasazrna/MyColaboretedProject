@@ -34,63 +34,72 @@ namespace PrigovorHR.Shared.Views
         {
             InitializeComponent();
 
-            lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
-            lblChecked.TextColor = Color.Green;
-
-
-
-            BackgroundColor = Color.White.WithLuminosity(1);
-            var Reply = complaint.replies?.LastOrDefault();
-            Complaint = complaint;
-            var ClosedComplaintMessage = Complaint.complaint_events?.LastOrDefault(ce=>ce.closed)?.message;
-
-            lblShortComplaint.Text = Complaint.closed & !string.IsNullOrEmpty(ClosedComplaintMessage) ? ClosedComplaintMessage :
-                                      Reply == null ? Complaint.complaint : Reply.reply;
-
-            var LastResponse = Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);//updateat ne postoji kod skica.
-
-            if (LastResponse.Date == DateTime.Now.Date)
-                lblComplaintResponseDate.Text = LastResponse.ToString().Substring(0, LastResponse.ToString().LastIndexOf(":"));
-            else
-                lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
-
-            IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
-            lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
-
-            lblNameOfContactPerson.Text =
-                Complaint.replies.Any() ?
-                Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? 
-                "nepoznato" : "nepoznato";
-
-            lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
-
-            if (Complaint.closed)
+            try
             {
-                var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
-                if (Evaluation != null)
+                //new Task(() =>
+                //{
+                BackgroundColor = Color.White.WithLuminosity(1);
+                var Reply = complaint.replies?.LastOrDefault();
+                Complaint = complaint;
+                var LastClosedComplaintEvent = Complaint.complaint_events?.LastOrDefault(ce => ce.closed);
+
+                lblShortComplaint.Text = Complaint.closed & !string.IsNullOrEmpty(LastClosedComplaintEvent?.message) ? LastClosedComplaintEvent?.message :
+                                          Reply == null ? Complaint.complaint : Reply.reply;
+
+                var LastResponse = complaint.closed ? DateTime.Parse(LastClosedComplaintEvent.created_at) :
+                    Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);//updateat ne postoji kod skica.
+
+                if (LastResponse.Date == DateTime.Now.Date)
+                    lblComplaintResponseDate.Text = LastResponse.ToString().Substring(0, LastResponse.ToString().LastIndexOf(":"));
+                else
+                    lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
+
+                IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
+                lblShortComplaint.FontAttributes = IsUnreaded ? FontAttributes.Bold | FontAttributes.Italic : FontAttributes.None;
+
+                lblNameOfContactPerson.Text =
+                    Complaint.closed && LastClosedComplaintEvent != null ? LastClosedComplaintEvent.user?.name_surname :
+                    Complaint.replies.Any() ?
+                    Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ??
+                    "nepoznato" : "nepoznato";
+
+                lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
+
+                lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
+                lblNumOfResponses.IsVisible = complaint.replies.Any();
+
+                if (Complaint.closed)
                 {
-                    var AverageGrade = new List<double?>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed }.Average();
+                    lblChecked.IsVisible = true;
+                    lblChecked.Text = FontAwesomeLabel.Images.FACheckSquareO;
+                    lblChecked.TextColor = Color.Green;
 
-                    int starId = 0;
-                    bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);
-                    bool First = false;
-                    foreach (var star in lytEvaluationLayout.Children.Cast<FontAwesomeLabel>())
+                    var Evaluation = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint?.id);
+                    if (Evaluation != null)
                     {
-                        bool IsGradeBiggerThanStar = ++starId <= AverageGrade;
-                        star.TextColor = IsGradeBiggerThanStar ? Color.Orange : Color.Gray;
+                        var AverageGrade = new List<double?>() { Evaluation.communication_level_user, Evaluation.satisfaction, Evaluation.speed }.Average();
 
-                        if (!First & !IsGradeBiggerThanStar & IsDecimal)
+                        int starId = 0;
+                        bool IsDecimal = AverageGrade != Convert.ToInt32(AverageGrade);
+                        bool First = false;
+                        foreach (var star in lytEvaluationLayout.Children.Cast<FontAwesomeLabel>())
                         {
-                            First = true;
-                            star.Text = FontAwesomeLabel.Images.FAStarHalfO;
-                            star.TextColor = Color.Orange;
-                        }
-                        else star.Text = FontAwesomeLabel.Images.FAStar;
-                    }
-                    lytEvaluationLayout.IsVisible = true;
-                }
-            }
+                            bool IsGradeBiggerThanStar = ++starId <= AverageGrade;
+                            star.TextColor = IsGradeBiggerThanStar ? Color.Orange : Color.Gray;
 
+                            if (!First & !IsGradeBiggerThanStar & IsDecimal)
+                            {
+                                First = true;
+                                star.Text = FontAwesomeLabel.Images.FAStarHalfO;
+                                star.TextColor = Color.Orange;
+                            }
+                            else star.Text = FontAwesomeLabel.Images.FAStar;
+                        }
+                        lytEvaluationLayout.IsVisible = true;
+                    }
+                }
+            }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
+            //}).Start();
             TAPController = new Controllers.TAPController(Content);
             TAPController.SingleTaped += TAPController_SingleTaped;
         }

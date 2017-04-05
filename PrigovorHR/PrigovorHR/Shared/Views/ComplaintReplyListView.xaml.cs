@@ -16,6 +16,7 @@ namespace PrigovorHR.Shared.Views
         private Models.ComplaintModel Complaint;
         private Models.ComplaintModel.ComplaintReplyModel ComplaintReply;
         private Models.ComplaintModel.ComplaintEvent ComplaintEvent;
+        public string CreatedAt;
         public ComplaintReplyListView()
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace PrigovorHR.Shared.Views
             string created_at = ComplaintReply != null ? ComplaintReply.created_at : ComplaintEvent.created_at;
             string replytext = ComplaintReply != null ? ComplaintReply.reply : ComplaintEvent.message;
             string username = ComplaintReply != null ? ComplaintReply.user.name_surname : ComplaintEvent.user_id.ToString();
+            CreatedAt = created_at;
 
             lblDateTimeOfResponse.Text = DateTime.Parse(created_at).ToString();
             lblDateTimeOfResponse.Text = lblDateTimeOfResponse.Text.Substring(0, lblDateTimeOfResponse.Text.LastIndexOf(":"));
