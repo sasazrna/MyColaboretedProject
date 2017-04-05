@@ -6,8 +6,13 @@
   <ContentView.Content>
     <StackLayout x:Name="lytCompanyElement">
     <Views:CompanyStoreFoundView>
-      
-    </Views:CompanyStoreFoundView>
+
+                
+
+
+
+
+            </Views:CompanyStoreFoundView>
     </StackLayout>
   </ContentView.Content>
 </ContentView>
