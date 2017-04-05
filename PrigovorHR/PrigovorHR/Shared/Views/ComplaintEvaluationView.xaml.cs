@@ -26,6 +26,12 @@ namespace PrigovorHR.Shared.Views
         public ComplaintEvaluationView(Models.ComplaintModel complaint)
         {
             InitializeComponent();
+
+
+            lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
+            lblChecked.TextColor = Color.Green;
+
+
             SetStars(complaint);
         }
 
