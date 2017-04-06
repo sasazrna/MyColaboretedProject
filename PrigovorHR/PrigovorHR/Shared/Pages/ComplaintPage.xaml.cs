@@ -26,9 +26,9 @@ namespace PrigovorHR.Shared.Pages
                { "fabCloseComplaint", new string[] { "FaFabButtonLock.png" } },
                {"fabRateComplaint", new string[] { "FaFabButtonRate.png" } } , {"fabOpenOptions", new string[] { "FaFabButtonAdd.png" } }, };
 
-        Dictionary<string, string[]> FabIcons = new Dictionary<string, string[]>{ { "fabReply", new string[] { Views.FontAwesomeLabel.Images.FAReply, Views.FontAwesomeLabel.Images.FAUnlock } },
-               { "fabCloseComplaint", new string[] {Views.FontAwesomeLabel.Images.FALock } },
-               {"fabRateComplaint", new string[] {Views.FontAwesomeLabel.Images.FAStar } } , {"fabOpenOptions", new string[] {  Views.FontAwesomeLabel.Images.FAPlusCircle } } };
+        //Dictionary<string, string[]> FabIcons = new Dictionary<string, string[]>{ { "fabReply", new string[] { Views.FontAwesomeLabel.Images.FAReply, Views.FontAwesomeLabel.Images.FAUnlock } },
+        //       { "fabCloseComplaint", new string[] {Views.FontAwesomeLabel.Images.FALock } },
+        //       {"fabRateComplaint", new string[] {Views.FontAwesomeLabel.Images.FAStar } } , {"fabOpenOptions", new string[] {  Views.FontAwesomeLabel.Images.FAPlusCircle } } };
 
         public ComplaintPage()
         {
@@ -78,11 +78,11 @@ namespace PrigovorHR.Shared.Pages
                     yConstraint: Constraint.RelativeToParent((parent) => { return (parent.Height - FAB.Height) - 16; }));
             }
 
-            if (AppGlobal.GetAndroidSDKVersion() < 21)
-            {
+            //if (AppGlobal.GetAndroidSDKVersion() < 21)
+            //{
                 TAPController = new TAPController(Fabs.Values.ToArray());
                 TAPController.SingleTaped += TAPController_SingleTaped;
-            }
+          //  }
 
             Fabs["fabCloseComplaint"].IsVisible = !ComplaintClosed;
             Fabs["fabCloseComplaint"].TranslateTo(0, 0, 100);
@@ -98,37 +98,14 @@ namespace PrigovorHR.Shared.Pages
 
         private void SetFAB(int i)
         {
-            dynamic FAB;
-
-            if (AppGlobal.GetAndroidSDKVersion() >= 21)
-                FAB = new FloatingActionButton();
-            else
-                FAB = new Image();
+            var FAB = new Image();
 
             FAB.AutomationId = FabImages.Keys.ToList()[i];
 
             FAB.Source = FabImages.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
-            if (FAB.GetType() == typeof(FloatingActionButton))
-            {
-                FAB.NormalColor = Color.FromHex("#FF7e65");
-                FAB.RippleColor = Color.Blue;
-                ((FloatingActionButton)FAB).Clicked += FabButton_Click;
-            }
-            else
-            {
-                var fab = ((Image)FAB);
-                fab.HeightRequest = 55;
-                fab.WidthRequest = 55;
-               // fab.TextColor = Color.FromHex("#FF7e65");
-             //   fab.Text = FabIcons.Values.ToList()[i][Convert.ToInt32(FAB.AutomationId == "fabReply" & Complaint.closed)];
 
-                //if (fab.AutomationId != "fabOpenOptions")
-                //{
-                //    fab.Opacity = 0;
-                //    fab.FontSize = 50;
-                //}
-                //else fab.FontSize = 60;
-            }
+            FAB.HeightRequest = 55;
+            FAB.WidthRequest = 55;
 
             Fabs.Add(FabImages.Keys.ToList()[i], FAB);
         }
