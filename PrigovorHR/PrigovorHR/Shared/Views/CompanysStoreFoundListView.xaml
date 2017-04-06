@@ -4,7 +4,7 @@
              x:Class="PrigovorHR.Shared.Views.CompanysStoreFoundListView">
   <ContentView.Content>
        
-    <StackLayout VerticalOptions="FillAndExpand">
+    <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,10,0">
             
             <!--<Frame Padding="0, 0, 0, 3">-->
         <ScrollView x:Name="_ScrollView">

@@ -19,34 +19,34 @@
  
     <!--<AbsoluteLayout>-->
     <StackLayout VerticalOptions="FillAndExpand">
-        <Frame x:Name="Frame" BackgroundColor="#FF7e65" Margin="6,20,6,10"  HorizontalOptions="Center" Padding="10">
+        <Frame x:Name="Frame" BackgroundColor="#5b5b5b" Margin="6,20,6,10"  HorizontalOptions="Center" Padding="10">
             <StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                  <Label Text="#" FontSize="Large" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold"  TextColor="#3498db" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
-                  <Label Text="@" FontSize="Large" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="#3498db" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
-                    <Entry x:Name="entrySearch" HorizontalTextAlignment="Start" TextColor="Black" FontSize="Medium"
-                               Placeholder="Pronađi tvrtku/poslovnicu        "  PlaceholderColor="Silver" HorizontalOptions="StartAndExpand"></Entry>
-                    <Views:FontAwesomeLabel x:Name="imgClose" FontSize="Medium" HorizontalOptions="EndAndExpand" VerticalOptions="Center" ></Views:FontAwesomeLabel>
+                  <Label Text="#" FontSize="30" VerticalOptions="Start" VerticalTextAlignment="Start" FontAttributes="Bold"  TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
+                  <Label Text="@" FontSize="25" VerticalOptions="Start" VerticalTextAlignment="Start" FontAttributes="Bold" TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
+                    <Entry x:Name="entrySearch" HorizontalTextAlignment="Start" TextColor="White" FontSize="Medium"
+                               Placeholder="Pronađi tvrtku/poslovnicu        "  PlaceholderColor="White" HorizontalOptions="StartAndExpand"></Entry>
+                    <Views:FontAwesomeLabel x:Name="imgClose" FontSize="20" HorizontalOptions="EndAndExpand" VerticalOptions="Center" VerticalTextAlignment="Center" ></Views:FontAwesomeLabel>
                     <!--<Image x:Name="_imgClose"  Aspect="AspectFit" Source="cross.png" IsVisible="False" Margin="0, -10, 0, 0"/>-->
                 </StackLayout>
-              <StackLayout HeightRequest="10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65" Margin="0,-15,0,0"></StackLayout>
+              <StackLayout HeightRequest="10" HorizontalOptions="FillAndExpand" BackgroundColor="#5b5b5b" Margin="0,-15,0,0"></StackLayout>
               
               
 
                 <StackLayout  x:Name="SearchOptionsLayout" IsVisible="False" VerticalOptions="FillAndExpand" MinimumHeightRequest="100">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-                        <Image Aspect="AspectFit" Source="info.png"></Image>
-                        <Label Text="Za kratki i brzi prigovor upišite # ispred pojma kojeg pretražujete" TextColor="Teal" FontSize="Small"></Label>
+                        <Image Aspect="AspectFit" Source="FaInfo.png"  HeightRequest="20"  WidthRequest="20"></Image>
+                        <Label Text="Za kratki i brzi prigovor upišite # ispred pojma kojeg pretražujete" TextColor="White" FontSize="Small"></Label>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-                        <Image Aspect="AspectFit" Source="info.png"></Image>
-                        <Label Text="Ako znate oznaku poslovnice upišite @ ispred oznake poslovnice" TextColor="Teal" FontSize="Small"></Label>
+                      <Image Aspect="AspectFit" Source="FaInfo.png"  HeightRequest="20"  WidthRequest="20"></Image>
+                        <Label Text="Ako znate oznaku poslovnice upišite @ ispred oznake poslovnice" TextColor="White" FontSize="Small"></Label>
                     </StackLayout>
 
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
-                        <Image Aspect="AspectFit" Source="info.png"></Image>
-                        <Label Text="Možete istovremeno koristiti obje opcije" TextColor="Teal" FontSize="Small"></Label>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand"  Margin="0,0,0,10" >
+                      <Image Aspect="AspectFit" Source="FaInfo.png"  HeightRequest="20"  WidthRequest="20"></Image>
+                        <Label Text="Možete istovremeno koristiti obje opcije" TextColor="White" FontSize="Small"></Label>
                     </StackLayout>
 
                 </StackLayout>
