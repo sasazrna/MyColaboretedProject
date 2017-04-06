@@ -51,9 +51,9 @@ namespace PrigovorHR.Shared.Views
             foreach (var Attachment in Complaint.attachments)
                 lytAttachmentsLayout.Children.Add(new AttachmentView(false, Complaint.id, Attachment.id, Attachment.attachment_url, false, null));
 
-            lblProblemDateTime.Text = !string.IsNullOrEmpty(Complaint.problem_occurred) ? DateTime.Parse(Complaint.problem_occurred).ToString() : "nedefinirano";
+            lblProblemDateTime.Text = !string.IsNullOrEmpty(Complaint.problem_occurred) ?
+             DateTime.Parse(Complaint.problem_occurred).Year != 1 ? DateTime.Parse(Complaint.problem_occurred).ToString() : "nedefinirano" : "Nedefinirano";
             lblComplaintDateTime.Text = DateTime.Parse( Complaint.created_at).ToString();
-            //lytLine.IsVisible = false;// !LastReplyId.HasValue;
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 

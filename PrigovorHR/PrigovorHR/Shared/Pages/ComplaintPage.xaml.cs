@@ -63,7 +63,14 @@ namespace PrigovorHR.Shared.Pages
                 });
 
             SetFABS();
+            SetAutoOpacity(scrView, Fabs.Values.ToArray());
         }
+
+        private async void SetAutoOpacity (ScrollView scrView, params View[] views  )
+        {
+            
+        }
+
 
         private void SetFABS()
         {
@@ -109,11 +116,32 @@ namespace PrigovorHR.Shared.Pages
 
             Fabs.Add(FabImages.Keys.ToList()[i], FAB);
         }
-       
+
+        private bool scrolling = false;
         private void ScrView_Scrolled(object sender, ScrolledEventArgs e)
         {
             if (_clickedTotal % 2 == 0)
                 FabButton_Click(Fabs["fabOpenOptions"], new EventArgs());
+
+           // foreach (var fab in Fabs.Values)
+           //     if (fab.Opacity == 0.5)
+           //         break;
+           //     else fab.FadeTo(1, 1000);
+           // scrolling = true;
+
+           // Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+           //{
+           //    scrolling = false;
+           //    if (scrolling == false)
+           //    {
+           //        foreach (var fab in Fabs.Values)
+           //            if (fab.Opacity == 0.5)
+           //                break;
+           //            else fab.FadeTo(0.5, 1000);
+           //        scrolling = true;
+           //    }
+           //    return scrolling;
+           //});    
         }
 
         private void FabButton_Click(object sender, EventArgs e)

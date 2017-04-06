@@ -39,7 +39,7 @@ namespace PrigovorHR.Shared.Pages
                 imgOtherStores.IsEnabled = ShowOtherElements && Convert.ToBoolean(companyElement.siblings?.Any());
                 CompanyElement = companyElement;
                 NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
-                //btnWriteComplaint.Clicked += BtnWriteComplaint_Clicked;
+                
                 ReferenceToView = this;
                 lytCompanyElementUnderline.IsVisible = true;
                 lytCompanyUnderline.IsVisible = false;
@@ -64,21 +64,22 @@ namespace PrigovorHR.Shared.Pages
                 ExceptionController.HandleException(ex, "public Company_ElementInfoPage(CompanyElementRootModel companyElement, bool ShowOtherElements)");
             }
 
-            FAB.Text = Views.FontAwesomeLabel.Images.FABan;
-            FAB.TextColor = Color.FromHex("#FF7e65");
-            FAB.BackgroundColor = Color.Gray;
-            FAB.FontSize = 50;
-            TAPController = new TAPController(imgStore, imgCompany, imgOtherStores, FAB);
+           // TAPController = new Controllers.TAPController(btnWriteComplaint);
+            //FAB.Text = Views.FontAwesomeLabel.Images.FABan;
+            //FAB.TextColor = Color.FromHex("#FF7e65");
+            //FAB.BackgroundColor = Color.Gray;
+            //FAB.FontSize = 50;
+            TAPController = new TAPController(imgStore, imgCompany, imgOtherStores, btnWriteComplaint);
             TAPController.SingleTaped += TAPController_SingleTaped;
-
-            FAB.AutomationId = "FAB";
-            lytRelative.Children.Add(
-                FAB,
-                xConstraint: Constraint.RelativeToParent((parent) => { return (parent.Width - FAB.Width) - 16; }),
-                yConstraint: Constraint.RelativeToParent((parent) => { return (parent.Height - FAB.Height) - 16; }));
+            //FAB.AutomationId = "FAB";
+            //lytRelative.Children.Add(
+            //    FAB,
+            //    xConstraint: Constraint.RelativeToParent((parent) => { return (parent.Width - FAB.Width) - 16; }),
+            //    yConstraint: Constraint.RelativeToParent((parent) => { return (parent.Height - FAB.Height) - 16; }));
             //  Fabs.Add(FabImages.Keys.ToList()[i], FAB);
             //
         }
+
 
         private async void SetCompanyLogo()
         {
@@ -117,7 +118,7 @@ namespace PrigovorHR.Shared.Pages
 
         private void TAPController_SingleTaped(string viewId, View view)
         {
-            if (view == FAB)
+            if (view == btnWriteComplaint)
                 BtnWriteComplaint_Clicked(null, null);
 
             if(view == imgStore)
@@ -133,7 +134,7 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyInfoView.IsVisible = false;
                 lytCompanyOtherElementsView.IsVisible = false;
                 LogoStack.IsVisible = true;
-                //btnWriteComplaint.IsVisible = true;
+                btnWriteComplaint.IsVisible = true;
             }
             else if(view == imgCompany)
             {
@@ -148,7 +149,7 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyElementInfoView.IsVisible = false;
                 lytCompanyOtherElementsView.IsVisible = false;
                 LogoStack.IsVisible = true;
-              //  btnWriteComplaint.IsVisible = true;
+                btnWriteComplaint.IsVisible = true;
             }
             else if(view == imgOtherStores)
             {
@@ -163,7 +164,7 @@ namespace PrigovorHR.Shared.Pages
 
                 lytCompanyOtherElementsView.IsVisible = true;
                 LogoStack.IsVisible = false;
-                //btnWriteComplaint.IsVisible = false;
+                btnWriteComplaint.IsVisible = false;
             }
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;

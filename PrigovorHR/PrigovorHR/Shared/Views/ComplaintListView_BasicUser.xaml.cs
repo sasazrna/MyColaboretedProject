@@ -57,12 +57,12 @@ namespace PrigovorHR.Shared.Views
                 if(IsUnreaded)
                 {
                     lblShortComplaint.FontAttributes = FontAttributes.Bold | FontAttributes.Italic;
-                    lblRead.Text = FontAwesomeLabel.Images.FAEnvelope;
+                    lblRead.Text = FontAwesomeLabel.Images.FAPEnvelopeClosed;
                     lblRead.TextColor = Color.FromHex("#FF7e65");
                 }
                 else
                 {
-                    lblRead.Text = FontAwesomeLabel.Images.FAEnvelopeO;
+                    lblRead.Text = FontAwesomeLabel.Images.FAPEnvelopeOpen;
                     lblRead.TextColor = Color.Gray;
                 }
 

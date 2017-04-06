@@ -210,7 +210,7 @@ namespace PrigovorHR.Shared
 
             private Dictionary<ServiceCommands, string> APIAdresses =
                 new Dictionary<ServiceCommands, string> { { ServiceCommands.GetSearchResults, "pretraga/" },
-                                                          { ServiceCommands.GetDirectTagResult, "qr/" },
+                                                          { ServiceCommands.GetDirectTagResult, "" },
                                                           { ServiceCommands.RegisterUser, "register" },
                                                           { ServiceCommands.LoginUser, "login" },
                                                           { ServiceCommands.GetUserAvatar, "avatar" } ,
@@ -274,7 +274,9 @@ namespace PrigovorHR.Shared
                                     JObject Jobj = JObject.Parse(value);
                                     fullAddress += Jobj["Id"] + "/" + Jobj["FileName"];
                                 }
-                                if (ServiceCommand != ServiceCommands.GetUserAvatar)
+                                if (ServiceCommand != ServiceCommands.GetUserAvatar &
+                                    ServiceCommand != ServiceCommands.GetComplaintAttachmentData &
+                                    ServiceCommand != ServiceCommands.GetReplyAttachmentData)
                                     fullAddress += value;
                                 response = await client.GetAsync(fullAddress);
                                 break;

@@ -31,8 +31,6 @@
                 </StackLayout>
               <StackLayout HeightRequest="10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65" Margin="0,-15,0,0"></StackLayout>
               
-              
-
                 <StackLayout  x:Name="SearchOptionsLayout" IsVisible="False" VerticalOptions="FillAndExpand" MinimumHeightRequest="100">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
                         <Image Aspect="AspectFit" Source="info.png"></Image>
