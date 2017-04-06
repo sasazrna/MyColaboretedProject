@@ -42,7 +42,7 @@ namespace PrigovorHR.Shared.Pages
                 suggestionEditor.Text = WriteNewComplaintModel.suggestion;
                 complaintEditor.Text = WriteNewComplaintModel.complaint;
 
-                if (WriteNewComplaintModel.attachments != null)
+                if (WriteNewComplaintModel.attachments != null & WriteNewComplaintModel.attachments.Any())
                 {
                     imgTakePhoto.TextColor = Color.Orange;
                     PhotoData = Convert.FromBase64String(WriteNewComplaintModel.attachments[0].attachment_data);
