@@ -53,8 +53,7 @@ namespace PrigovorHR.Shared.Views
 
         private void ComplaintListTabView_SingleTaped(string viewId, View view)
         {
-            try
-            {
+
                 var SelectedLabel = view.GetType() == typeof(StackLayout) ? ((FontAwesomeLabel)((StackLayout)view).Children.FirstOrDefault()) : (FontAwesomeLabel)view;
 
                 SelectedTab = LabelsToTabsConnection[SelectedLabel];
@@ -66,7 +65,6 @@ namespace PrigovorHR.Shared.Views
                     SelectedTabChangedEvent?.Invoke(SelectedTab);
                     ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(SelectedTab, true);
                 }
-            }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
         }
     }
 }

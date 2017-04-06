@@ -78,7 +78,7 @@ namespace PrigovorHR.Shared.Pages
                     yConstraint: Constraint.RelativeToParent((parent) => { return (parent.Height - FAB.Height) - 16; }));
             }
 
-            if (AppGlobal.GetAndroidSDKVersion() >= 21)
+            if (AppGlobal.GetAndroidSDKVersion() < 21)
             {
                 TAPController = new TAPController(Fabs.Values.ToArray());
                 TAPController.SingleTaped += TAPController_SingleTaped;
@@ -100,7 +100,7 @@ namespace PrigovorHR.Shared.Pages
         {
             dynamic FAB;
 
-            if (AppGlobal.GetAndroidSDKVersion() < 21)
+            if (AppGlobal.GetAndroidSDKVersion() >= 21)
                 FAB = new FloatingActionButton();
             else
                 FAB = new Image();

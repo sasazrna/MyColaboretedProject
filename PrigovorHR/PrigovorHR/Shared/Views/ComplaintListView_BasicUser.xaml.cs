@@ -108,7 +108,7 @@ namespace PrigovorHR.Shared.Views
                         }
                     }
                 }
-            }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
+            }catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, "public ComplaintListView_BasicUser(ComplaintModel complaint)"); }
 
             TAPController = new Controllers.TAPController(Content);
             TAPController.SingleTaped += TAPController_SingleTaped;

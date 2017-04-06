@@ -136,7 +136,7 @@ namespace PrigovorHR.Droid
                                 }
                             }
                         }
-                    }catch(Exception ex) { Shared.Controllers.ExceptionController.HandleException(ex, ""); }
+                    }catch(Exception ex) { Shared.Controllers.ExceptionController.HandleException(ex,  "public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)"); }
                 });
            
                 return StartCommandResult.Sticky;

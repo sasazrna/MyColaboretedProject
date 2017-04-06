@@ -93,7 +93,7 @@ namespace PrigovorHR.Shared.Views
                     }
                 }
             }
-            catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, ""); }
+            catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, "public async void FindAndOpenComplaint(int ComplaintId)"); }
         }
 
         public void ChangeVisibleLayout(ComplaintListTabView.Tabs selectedTab, bool ChangedByControl)

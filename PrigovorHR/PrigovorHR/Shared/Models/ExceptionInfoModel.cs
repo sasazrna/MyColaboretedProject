@@ -23,7 +23,7 @@ namespace PrigovorHR.Shared.Models
             public string x_id { get { return  DeviceInfoModel.Id; } }
             public string model { get { return DeviceInfoModel.Model; } }
             public string platform { get { return DeviceInfoModel.Platform; } }
-            public string version { get { return DeviceInfoModel.Id; } }
+            public string version { get { return DeviceInfoModel.Version; } }
 
         }
 
