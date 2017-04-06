@@ -33,6 +33,9 @@ namespace PrigovorHR.Shared.Pages
         {
             InitializeComponent();
 
+            FaNow.Text = Views.FontAwesomeLabel.Images.FAClockO;
+            FaPast.Text = Views.FontAwesomeLabel.Images.FACalendarO;
+
             WriteNewComplaintModel = _WriteNewComplaintModel;
             CompanyElement = companyElement;
             if (WriteNewComplaintModel == null)

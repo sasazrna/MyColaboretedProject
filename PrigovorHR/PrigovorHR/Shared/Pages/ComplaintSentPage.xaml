@@ -4,9 +4,9 @@
              x:Class="PrigovorHR.Shared.Pages.ComplaintSentPage">
 
   <ScrollView>
-    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" Padding="0,-10,0,0" >
-      <Image Source="backsend.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0, -155, 0, 0"/>
-      <Image Source="arrowtrans.png" WidthRequest="75" HeightRequest="75" Margin="0, -260, 0, 0" IsVisible="False"/>
+    <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="0,-30,0,0" Margin="0,-35,0,0" >
+            <Image Source="imgSend.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+      
       <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand"  >
         <Label x:Name="lblComplaintSent" Text="Vaš prigovor je poslan" FontSize="Large"  HorizontalTextAlignment="Start"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85"  Margin="0, 90, 0, 0"/>
         <Label x:Name="lblMessage" Text="Zahvaljujemo na vašem angažmanu" FontSize="Medium"  HorizontalTextAlignment="Start"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85"  Margin="0, 30, 0, 0"/>

@@ -32,12 +32,13 @@
         x:Name="CloseImage"
         HeightRequest="30"
         WidthRequest="30"
-       Source="closecircle.png">
+       Source="CloseAgain.png">
         </Image>
       </ContentView>
 
-      <Frame x:Name="Frame" BackgroundColor="White" Margin="20,30,20,40" HorizontalOptions="Center">
-        <StackLayout>
+      <Frame x:Name="Frame" BackgroundColor="White" Margin="20,30,20,40" HorizontalOptions="FillAndExpand">
+        <StackLayout HorizontalOptions="FillAndExpand">
+   
           <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
             <Label x:Name="complaintLabel" Text="Prigovor" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="#FF6A00"></Label>
             <Label x:Name="suggestionLabel" Text="Sugestija" FontSize="Medium" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" TextColor="Gray"></Label>
@@ -53,7 +54,7 @@
             </StackLayout>
           </StackLayout>
 
-          <Label x:Name="lblElementName" Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Black" Margin="0, 5, 0, 5" />
+          <Label x:Name="lblElementName" Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" Margin="0, 5, 0, 5" />
 
           <StackLayout x:Name="_complaintLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
             <Label Text="Napišite prigovor" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
@@ -67,6 +68,7 @@
             <Editor x:Name="suggestionEditor" BackgroundColor="White" TextColor="Black" HeightRequest="180" />
           </StackLayout>
           <views:FontAwesomeLabel x:Name="btnSendComplaint" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>
+        <Label Text=".............................................................................." Margin="0,-5,0,0" TextColor="White" ></Label>
         </StackLayout>
       </Frame>
     </AbsoluteLayout>

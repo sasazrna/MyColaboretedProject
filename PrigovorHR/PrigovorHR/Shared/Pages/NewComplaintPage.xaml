@@ -23,13 +23,32 @@
                     <TimePicker x:Name="arrivalTimePicke" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
                         <StackLayout HorizontalOptions="StartAndExpand">
-                            <Label x:Name="SadaStackButton" Text="Dogodio se sada!" HorizontalTextAlignment="Center"></Label>
-                        </StackLayout>
+
+
+                                <StackLayout x:Name="SadaStackButton" Orientation="Horizontal">
+                                    <views:FontAwesomeLabel x:Name="FaNow" FontSize="Medium" TextColor="#FF7e65" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></views:FontAwesomeLabel>
+                                    <Label  Text="Dogodio se sada!" HorizontalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        
+                        
+                        
                         <StackLayout Padding="0.35,1.5,0.35,1.5" BackgroundColor="Silver" HorizontalOptions="CenterAndExpand"></StackLayout>
-                        <StackLayout HorizontalOptions="EndAndExpand">
-                            <Label x:Name="RanijeStackButton" Text="Dogodio se ranije!" HorizontalTextAlignment="Center"></Label>
-                        </StackLayout>
+
+
+                            <StackLayout x:Name="RanijeStackButton" Orientation="Horizontal" >
+                                <views:FontAwesomeLabel x:Name="FaPast" FontSize="Medium" TextColor="#FF7e65" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></views:FontAwesomeLabel>
+                                <StackLayout HorizontalOptions="EndAndExpand">
+                            <Label  Text="Dogodio se ranije!" HorizontalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        
+                        
+                        
                     </StackLayout>
+                        
+                        
+                        
                     <StackLayout x:Name="ZaPopunit_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
                         <StackLayout HorizontalOptions="FillAndExpand">
                             <Label Text="dmeodied" HorizontalTextAlignment="Center" TextColor="White" FontSize="Small"></Label>

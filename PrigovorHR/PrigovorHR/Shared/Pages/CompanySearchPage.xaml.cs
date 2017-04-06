@@ -22,7 +22,8 @@ namespace PrigovorHR.Shared.Pages
         public CompanySearchPage()
         {
             InitializeComponent();
-            imgClose.Text = Views.FontAwesomeLabel.Images.FATimes;
+            imgClose.Text = Views.FontAwesomeLabel.Images.FAClose;
+            imgClose.TextColor = Color.FromHex("#aaa4a4");
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () => { entrySearch.Focus(); return false; });
 
             SearchController = new Controllers.SearchController(null, entrySearch);
