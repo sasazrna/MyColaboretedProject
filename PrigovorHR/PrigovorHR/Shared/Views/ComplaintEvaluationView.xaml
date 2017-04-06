@@ -7,7 +7,7 @@
   <ContentView.Content>
         <StackLayout Padding="20,10,20,10" Margin="10,10,10,10" BackgroundColor="#eeeeee">
 
-            <Views:FontAwesomeLabel x:Name="lblChecked" FontSize="Medium" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"></Views:FontAwesomeLabel>
+          
 
             <Label Text="Zadovoljstvo odgovorom" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 10" />
        

@@ -427,69 +427,6 @@
       <Name>PrigovorHR</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonLock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonMsg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonPen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonRate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonUnlock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabUnlock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabAdd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonAdd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonClose.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonLock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonMsg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonPen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonRate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabButtonUnock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabClose.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabLock.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabMsg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabPen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonAdd.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\FaFabRippeledButtonClose.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

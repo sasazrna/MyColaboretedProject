@@ -28,10 +28,6 @@ namespace PrigovorHR.Shared.Views
             InitializeComponent();
 
 
-            lblChecked.Text = Views.FontAwesomeLabel.Images.FACheckSquareO;
-            lblChecked.TextColor = Color.Green;
-
-
             SetStars(complaint);
         }
 
