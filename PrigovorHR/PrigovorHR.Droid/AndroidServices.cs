@@ -44,8 +44,7 @@ namespace PrigovorHR.Droid
                 RefreshValues.Clear();
                 RefreshValues.Add(false, new Dictionary<int, double>() { { 0, 120 }, { 1, 120 }, { 2, 5 }, { 3, 5 }, { 4, 15 }, { 5, 30 } });
                 RefreshValues.Add(true, new Dictionary<int, double>() { { 0, 5 }, { 1, 5 }, { 2, 0.25 }, { 3, 0.25 }, { 4, 2 }, { 5, 5 } });
-
-          
+        
                 Task.Run(async () =>
                 {
                     try
@@ -56,7 +55,7 @@ namespace PrigovorHR.Droid
 
                             var complaints = Shared.Models.ComplaintModel.RefToAllComplaints?.user?.complaints;
 
-                            if (complaints != null && /*complaints.Any(c => !c.closed)*/ /*&&*/ Shared.Controllers.NetworkController.IsInternetAvailable)
+                            if (complaints != null && complaints.Any() && Shared.Controllers.NetworkController.IsInternetAvailable)
                             {
                                 var ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm");
                                 var NewComplaintReplys = JsonConvert.DeserializeObject<Shared.Models.RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
