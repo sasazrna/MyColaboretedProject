@@ -30,7 +30,6 @@ namespace PrigovorHR.Shared.Models
         public int? location_id { get; set; }
         public int type_id { get; set; }
         public ElementTypeModel type { get; set; }
-        public string root_business_full_name { get; set; }
         public int root_business_id { get; set; }
     }
 

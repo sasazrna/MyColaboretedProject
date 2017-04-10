@@ -210,7 +210,7 @@ namespace PrigovorHR.Shared
 
             private Dictionary<ServiceCommands, string> APIAdresses =
                 new Dictionary<ServiceCommands, string> { { ServiceCommands.GetSearchResults, "pretraga/" },
-                                                          { ServiceCommands.GetDirectTagResult, "" },
+                                                          { ServiceCommands.GetDirectTagResult, "qr/" },
                                                           { ServiceCommands.RegisterUser, "register" },
                                                           { ServiceCommands.LoginUser, "login" },
                                                           { ServiceCommands.GetUserAvatar, "avatar" } ,
@@ -235,12 +235,12 @@ namespace PrigovorHR.Shared
 
             internal async Task<string> GetData(ServiceCommands ServiceCommand, string value = null)
             {
-#if DEBUG
-                var serviceAddress = ServiceAddresses[1];
+//#if DEBUG
+//                var serviceAddress = ServiceAddresses[1];
 
-#else
+//#else
                                 var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
-#endif
+//#endif
 
 
                 var byteArray = Encoding.UTF8.GetBytes("forge:123123p");
@@ -335,12 +335,12 @@ namespace PrigovorHR.Shared
             {
                 try
                 {
-#if DEBUG
-                    var serviceAddress = ServiceAddresses[1];
+//#if DEBUG
+//                    var serviceAddress = ServiceAddresses[1];
 
-#else
-                                var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
-#endif
+//#else
+                              var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
+//#endif
 
                     using (var client = new HttpClient())
                     {

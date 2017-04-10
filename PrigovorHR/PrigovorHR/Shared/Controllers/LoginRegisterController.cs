@@ -131,6 +131,7 @@ namespace PrigovorHR.Shared.Controllers
 
         public static void UserLogOut()
         {
+            AppGlobal.DEBUGING = false;
             DeleteUserData();
             _UserLoggedInOutEvent?.Invoke(false);
         }

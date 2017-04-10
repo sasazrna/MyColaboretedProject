@@ -1,5 +1,5 @@
-﻿using LocalNotifications.Plugin;
-using LocalNotifications.Plugin.Abstractions;
+﻿//using LocalNotifications.Plugin;
+//using LocalNotifications.Plugin.Abstractions;
 using Newtonsoft.Json;
 //using Plugin.Toasts;
 using PrigovorHR.Shared.Pages;
@@ -29,8 +29,8 @@ namespace PrigovorHR.Shared.Views
 
         public async void DoSearch(string searchtext, bool IsDirectTag, Entry entrySearch)
         {
-            Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Pretražujem " + searchtext, Acr.UserDialogs.MaskType.Clear);
-            await Task.Delay(20);
+            //Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Pretražujem " + searchtext, Acr.UserDialogs.MaskType.Clear);
+            //await Task.Delay(20);
 
             string Result;
 
@@ -50,7 +50,8 @@ namespace PrigovorHR.Shared.Views
             if (!IsDirectTag)
             {
                 CompaniesStoresFoundInfo = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
-                Device.BeginInvokeOnMainThread(() => DisplayData(CompaniesStoresFoundInfo));
+                DisplayData(CompaniesStoresFoundInfo);
+                if (!CompaniesStoresFoundInfo.Any()) { entrySearch.Focus(); }
             }
             else
             {
@@ -67,7 +68,7 @@ namespace PrigovorHR.Shared.Views
                     entrySearch.Focus();
                 }
             }
-            Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+            //Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 
         private bool isDifferentResult(List<string> old, List<string> _new)
@@ -80,16 +81,21 @@ namespace PrigovorHR.Shared.Views
             return true;
         }
 
-        public void DisplayData(List<Models.CompanyElementModel> _data)
+        public async Task DisplayData(List<Models.CompanyElementModel> _data)
         {
-            _StackLayout.Children.Clear();
-            foreach (var data in _data)
+            await Task.Run(() =>
             {
-                var CompanyStoreFound = new CompanyStoreFoundView(data);
-                CompanyStoreFound.SingleClicked += CompanyStoreFound_SingleClicked;
-                _StackLayout.Children.Add(CompanyStoreFound);
-            }
-
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    _StackLayout.Children.Clear();
+                    foreach (var data in _data)
+                    {
+                        var CompanyStoreFound = new CompanyStoreFoundView(data);
+                        CompanyStoreFound.SingleClicked += CompanyStoreFound_SingleClicked;
+                        _StackLayout.Children.Add(CompanyStoreFound);
+                    }
+                });
+            });
             // _StackLayout.Children.LastOrDefault()?.Focus();
         }
 

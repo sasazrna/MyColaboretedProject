@@ -54,8 +54,8 @@ namespace PrigovorHR.Shared.Pages
             _TelephoneEntry.Text = Controllers.LoginRegisterController.LoggedUser.telephone;
             _EMailEntry.Text = Controllers.LoginRegisterController.LoggedUser.email;
             _EMailEntry.IsEnabled = false;
-            _PasswordAgainEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
-            _PasswordEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
+            //_PasswordAgainEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
+            //_PasswordEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
 
             try
             {

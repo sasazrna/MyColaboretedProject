@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 using PrigovorHR.Shared.Controllers;
+using Android.Runtime;
 
 namespace PrigovorHR.Shared.Pages
 {
@@ -36,7 +37,7 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyInfoView.Children.Clear();
                 lytCompanyElementInfoView.Children.Clear();
                 lytCompanyOtherElementsView.Children.Clear();
-                imgOtherStores.IsEnabled = ShowOtherElements && Convert.ToBoolean(companyElement.siblings?.Any());
+                imgOtherStores.Opacity = Convert.ToInt32(ShowOtherElements && Convert.ToBoolean(companyElement.siblings?.Any()));
                 CompanyElement = companyElement;
                 NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
                 
@@ -47,7 +48,7 @@ namespace PrigovorHR.Shared.Pages
 
                 SetCompanyLogo();
 
-                if(CompanyElement.element.type == null)
+                if(CompanyElement.element == null)
                 {
                     lytImages.IsVisible = false;
                     lytUnderlines.IsVisible = false;

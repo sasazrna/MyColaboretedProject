@@ -1,4 +1,4 @@
-﻿using FAB.Forms;
+﻿
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,8 +47,8 @@ namespace PrigovorHR.Shared.Pages
             ComplaintEvaluated = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint.id)?.satisfaction != null;
 
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
-                "nepoznato", Complaint.element.name);
+                Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nije dodijeljeno" :
+                "nije dodijeljeno", Complaint.element.name);
 
             NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
             NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";

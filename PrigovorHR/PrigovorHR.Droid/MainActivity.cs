@@ -19,7 +19,7 @@ using Xamarin.Facebook.Login.Widget;
 using Xamarin.Forms.Platform.Android;
 using Android.Support.V7.App;
 using ImageCircle.Forms.Plugin.Droid;
-using Plugin.Toasts;
+//using Plugin.Toasts;
 using PrigovorHR.Shared;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
@@ -29,6 +29,7 @@ using Plugin.Permissions;
 using Plugin.Media;
 using PrigovorHR.Shared.Views;
 using static PrigovorHR.Droid.AndroidServices;
+using System.Globalization;
 
 namespace PrigovorHR.Droid
 {
@@ -63,8 +64,8 @@ namespace PrigovorHR.Droid
                     break;
             }
 
-            DependencyService.Register<ToastNotification>(); // Register your dependency
-            ToastNotification.Init(this);
+            //DependencyService.Register<ToastNotification>(); // Register your dependency
+            //ToastNotification.Init(this);
             Acr.UserDialogs.UserDialogs.Init(() => (Activity)Forms.Context);
             FacebookSdk.SdkInitialize(Forms.Context);
             MobileBarcodeScanner.Initialize(Application);
@@ -74,6 +75,8 @@ namespace PrigovorHR.Droid
 
             AppGlobal.AppLoaded = false;
             IsUserActive = true;
+
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("hr-HR");
 
             LoadApplication(new App());
             //BackgroundService = new Intent(this, typeof(AndroidServices.GetNewComplaintsBackgroundService));
@@ -96,6 +99,7 @@ namespace PrigovorHR.Droid
            // //TODO: For demo set after 5 seconds.
            // alarmManager.SetInexactRepeating(AlarmType.ElapsedRealtimeWakeup, SystemClock.ElapsedRealtime() + 1000, RefreshTime, pendingIntent);
         }
+
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {

@@ -73,7 +73,7 @@ namespace PrigovorHR.Shared.Views
                     Complaint.closed && LastClosedComplaintEvent != null && LastClosedComplaintEvent.user?.id != Controllers.LoginRegisterController.LoggedUser.id ? LastClosedComplaintEvent.user?.name_surname :
                     Complaint.replies.Any() ?
                     Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ??
-                    "nepoznato" : "nepoznato";
+                    "nije dodijeljeno" : "nije dodijeljeno";
 
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
 

@@ -8,9 +8,12 @@ using Android.Graphics.Drawables;
 using Android.Util;
 using PrigovorHR.Shared.Views;
 using static PrigovorHR.AndroidRenderers.AndroidRenderers;
+using Android.Runtime;
 
 [assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(CurvedCornersLabelRenderer))]
 [assembly: ExportRenderer(typeof(FontAwesomeLabel), typeof(FontAwesomeLabelRenderer))]
+[assembly: ExportRenderer(typeof(EntryEditText), typeof(EntryEditTextRenderer))]
+
 //[assembly: ExportRenderer(typeof(MultiLineLabel), typeof(CustomMultiLineLabelRenderer))]
 
 namespace PrigovorHR.AndroidRenderers
@@ -77,6 +80,16 @@ namespace PrigovorHR.AndroidRenderers
             }
         }
 
+        public class EntryEditTextRenderer : Xamarin.Forms.Platform.Android.EntryRenderer
+        {
+            public EntryEditTextRenderer()
+            { }
+
+            public EntryEditTextRenderer(IntPtr javaReference, JniHandleOwnership transfer)
+            { }
+        }
+
+
         //public class CustomMultiLineLabelRenderer : LabelRenderer
         //{
         //    protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
@@ -92,5 +105,6 @@ namespace PrigovorHR.AndroidRenderers
         //        }
         //    }
         //}
+
     }
 }

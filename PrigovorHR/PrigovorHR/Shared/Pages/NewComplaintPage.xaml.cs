@@ -44,7 +44,7 @@ namespace PrigovorHR.Shared.Pages
                 WriteNewComplaintModel.QuickComplaint = false;
                 WriteNewComplaintModel.element_id = companyElement.id;
                 WriteNewComplaintModel.element_slug = companyElement.slug;
-                ComplaintCoversationHeaderView.SetHeaderInfo("nepoznato", CompanyElement.name);
+                ComplaintCoversationHeaderView.SetHeaderInfo("nije dodijeljeno", CompanyElement.name);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace PrigovorHR.Shared.Pages
                     JsonConvert.DeserializeObject<Models.CompanyElementRootModel>
                     (await DataExchangeServices.GetCompanyElementData(WriteNewComplaintModel.element_slug));
                     CompanyElement = CompanyElementRoot.element;
-                    ComplaintCoversationHeaderView.SetHeaderInfo("nepoznato", CompanyElement.name);
+                    ComplaintCoversationHeaderView.SetHeaderInfo("nije dodijeljeno", CompanyElement.name);
                 });
 
                 editSuggestionText.Text = WriteNewComplaintModel.suggestion ?? string.Empty;
