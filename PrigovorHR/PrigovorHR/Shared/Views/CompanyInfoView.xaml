@@ -19,7 +19,7 @@
         </StackLayout>
 
             <StackLayout Orientation="Vertical" HeightRequest="200" MinimumHeightRequest="200" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <maps:Map HeightRequest="200" MinimumHeightRequest="200" x:Name="CompanyMap" IsShowingUser="true" MapType="Street" />
+            <maps:Map HeightRequest="200" MinimumHeightRequest="200" x:Name="CompanyMap" MapType="Street" />
         </StackLayout>
         </StackLayout>
     </ContentView.Content>

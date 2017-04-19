@@ -57,8 +57,8 @@ namespace PrigovorHR.Shared.Pages
             }
 
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                       Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nepoznato" :
-                       "nepoznato", Complaint.element.name);
+                       Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nije dodijeljeno" :
+                       "nije dodijeljeno", Complaint.element.name);
 
             imgAttachDocs.Text = '\uf1c1'.ToString();
             imgAttachDocs.TextColor = Color.Gray;

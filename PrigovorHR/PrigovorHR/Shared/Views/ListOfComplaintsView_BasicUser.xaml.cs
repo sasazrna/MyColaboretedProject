@@ -63,37 +63,40 @@ namespace PrigovorHR.Shared.Views
         {
             try
             {
-                var ComplaintLastEvent = ComplaintModel.RefToAllComplaints.user.complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm");
-                var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
-
-                var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
-                await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
-                await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
-                var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
-
-                if (UnreadComplaint != null)
+                if (ComplaintId > 0)
                 {
-                    ComplaintModel.RefToAllComplaints.user.unread_complaints =
-                             ComplaintModel.RefToAllComplaints.user.unread_complaints.Where(uc => uc.id != Complaint.id).ToList();
+                    var ComplaintLastEvent = ComplaintModel.RefToAllComplaints.user.complaints.Select(c => DateTime.Parse(c.last_event)).Max().ToString("dd.MM.yyyy. H:mm");
+                    var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
 
-                    Application.Current.Properties.Remove("AllComplaints");
-                    Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
-                    await Application.Current.SavePropertiesAsync();
-                }
+                    var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
+                    await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
+                    await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
+                    var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 
-                MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
-
-                foreach (var lyt in VisibleLayout.Children)
-                {
-                    Complaint = ((ComplaintListView_BasicUser)lyt).Complaint;
-                    if (Complaint.id == ComplaintId)
+                    if (UnreadComplaint != null)
                     {
-                        ((ComplaintListView_BasicUser)lyt).MarkAsReaded();
-                        break;
+                        ComplaintModel.RefToAllComplaints.user.unread_complaints =
+                                 ComplaintModel.RefToAllComplaints.user.unread_complaints.Where(uc => uc.id != Complaint.id).ToList();
+
+                        Application.Current.Properties.Remove("AllComplaints");
+                        Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
+                        await Application.Current.SavePropertiesAsync();
+                    }
+
+                    MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
+
+                    foreach (var lyt in VisibleLayout.Children)
+                    {
+                        Complaint = ((ComplaintListView_BasicUser)lyt).Complaint;
+                        if (Complaint.id == ComplaintId)
+                        {
+                            ((ComplaintListView_BasicUser)lyt).MarkAsReaded();
+                            break;
+                        }
                     }
                 }
             }
-            catch(Exception ex) { Controllers.ExceptionController.HandleException(ex, "public async void FindAndOpenComplaint(int ComplaintId)"); }
+            catch (Exception ex) { Controllers.ExceptionController.HandleException(ex, "public async void FindAndOpenComplaint(int ComplaintId)"); }
         }
 
         public void ChangeVisibleLayout(ComplaintListTabView.Tabs selectedTab, bool ChangedByControl)
@@ -186,6 +189,9 @@ namespace PrigovorHR.Shared.Views
                         await Application.Current.SavePropertiesAsync();
 
                         DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                        LandingViewWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
+                        LandingViewWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
+                        LandingViewWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
                     }
                     else
                     {
@@ -196,9 +202,12 @@ namespace PrigovorHR.Shared.Views
                         Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
                         await Application.Current.SavePropertiesAsync();
 
-                        LandingViewWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
-                        LandingViewWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
-                        LandingViewWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
+                        if (!ComplaintModel.RefToAllComplaints.user.complaints.Any())
+                        {
+                            LandingViewWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = true;
+                            LandingViewWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = false;
+                            LandingViewWithLogin.ReferenceToView.complaintListTabView.IsVisible = false;
+                        }
                     }
                 }
                 else

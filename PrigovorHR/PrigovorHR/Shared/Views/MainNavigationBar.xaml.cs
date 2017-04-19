@@ -59,10 +59,10 @@ namespace PrigovorHR.Shared.Views
                 await Navigation.PopModalAsync(true);
                 if (result.Contains("/"))
                 {
-                    result = result.Substring(0, result.LastIndexOf("/"));
+                //    result = result.Substring(0, result.LastIndexOf("/"));
                     result = result.Remove(0, result.LastIndexOf("/") + 1);
-                    var Result = await DataExchangeServices.GetCompanyElementData(result);
-
+                    var Result = await DataExchangeServices.GetDirectTagResult(result);
+                        
                     if (Result.Contains("Error:"))
                     {
                         Controllers.VibrationController.Vibrate();
@@ -70,7 +70,7 @@ namespace PrigovorHR.Shared.Views
                         return;
                     }
 
-                    var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
+                    var CompanyElement = JsonConvert.DeserializeObject<CompanyElementRootModel>(Result);
 
                     if (CompanyElement != null)
                         Device.BeginInvokeOnMainThread(async () => await Navigation.PushModalAsync(new Company_ElementInfoPage(CompanyElement, true), true));

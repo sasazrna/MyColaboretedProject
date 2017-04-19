@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
-             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms"
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
              xmlns:ImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:pages="clr-namespace:PrigovorHR.Shared.Pages;assembly=PrigovorHR"
@@ -48,65 +47,7 @@
             </StackLayout>
         </ContentView>
 
- <!--<fab:FloatingActionButton
-   x:Name="btnCloseComplaint"
-   NormalColor="#FF7e65"
-   RippleColor="Blue"
-   Size="Normal"
-   Source="clear.png"
-IsVisible="False"
-   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Width,
-                                                              Factor=1,
-                                                              Constant=-75}"
-   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Height,
-                                                              Factor=1,
-                                                              Constant=-75}"/>
 
-        <fab:FloatingActionButton
-        x:Name="btnReplay"
-        NormalColor="#FF7e65"
-        RippleColor="Blue"
-        Size="Normal"
-        Source="chat.png"
-IsVisible="False"
-        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Width,
-                                                              Factor=1,
-                                                              Constant=-75}"
-        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Height,
-                                                              Factor=1,
-                                                              Constant=-75}"/>
-
-        <fab:FloatingActionButton
-   x:Name="Btn1"
-   NormalColor="#FF7e65"
-   RippleColor="Blue"
-   Size="Normal"
-   Source="fab_add.png"
-IsVisible="False"
-   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Width,
-                                                              Factor=1,
-                                                              Constant=-75}"
-   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Height,
-                                                              Factor=1,
-                                                              Constant=-75}" />-->
-
-        <!--<views:FABView x:Name="FABView"
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Width,
-                                                              Factor=1,
-                                                              Constant=-75}"
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Property=Height,
-                                                              Factor=1,
-                                                              Constant=-75}">
-            
-        </views:FABView>-->
     </RelativeLayout>
 </ContentPage>
 

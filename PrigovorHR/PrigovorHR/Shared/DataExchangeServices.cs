@@ -173,10 +173,10 @@ namespace PrigovorHR.Shared
         /// </summary>
         private class ServerCommuncationServices
         {
+            string[] ServiceAddresses = new string[] { "https://prigovor.hr/api/", "http://138.68.85.217/api/" };
             #if DEBUG
-            private const string ServiceAddress = "http://138.68.85.217/api/";
+         
             #else
-            private const string ServiceAddress = "https://prigovor.hr/api/";
             #endif
 
             public enum ServiceCommands : int
@@ -233,10 +233,16 @@ namespace PrigovorHR.Shared
                                                           { ServiceCommands.CheckForNewReplys, "svi-moji-prigovori-nakon-datuma/" },
                                                           { ServiceCommands.EvaluateComplaint, "element/ocijeni" } };
 
-
-
-            internal async Task<string> GetData(ServiceCommands ServiceCommand, string value = null, string serviceAddress = ServiceAddress)
+            internal async Task<string> GetData(ServiceCommands ServiceCommand, string value = null)
             {
+//#if DEBUG
+//                var serviceAddress = ServiceAddresses[1];
+
+//#else
+                                var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
+//#endif
+
+
                 var byteArray = Encoding.UTF8.GetBytes("forge:123123p");
                 var header = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
                 //json = json.Trim('"');
@@ -274,7 +280,9 @@ namespace PrigovorHR.Shared
                                     JObject Jobj = JObject.Parse(value);
                                     fullAddress += Jobj["Id"] + "/" + Jobj["FileName"];
                                 }
-                                if (ServiceCommand != ServiceCommands.GetUserAvatar)
+                                if (ServiceCommand != ServiceCommands.GetUserAvatar &
+                                    ServiceCommand != ServiceCommands.GetComplaintAttachmentData &
+                                    ServiceCommand != ServiceCommands.GetReplyAttachmentData)
                                     fullAddress += value;
                                 response = await client.GetAsync(fullAddress);
                                 break;
@@ -323,10 +331,17 @@ namespace PrigovorHR.Shared
                 }
             }
 
-            internal async Task<string> SendData(ServiceCommands ServiceCommand, string value, byte[] byteData = null, string serviceAddress = ServiceAddress)
+            internal async Task<string> SendData(ServiceCommands ServiceCommand, string value, byte[] byteData = null)
             {
                 try
                 {
+//#if DEBUG
+//                    var serviceAddress = ServiceAddresses[1];
+
+//#else
+                              var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
+//#endif
+
                     using (var client = new HttpClient())
                     {
                         HttpContent content = new StringContent(value, Encoding.UTF8, "application/json");

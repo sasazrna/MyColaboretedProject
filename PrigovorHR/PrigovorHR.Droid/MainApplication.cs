@@ -18,6 +18,7 @@ namespace PrigovorHR.Droid
         public MainApplication(IntPtr handle, JniHandleOwnership transer)
           :base(handle, transer)
         {
+
         }
 
         public override void OnCreate()

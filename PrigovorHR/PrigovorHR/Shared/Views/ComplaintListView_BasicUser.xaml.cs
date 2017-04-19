@@ -57,12 +57,12 @@ namespace PrigovorHR.Shared.Views
                 if(IsUnreaded)
                 {
                     lblShortComplaint.FontAttributes = FontAttributes.Bold | FontAttributes.Italic;
-                    lblRead.Text = FontAwesomeLabel.Images.FAEnvelope;
+                    lblRead.Text = FontAwesomeLabel.Images.FAPEnvelopeClosed;
                     lblRead.TextColor = Color.FromHex("#FF7e65");
                 }
                 else
                 {
-                    lblRead.Text = FontAwesomeLabel.Images.FAEnvelopeO;
+                    lblRead.Text = FontAwesomeLabel.Images.FAPEnvelopeOpen;
                     lblRead.TextColor = Color.Gray;
                 }
 
@@ -73,7 +73,7 @@ namespace PrigovorHR.Shared.Views
                     Complaint.closed && LastClosedComplaintEvent != null && LastClosedComplaintEvent.user?.id != Controllers.LoginRegisterController.LoggedUser.id ? LastClosedComplaintEvent.user?.name_surname :
                     Complaint.replies.Any() ?
                     Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ??
-                    "nepoznato" : "nepoznato";
+                    "nije dodijeljeno" : "nije dodijeljeno";
 
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
 

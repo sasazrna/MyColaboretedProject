@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" 
              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" 
-             xmlns:fab="clr-namespace:FAB.Forms;assembly=FAB.Forms" 
              x:Class="PrigovorHR.Shared.Pages.Company_ElementInfoPage" 
              BackgroundColor="White">
 
@@ -63,13 +62,14 @@
             </StackLayout>
         </ContentView>
 
-        <!--<fab:FloatingActionButton x:Name="btnWriteComplaint" NormalColor="#FF7e65" RippleColor="Blue" Size="Normal" Source="edit.png" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+        <Image x:Name="btnWriteComplaint" Source="FaFabButtonPen.png" HeightRequest="55" WidthRequest="55" 
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Width,
                                                               Factor=1,
                                                               Constant=-75}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
                                                               Property=Height,
                                                               Factor=1,
-                                                              Constant=-75}" />-->
+                                                              Constant=-75}" />
 
     </RelativeLayout>
 </ContentPage>

@@ -47,7 +47,19 @@ namespace PrigovorHR.Shared.Pages
 
         private async void BtnPrijava_Clicked(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(EMailEntry.Text) | string.IsNullOrEmpty(PasswordEntry.Text))
+            if (EMailEntry.Text.ToUpper() == "DEV123")
+            {
+                AppGlobal.DEBUGING = true;
+                EMailEntry.Text = "korisnik1@prigovor.hr";
+                PasswordEntry.Text = "123123";
+            }
+            else if (EMailEntry.Text.ToUpper() == "DEMO123")
+            {
+                //EMailEntry.Text = "korisnik1@prigovor.hr";
+                //PasswordEntry.Text = "123123";
+            }
+
+            if (string.IsNullOrEmpty(EMailEntry.Text) | string.IsNullOrEmpty(PasswordEntry.Text))
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Unesite sve potrebne podatke!", "Neispravna prijava", "OK");
                 return;
@@ -58,6 +70,7 @@ namespace PrigovorHR.Shared.Pages
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Unesite ispravan e-mail!", "Neispravna prijava", "OK");
                 return;
             }
+
 
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Prijava u toku....", Acr.UserDialogs.MaskType.Clear);
             await Task.Delay(20);

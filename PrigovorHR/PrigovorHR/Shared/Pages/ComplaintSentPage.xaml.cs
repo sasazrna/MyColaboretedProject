@@ -18,7 +18,7 @@ namespace PrigovorHR.Shared.Pages
         {
             InitializeComponent();
             lblMessage.Text = "";
-            lblComplaintSent.Text = IsResponse ? "Vaš odgovor je poslan" : "Vaš prigovor je poslan";
+            lblComplaintSent.Text = IsResponse ? "Vaš odgovor je poslan" : "Vaš prigovor je poslan" + System.Environment.NewLine + System.Environment.NewLine + Message;
             ClosePage();
         }
 
@@ -27,6 +27,11 @@ namespace PrigovorHR.Shared.Pages
             await Task.Delay(3500);
             await Navigation.PopModalAsync(true);
             _PageClosed?.Invoke();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

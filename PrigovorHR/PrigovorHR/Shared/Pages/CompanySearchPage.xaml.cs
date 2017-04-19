@@ -19,11 +19,14 @@ namespace PrigovorHR.Shared.Pages
         public delegate void SearchDeactivatedHandler();
         private Controllers.SearchController SearchController;
         private Controllers.TAPController TAPController;
+
         public CompanySearchPage()
         {
             InitializeComponent();
             imgClose.Text = Views.FontAwesomeLabel.Images.FAClose;
             imgClose.TextColor = Color.FromHex("#aaa4a4");
+            SearchOptionsLayout.IsVisible = Models.ComplaintModel.RefToAllComplaints.user.complaints.Count < 4;
+
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () => { entrySearch.Focus(); return false; });
 
             SearchController = new Controllers.SearchController(null, entrySearch);

@@ -2,9 +2,9 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PrigovorHR.Shared.Views.SplashScreenView" BackgroundColor="White">
-  <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
-    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-      <Image Source="PrigovorLogoMobile.png" Aspect="AspectFit" Scale="2" HorizontalOptions="FillAndExpand"  Margin="0, 150, 0,0"></Image>
-    </StackLayout>
-  </StackLayout>
+  <!--<StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">-->
+    <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >-->
+      <Image Source="PrigovorLogoMobile.png" Aspect="AspectFit"></Image>
+    <!--</StackLayout>-->
+  <!--</StackLayout>-->
 </ContentView>

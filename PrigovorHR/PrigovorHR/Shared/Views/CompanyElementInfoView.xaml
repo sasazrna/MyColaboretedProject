@@ -21,7 +21,7 @@
             </StackLayout>
 
                 <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" MinimumHeightRequest="200" HeightRequest="200" HorizontalOptions="FillAndExpand">
-                <maps:Map MinimumHeightRequest="200" HeightRequest="200" x:Name="ElementMap" IsShowingUser="true" MapType="Street"/>
+                <maps:Map MinimumHeightRequest="200" HeightRequest="200" x:Name="ElementMap" MapType="Street"/>
             </StackLayout>
 
             <StackLayout x:Name="lytCompanyElementSectionViewList">

@@ -70,6 +70,7 @@ namespace PrigovorHR.Shared.Pages
                 satisfaction = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[0],
                 speed = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[1],
                 communication_level_user = ComplaintEvaluationView.StoredEvaluationGrades.Values.ToList()[2],
+                rate_element = 1,
                 complaint_id = Complaint.id
             };
 
