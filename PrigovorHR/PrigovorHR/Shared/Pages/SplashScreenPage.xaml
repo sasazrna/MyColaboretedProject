@@ -5,7 +5,7 @@
  <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand">
     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
      
-    <Image Source="PrigovorLogoMobile.png" Scale="2" Margin="0, 150, 0,0"></Image>
+    <Image Source="PrigovorLogoMobile.png" Scale="2" ></Image>
    
     </StackLayout>
  </StackLayout>
