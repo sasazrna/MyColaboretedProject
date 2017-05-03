@@ -47,9 +47,9 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout x:Name="lytSuggestion"  Orientation="Vertical" HorizontalOptions="FillAndExpand" IsVisible="False">
+            <StackLayout x:Name="lytSuggestion" Orientation="Vertical" HorizontalOptions="FillAndExpand" IsVisible="False">
                 <Label Text="SUGESTIJA" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Start" TextColor="#FF7e65" Margin="0,15,0,0" />
-                <Label x:Name="lblSuggestion" Text="text sugestije" FontSize="Small" HorizontalOptions="Start" TextColor="Black"   />
+                <Label x:Name="lblSuggestion" Text="text sugestije" FontSize="Small" HorizontalOptions="Start" HorizontalTextAlignment="Start" TextColor="Black"   />
             </StackLayout>
             
             <StackLayout x:Name="lytComplaintEvaluationLayout" IsVisible="False">
