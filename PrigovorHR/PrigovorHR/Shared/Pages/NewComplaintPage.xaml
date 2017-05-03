@@ -10,7 +10,7 @@
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 
             <StackLayout>
-                <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+                <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
                 <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView" Margin="0,15,0,0"></views:ComplaintCoversationHeaderView>
 
                 <ScrollView>

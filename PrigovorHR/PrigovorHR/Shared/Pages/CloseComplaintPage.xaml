@@ -6,7 +6,7 @@
              x:Class="PrigovorHR.Shared.Pages.CloseComplaintPage">
 
     <StackLayout>
-        <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+        <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
         <ScrollView>
             <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand"  >
                 <Label Text="Zahvaljujemo na Vašem angažmanu i želji da unaprijedite našu uslugu." FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>

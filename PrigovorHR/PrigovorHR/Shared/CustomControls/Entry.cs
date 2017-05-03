@@ -66,10 +66,13 @@ namespace PrigovorHR.Shared.CustomControls
 
         private  void Entry_Unfocused(object sender, FocusEventArgs e)
         {
-             lblLabel.FadeTo(0, 200);
-             lblLabel.TranslateTo(0, 40, 200);
-            ((StackLayout)Parent).Children.RemoveAt(EntryPositionInStack);
-            EntryPositionInStack = 0;
+            if (EntryPositionInStack > 0)
+            {
+                lblLabel.FadeTo(0, 200);
+                lblLabel.TranslateTo(0, 40, 200);
+                ((StackLayout)Parent).Children.RemoveAt(EntryPositionInStack);
+                EntryPositionInStack = 0;
+            }
         }
 
         private  void Entry_Focused(object sender, FocusEventArgs e)

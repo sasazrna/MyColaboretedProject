@@ -25,12 +25,12 @@ namespace PrigovorHR.Shared.Views
 
         private async void _btnLogin_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new LoginPage());
+            await Navigation.PushAsync(new NavigationPage(new LoginPage()) { BackgroundColor = Color.White });
         }
 
         private async void BtnCreateAccount_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new RegisterPage());
+            await Navigation.PushAsync(new NavigationPage(new RegisterPage()) { BackgroundColor = Color.White });
         }
     }
 }

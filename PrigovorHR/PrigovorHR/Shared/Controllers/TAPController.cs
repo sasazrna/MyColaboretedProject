@@ -49,7 +49,13 @@ namespace PrigovorHR.Shared.Controllers
                         DoubleTapped?.Invoke(TappedView.Id.ToString(), TappedView);
 
                     NumberOfTaps = 0;
-                    TimerStarted = false;
+
+                    Device.StartTimer(new TimeSpan(0, 0, 0, 0, TapResetTime*2), () =>
+                    {
+                        TimerStarted = false;
+                        return false;
+                    });
+
                     return false;//Stop the timer
                 });
             }

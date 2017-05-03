@@ -27,20 +27,17 @@ namespace PrigovorHR.Shared.Pages
             SurnameEntry.Completed += Entry_Completed;
             PasswordEntry.Completed += Entry_Completed;
             btnRegister.Clicked += btnRegister_Clicked;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             TAPController = new TAPController(lblTerms);
             TAPController.SingleTaped += (string id, View view) => { Device.OpenUri(new Uri("https://www.prigovor.hr/hr/uvjeti-koristenja-fizicke-osobe")); };
         }
 
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
-            await Navigation.PopModalAsync();
-        }
+
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            //    NavigationBar.InitBackButtonPressed();
+            return OnBackButtonPressed();
         }
 
         private async void btnRegister_Clicked(object sender, EventArgs e)
@@ -107,7 +104,7 @@ namespace PrigovorHR.Shared.Pages
             if (user != null)
             {
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                await Navigation.PopModalAsync(true);
+                await Navigation.PopAsync(true);
             }
             else
             {

@@ -12,7 +12,7 @@
                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 
             <StackLayout VerticalOptions="FillAndExpand">
-                <Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>
+                <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
 
                 <!--#region TabView dio-->
 

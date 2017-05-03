@@ -5,7 +5,7 @@
              x:Class="PrigovorHR.Shared.Pages.NewComplaintReplyPage" BackgroundColor="White">
 
     <StackLayout>
-        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
         <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView" Margin="0, 15,0,0">
         </views:ComplaintCoversationHeaderView>
 

@@ -25,18 +25,12 @@ namespace PrigovorHR.Shared.Pages
                 Url = "http://138.68.85.217/hr/uvjeti-koristenja-fizicke-osobe"
             };
         
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
-        }
-
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
-            await Navigation.PopModalAsync(true);
+            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            return OnBackButtonPressed();
         }
     }
 }

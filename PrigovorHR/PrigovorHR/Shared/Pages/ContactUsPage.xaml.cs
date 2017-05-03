@@ -17,7 +17,7 @@ namespace PrigovorHR.Shared.Pages
         {
             InitializeComponent();
             btnSend.Clicked += _btnSend_Clicked;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         private async void _btnSend_Clicked(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace PrigovorHR.Shared.Pages
             if (await DataExchangeServices.ContactUs(JsonConvert.SerializeObject(ContactInfo)))
             {
                 var MessageSentPage = new MessageSentPage();
-                MessageSentPage._PageClosed += (() => { Navigation.PopModalAsync(true); });
+                MessageSentPage.PageClosed += (() => { Navigation.PopModalAsync(true); });
                 await Navigation.PushModalAsync(MessageSentPage);
             }
             else
@@ -41,13 +41,12 @@ namespace PrigovorHR.Shared.Pages
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            return OnBackButtonPressed();
         }
     }
 }

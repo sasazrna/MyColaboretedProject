@@ -6,7 +6,7 @@
              x:Class="PrigovorHR.Shared.Pages.RegisterPage">
 
     <StackLayout>
-        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
         <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
             <ScrollView x:Name="LoginScrollView">
                 <!--<Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" LineBreakMode="CharacterWrap" />-->

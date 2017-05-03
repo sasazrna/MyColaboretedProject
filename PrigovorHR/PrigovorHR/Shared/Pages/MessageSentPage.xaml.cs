@@ -12,7 +12,7 @@ namespace PrigovorHR.Shared.Pages
     public partial class MessageSentPage : ContentPage
     {
         public delegate void PageClosedHandler();
-        public event PageClosedHandler _PageClosed;
+        public event PageClosedHandler PageClosed;
         public MessageSentPage()
         {
             InitializeComponent();
@@ -24,7 +24,13 @@ namespace PrigovorHR.Shared.Pages
         {
             await Task.Delay(3500);
             await Navigation.PopModalAsync(true);
-            _PageClosed?.Invoke();
+            PageClosed?.Invoke();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            ClosePage();
+            return true;
         }
     }
 }

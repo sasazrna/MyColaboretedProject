@@ -23,7 +23,7 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
             Complaint = complaint;
             btnZatvoriPrigovor.Clicked += BtnZatvoriPrigovor_Clicked;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             lytLastMessage.IsVisible = !complaint.closed;
             btnZatvoriPrigovor.Text = !complaint.closed ? "Zatvori prigovor" : "Ocijeni";
         }
@@ -54,7 +54,7 @@ namespace PrigovorHR.Shared.Pages
             {
                 Acr.UserDialogs.UserDialogs.Instance.ShowSuccess( "Vaš prigovor je uspješno zatvoren!", 3500);
                 await Task.Delay(3500);
-                await Navigation.PopModalAsync(true);
+                await Navigation.PopAsync(true);
                 ComplaintClosed?.Invoke(Complaint.id);
             }
             else
@@ -78,7 +78,7 @@ namespace PrigovorHR.Shared.Pages
             {
                 Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Uspješno ste ocijenili rješenje prigovora", 3500);
                 await Task.Delay(3500);
-                await Navigation.PopModalAsync(true);
+                await Navigation.PopAsync(true);
                 ComplaintClosed?.Invoke(Complaint.id);
             }
             else
@@ -89,13 +89,12 @@ namespace PrigovorHR.Shared.Pages
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            return OnBackButtonPressed();
         }
     }
 }

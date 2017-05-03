@@ -9,7 +9,7 @@ namespace PrigovorHR.Shared.Controllers
     {
         //   private ZXingScannerPage ZSP;
         public delegate void ScanCompleteHandler(string result, bool isQRFormat);
-        public static event ScanCompleteHandler ScanCompletedEvent;
+        public event ScanCompleteHandler ScanCompletedEvent;
         public QRScannerController()
         {
 
@@ -19,16 +19,15 @@ namespace PrigovorHR.Shared.Controllers
                 PossibleFormats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.QR_CODE, ZXing.BarcodeFormat.DATA_MATRIX },
                 TryHarder = true,
                 UseFrontCameraIfAvailable = false,
-                UseNativeScanning = true
-            }, new StackLayout());
-
+                UseNativeScanning = true,
+            }, new StackLayout()).AutoFocus();
 
             OnScanResult += QRScannerController_OnScanResult;
         }
 
         private void QRScannerController_OnScanResult(ZXing.Result result)
         {
-            //await Navigation.PopModalAsync(true);
+           // Navigation.PopAsync(true);
             IsScanning = false;
             IsAnalyzing = false;
             PauseAnalysis();
@@ -42,5 +41,7 @@ namespace PrigovorHR.Shared.Controllers
             IsAnalyzing = true;
             IsVisible = true;
         }
+
+    
     }
 }

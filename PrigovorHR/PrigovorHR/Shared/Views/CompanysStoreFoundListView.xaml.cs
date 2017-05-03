@@ -50,6 +50,7 @@ namespace PrigovorHR.Shared.Views
             if (!IsDirectTag)
             {
                 CompaniesStoresFoundInfo = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
+                CompaniesStoresFoundInfo = CompaniesStoresFoundInfo.Where(c => c.type_id <2).ToList();
                 DisplayData(CompaniesStoresFoundInfo);
                 if (!CompaniesStoresFoundInfo.Any()) { entrySearch.Focus(); }
             }
@@ -59,7 +60,7 @@ namespace PrigovorHR.Shared.Views
                 {
                     var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
                     var NewCompanyElementInfoPage = new Company_ElementInfoPage(CompanyElement, true);
-                    await Navigation.PushModalAsync(NewCompanyElementInfoPage);
+                    await Navigation.PushAsync(new NavigationPage(NewCompanyElementInfoPage) { BackgroundColor = Color.White });
 
                     Device.BeginInvokeOnMainThread(async () => await Navigation.PopPopupAsync(true));
                 }
@@ -94,6 +95,9 @@ namespace PrigovorHR.Shared.Views
                         CompanyStoreFound.SingleClicked += CompanyStoreFound_SingleClicked;
                         _StackLayout.Children.Add(CompanyStoreFound);
                     }
+
+                    if (!_data.Any())
+                        _StackLayout.Children.Add(new Label() { Text = "Nema rezultata", FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)), TextColor=Color.Black, VerticalOptions= LayoutOptions.CenterAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand, Margin= new Thickness(20, 20, 20, 20) });
                 });
             });
             // _StackLayout.Children.LastOrDefault()?.Focus();

@@ -47,11 +47,11 @@ namespace PrigovorHR.Shared.Pages
             ComplaintEvaluated = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint.id)?.satisfaction != null;
 
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nije dodijeljeno" :
-                "nije dodijeljeno", Complaint.element.name);
+                Complaint.replies.LastOrDefault(r => r.user_id != LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
+                Complaint.element.name, Complaint.element.name);
 
-            NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
-            NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
+       //     NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
+            //NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
 
             scrView.Scrolled += ScrView_Scrolled;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
@@ -193,12 +193,12 @@ namespace PrigovorHR.Shared.Pages
         private async void InitReply()
         {
             var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
-            await Navigation.PushModalAsync(NewComplaintReplyPage);
+            await Navigation.PushAsync(new NavigationPage(NewComplaintReplyPage) { BackgroundColor = Color.White });
             NewComplaintReplyPage.ReplaySentEvent += (int id) =>
             {
-                Navigation.PopModalAsync(true);
+                Navigation.PopAsync(true);
                 Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
-                Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Views.ComplaintListTabView.Tabs.ActiveComplaints, false);
+                Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
             };
         }
     
@@ -208,13 +208,13 @@ namespace PrigovorHR.Shared.Pages
                 Complaint.complaint_events.Any(ce => ce.closed) && !ComplaintEvaluated)
             {
                 var CloseComplaintPage = new CloseComplaintPage(Complaint);
-                await Navigation.PushModalAsync(CloseComplaintPage);
+                await Navigation.PushAsync(new NavigationPage(CloseComplaintPage) { BackgroundColor = Color.White });
 
                 CloseComplaintPage.ComplaintClosed += (int id) =>
                 {
-                    Navigation.PopModalAsync(true);
+                    Navigation.PopAsync(true);
                     Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
-                    Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Views.ComplaintListTabView.Tabs.ClosedComplaints, false);
+                    Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
                 };
             }
             else
@@ -232,9 +232,9 @@ namespace PrigovorHR.Shared.Pages
                              {
                                  if (await CloseComplaintNoReview())
                                  {
-                                     await Navigation.PopModalAsync(true);
+                                     await Navigation.PopAsync(true);
                                      Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
-                                     Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Views.ComplaintListTabView.Tabs.ClosedComplaints, false);
+                                     Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
                                  }
                              }
                          }
@@ -296,23 +296,23 @@ namespace PrigovorHR.Shared.Pages
             {
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                 scrView.IsVisible = true;
-                NavigationBar.lblNavigationTitle.Text = "Prigovor.hr";
-                NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height; return false;
+                //NavigationBar.lblNavigationTitle.Text = "Prigovor.hr";
+                //   NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height; 
+                return false;
             });
 
-            NavigationBar.MinimumHeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+           // NavigationBar.MinimumHeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
+          //  NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            return OnBackButtonPressed();
         }
     }
 }

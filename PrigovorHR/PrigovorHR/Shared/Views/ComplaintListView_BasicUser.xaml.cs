@@ -73,7 +73,7 @@ namespace PrigovorHR.Shared.Views
                     Complaint.closed && LastClosedComplaintEvent != null && LastClosedComplaintEvent.user?.id != Controllers.LoginRegisterController.LoggedUser.id ? LastClosedComplaintEvent.user?.name_surname :
                     Complaint.replies.Any() ?
                     Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ??
-                    "nije dodijeljeno" : "nije dodijeljeno";
+                    Complaint.element.name : Complaint.element.name;
 
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
 
@@ -129,7 +129,8 @@ namespace PrigovorHR.Shared.Views
             await view.FadeTo(0.3, 45);
             await view.FadeTo(1, 115);
 
-            await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
+          //  Pages.APPMasterDetailPage.ReferenceToView.Detail = new Pages.ComplaintPage(Complaint);
+            await Navigation.PushAsync(new Pages.ComplaintPage(Complaint), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
             var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 
@@ -142,7 +143,7 @@ namespace PrigovorHR.Shared.Views
                 await Application.Current.SavePropertiesAsync();
             }
 
-            MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
+            //MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
             lblShortComplaint.FontAttributes = FontAttributes.None;
         }
 

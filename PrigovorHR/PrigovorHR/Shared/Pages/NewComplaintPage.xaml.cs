@@ -44,7 +44,7 @@ namespace PrigovorHR.Shared.Pages
                 WriteNewComplaintModel.QuickComplaint = false;
                 WriteNewComplaintModel.element_id = companyElement.id;
                 WriteNewComplaintModel.element_slug = companyElement.slug;
-                ComplaintCoversationHeaderView.SetHeaderInfo("nije dodijeljeno", CompanyElement.name);
+                ComplaintCoversationHeaderView.SetHeaderInfo(CompanyElement.name, CompanyElement.name);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace PrigovorHR.Shared.Pages
                     JsonConvert.DeserializeObject<Models.CompanyElementRootModel>
                     (await DataExchangeServices.GetCompanyElementData(WriteNewComplaintModel.element_slug));
                     CompanyElement = CompanyElementRoot.element;
-                    ComplaintCoversationHeaderView.SetHeaderInfo("nije dodijeljeno", CompanyElement.name);
+                    ComplaintCoversationHeaderView.SetHeaderInfo(CompanyElement.name, CompanyElement.name);
                 });
 
                 editSuggestionText.Text = WriteNewComplaintModel.suggestion ?? string.Empty;
@@ -100,7 +100,7 @@ namespace PrigovorHR.Shared.Pages
             TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendComplaint, SadaStackButton, RanijeStackButton);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editComplaintText.TextChanged += EditComplaintText_TextChanged;
             editSuggestionText.TextChanged += EditComplaintText_TextChanged;
             arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;           
@@ -143,7 +143,7 @@ namespace PrigovorHR.Shared.Pages
         private async void InitAttachDocs()
         {
             var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-            if (!string.IsNullOrEmpty(Picker.FileName))
+            if (!string.IsNullOrEmpty(Picker?.FileName))
             {
                 var AttachmentView = new AttachmentView(false, 0, 0, Picker.FileName, true, Picker.DataArray);
                 lytAttachments.Children.Add(AttachmentView);
@@ -321,12 +321,6 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
-        }
-
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
             if (!string.IsNullOrEmpty(editComplaintText.Text) | lytAttachments.Children.Any())
             {
                 Acr.UserDialogs.UserDialogs.Instance.ActionSheet(
@@ -336,15 +330,17 @@ namespace PrigovorHR.Shared.Pages
                         // Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
                         UseBottomSheet = false,
                         Options = new List<Acr.UserDialogs.ActionSheetOption>()
-                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopModalAsync(true); })),
+                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopAsync(true); })),
                       new Acr.UserDialogs.ActionSheetOption("NE", ()=> { return; } ) }
                     });
 
             }
-            else await Navigation.PopModalAsync(true);
+            else Navigation.PopAsync(true);
 
             Application.Current.Properties.Remove("WriteComplaintAutoSave");
-            await Application.Current.SavePropertiesAsync();
+            Application.Current.SavePropertiesAsync();
+
+            return false;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace PrigovorHR.Shared.Pages
     public partial class LandingPage 
     {
         private LandingViewNoLogin LandingViewNoLogin=null;
-        private LandingViewWithLogin LandingViewWithLogin=null;
+        private LandingPageWithLogin LandingViewWithLogin=null;
         public LandingPage()
         {
             InitializeComponent();
@@ -39,10 +39,11 @@ namespace PrigovorHR.Shared.Pages
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        LandingViewNoLogin = new LandingViewNoLogin();
+                       LandingViewNoLogin = new LandingViewNoLogin();
                         Content = LandingViewNoLogin;
                         BackgroundColor = Color.FromHex("#30343f");
                         Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+                        //Navigation.PushAsync(new NavigationPage(new LandingViewNoLogin()));
                     });
                 }
             }
@@ -73,28 +74,29 @@ namespace PrigovorHR.Shared.Pages
 
         private void LoginRegisterController__UserLoggedInOutEvent(bool isLogged)
         {
-            Device.BeginInvokeOnMainThread( () =>
-            {
-                if (!isLogged)
-                {
-                    LandingViewNoLogin = new LandingViewNoLogin();
-                    Content = LandingViewNoLogin;
-                    BackgroundColor = Color.FromHex("#30343f");
+            Device.BeginInvokeOnMainThread(async () =>
+           {
+               if (!isLogged)
+               {
+                   LandingViewNoLogin = new LandingViewNoLogin();
+                   Content = LandingViewNoLogin;
+                   BackgroundColor = Color.FromHex("#30343f");
+                   Navigation.PopToRootAsync();
+                    // Navigation.PushAsync(new NavigationPage(new LandingViewNoLogin()));
                 }
-                else
-                {
-                    LandingViewWithLogin = new LandingViewWithLogin();
-                    Content = LandingViewWithLogin;
-                    BackgroundColor = Color.White;
-                }
-            });
+               else
+               {
+                    //LandingViewWithLogin = new LandingViewWithLogin();
+                    //Content = LandingViewWithLogin;
+                    await Navigation.PushAsync(new APPMasterDetailPage());
+
+                   BackgroundColor = Color.White;
+               }
+           });
         }
 
         protected override bool OnBackButtonPressed()
         {
-            if (LandingViewWithLogin.ReferenceToView != null)
-                return LandingViewWithLogin.ReferenceToView.CloseMenu();
-            else
                 return base.OnBackButtonPressed();
         }
     }

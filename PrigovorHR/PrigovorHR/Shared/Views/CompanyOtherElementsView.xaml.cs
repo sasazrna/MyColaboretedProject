@@ -103,7 +103,7 @@ namespace PrigovorHR.Shared.Views
             var companyElement =
                 JsonConvert.DeserializeObject<CompanyElementRootModel>(await DataExchangeServices.GetCompanyElementData(CompanyElement.slug));
 
-            await Navigation.PushModalAsync(new Company_ElementInfoPage(companyElement, false));
+            await Navigation.PushAsync(new NavigationPage(new Company_ElementInfoPage(companyElement, false)) { BackgroundColor = Color.White });
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 
@@ -112,20 +112,5 @@ namespace PrigovorHR.Shared.Views
             var ScrollDirection = e.ScrollY > LastScrollValue ? Views.CompanyElementsListView.ScrollDirection.Up : Views.CompanyElementsListView.ScrollDirection.Down;
             CompanyElementsListView.Scrolling(LastScrollValue = e.ScrollY, ScrollDirection);
         }
-
-        //protected override bool OnBackButtonPressed()
-        //{
-        //    Device.BeginInvokeOnMainThread(async () =>
-        //    {
-        //        await NavigationBar.imgBack.RotateTo(90, 75);
-        //        await Navigation.PopModalAsync(true);
-        //    });
-        //    return true;
-        //}
-
-        //private async void NavigationBar_BackButtonPressedEvent()
-        //{
-        //    await Navigation.PopModalAsync(true);
-        //}
     }
 }

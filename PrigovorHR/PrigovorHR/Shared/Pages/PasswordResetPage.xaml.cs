@@ -20,7 +20,7 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
 
             btnSendResetRequest.Clicked += BtnSendResetRequest_Clicked;
-            NavigationBar.BackButtonPressedEvent += (async () => { await Navigation.PopModalAsync(); });
+            //NavigationBar.BackButtonPressedEvent += (async () => { await Navigation.PopModalAsync(); });
         }
 
         private async void BtnSendResetRequest_Clicked(object sender, EventArgs e)
@@ -57,12 +57,7 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            Device.BeginInvokeOnMainThread(async () => 
-            {
-                await NavigationBar.imgBack.RotateTo(90, 75);
-                await Navigation.PopModalAsync();
-            });
-            return true;
+            return OnBackButtonPressed();
         }
     }
 }

@@ -39,7 +39,7 @@ namespace PrigovorHR.Shared.Pages
                 lytCompanyOtherElementsView.Children.Clear();
                 imgOtherStores.Opacity = Convert.ToInt32(ShowOtherElements && Convert.ToBoolean(companyElement.siblings?.Any()));
                 CompanyElement = companyElement;
-                NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+                //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
                 
                 ReferenceToView = this;
                 lytCompanyElementUnderline.IsVisible = true;
@@ -98,21 +98,21 @@ namespace PrigovorHR.Shared.Pages
         private async void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
             var NewComplaintPage = new NewComplaintPage(CompanyElement.element);
-            await Navigation.PushModalAsync(NewComplaintPage, true);
-            NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopModalAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+            await Navigation.PushAsync(new NavigationPage(NewComplaintPage) { BackgroundColor = Color.White }, true);
+            NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
         }
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
-            await Navigation.PopModalAsync(true);
+            await Navigation.PopAsync(true);
         }
 
         protected override bool OnBackButtonPressed()
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await NavigationBar.imgBack.RotateTo(90, 75);
-                await Navigation.PopModalAsync(true);
+              //  await NavigationBar.imgBack.RotateTo(90, 75);
+                await Navigation.PopAsync(true);
             });
             return true;
         }
@@ -168,7 +168,7 @@ namespace PrigovorHR.Shared.Pages
                 btnWriteComplaint.IsVisible = false;
             }
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-            NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
+         //   NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
         }
     }
 }

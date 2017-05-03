@@ -2,6 +2,7 @@
 using Plugin.Connectivity;
 using PrigovorHR.Shared.Controllers;
 using PrigovorHR.Shared.Models;
+using PrigovorHR.Shared.Pages;
 using Refractored.XamForms.PullToRefresh;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace PrigovorHR.Shared.Views
         private const int MaximumDisplayedComplaintsPerRequest = 6;
         private double CurrentMaximumScrollValue = 0;
         private bool AllComplaintsVisible = false;
-        private Dictionary<ComplaintListTabView.Tabs, StackLayout> Layouts = new Dictionary<ComplaintListTabView.Tabs, StackLayout>();
+        private Dictionary<int, StackLayout> Layouts = new Dictionary<int, StackLayout>();
         private StackLayout VisibleLayout;
-        private ComplaintListTabView.Tabs SelectedTab;
+        private int SelectedTab;
         private bool LoadOnlyNewComplaints = false;
 
         public ListOfComplaintsView_BasicUser()
@@ -42,12 +43,12 @@ namespace PrigovorHR.Shared.Views
             DisplayedComplaints.Add(lytClosedComplaints.Id.ToString(), 0);
             DisplayedComplaints.Add(lytStoredComplaints.Id.ToString(), 0);
             DisplayedComplaints.Add(lytUnsentComplaints.Id.ToString(), 0);
-            Layouts.Add(ComplaintListTabView.Tabs.ActiveComplaints, lytActiveComplaints);
-            Layouts.Add(ComplaintListTabView.Tabs.ClosedComplaints, lytClosedComplaints);
-            Layouts.Add(ComplaintListTabView.Tabs.DraftComplaints, lytStoredComplaints);
-            Layouts.Add(ComplaintListTabView.Tabs.UnsentComplaints, lytUnsentComplaints);
-            SelectedTab = ComplaintListTabView.Tabs.ActiveComplaints;
-            VisibleLayout = Layouts[ComplaintListTabView.Tabs.ActiveComplaints];
+            Layouts.Add(1, lytActiveComplaints);
+            Layouts.Add(2, lytClosedComplaints);
+            Layouts.Add(3, lytStoredComplaints);
+            Layouts.Add(4, lytUnsentComplaints);
+            SelectedTab = 1;
+            VisibleLayout = Layouts[1];
             LoadComplaints();
             scrview.Scrolled += Scrview_Scrolled;
             CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
@@ -69,7 +70,7 @@ namespace PrigovorHR.Shared.Views
                     var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
 
                     var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
-                    await Navigation.PushModalAsync(new Pages.ComplaintPage(Complaint), true);
+                    await Navigation.PushAsync(new NavigationPage(new Pages.ComplaintPage(Complaint)) { BackgroundColor = Color.White }, true);
                     await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
                     var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 
@@ -83,7 +84,7 @@ namespace PrigovorHR.Shared.Views
                         await Application.Current.SavePropertiesAsync();
                     }
 
-                    MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
+                    //MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
 
                     foreach (var lyt in VisibleLayout.Children)
                     {
@@ -99,7 +100,7 @@ namespace PrigovorHR.Shared.Views
             catch (Exception ex) { Controllers.ExceptionController.HandleException(ex, "public async void FindAndOpenComplaint(int ComplaintId)"); }
         }
 
-        public void ChangeVisibleLayout(ComplaintListTabView.Tabs selectedTab, bool ChangedByControl)
+        public void ChangeVisibleLayout(int selectedTab, bool ChangedByControl)
         {
             SelectedTab = selectedTab;
             VisibleLayout = Layouts[selectedTab];
@@ -107,8 +108,8 @@ namespace PrigovorHR.Shared.Views
             foreach (var Layout in Layouts.Where(l => l.Key != selectedTab))
                 Layout.Value.IsVisible = false;
 
-            if (!ChangedByControl)
-                ComplaintListTabView.ReferenceToView.InvokeSelectedTabChanged(SelectedTab);
+            //if (!ChangedByControl)
+            //    ComplaintListTabView.ReferenceToView.InvokeSelectedTabChanged(SelectedTab);
 
             DisplayData();
         }
@@ -189,9 +190,9 @@ namespace PrigovorHR.Shared.Views
                         await Application.Current.SavePropertiesAsync();
 
                         DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
-                        LandingViewWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
-                        LandingViewWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
-                        LandingViewWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
+                        LandingPageWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
+                        LandingPageWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
+                   //     LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
                     }
                     else
                     {
@@ -204,9 +205,9 @@ namespace PrigovorHR.Shared.Views
 
                         if (!ComplaintModel.RefToAllComplaints.user.complaints.Any())
                         {
-                            LandingViewWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = true;
-                            LandingViewWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = false;
-                            LandingViewWithLogin.ReferenceToView.complaintListTabView.IsVisible = false;
+                            LandingPageWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = true;
+                            LandingPageWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = false;
+                          //  LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = false;
                         }
                     }
                 }
@@ -241,7 +242,7 @@ namespace PrigovorHR.Shared.Views
                 VisibleLayout.Children.Clear();
                 DisplayData();
                 CalculateMaximumScroll();
-                MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
+             //   MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
             }
         }
 

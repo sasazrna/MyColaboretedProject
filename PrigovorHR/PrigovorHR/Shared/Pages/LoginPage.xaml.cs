@@ -26,23 +26,22 @@ namespace PrigovorHR.Shared.Pages
             btnLogin.Clicked += BtnPrijava_Clicked;
             btnIForgotPassword.Clicked += BtnZaboravioSamLozinku_Clicked;
 
-           NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+           //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
         private async void NavigationBar_BackButtonPressedEvent()
         {
-           await Navigation.PopModalAsync();
+           await Navigation.PopAsync();
         }
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            return OnBackButtonPressed();
         }
 
         private void BtnZaboravioSamLozinku_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new PasswordResetPage());
+            Navigation.PushAsync(new NavigationPage(new PasswordResetPage()) { BackgroundColor = Color.White });
         }
 
         private async void BtnPrijava_Clicked(object sender, EventArgs e)
@@ -81,7 +80,7 @@ namespace PrigovorHR.Shared.Pages
             if(user != null)
             { 
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                await Navigation.PopModalAsync(true);
+                await Navigation.PopAsync(true);
                 _LoginSucessfulEvent?.Invoke(true);
             }
             else

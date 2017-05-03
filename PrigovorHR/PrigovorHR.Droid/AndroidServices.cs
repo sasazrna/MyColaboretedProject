@@ -127,9 +127,9 @@ namespace PrigovorHR.Droid
                                     Device.BeginInvokeOnMainThread(() =>
                                     {
                                         if (HasClosedComplaintEvent)
-                                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Shared.Views.ComplaintListTabView.Tabs.ClosedComplaints, false);
+                                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
                                         else
-                                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(Shared.Views.ComplaintListTabView.Tabs.ActiveComplaints, false);
+                                            Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
                                     });
                                     HasNewResults = false;
                                 }

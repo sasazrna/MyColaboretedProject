@@ -235,12 +235,12 @@ namespace PrigovorHR.Shared
 
             internal async Task<string> GetData(ServiceCommands ServiceCommand, string value = null)
             {
-//#if DEBUG
-//                var serviceAddress = ServiceAddresses[1];
+                //#if DEBUG
+                //                var serviceAddress = ServiceAddresses[1];
 
-//#else
-                                var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
-//#endif
+                //#else
+                var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
+                //#endif
 
 
                 var byteArray = Encoding.UTF8.GetBytes("forge:123123p");
@@ -311,14 +311,21 @@ namespace PrigovorHR.Shared
 
                             if (ServiceCommand == ServiceCommands.GetUserAvatar |
                                 ServiceCommand == ServiceCommands.GetComplaintAttachmentData |
-                                ServiceCommand == ServiceCommands.GetReplyAttachmentData | 
+                                ServiceCommand == ServiceCommands.GetReplyAttachmentData |
                                 ServiceCommand == ServiceCommands.GetCompanyLogo)
                                 return Convert.ToBase64String(await response.Content.ReadAsByteArrayAsync());
-                            else return await response.Content.ReadAsStringAsync();
+                            else
+                            {
+                                if (ServiceCommand == ServiceCommands.GetDirectTagResult && response.RequestMessage.RequestUri.AbsolutePath.Contains("qr/"))
+                                    return await response.Content.ReadAsStringAsync();
+                                else if (ServiceCommand == ServiceCommands.GetDirectTagResult && !response.RequestMessage.RequestUri.AbsolutePath.Contains("qr/"))
+                                    return "";
+                                else return await response.Content.ReadAsStringAsync();
+                            }
                         }
                         else
                         {
-                            var ErrorMessage =  "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
+                            var ErrorMessage = "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
                             ExceptionController.HandleException(new Exception(ErrorMessage), "Došlo je do greške na  internal async Task<string> SendData");
                             return ErrorMessage;
                         }

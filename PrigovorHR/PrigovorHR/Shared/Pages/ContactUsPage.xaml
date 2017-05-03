@@ -5,7 +5,7 @@
              x:Class="PrigovorHR.Shared.Pages.ContactUsPage" BackgroundColor="White">
 
     <StackLayout>
-        <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+        <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
         <StackLayout x:Name="LogoStack" Margin="0,10,0,10" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
             <Image x:Name="imgCompanyLogo" Source="LOGO.png" Scale="1.5" HorizontalOptions="CenterAndExpand"></Image>
         </StackLayout>

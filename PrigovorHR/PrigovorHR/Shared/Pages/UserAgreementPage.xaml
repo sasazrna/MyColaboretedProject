@@ -6,7 +6,7 @@
              Title="UserAgreementPage">
   <ScrollView>
         <StackLayout>
-            <views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>
+            <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
             <WebView x:Name="webView"></WebView>
         </StackLayout>
     </ScrollView>

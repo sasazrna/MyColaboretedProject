@@ -57,8 +57,8 @@ namespace PrigovorHR.Shared.Pages
             }
 
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                       Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? "nije dodijeljeno" :
-                       "nije dodijeljeno", Complaint.element.name);
+                       Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
+                       Complaint.element.name, Complaint.element.name);
 
             imgAttachDocs.Text = '\uf1c1'.ToString();
             imgAttachDocs.TextColor = Color.Gray;
@@ -75,7 +75,7 @@ namespace PrigovorHR.Shared.Pages
             TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendReply);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
-            NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editReplyText.TextChanged += EditReplyText_TextChanged;
         }
 
@@ -194,7 +194,7 @@ namespace PrigovorHR.Shared.Pages
             if (view == imgAttachDocs)
             {
                 var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-                if (!string.IsNullOrEmpty(Picker.FileName))
+                if (!string.IsNullOrEmpty(Picker?.FileName))
                 {
                     var AttachmentView = new AttachmentView(false, 0, 0, Picker.FileName, true, Picker.DataArray);
                     lytAttachments.Children.Add(AttachmentView);
@@ -213,6 +213,7 @@ namespace PrigovorHR.Shared.Pages
                         attachment_mime = AttachmentView.Id.ToString()
                     });
                 }
+                Picker = null;
             }
             else if (view == imgTakePhoto)
             {
@@ -273,8 +274,7 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationBar.InitBackButtonPressed();
-            return true;
+            return OnBackButtonPressed();
         }
 
         private async void NavigationBar_BackButtonPressedEvent()
@@ -304,11 +304,11 @@ namespace PrigovorHR.Shared.Pages
                         // Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
                         UseBottomSheet = false,
                         Options = new List<Acr.UserDialogs.ActionSheetOption>()
-                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopModalAsync(true); })),
+                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopAsync(true); })),
                       new Acr.UserDialogs.ActionSheetOption("NE", ()=> { return; } ) }
                     });
             }
-            else await Navigation.PopModalAsync(true);
+            else await Navigation.PopAsync(true);
 
             Application.Current.Properties.Remove("WriteComplaintAutoSave");
             await Application.Current.SavePropertiesAsync();

@@ -57,7 +57,7 @@ namespace PrigovorHR.Shared.Views
             try
             {
                 await Navigation.PopModalAsync(true);
-                if (result.Contains("/"))
+                if (result.Contains("prigovor.hr") | result.Contains("complio.me"))
                 {
                 //    result = result.Substring(0, result.LastIndexOf("/"));
                     result = result.Remove(0, result.LastIndexOf("/") + 1);
@@ -93,6 +93,7 @@ namespace PrigovorHR.Shared.Views
             else if (view == lytImgQRCode)
             {
                 await Navigation.PushModalAsync(QRScannerController, true);
+                await Task.Delay(300);
                 QRScannerController.StartScan();
             }
         }
