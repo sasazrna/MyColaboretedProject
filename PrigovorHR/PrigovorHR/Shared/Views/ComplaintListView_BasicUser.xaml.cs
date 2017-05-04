@@ -134,7 +134,7 @@ namespace PrigovorHR.Shared.Views
            // await Navigation.PushAsync(new NavigationPage(new Pages.ComplaintPage(Complaint)), true);
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
             var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
-
+            //askahsdasjdakjsa   saasdadadasdadasas
             if (UnreadComplaint != null)
             {
                 ComplaintModel.RefToAllComplaints.user.unread_complaints = 
