@@ -18,7 +18,7 @@
                 <ToolbarItem Name="tbiSearch" Order="Primary" Icon="SearchIcon.png"  Priority="2" Clicked="tbiSearch_Clicked" />
             </ContentPage.ToolbarItems>
             <x:Arguments>
-       <pages:LandingPageWithLogin />
+       <pages:LandingPageWithLogin x:Name="LandingPageWithLogin" />
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>

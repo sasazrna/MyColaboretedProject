@@ -64,6 +64,11 @@ namespace PrigovorHR.Shared.Pages
 
             SetFABS();
             SetAutoOpacity(scrView, Fabs.Values.ToArray());
+            AutomationId = "ComplaintPage";
+            ToolbarItems.Add(new ToolbarItem("tbi", "LOGO.png", () => { }, ToolbarItemOrder.Primary, 0));
+           
+         //   NavigationPage.SetHasNavigationBar(this, false);
+         
         }
 
         private async void SetAutoOpacity (ScrollView scrView, params View[] views  )
@@ -193,13 +198,14 @@ namespace PrigovorHR.Shared.Pages
         private async void InitReply()
         {
             var NewComplaintReplyPage = new NewComplaintReplyPage(Complaint);
-            await Navigation.PushAsync(new NavigationPage(NewComplaintReplyPage) { BackgroundColor = Color.White });
+            await Navigation.PushAsync(NewComplaintReplyPage);
             NewComplaintReplyPage.ReplaySentEvent += (int id) =>
             {
                 Navigation.PopAsync(true);
                 Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
                 Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
             };
+            
         }
     
         private async void InitCloseComplaint()
@@ -208,7 +214,7 @@ namespace PrigovorHR.Shared.Pages
                 Complaint.complaint_events.Any(ce => ce.closed) && !ComplaintEvaluated)
             {
                 var CloseComplaintPage = new CloseComplaintPage(Complaint);
-                await Navigation.PushAsync(new NavigationPage(CloseComplaintPage) { BackgroundColor = Color.White });
+                await Navigation.PushAsync(CloseComplaintPage);
 
                 CloseComplaintPage.ComplaintClosed += (int id) =>
                 {
@@ -305,14 +311,20 @@ namespace PrigovorHR.Shared.Pages
           //  NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
-            await Navigation.PopAsync(true);
-        }
 
-        protected override bool OnBackButtonPressed()
-        {
-            return OnBackButtonPressed();
-        }
+        //protected override void OnDisappearing()
+        //{
+        //    //APPMasterDetailPage.PopPage(!HBackButtonPressed);
+        //    base.OnDisappearing();
+        //}
+
+        bool HBackButtonPressed = false;
+        //protected override bool OnBackButtonPressed()
+        //{
+        //    return o
+        //    //HBackButtonPressed = true;
+        //    //APPMasterDetailPage.PopPage(HBackButtonPressed);
+        //    //return false;
+        //}
     }
 }

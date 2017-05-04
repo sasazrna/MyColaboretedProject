@@ -20,6 +20,8 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
 
             btnSendResetRequest.Clicked += BtnSendResetRequest_Clicked;
+            NavigationPage.SetHasNavigationBar(this, false);
+
             //NavigationBar.BackButtonPressedEvent += (async () => { await Navigation.PopModalAsync(); });
         }
 

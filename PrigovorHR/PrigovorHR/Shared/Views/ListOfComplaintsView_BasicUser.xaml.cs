@@ -70,7 +70,7 @@ namespace PrigovorHR.Shared.Views
                     var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
 
                     var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
-                    await Navigation.PushAsync(new NavigationPage(new Pages.ComplaintPage(Complaint)) { BackgroundColor = Color.White }, true);
+                    await Navigation.PushAsync(new Pages.ComplaintPage(Complaint), true);
                     await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
                     var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 

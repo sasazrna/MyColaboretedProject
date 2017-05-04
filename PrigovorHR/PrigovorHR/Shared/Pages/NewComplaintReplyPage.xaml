@@ -4,7 +4,14 @@
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Pages.NewComplaintReplyPage" BackgroundColor="White">
 
-    <StackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="tbiLogo" Order="Primary" Icon="send.png" Priority="0" Clicked="BtnSendReply_Clicked"/>
+        <!--<ToolbarItem Name="tbiPrigovorText" Order="Primary" Text="Prigovor.HR" Priority="0"/>
+        <ToolbarItem Name="tbiQRScanner" Order="Primary" Icon="QRIcon.png"  Priority="2" Clicked="tbiQRScanner_Clicked" />
+        <ToolbarItem Name="tbiSearch" Order="Primary" Icon="SearchIcon.png"  Priority="2" Clicked="tbiSearch_Clicked" />-->
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="0,10,0,0">
         <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
         <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView" Margin="0, 15,0,0">
         </views:ComplaintCoversationHeaderView>

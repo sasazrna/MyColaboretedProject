@@ -72,6 +72,8 @@ namespace PrigovorHR.Shared.Pages
             //FAB.FontSize = 50;
             TAPController = new TAPController(imgStore, imgCompany, imgOtherStores, btnWriteComplaint);
             TAPController.SingleTaped += TAPController_SingleTaped;
+            //NavigationPage.SetHasNavigationBar(this, false);
+
             //FAB.AutomationId = "FAB";
             //lytRelative.Children.Add(
             //    FAB,
@@ -98,7 +100,10 @@ namespace PrigovorHR.Shared.Pages
         private async void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
             var NewComplaintPage = new NewComplaintPage(CompanyElement.element);
-            await Navigation.PushAsync(new NavigationPage(NewComplaintPage) { BackgroundColor = Color.White }, true);
+             await Navigation.PushAsync(NewComplaintPage, true);
+            NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "send.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
+
+         //   await Pages.APPMasterDetailPage.PushPage(NewComplaintPage);
             NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
         }
 

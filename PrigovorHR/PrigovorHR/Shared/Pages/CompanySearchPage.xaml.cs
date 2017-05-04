@@ -52,7 +52,7 @@ namespace PrigovorHR.Shared.Pages
             if (!entrySearch.Text.Contains("#"))
             {
                 await Navigation.PopPopupAsync(true);
-                await Navigation.PushAsync(new NavigationPage(new Company_ElementInfoPage(CompanyElement, true) { Title = "Natrag na pretragu" }) { BackgroundColor = Color.White }, true);
+                await Navigation.PushAsync(new Company_ElementInfoPage(CompanyElement, true) { BackgroundColor = APPMasterDetailPage.ReferenceToView.Detail.BackgroundColor }, true);
             }
             else
             {

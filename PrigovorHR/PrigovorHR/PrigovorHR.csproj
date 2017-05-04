@@ -53,8 +53,8 @@
     <Compile Include="Shared\Pages\CompanySearchPage.xaml.cs">
       <DependentUpon>CompanySearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shared\Pages\SideMenuPage.xaml.cs">
-      <DependentUpon>SideMenuPage.xaml</DependentUpon>
+    <Compile Include="Shared\Pages\SplashScreenPage.xaml.cs">
+      <DependentUpon>SplashScreenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Pages\UserAgreementPage.xaml.cs">
       <DependentUpon>UserAgreementPage.xaml</DependentUpon>
@@ -147,9 +147,6 @@
     </Compile>
     <Compile Include="Shared\Pages\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Shared\Pages\SplashScreenPage.xaml.cs">
-      <DependentUpon>SplashScreenPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shared\Views\CompanyElementsListView.xaml.cs">
       <DependentUpon>CompanyElementsListView.xaml</DependentUpon>
@@ -460,12 +457,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Pages\SplashScreenPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Shared\Views\SplashScreenView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -598,12 +589,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Shared\Pages\SideMenuPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\UserAgreementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
@@ -633,6 +618,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\APPMasterDetailPageDetail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Pages\SplashScreenPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

@@ -77,6 +77,8 @@ namespace PrigovorHR.Shared.Pages
             TAPController.SingleTaped += TAPController_SingleTaped;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editReplyText.TextChanged += EditReplyText_TextChanged;
+          //  NavigationPage.SetHasNavigationBar(this, false);
+
         }
 
         private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
@@ -92,7 +94,7 @@ namespace PrigovorHR.Shared.Pages
             Application.Current.SavePropertiesAsync();
         }
 
-        private void BtnSendReply_Clicked()
+        private void BtnSendReply_Clicked(object sender, EventArgs e)
         {
             if (Complaint.closed)
             {
@@ -268,7 +270,7 @@ namespace PrigovorHR.Shared.Pages
                 }
             }
             else if (view == btnSendReply)
-                BtnSendReply_Clicked();
+                BtnSendReply_Clicked(null,null );
             SaveToDevice();
         }
 

@@ -45,6 +45,7 @@ namespace PrigovorHR.Shared.Pages
             //TAPController = new TAPController(lblContact, lblLogOut, lblProfile, imgBack, imgProfilePicture);
             //TAPController.SingleTaped += TAPController_SingleTaped;
             FirstTimeLoginView.SearchIconClickedEvent += () => Navigation.PushPopupAsync(new CompanySearchPage(), true);
+            AutomationId = "LandingPageWithLogin";
             //ProfilePage.ProfileUpdatedEvent += () => imgProfilePicture.Source =
             // ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(LoginRegisterController.LoggedUser.profileimage)));
         }
@@ -137,7 +138,7 @@ namespace PrigovorHR.Shared.Pages
                     {
                         var NewComplaintPage = new NewComplaintPage(null, WriteNewComplaintModel);
 
-                        await Navigation.PushAsync(new NavigationPage(NewComplaintPage) { BackgroundColor = Color.White });
+                        await Navigation.PushAsync(NewComplaintPage);
                         NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); ListOfComplaintsView.LoadComplaints(); };
                     }
                 }

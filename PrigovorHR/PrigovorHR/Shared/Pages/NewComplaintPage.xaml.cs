@@ -23,7 +23,7 @@ namespace PrigovorHR.Shared.Pages
         private DateTime ProblemOccurred;
         private DateTime DateProblem;
         private DateTime TimeProblem;
-
+        public static NewComplaintPage ReferenceToPage;
         public NewComplaintPage()
         {
             InitializeComponent();
@@ -103,7 +103,11 @@ namespace PrigovorHR.Shared.Pages
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editComplaintText.TextChanged += EditComplaintText_TextChanged;
             editSuggestionText.TextChanged += EditComplaintText_TextChanged;
-            arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;           
+            arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
+            AutomationId = "NewComplaintPage";
+            ReferenceToPage = this;
+           
+          //  NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void TAPController_SingleTaped(string viewId, View view)
@@ -225,7 +229,7 @@ namespace PrigovorHR.Shared.Pages
             SaveToDevice();
         }
 
-        private async void SendComplaint()
+        public async void SendComplaint()
         {
             if (editComplaintText.Text == null || editComplaintText.Text?.Length < 20)
             {

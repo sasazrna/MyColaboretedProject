@@ -74,7 +74,7 @@ namespace PrigovorHR.Shared.Pages
 
         private void LoginRegisterController__UserLoggedInOutEvent(bool isLogged)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            Device.BeginInvokeOnMainThread(() =>
            {
                if (!isLogged)
                {
@@ -86,9 +86,9 @@ namespace PrigovorHR.Shared.Pages
                 }
                else
                {
-                    //LandingViewWithLogin = new LandingViewWithLogin();
-                    //Content = LandingViewWithLogin;
-                    await Navigation.PushAsync(new APPMasterDetailPage());
+                   //LandingViewWithLogin = new LandingViewWithLogin();
+                   //Content = LandingViewWithLogin;
+                   App.Current.MainPage = new NavigationPage(new APPMasterDetailPage()) { BarBackgroundColor = Color.Blue };
 
                    BackgroundColor = Color.White;
                }

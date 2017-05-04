@@ -26,6 +26,7 @@ namespace PrigovorHR.Shared.Pages
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             lytLastMessage.IsVisible = !complaint.closed;
             btnZatvoriPrigovor.Text = !complaint.closed ? "Zatvori prigovor" : "Ocijeni";
+         //   NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void BtnZatvoriPrigovor_Clicked(object sender, EventArgs e)
