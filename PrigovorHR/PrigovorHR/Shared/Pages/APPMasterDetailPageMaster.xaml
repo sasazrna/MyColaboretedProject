@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PrigovorHR.Shared.Pages.APPMasterDetailPageMaster"
+             x:Class="PrigovorHR.Shared.Pages.APPMasterDetailPageMaster" BackgroundColor="White"
              Title="Master">
   <StackLayout>
     <ListView x:Name="ListViewMenuItems"
-              SeparatorVisibility="None"
+              SeparatorVisibility="None" 
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
-        <Grid BackgroundColor="#03A9F4">
+                <Grid BackgroundColor="White">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
@@ -31,11 +31,12 @@
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>
-            <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
-              <Label VerticalOptions="FillAndExpand" 
+                        <StackLayout Padding="15,10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Image Source="{Binding Icon}" WidthRequest="20" HeightRequest="20"></Image>
+                            <Label VerticalOptions="FillAndExpand" Margin="10,0,0,0" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="24"/>
+                    FontSize="Large"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>
