@@ -327,24 +327,27 @@ namespace PrigovorHR.Shared.Pages
         {
             if (!string.IsNullOrEmpty(editComplaintText.Text) | lytAttachments.Children.Any())
             {
-                Acr.UserDialogs.UserDialogs.Instance.ActionSheet(
-                    new Acr.UserDialogs.ActionSheetConfig()
-                    {
-                        Title = "Jeste li sigurni u prekid?",
-                        // Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
-                        UseBottomSheet = false,
-                        Options = new List<Acr.UserDialogs.ActionSheetOption>()
-                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopAsync(true); })),
-                      new Acr.UserDialogs.ActionSheetOption("NE", ()=> { return; } ) }
-                    });
-
+                Acr.UserDialogs.UserDialogs.Instance.Confirm(
+                       new Acr.UserDialogs.ConfirmConfig()
+                       {
+                           Title = "Prekid",
+                           CancelText = "NE",
+                           OkText = "DA",
+                           Message = "Jeste li sigurni u prekid?",
+                           OnAction = (Confirm) => {
+                               if (!Confirm) { return; }
+                               else
+                               {
+                                   Application.Current.Properties.Remove("WriteComplaintAutoSave");
+                                   Application.Current.SavePropertiesAsync();
+                                   Navigation.PopAsync(true);
+                               }
+                           }
+                       });
             }
             else Navigation.PopAsync(true);
 
-            Application.Current.Properties.Remove("WriteComplaintAutoSave");
-            Application.Current.SavePropertiesAsync();
-
-            return false;
+            return true;
         }
     }
 }

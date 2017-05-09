@@ -15,6 +15,8 @@ namespace PrigovorHR.Shared
         public static string _lastError { get; set; }
         public static bool AppLoaded { get; set; } = false;
 
+        public static bool AppIsComplio { get; set; } = false;
+
         public static bool DEBUGING = false;
 
         public static void CloseApp()

@@ -131,7 +131,7 @@ namespace PrigovorHR.Shared.Pages
                             new NewComplaintReplyPage(ComplaintModel.RefToAllComplaints.user.complaints.Single(c => c.id == WriteNewComplaintModel.complaint_id),
                                                       WriteNewComplaintModel);
 
-                        await Navigation.PushAsync(new NavigationPage(NewComplaintReplyPage) { BackgroundColor = Color.White });
+                        await Navigation.PushAsync(NewComplaintReplyPage, true);
                         NewComplaintReplyPage.ReplaySentEvent += (int id) => { Navigation.PopAsync(true); ListOfComplaintsView.LoadComplaints(); };
                     }
                     else

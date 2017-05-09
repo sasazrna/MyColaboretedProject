@@ -276,44 +276,29 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
-            return OnBackButtonPressed();
-        }
-
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
-            //if (!string.IsNullOrEmpty(editReplyText.Text) | lytAttachments.Children.Any())
-            //{
-            //    Acr.UserDialogs.UserDialogs.Instance.ActionSheet(
-            //        new Acr.UserDialogs.ActionSheetConfig()
-            //        {
-            //            Title = "Izlazak",
-            //            Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
-            //            UseBottomSheet = true,
-            //            Options = new List<Acr.UserDialogs.ActionSheetOption>()
-            //        { new Acr.UserDialogs.ActionSheetOption("DA", (()=> {  })),
-            //          new Acr.UserDialogs.ActionSheetOption("NE", (async()=> {await Navigation.PopModalAsync(true); })),
-            //          new Acr.UserDialogs.ActionSheetOption("Nemoj prekinuti", ()=>{ })}
-            //        });
-            //}
-            //else await Navigation.PopModalAsync(true);
-
             if (!string.IsNullOrEmpty(editReplyText.Text) | lytAttachments.Children.Any())
             {
-                Acr.UserDialogs.UserDialogs.Instance.ActionSheet(
-                    new Acr.UserDialogs.ActionSheetConfig()
-                    {
-                        Title = "Jeste li sigurni u prekid?",
-                        // Message = "Odlučili ste prekinuti slanje prigovora, želite li ga spremiti za poslije?",
-                        UseBottomSheet = false,
-                        Options = new List<Acr.UserDialogs.ActionSheetOption>()
-                    { new Acr.UserDialogs.ActionSheetOption("DA", (async()=> {await Navigation.PopAsync(true); })),
-                      new Acr.UserDialogs.ActionSheetOption("NE", ()=> { return; } ) }
-                    });
+                Acr.UserDialogs.UserDialogs.Instance.Confirm(
+                       new Acr.UserDialogs.ConfirmConfig()
+                       {
+                           Title = "Prekid",
+                           CancelText = "NE",
+                           OkText = "DA",
+                           Message = "Jeste li sigurni u prekid?",
+                           OnAction = (Confirm)=>{
+                               if (!Confirm) { return; }
+                               else
+                               {
+                                   Application.Current.Properties.Remove("WriteComplaintAutoSave");
+                                   Application.Current.SavePropertiesAsync();
+                                   Navigation.PopAsync(true);
+                               } 
+                           }
+                       });
             }
-            else await Navigation.PopAsync(true);
+            else Navigation.PopAsync(true);
 
-            Application.Current.Properties.Remove("WriteComplaintAutoSave");
-            await Application.Current.SavePropertiesAsync();
+            return true;
         }
     }
 }

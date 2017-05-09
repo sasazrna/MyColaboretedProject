@@ -19,13 +19,6 @@ namespace PrigovorHR
 
         public App()
         {
-            //   MainPage = new NavigationPage((Page)new Shared.Pages.MasterDetail());
-            //    MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.Black);
-
-            //   MainPage = navigationPage;
-            //  MainPage = new WellComePage();
-            //  navigationPage.PoppedToRoot += NavigationPage_PoppedToRoot;
-            //  NavigationPage.SetHasNavigationBar(navigationPage, true);
             var assembly = typeof(App).GetTypeInfo().Assembly;
 
             MainPage = new NavigationPage(new SplashScreenPage());

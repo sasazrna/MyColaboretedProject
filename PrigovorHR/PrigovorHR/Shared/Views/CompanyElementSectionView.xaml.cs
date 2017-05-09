@@ -19,9 +19,8 @@ namespace PrigovorHR.Shared.Views
 
         private async void TAPController_SingleTaped(string viewId, View view)
         {
-            await Navigation.PushAsync(new NavigationPage(new Pages.Company_ElementInfoPage(
-               JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(await DataExchangeServices.GetCompanyElementData(ElementSlug)), false))
-            { BackgroundColor = Color.White }, true);
+            await Navigation.PushAsync(new Pages.Company_ElementInfoPage(
+               JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(await DataExchangeServices.GetCompanyElementData(ElementSlug)), false), true);
       
         }
 

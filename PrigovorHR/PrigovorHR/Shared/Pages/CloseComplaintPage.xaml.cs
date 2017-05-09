@@ -23,10 +23,8 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
             Complaint = complaint;
             btnZatvoriPrigovor.Clicked += BtnZatvoriPrigovor_Clicked;
-            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             lytLastMessage.IsVisible = !complaint.closed;
             btnZatvoriPrigovor.Text = !complaint.closed ? "Zatvori prigovor" : "Ocijeni";
-         //   NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void BtnZatvoriPrigovor_Clicked(object sender, EventArgs e)
@@ -86,16 +84,6 @@ namespace PrigovorHR.Shared.Pages
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom ocjenjivanja prigovora!" + System.Environment.NewLine + "Pokušajte ponovno", "Greška", "OK");
             }
-        }
-
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
-            await Navigation.PopAsync(true);
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return OnBackButtonPressed();
         }
     }
 }

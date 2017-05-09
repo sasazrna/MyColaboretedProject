@@ -157,7 +157,7 @@ namespace PrigovorHR.Shared.Pages
                         var CompanyElement = JsonConvert.DeserializeObject<CompanyElementRootModel>(Result);
 
                         if (CompanyElement != null)
-                            Device.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(new NavigationPage(new Company_ElementInfoPage(CompanyElement, true)) { BackgroundColor = Color.White }, true));
+                            Device.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(new Company_ElementInfoPage(CompanyElement, true), true));
                         else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");
                     }
                     else Acr.UserDialogs.UserDialogs.Instance.Alert("Skenirani QR kod nije pronađen u bazi podataka!", "Nepostojeći QR kod", "OK");

@@ -43,7 +43,6 @@ namespace PrigovorHR.Shared.Pages
                         Content = LandingViewNoLogin;
                         BackgroundColor = Color.FromHex("#30343f");
                         Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                        //Navigation.PushAsync(new NavigationPage(new LandingViewNoLogin()));
                     });
                 }
             }
@@ -82,7 +81,6 @@ namespace PrigovorHR.Shared.Pages
                    Content = LandingViewNoLogin;
                    BackgroundColor = Color.FromHex("#30343f");
                    Navigation.PopToRootAsync();
-                    // Navigation.PushAsync(new NavigationPage(new LandingViewNoLogin()));
                 }
                else
                {

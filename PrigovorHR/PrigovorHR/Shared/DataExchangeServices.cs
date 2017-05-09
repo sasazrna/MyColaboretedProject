@@ -159,7 +159,7 @@ namespace PrigovorHR.Shared
 
         public static async Task<string> CheckForNewReplys(string jsonvalue)
         {
-           return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.CheckForNewReplys, jsonvalue);
+            return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.CheckForNewReplys, jsonvalue);
         }
 
         public static async Task<bool> EvaluateComplaint(string jsonvalue)
@@ -174,10 +174,10 @@ namespace PrigovorHR.Shared
         private class ServerCommuncationServices
         {
             string[] ServiceAddresses = new string[] { "https://prigovor.hr/api/", "http://138.68.85.217/api/" };
-            #if DEBUG
-         
-            #else
-            #endif
+#if DEBUG
+
+#else
+#endif
 
             public enum ServiceCommands : int
             {
@@ -204,7 +204,7 @@ namespace PrigovorHR.Shared
                 SendExceptionData,
                 CloseComplaint,
                 GetCompanyLogo,
-                CheckForNewReplys, 
+                CheckForNewReplys,
                 EvaluateComplaint
             };
 
@@ -325,7 +325,8 @@ namespace PrigovorHR.Shared
                         }
                         else
                         {
-                            var ErrorMessage = "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
+                            var ErrorMessage = "Error:" + response.ReasonPhrase + System.Environment.NewLine + ServiceCommand.ToString() +
+                                System.Environment.NewLine + value + System.Environment.NewLine + await response.Content.ReadAsStringAsync();
                             ExceptionController.HandleException(new Exception(ErrorMessage), "Došlo je do greške na  internal async Task<string> SendData");
                             return ErrorMessage;
                         }
@@ -342,12 +343,12 @@ namespace PrigovorHR.Shared
             {
                 try
                 {
-//#if DEBUG
-//                    var serviceAddress = ServiceAddresses[1];
+                    //#if DEBUG
+                    //                    var serviceAddress = ServiceAddresses[1];
 
-//#else
-                              var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
-//#endif
+                    //#else
+                    var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
+                    //#endif
 
                     using (var client = new HttpClient())
                     {
@@ -356,8 +357,8 @@ namespace PrigovorHR.Shared
                         string urlAddress = serviceAddress + APIAdresses[ServiceCommand];
                         var multipartData = new MultipartFormDataContent();
 
-                        if (ServiceCommand != ServiceCommands.LoginUser & 
-                            ServiceCommand != ServiceCommands.ResetPassword & 
+                        if (ServiceCommand != ServiceCommands.LoginUser &
+                            ServiceCommand != ServiceCommands.ResetPassword &
                             ServiceCommand != ServiceCommands.SendExceptionData)
                         {
                             var header = new AuthenticationHeaderValue("Bearer", Models.UserToken.token);
@@ -397,7 +398,9 @@ namespace PrigovorHR.Shared
                         }
                         else
                         {
-                            var ErrorMessage = "Error:" + response.ReasonPhrase + await response.Content.ReadAsStringAsync();
+                            var ErrorMessage = "Error:" + response.ReasonPhrase + System.Environment.NewLine + ServiceCommand.ToString() +
+                                System.Environment.NewLine + value + System.Environment.NewLine + await response.Content.ReadAsStringAsync();
+
                             ExceptionController.HandleException(new Exception(ErrorMessage), "Došlo je do greške na  internal async Task<string> SendData");
                             return ErrorMessage;
                         }

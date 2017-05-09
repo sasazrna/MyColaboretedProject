@@ -60,7 +60,7 @@ namespace PrigovorHR.Shared.Views
                 {
                     var CompanyElement = JsonConvert.DeserializeObject<Models.CompanyElementRootModel>(Result);
                     var NewCompanyElementInfoPage = new Company_ElementInfoPage(CompanyElement, true);
-                    await Navigation.PushAsync(new NavigationPage(NewCompanyElementInfoPage) { BackgroundColor = Color.White });
+                    await Navigation.PushAsync(NewCompanyElementInfoPage, true);
 
                     Device.BeginInvokeOnMainThread(async () => await Navigation.PopPopupAsync(true));
                 }

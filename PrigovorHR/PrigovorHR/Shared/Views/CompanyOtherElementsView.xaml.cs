@@ -103,7 +103,7 @@ namespace PrigovorHR.Shared.Views
             var companyElement =
                 JsonConvert.DeserializeObject<CompanyElementRootModel>(await DataExchangeServices.GetCompanyElementData(CompanyElement.slug));
 
-            await Navigation.PushAsync(new NavigationPage(new Company_ElementInfoPage(companyElement, false)) { BackgroundColor = Color.White });
+            await Navigation.PushAsync(new Company_ElementInfoPage(companyElement, false));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
         }
 
