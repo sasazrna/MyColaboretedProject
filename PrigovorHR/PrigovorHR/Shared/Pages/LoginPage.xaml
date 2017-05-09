@@ -6,7 +6,7 @@
              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Pages.LoginPage">
 
-  <StackLayout>
+    <StackLayout>
    <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
   <ScrollView x:Name="LoginScrollView">
     <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">

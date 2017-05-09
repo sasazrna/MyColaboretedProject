@@ -15,14 +15,17 @@ namespace PrigovorHR.Shared.Pages
 
     public partial class LoginPage : ContentPage
     {
+        public Color BarBackgroundColor { get; private set; }
+
         public delegate void LoginSucessfulHandler(bool Sucessfull);
         public static event LoginSucessfulHandler _LoginSucessfulEvent;
 
         public LoginPage()
         {
             InitializeComponent();
-            NavigationPage.SetHasNavigationBar(this, false);
 
+            NavigationPage.SetHasNavigationBar(this, false);
+           
             btnLogin.Clicked += BtnPrijava_Clicked;
             btnIForgotPassword.Clicked += BtnZaboravioSamLozinku_Clicked;
 

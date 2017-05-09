@@ -22,8 +22,8 @@
         <Frame x:Name="Frame" BackgroundColor="#5b5b5b" Margin="6,20,6,10"  HorizontalOptions="Center" Padding="10">
             <StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                  <Label Text="#" FontSize="30" VerticalOptions="Start" VerticalTextAlignment="Start" FontAttributes="Bold"  TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
-                  <Label Text="@" FontSize="25" VerticalOptions="Start" VerticalTextAlignment="Start" FontAttributes="Bold" TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
+                  <Label Text="#" FontSize="Large" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold"  TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
+                  <Label Text="@" FontSize="Large" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
                     <Entry x:Name="entrySearch" HorizontalTextAlignment="Start" TextColor="White" FontSize="Medium"
                                Placeholder="Pronađi tvrtku/poslovnicu        "  PlaceholderColor="White" HorizontalOptions="StartAndExpand"></Entry>
                     <Views:FontAwesomeLabel x:Name="imgClose" FontSize="Large"  HorizontalOptions="EndAndExpand" VerticalOptions="Center" VerticalTextAlignment="Center" ></Views:FontAwesomeLabel>
