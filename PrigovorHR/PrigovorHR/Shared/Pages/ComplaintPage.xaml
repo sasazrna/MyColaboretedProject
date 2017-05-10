@@ -3,19 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
-             xmlns:ImageCircle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-             xmlns:pages="clr-namespace:PrigovorHR.Shared.Pages;assembly=PrigovorHR"
              x:Class="PrigovorHR.Shared.Pages.ComplaintPage">
 
-    
-        <!--<NavigationPage.ToolbarItems>
-            --><!--<ToolbarItem Name="tbiLogo" Order="Primary" Icon="LOGO.png" Text="Prigovor.HR" Priority="0"/>
-                <ToolbarItem Name="tbiPrigovorText" Order="Primary" Text="Prigovor.HR" Priority="0"/>--><!--
-                <ToolbarItem Name="tbiQRScanner" Order="Primary" Icon="QRIcon.png"  Priority="2"  />
-                <ToolbarItem Name="tbiSearch" Order="Primary" Icon="SearchIcon.png"  Priority="2"  />
-        </NavigationPage.ToolbarItems>-->
-
-    <RelativeLayout x:Name="lytRelative">
+<RelativeLayout x:Name="lytRelative">
 
         <ContentView x:Name="cvTopContentView"
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"

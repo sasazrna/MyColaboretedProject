@@ -128,7 +128,7 @@ namespace PrigovorHR.Shared.Views
         {
             await view.FadeTo(0.3, 45);
             await view.FadeTo(1, 115);
-         await Navigation.PushAsync(new Pages.ComplaintPage(Complaint));
+         await Navigation.PushAsync(new Pages.ComplaintPage(Complaint) { BackgroundColor = Color.White });
            
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
             var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);

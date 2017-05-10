@@ -26,10 +26,6 @@ namespace PrigovorHR.Shared.Pages
                { "fabCloseComplaint", new string[] { "FaFabButtonLock.png" } },
                {"fabRateComplaint", new string[] { "FaFabButtonRate.png" } } , {"fabOpenOptions", new string[] { "FaFabButtonAdd.png" } }, };
 
-        //Dictionary<string, string[]> FabIcons = new Dictionary<string, string[]>{ { "fabReply", new string[] { Views.FontAwesomeLabel.Images.FAReply, Views.FontAwesomeLabel.Images.FAUnlock } },
-        //       { "fabCloseComplaint", new string[] {Views.FontAwesomeLabel.Images.FALock } },
-        //       {"fabRateComplaint", new string[] {Views.FontAwesomeLabel.Images.FAStar } } , {"fabOpenOptions", new string[] {  Views.FontAwesomeLabel.Images.FAPlusCircle } } };
-
         public ComplaintPage()
         {
             InitializeComponent();
@@ -50,9 +46,6 @@ namespace PrigovorHR.Shared.Pages
                 Complaint.replies.LastOrDefault(r => r.user_id != LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
                 Complaint.element.name, Complaint.element.name);
 
-       //     NavigationBar.HeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
-            //NavigationBar.lblNavigationTitle.Text = "Otvaram prigovor...";
-
             scrView.Scrolled += ScrView_Scrolled;
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
 
@@ -63,19 +56,9 @@ namespace PrigovorHR.Shared.Pages
                 });
 
             SetFABS();
-            SetAutoOpacity(scrView, Fabs.Values.ToArray());
             AutomationId = "ComplaintPage";
-            ToolbarItems.Add(new ToolbarItem("tbi", "LOGO.png", () => { }, ToolbarItemOrder.Primary, 0));
-           
-         //   NavigationPage.SetHasNavigationBar(this, false);
-         
+            ToolbarItems.Clear();  
         }
-
-        private async void SetAutoOpacity (ScrollView scrView, params View[] views  )
-        {
-            
-        }
-
 
         private void SetFABS()
         {

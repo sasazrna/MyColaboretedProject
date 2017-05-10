@@ -23,6 +23,17 @@ namespace PrigovorHR.Shared.Pages
             BindingContext = new APPMasterDetailPageMasterViewModel();
         }
 
+        public void SetProfileImage()
+        {
+            if (!string.IsNullOrEmpty(Controllers.LoginRegisterController.LoggedUser.profileimage))
+            {
+                var ProfileImageByte = Convert.FromBase64String(Controllers.LoginRegisterController.LoggedUser.profileimage);
+                imgProfilePicture.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(ProfileImageByte));
+            }
+            else
+                imgProfilePicture.Source = "person.png";
+        }
+
         class APPMasterDetailPageMasterViewModel : INotifyPropertyChanged
         {
             public ObservableCollection<APPMasterDetailPageMenuItem> MenuItems { get; }

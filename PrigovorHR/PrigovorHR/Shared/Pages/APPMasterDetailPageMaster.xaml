@@ -2,45 +2,49 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PrigovorHR.Shared.Pages.APPMasterDetailPageMaster" BackgroundColor="White"
-             Title="Master">
-  <StackLayout>
-    <ListView x:Name="ListViewMenuItems"
+              xmlns:CircleImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             Title="Prigovor.HR">
+    <StackLayout>
+        <ListView x:Name="ListViewMenuItems"
               SeparatorVisibility="None" 
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
-      <ListView.Header>
+            <ListView.Header>
                 <Grid BackgroundColor="White">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10"/>
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
-          </Grid.RowDefinitions>
-          <Label
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <CircleImage:CircleImage x:Name="imgProfilePicture" Source="Person.png" WidthRequest="175" HeightRequest="175" BorderColor="#FF7e65" BorderThickness="1" />
+                    </StackLayout>
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Label
               Grid.Column="1"
               Grid.Row="2"
               Text="Prigovor.HR"
               Style="{DynamicResource SubtitleStyle}"/>
-        </Grid>
-      </ListView.Header>
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
                         <StackLayout Padding="15,10" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                             <Image Source="{Binding Icon}" WidthRequest="20" HeightRequest="20"></Image>
                             <Label VerticalOptions="FillAndExpand" Margin="10,0,0,0" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
                     FontSize="Large"/>
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

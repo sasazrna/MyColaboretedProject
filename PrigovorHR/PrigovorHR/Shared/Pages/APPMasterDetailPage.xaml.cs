@@ -20,7 +20,7 @@ namespace PrigovorHR.Shared.Pages
     {
         public static Controllers.QRScannerController QRScannerController;
         public static MasterDetailPage ReferenceToView;
-        public static Dictionary<string, List<ToolbarItem>> ToolBarForPage;
+  //      public static Dictionary<string, List<ToolbarItem>> ToolBarForPage;
 
         public APPMasterDetailPage()
         {
@@ -30,13 +30,20 @@ namespace PrigovorHR.Shared.Pages
             ReferenceToView = this;
             MasterBehavior = MasterBehavior.Popover;
 
-            ToolBarForPage = new Dictionary<string, List<ToolbarItem>>()
-                 { {LandingPageWithLogin.AutomationId.ToString() ,
-                    new List<ToolbarItem>() { new ToolbarItem("tbiLogo", "LOGO.png", (()=> { }), ToolbarItemOrder.Primary, 0)  ,
-                    new ToolbarItem("tbiPrigovorText", "", (()=> { }), ToolbarItemOrder.Primary, 0) {Text="Prigovor.HR"},
-                    new ToolbarItem("tbiQRScanner", "QRIcon.png",  (()=> { tbiSearch_Clicked(null, null); }) , ToolbarItemOrder.Primary, 1),
-                    new ToolbarItem("tbiSearch", "SearchIcon.png", (()=> { tbiQRScanner_Clicked(null, null); }), ToolbarItemOrder.Primary, 2)} } };
+            //ToolBarForPage = new Dictionary<string, List<ToolbarItem>>()
+            //     { {LandingPageWithLogin.AutomationId.ToString() ,
+            //        new List<ToolbarItem>() { new ToolbarItem("tbiLogo", "LOGO.png", (()=> { }), ToolbarItemOrder.Primary, 0)  ,
+            //        new ToolbarItem("tbiPrigovorText", "", (()=> { }), ToolbarItemOrder.Primary, 0) {Text="Prigovor.HR"},
+            //        new ToolbarItem("tbiQRScanner", "QRIcon.png",  (()=> { tbiSearch_Clicked(null, null); }) , ToolbarItemOrder.Primary, 1),
+            //        new ToolbarItem("tbiSearch", "SearchIcon.png", (()=> { tbiQRScanner_Clicked(null, null); }), ToolbarItemOrder.Primary, 2)} } };
 
+            IsPresentedChanged += APPMasterDetailPage_IsPresentedChanged;
+        }
+
+        private void APPMasterDetailPage_IsPresentedChanged(object sender, EventArgs e)
+        {
+            if (IsPresented)
+                ((APPMasterDetailPageMaster)Master).SetProfileImage();
         }
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
