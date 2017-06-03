@@ -22,7 +22,8 @@ namespace PrigovorHR.Shared.Controllers
         {
             if (PushToServer)
             {
-                var result = await DataExchangeServices.ChangeUserInfo(JsonConvert.SerializeObject(new EditProfileModel((User)Data)));
+                var User = (User)Data;
+                var result = await DataExchangeServices.ChangeUserInfo(JsonConvert.SerializeObject(new EditProfileModel(User)), Convert.FromBase64String( User.profileimage));
                 if (result.Contains("Error"))
                 {
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom izmjene vaših podataka!", "Izmjena podataka", "OK");
@@ -32,7 +33,7 @@ namespace PrigovorHR.Shared.Controllers
             }
 
             LoggedUser = (User)Data;
-            LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
+          //  LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
             SaveUserData();
             return true;
         }

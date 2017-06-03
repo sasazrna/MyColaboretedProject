@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using PrigovorHR.Shared.Pages;
 
 namespace PrigovorHR.Shared.Views
 {
@@ -128,8 +129,8 @@ namespace PrigovorHR.Shared.Views
         {
             await view.FadeTo(0.3, 45);
             await view.FadeTo(1, 115);
-         await Navigation.PushAsync(new Pages.ComplaintPage(Complaint) { BackgroundColor = Color.White });
-           
+       //     await Navigation.PushAsync(new NavigationPage(new Pages.ComplaintPage(Complaint)) { BackgroundColor = Color.White });
+            await APPMasterDetailPage.ReferenceToView.PushPage(new Pages.ComplaintPage(Complaint));
             await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
             var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 

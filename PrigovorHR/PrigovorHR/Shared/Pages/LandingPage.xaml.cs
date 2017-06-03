@@ -77,11 +77,12 @@ namespace PrigovorHR.Shared.Pages
            {
                if (!isLogged)
                {
+                   App.Current.MainPage = new NavigationPage( this);
                    LandingViewNoLogin = new LandingViewNoLogin();
-                   Content = LandingViewNoLogin;
+                  Content = LandingViewNoLogin;
                    BackgroundColor = Color.FromHex("#30343f");
-                   Navigation.PopToRootAsync();
-                }
+                   //Navigation.PopToRootAsync();
+               }
                else
                {
                    //LandingViewWithLogin = new LandingViewWithLogin();
@@ -91,11 +92,6 @@ namespace PrigovorHR.Shared.Pages
                    BackgroundColor = Color.White;
                }
            });
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-                return base.OnBackButtonPressed();
         }
     }
 }

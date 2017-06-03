@@ -18,11 +18,8 @@ namespace PrigovorHR.Shared.Pages
         public PasswordResetPage()
         {
             InitializeComponent();
-
-            btnSendResetRequest.Clicked += BtnSendResetRequest_Clicked;
             NavigationPage.SetHasNavigationBar(this, false);
-
-            //NavigationBar.BackButtonPressedEvent += (async () => { await Navigation.PopModalAsync(); });
+            btnSendResetRequest.Clicked += BtnSendResetRequest_Clicked;
         }
 
         private async void BtnSendResetRequest_Clicked(object sender, EventArgs e)
@@ -55,11 +52,6 @@ namespace PrigovorHR.Shared.Pages
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja zahtjeva!" + Environment.NewLine + "Provjerite internet konekciju vašeg uređaja", "Greška", "OK");
             }
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return OnBackButtonPressed();
         }
     }
 }

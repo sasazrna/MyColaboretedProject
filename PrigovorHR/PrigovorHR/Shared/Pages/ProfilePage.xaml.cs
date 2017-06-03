@@ -17,7 +17,7 @@ namespace PrigovorHR.Shared.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        private Controllers.TAPController _TAPController;
+        private Controllers.TAPController TAPController;
         public static byte[] ProfileImageByte;
         public delegate void ProfileUpdatedDelegate();
         public static event ProfileUpdatedDelegate ProfileUpdatedEvent;
@@ -26,19 +26,14 @@ namespace PrigovorHR.Shared.Pages
         {
             InitializeComponent();
 
-            _TAPController = new Controllers.TAPController(imgProfilePicture);
+            TAPController = new Controllers.TAPController(imgProfilePicture);
 
-            btnSaveChanges.Clicked += _btnSaveChanges_Clicked;
-            EMailEntry.Completed += _EntryEMail_Completed;
-            PasswordAgainEntry.Completed += _EntryPasswordAgain_Completed;
+            btnSaveChanges.Clicked += btnSaveChanges_Clicked;
+            EMailEntry.Completed += EntryEMail_Completed;
+            PasswordAgainEntry.Completed += EntryPasswordAgain_Completed;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
-            _TAPController.SingleTaped += _TAPController_SingleTaped;
+            TAPController.SingleTaped += TAPController_SingleTaped;
             LoadData();
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return OnBackButtonPressed();
         }
 
         public void LoadData()
@@ -47,7 +42,7 @@ namespace PrigovorHR.Shared.Pages
             SurnameEntry.Text = Controllers.LoginRegisterController.LoggedUser.surname;
             TelephoneEntry.Text = Controllers.LoginRegisterController.LoggedUser.telephone;
             EMailEntry.Text = Controllers.LoginRegisterController.LoggedUser.email;
-           EMailEntry.IsEnabled = false;
+            EMailEntry.IsEnabled = false;
             //_PasswordAgainEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
             //_PasswordEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
 
@@ -68,7 +63,7 @@ namespace PrigovorHR.Shared.Pages
             }
         }
 
-        private async void _TAPController_SingleTaped(string viewId, View view)
+        private async void TAPController_SingleTaped(string viewId, View view)
         {
             var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
             if (!string.IsNullOrEmpty(Picker?.FileName))
@@ -82,7 +77,7 @@ namespace PrigovorHR.Shared.Pages
         }
 
         #region entrycontrols
-        private void _EntryPasswordAgain_Completed(object sender, EventArgs e)
+        private void EntryPasswordAgain_Completed(object sender, EventArgs e)
         {
             if (PasswordAgainEntry.Text != PasswordEntry.Text)
             {
@@ -97,7 +92,7 @@ namespace PrigovorHR.Shared.Pages
             }
         }
 
-        private void _EntryEMail_Completed(object sender, EventArgs e)
+        private void EntryEMail_Completed(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(EMailEntry.Text))
             {
@@ -117,7 +112,7 @@ namespace PrigovorHR.Shared.Pages
         }
         #endregion
 
-        private void _btnSaveChanges_Clicked(object sender, EventArgs e)
+        private void btnSaveChanges_Clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(NameEntry.Text))
             {
@@ -138,16 +133,10 @@ namespace PrigovorHR.Shared.Pages
                 return;
             }
 
-            if (string.IsNullOrEmpty(PasswordEntry.Text))
-            {
-                PasswordEntry.PlaceholderColor = Color.Red;
-                PasswordEntry.Placeholder = "Molimo vas upišite lozinku";
-                return;
-            }
-            else
+            if (!string.IsNullOrEmpty(PasswordEntry.Text))
             {
                 if (PasswordEntry.Text.Length > 5 &
-                  PasswordEntry.Text.ToCharArray().Any(chars => char.IsDigit(chars)))
+                      PasswordEntry.Text.ToCharArray().Any(chars => char.IsDigit(chars)))
                 {
                     PasswordEntry.PlaceholderColor = Color.White;
                     _lblPassword.Text = "Ostavite prazno ako ne želite mjenjati lozinku";
@@ -185,6 +174,7 @@ namespace PrigovorHR.Shared.Pages
                 }
                 else SaveChanges();
             }
+            else SaveChanges();
         }
 
         private async void SaveChanges()
@@ -196,11 +186,11 @@ namespace PrigovorHR.Shared.Pages
                 isNotificationEnabled = true,
                 LoginType = LoginTypeModel.eLoginType.email,
                 name = NameEntry.Text,
-                profileimage = Convert.ToBase64String(ProfileImageByte),
+                profileimage = Controllers.LoginRegisterController.LoggedUser.profileimage,
                 surname = SurnameEntry.Text,
                 telephone = TelephoneEntry.Text,
                 token = UserToken.token,
-                password = PasswordEntry.Text,
+                password = !string.IsNullOrEmpty(PasswordEntry.Text) ? PasswordEntry.Text : Controllers.LoginRegisterController.LoggedUser.password,
                 usertype = UserType.eUserType.Basic
             };
 

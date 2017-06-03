@@ -24,7 +24,7 @@ namespace PrigovorHR.Shared.Pages
         {
             InitializeComponent();
 
-            NavigationPage.SetHasNavigationBar(this, false);
+         //   NavigationPage.SetHasNavigationBar(this, false);
            
             btnLogin.Clicked += BtnPrijava_Clicked;
             btnIForgotPassword.Clicked += BtnZaboravioSamLozinku_Clicked;
@@ -32,33 +32,19 @@ namespace PrigovorHR.Shared.Pages
            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
 
-        private async void NavigationBar_BackButtonPressedEvent()
-        {
-           await Navigation.PopAsync();
-        }
-
-        protected override bool OnBackButtonPressed()
-        {
-            return OnBackButtonPressed();
-        }
 
         private void BtnZaboravioSamLozinku_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new NavigationPage(new PasswordResetPage()) { BackgroundColor = Color.White });
+            Navigation.PushAsync(new PasswordResetPage() { BackgroundColor = Color.White });
         }
 
         private async void BtnPrijava_Clicked(object sender, EventArgs e)
         {
-            if (EMailEntry.Text.ToUpper() == "DEV123")
+            if (EMailEntry.Text?.ToUpper() == "DEV123")
             {
                 AppGlobal.DEBUGING = true;
                 EMailEntry.Text = "korisnik1@prigovor.hr";
                 PasswordEntry.Text = "123123";
-            }
-            else if (EMailEntry.Text.ToUpper() == "DEMO123")
-            {
-                //EMailEntry.Text = "korisnik1@prigovor.hr";
-                //PasswordEntry.Text = "123123";
             }
 
             if (string.IsNullOrEmpty(EMailEntry.Text) | string.IsNullOrEmpty(PasswordEntry.Text))

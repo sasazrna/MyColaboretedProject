@@ -32,14 +32,6 @@ namespace PrigovorHR.Shared.Pages
             TAPController.SingleTaped += (string id, View view) => { Device.OpenUri(new Uri("https://www.prigovor.hr/hr/uvjeti-koristenja-fizicke-osobe")); };
         }
 
-
-
-        protected override bool OnBackButtonPressed()
-        {
-            //    NavigationBar.InitBackButtonPressed();
-            return OnBackButtonPressed();
-        }
-
         private async void btnRegister_Clicked(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(NameEntry.Text))

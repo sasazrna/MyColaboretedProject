@@ -19,7 +19,7 @@ namespace PrigovorHR.Shared.Pages
     public partial class APPMasterDetailPage : MasterDetailPage
     {
         public static Controllers.QRScannerController QRScannerController;
-        public static MasterDetailPage ReferenceToView;
+        public static APPMasterDetailPage ReferenceToView;
   //      public static Dictionary<string, List<ToolbarItem>> ToolBarForPage;
 
         public APPMasterDetailPage()
@@ -86,47 +86,15 @@ namespace PrigovorHR.Shared.Pages
             }
         }
 
-        //public static async Task PushPage(Page Page)
-        //{
-        //    await ReferenceToView.Detail.Navigation.PushAsync(Page, true);
-        //    if (!ToolBarForPage.ContainsKey(Page.AutomationId))
-        //    {
-        //        switch (Page.AutomationId)
-        //        {
-        //            //case "ComplaintPage":
-        //            //    ToolBarForPage.Add(Page.AutomationId, new List<ToolbarItem>() { new ToolbarItem("tbiLogo", "LOGO.png", (()=> { }), ToolbarItemOrder.Primary, 0)  ,
-        //            //new ToolbarItem("tbiPrigovorText", "", (()=> { }), ToolbarItemOrder.Primary, 0) {Text="Prigovor.HR"}});
-        //            //    break;
+        public async Task PushPage(Page Page)
+        {
+            await Navigation.PushAsync(Page, true);
+        }
 
-        //            //case "NewComplaintPage":
-        //            //    ToolBarForPage.Add(Page.AutomationId, new List<ToolbarItem>() {
-        //            // new ToolbarItem("tbiSendComplaint", "send.png", (()=> { NewComplaintPage.ReferenceToPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10) {Text="Prigovor.HR"}});
-        //            //    break;
-        //        }
-        //    }
-
-        //    ReferenceToView.Detail.ToolbarItems.Clear();
-
-        //    if(ToolBarForPage.ContainsKey(Page.AutomationId))
-        //    foreach (var tbi in ToolBarForPage[Page.AutomationId])
-        //        ReferenceToView.Detail.ToolbarItems.Add(tbi);
-        //}
-
-        //public static async void PopPage(bool PopPage)
-        //{
-        //    if (PopPage)
-        //        await ReferenceToView.Detail.Navigation.PopAsync();
-
-        //    if (ToolBarForPage.ContainsKey(ReferenceToView.Detail.Navigation.NavigationStack.Last().AutomationId.ToString()))
-        //    {
-        //        ReferenceToView.Detail.ToolbarItems.Clear();
-
-        //        foreach (var tbi in ToolBarForPage[ReferenceToView.Detail.Navigation.NavigationStack.Last().AutomationId.ToString()])
-        //            ReferenceToView.Detail.ToolbarItems.Add(tbi);
-        //    }
-        //    //if (ReferenceToView.Detail.Navigation.NavigationStack.Count == 3)
-        //    //    foreach (var tbi in ReferenceToView.Detail.ToolbarItems)                
-        //}
+        public async void PopPage(bool PopPage)
+        {
+            await Navigation.PopAsync();
+        }
 
         private async void tbiQRScanner_Clicked(object sender, EventArgs e)
         {

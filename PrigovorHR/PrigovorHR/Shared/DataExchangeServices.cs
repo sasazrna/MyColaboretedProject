@@ -60,9 +60,9 @@ namespace PrigovorHR.Shared
             return await new ServerCommuncationServices().GetData(ServerCommuncationServices.ServiceCommands.GetUserAvatar, jsonvalue);
         }
 
-        public static async Task<string> ChangeUserInfo(string jsonvalue)
+        public static async Task<string> ChangeUserInfo(string jsonvalue, byte[] AvatarData)
         {
-            return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.ChangeUserInfo, jsonvalue);
+            return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.ChangeUserInfo, jsonvalue, AvatarData);
         }
 
         public static async Task<bool> ContactUs(string jsonvalue)
@@ -385,7 +385,7 @@ namespace PrigovorHR.Shared
                                     if (!string.IsNullOrEmpty((string)Jobj[prop.Name]))
                                         multipartData.Add(new StringContent((string)Jobj[prop.Name]), prop.Name);
 
-                                multipartData.Add(new ByteArrayContent(Pages.ProfilePage.ProfileImageByte), "profile_image_input", "avatar.jpg");
+                                multipartData.Add(new ByteArrayContent(byteData), "profile_image_input", "avatar.jpg");
                                 urlAddress += LoginRegisterController.LoggedUser.id.ToString();
                                 response = await client.PostAsync(urlAddress, multipartData);
                                 break;
