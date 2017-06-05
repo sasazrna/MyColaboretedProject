@@ -10,7 +10,7 @@
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
             <ListView.Header>
-                <Grid BackgroundColor="White">
+                <!--<Grid BackgroundColor="White">
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <CircleImage:CircleImage x:Name="imgProfilePicture" Source="Person.png" WidthRequest="175" HeightRequest="175" BorderColor="#FF7e65" BorderThickness="1" />
                     </StackLayout>
@@ -30,7 +30,8 @@
               Grid.Row="2"
               Text="Prigovor.HR"
               Style="{DynamicResource SubtitleStyle}"/>
-                </Grid>
+                </Grid>-->
+                <CircleImage:CircleImage x:Name="imgProfilePicture" Source="Person.png" WidthRequest="120" HeightRequest="120" BorderColor="#FF7e65" Margin="0,30,0,40" BorderThickness="1" />
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>

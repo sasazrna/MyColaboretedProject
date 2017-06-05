@@ -24,9 +24,9 @@
                 <!--#region TabView dio-->
 
                 <StackLayout x:Name="lytImages" HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="Start">
-                    <Image Source="storeElement.png" x:Name="imgStore" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
-                    <Image Source="domain.png" x:Name="imgCompany" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
-                    <Image Source="StoreList.png" x:Name="imgOtherStores" HorizontalOptions="FillAndExpand" WidthRequest="25"></Image>
+                    <Image Source="storeElement.png" x:Name="imgStore" HorizontalOptions="FillAndExpand" WidthRequest="25" Margin="0,15,0,3"></Image>
+                    <Image Source="domain.png" x:Name="imgCompany" HorizontalOptions="FillAndExpand" WidthRequest="25" Margin="0,15,0,3"></Image>
+                    <Image Source="StoreList.png" x:Name="imgOtherStores" HorizontalOptions="FillAndExpand" WidthRequest="25" Margin="0,15,0,3"></Image>
                 </StackLayout>
 
 
