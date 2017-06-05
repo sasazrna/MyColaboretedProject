@@ -46,11 +46,11 @@
 
           <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-              <StackLayout x:Name="complaintUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00"/>
+              <StackLayout x:Name="complaintUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0"  BackgroundColor="#FF6A00" Margin="-20,5,-20,0"/>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
-              <StackLayout x:Name="suggestionUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00" IsVisible="False"/>
+              <StackLayout x:Name="suggestionUnderlineLayout" HorizontalOptions="FillAndExpand" Padding="0, 3, 0, 0" BackgroundColor="#FF6A00" Margin="-20,5,-20,0" IsVisible="False"/>
             </StackLayout>
           </StackLayout>
 
@@ -66,6 +66,7 @@
           <StackLayout x:Name="suggestionLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand" IsVisible="False">
             <Label Text="Napišite sugestiju" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
             <Editor x:Name="suggestionEditor" BackgroundColor="White" TextColor="Black" HeightRequest="180" />
+           <views:FontAwesomeLabel x:Name="imgTakePhotoFake" FontSize="Large" HorizontalOptions="Start"></views:FontAwesomeLabel>
           </StackLayout>
           <views:FontAwesomeLabel x:Name="btnSendComplaint" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>
         <Label Text=".............................................................................." Margin="0,-5,0,0" TextColor="White" ></Label>

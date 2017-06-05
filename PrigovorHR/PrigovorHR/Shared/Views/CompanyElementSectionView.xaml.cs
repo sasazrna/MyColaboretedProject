@@ -14,7 +14,7 @@ namespace PrigovorHR.Shared.Views
         public CompanyElementSectionView()
         {
             InitializeComponent();
-            lblSectionIcon.Text = FontAwesomeLabel.Images.FAMinusSquareO;
+            //lblSectionIcon.Text = FontAwesomeLabel.Images.FAMinusSquareO;
         }
 
         private async void TAPController_SingleTaped(string viewId, View view)
@@ -27,8 +27,8 @@ namespace PrigovorHR.Shared.Views
         public CompanyElementSectionView(Models.CompanyElementModel CompanyElement)
         {
             InitializeComponent();
-            lblSectionIcon.Text = FontAwesomeLabel.Images.FAMinusSquareO;
-            lblSectionName.Text = CompanyElement.name;
+            //lblSectionIcon.Text = FontAwesomeLabel.Images.FAMinusSquareO;
+            //lblSectionName.Text = CompanyElement.name;
             ElementSlug = CompanyElement.slug;
             TAPController = new Controllers.TAPController(this.Content);
             TAPController.SingleTaped += TAPController_SingleTaped;

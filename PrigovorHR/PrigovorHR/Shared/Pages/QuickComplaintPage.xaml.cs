@@ -24,6 +24,12 @@ namespace PrigovorHR.Shared.Pages
         public QuickComplaintPage(Models.CompanyElementModel _CompanyElement = null, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
+
+            imgTakePhotoFake.Text = Views.FontAwesomeLabel.Images.FACamera;
+            imgTakePhotoFake.TextColor = Color.White;
+
+
+
             TapController = new Controllers.TAPController(complaintLabel, suggestionLabel, imgTakePhoto, btnSendComplaint);
 
             WriteNewComplaintModel.QuickComplaint = true;

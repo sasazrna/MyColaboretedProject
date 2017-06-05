@@ -101,7 +101,7 @@ namespace PrigovorHR.Shared.Pages
         {
             var NewComplaintPage = new NewComplaintPage(CompanyElement.element);
              await Navigation.PushAsync(NewComplaintPage, true);
-            NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "send.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
+            NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "awsomeSend2.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
 
          //   await Pages.APPMasterDetailPage.PushPage(NewComplaintPage);
             NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
