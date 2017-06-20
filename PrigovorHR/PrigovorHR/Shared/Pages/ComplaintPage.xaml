@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
              xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
-             x:Class="PrigovorHR.Shared.Pages.ComplaintPage">
+             x:Class="PrigovorHR.Shared.Pages.ComplaintPage" NavigationPage.BackButtonTitle="Natraške">
 
 <RelativeLayout x:Name="lytRelative">
 
-        <ContentView x:Name="cvTopContentView"
+   <ContentView x:Name="cvTopContentView"
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 

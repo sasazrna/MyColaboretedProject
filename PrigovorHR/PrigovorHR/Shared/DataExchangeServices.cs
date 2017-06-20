@@ -12,13 +12,14 @@ using Android.Content.PM;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using PrigovorHR.Shared.Controllers;
+using System.Net;
 
 namespace PrigovorHR.Shared
 {
     /// <summary>
     /// Root class for dataexchange functions, outside calls only can see this class
     /// </summary>
-    public class DataExchangeServices
+    public static class DataExchangeServices
     {
         public static async Task<string> GetSearchResults(string searchfor)
         {
@@ -168,6 +169,18 @@ namespace PrigovorHR.Shared
             return !ResultData.Contains("Error:");
         }
 
+        public static async Task<bool> IsThereNewAppVersion()
+        {
+            WebRequest request = WebRequest.Create("https://play.google.com/store/apps/details?id=com.prigovorHR.android");
+            WebResponse response = await Task.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
+            var html = new HtmlAgilityPack.HtmlDocument(); html.Load(response.GetResponseStream());
+            var element = html.DocumentNode.InnerHtml;
+            element = element.Remove(0, element.IndexOf("softwareVersion") + 18);
+            element = element.Substring(0, element.IndexOf("<")-2);
+            
+            return element != AppGlobal.AppVersion;
+        }
+
         /// <summary>
         /// Private class that handles all the communications and returns result to root dataexchangeservices class
         /// </summary>
@@ -300,7 +313,7 @@ namespace PrigovorHR.Shared
                             case ServiceCommands.GetLongLatFromAddress:
                                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                                 var bundle = Android.App.Application.Context.PackageManager.GetApplicationInfo("com.prigovorHR.android", PackageInfoFlags.MetaData).MetaData;
-
+                
                                 response = await client.GetAsync(string.Format(APIAdresses[ServiceCommand] + "{0}" + "&key={1}", value, bundle.Get("com.google.android.maps.v2.API_KEY")));
                                 break;
                         }

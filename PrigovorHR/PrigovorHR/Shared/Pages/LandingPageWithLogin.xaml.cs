@@ -28,79 +28,13 @@ namespace PrigovorHR.Shared.Pages
         public LandingPageWithLogin()
         {
             InitializeComponent();
-            //TopNavigationBar_OpenCloseMenuEvent(false);
-           //NavigationPage.SetHasNavigationBar(this, false);
-
-            //TopNavigationBar.OpenCloseMenuEvent += TopNavigationBar_OpenCloseMenuEvent;
-
-            //imgBack.Text = FontAwesomeLabel.Images.FAArrowLeft;
-            //imgBack.TextColor = Color.Gray;
-
-          //  TopNavigationBar.ChangeNavigationTitle("Prigovor.hr");
-
             //When logged in, check if there is complaint that wasnt sent for some reason.
             LoadComplaintAutoSaveData();
 
             ReferenceToView = this;
-            //TAPController = new TAPController(lblContact, lblLogOut, lblProfile, imgBack, imgProfilePicture);
-            //TAPController.SingleTaped += TAPController_SingleTaped;
             FirstTimeLoginView.SearchIconClickedEvent += () => Navigation.PushPopupAsync(new CompanySearchPage(), true);
             AutomationId = "LandingPageWithLogin";
-            //ProfilePage.ProfileUpdatedEvent += () => imgProfilePicture.Source =
-            // ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(LoginRegisterController.LoggedUser.profileimage)));
         }
-
-        //private async void TAPController_SingleTaped(string viewId, View view)
-        //{
-        //    if (view == lblContact)
-        //        await Navigation.PushModalAsync(new ContactUsPage(), true);
-        //    else if (view == lblProfile | view == imgProfilePicture)
-        //        await Navigation.PushModalAsync(new ProfilePage(), true);
-        //    else if (view == imgBack)
-        //        TopNavigationBar_OpenCloseMenuEvent(lytContent.IsVisible);
-        //    else if (view == lblLogOut)
-        //    {
-        //        Acr.UserDialogs.UserDialogs.Instance.Confirm(
-        //            new Acr.UserDialogs.ConfirmConfig()
-        //            {
-        //                Title = "Odjava",
-        //                CancelText = "Odustani",
-        //                OkText = "Odjavi me",
-        //                Message = "Jeste li sigurni u odjavu iz aplikacije?",
-        //                OnAction = (Confirm) => { if (Confirm) LoginRegisterController.UserLogOut(); }
-        //            });
-        //    }
-        //}
-
-        //private async void TopNavigationBar_OpenCloseMenuEvent(bool IsMenuOpen)
-        //{
-        //    lytContent.IsVisible = !IsMenuOpen;
-
-        //    if (!string.IsNullOrEmpty(LoginRegisterController.LoggedUser.profileimage))
-        //    {
-        //        var ProfileImageByte = Convert.FromBase64String(LoginRegisterController.LoggedUser.profileimage);
-        //        imgProfilePicture.Source = ImageSource.FromStream(() => new MemoryStream(ProfileImageByte));
-        //    }
-        //    else imgProfilePicture.Source = "person.png";
-
-        //    imgProfilePicture.TranslateTo(0, IsMenuOpen ? 30 : 0, 100);
-        //    imgProfilePicture.FadeTo(IsMenuOpen ? 1 : 0, 100);
-            
-        //    lblProfile.TranslateTo(0, IsMenuOpen ? 110 : 0, 100);
-        //    lblProfile.FadeTo(IsMenuOpen ? 1 : 0, 100);
-
-        //    lblContact.TranslateTo(0, IsMenuOpen ? 150 : 0, 100);
-        //    lblContact.FadeTo(IsMenuOpen ? 1 : 0, 100);
-
-        //    lblLogOut.TranslateTo(0, IsMenuOpen ? 190 : 0, 100);
-        //    lblLogOut.FadeTo(IsMenuOpen ? 1 : 0, 100);
-
-        //    imgBack.TranslateTo(0, 0, 100);
-        //    imgBack.FadeTo(IsMenuOpen ? 1 : 0, 100);
-
-        //    await Task.Delay(100);
-        //    imgProfilePicture.IsVisible = lblProfile.IsVisible = lblContact.IsVisible = lblLogOut.IsVisible = lblLogOut.IsVisible = imgBack.IsVisible = IsMenuOpen;
-        //}
 
         private async void LoadComplaintAutoSaveData()
         {
@@ -109,7 +43,6 @@ namespace PrigovorHR.Shared.Pages
 
             FirstTimeLoginView.IsVisible = !ComplaintModel.RefToAllComplaints.user.complaints.Any();
             ListOfComplaintsView.IsVisible = !FirstTimeLoginView.IsVisible;
-        //    ComplaintListTabView.IsVisible = !FirstTimeLoginView.IsVisible;
 
             object objuser;
             ComplaintModel.DraftComplaintModel WriteNewComplaintModel = null;

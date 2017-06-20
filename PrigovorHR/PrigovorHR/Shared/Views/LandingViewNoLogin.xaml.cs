@@ -25,7 +25,7 @@ namespace PrigovorHR.Shared.Views
 
         private async void _btnLogin_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new NavigationPage(new LoginPage()) { BackgroundColor = Color.White });
+            await Navigation.PushAsync(new LoginPage());
         }
 
         private async void BtnCreateAccount_Clicked(object sender, EventArgs e)

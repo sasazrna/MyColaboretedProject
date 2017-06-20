@@ -26,6 +26,21 @@ namespace PrigovorHR.Shared.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             LoginRegisterController._UserLoggedInOutEvent += LoginRegisterController__UserLoggedInOutEvent;
             Task.Run(() => { LoadUser(); });
+
+            Task.Run(async () =>
+            {
+                if (await DataExchangeServices.IsThereNewAppVersion())
+                {
+                    Acr.UserDialogs.UserDialogs.Instance.Confirm(new Acr.UserDialogs.ConfirmConfig()
+                    {
+                        Title = "Nova verzija",
+                        Message = "Dostupna je nova verzija aplikacije, želite li je preuzeti?",
+                        CancelText = "NE",
+                        OkText = "DA",
+                        OnAction = (b) => { if (b) { Device.OpenUri(new Uri("https://play.google.com/store/apps/details?id=com.prigovorHR.android")); } }
+                    });
+                }
+            });
         }
 
         private async void LoadUser()

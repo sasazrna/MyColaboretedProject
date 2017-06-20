@@ -70,7 +70,7 @@ namespace PrigovorHR.Shared.Views
                     var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(await DataExchangeServices.CheckForNewReplys(ComplaintLastEvent));
 
                     var Complaint = NewComplaintReplys.user.complaints.Single(c => c.id == ComplaintId);
-                    await Navigation.PushAsync(new Pages.ComplaintPage(Complaint), true);
+                    await Navigation.PushAsync(new Pages.ComplaintPage(Complaint));
                     await DataExchangeServices.ComplaintReaded(JsonConvert.SerializeObject(new { complaint_id = Complaint.id }));
                     var UnreadComplaint = ComplaintModel.RefToAllComplaints.user.unread_complaints.FirstOrDefault(uc => uc.id == Complaint.id);
 
@@ -228,6 +228,7 @@ namespace PrigovorHR.Shared.Views
                 ExceptionController.HandleException(ex, "Došlo je do greške na  private async void PullToRefreshModel_Pulled()");
             }
             DataSource = ComplaintModel.RefToAllComplaints;
+            DependencyService.Get<IAndroidCallers>().UpdateComplaintsListFromPortableToNative(JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints), LoginRegisterController.LoggedUser.token);
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             PullToRefreshModel.IsBusy = false;
             AppGlobal.AppLoaded = true;
@@ -253,7 +254,7 @@ namespace PrigovorHR.Shared.Views
 
             if (VisibleLayout == lytClosedComplaints | VisibleLayout == lytActiveComplaints)
             {
-                var MaxOfVisibleComplaints = _DataSource.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
+                var MaxOfVisibleComplaints = _DataSource?.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
                 if (displayedComplaints != MaxOfVisibleComplaints | displayedComplaints == 0)
                 {
                     foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.updated_at))

@@ -7,15 +7,15 @@
 
     <StackLayout Padding="15, 5, 15, 5" x:Name="lytRoot" >
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                <Label Text="Razgovaram s:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
+                <Label x:Name="lblTalkingTo" Text="Razgovaram s:"  FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
                 <Label x:Name="lblNameOfContactPerson" Text="Ante Antić" LineBreakMode="TailTruncation" FontSize="Small" FontAttributes="Bold" TextColor="#79b2d6" HorizontalOptions = "StartAndExpand"/>
-                <Label x:Name="lblComplaintResponseDate" HorizontalOptions="End" Text="21.svib." TextColor="Gray" FontSize="Small" VerticalOptions="End" VerticalTextAlignment="Start"  ></Label>
+                <Label x:Name="lblComplaintResponseDate" HorizontalOptions="EndAndExpand" Text="21.svib." TextColor="Gray" FontSize="Small" VerticalOptions="End" VerticalTextAlignment="Start"  ></Label>
             </StackLayout>
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
 
-            <Views:FontAwesomeLabel x:Name="lblRead" FontSize="Small" HorizontalTextAlignment="Center" VerticalOptions="End" VerticalTextAlignment="End" HorizontalOptions="Start" Margin="3.1,0,0,0"></Views:FontAwesomeLabel>
-            <Label x:Name="lblNumOfResponses" Text="(+3)" FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" TextColor="Gray" VerticalOptions="CenterAndExpand"></Label>
-            <Views:FontAwesomeLabel x:Name="lblLock" FontSize="Small" HorizontalTextAlignment="End" HorizontalOptions="StartAndExpand" VerticalTextAlignment="End" VerticalOptions="End"></Views:FontAwesomeLabel>
+            <!--<Views:FontAwesomeLabel x:Name="lblRead" FontSize="Small" HorizontalTextAlignment="Center" VerticalOptions="End" VerticalTextAlignment="End" HorizontalOptions="Start" Margin="3.1,0,0,0"></Views:FontAwesomeLabel>-->
+            <!--<Label x:Name="lblNumOfResponses" Text="(+3)" FontSize="Small" HorizontalTextAlignment="Start" HorizontalOptions="Start" TextColor="Gray" VerticalOptions="CenterAndExpand"></Label>-->
+            <!--<Views:FontAwesomeLabel x:Name="lblLock" FontSize="Small" HorizontalTextAlignment="End" HorizontalOptions="StartAndExpand" VerticalTextAlignment="End" VerticalOptions="End"></Views:FontAwesomeLabel>-->
             <StackLayout Orientation="Horizontal" HorizontalOptions="End">
                 
                 <StackLayout x:Name="lytEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" IsVisible="False">

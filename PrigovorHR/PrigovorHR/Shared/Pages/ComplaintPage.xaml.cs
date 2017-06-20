@@ -33,31 +33,38 @@ namespace PrigovorHR.Shared.Pages
 
         public ComplaintPage(Models.ComplaintModel complaint)
         {
-            InitializeComponent();
-            Complaint = complaint;
-            lytAllResponses.Children.Clear();
-            lytOriginalComplaint.Children.Clear();
-            scrView.IsVisible = false;
+            try
+            {
+                InitializeComponent();
+                Complaint = complaint;
+                lytAllResponses.Children.Clear();
+                lytOriginalComplaint.Children.Clear();
+                scrView.IsVisible = false;
 
-            ComplaintClosed = complaint.closed;
-            ComplaintEvaluated = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint.id)?.satisfaction != null;
+                ComplaintClosed = complaint.closed;
+                ComplaintEvaluated = ComplaintModel.RefToAllComplaints.user.element_reviews?.SingleOrDefault(er => er.complaint_id == Complaint.id)?.satisfaction != null;
 
-            ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
-                Complaint.replies.LastOrDefault(r => r.user_id != LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
-                Complaint.element.name, Complaint.element.name);
+                ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
+                    Complaint.replies.LastOrDefault(r => r.user_id != LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
+                    Complaint.element.name, Complaint.element.name);
 
-            scrView.Scrolled += ScrView_Scrolled;
-            Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
+                scrView.Scrolled += ScrView_Scrolled;
+                Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavam vaš prigovor");
 
-            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 500), () =>
-                {
-                    DisplayData(Complaint);
-                    return false;
-                });
+                Device.StartTimer(new TimeSpan(0, 0, 0, 0, 500), () =>
+                    {
+                        DisplayData(Complaint);
+                        return false;
+                    });
 
-            SetFABS();
-            AutomationId = "ComplaintPage";
-            ToolbarItems.Clear();  
+                SetFABS();
+                AutomationId = "ComplaintPage";
+                ToolbarItems.Clear();
+            }
+            catch(Exception ex)
+            {
+                ExceptionController.HandleException(ex, "Došlo je do greške kod public ComplaintPage(Models.ComplaintModel complaint)");
+            }
         }
 
         private void SetFABS()
@@ -293,21 +300,5 @@ namespace PrigovorHR.Shared.Pages
            // NavigationBar.MinimumHeightRequest = Views.MainNavigationBar.ReferenceToView.Height;
           //  NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
         }
-
-
-        //protected override void OnDisappearing()
-        //{
-        //    //APPMasterDetailPage.PopPage(!HBackButtonPressed);
-        //    base.OnDisappearing();
-        //}
-
-        bool HBackButtonPressed = false;
-        //protected override bool OnBackButtonPressed()
-        //{
-        //    return o
-        //    //HBackButtonPressed = true;
-        //    //APPMasterDetailPage.PopPage(HBackButtonPressed);
-        //    //return false;
-        //}
     }
 }

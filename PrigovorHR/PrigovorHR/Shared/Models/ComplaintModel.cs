@@ -8,13 +8,6 @@ namespace PrigovorHR.Shared.Models
 {
     public class ComplaintModel
     {
-        public interface ComplaintModelInterface
-        {
-             int id { get; set; }
-             string created_at { get; set; }
-             string updated_at { get; set; }
-        }
-
         public static RootComplaintModel RefToAllComplaints { get; set; } = null;
         public enum TypeOfComplaint { Active = 1, Closed = 2, Draft = 3, Unsent = 4 }
         public TypeOfComplaint typeOfComplaint { get; set; }

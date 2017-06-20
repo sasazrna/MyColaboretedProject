@@ -22,6 +22,8 @@ namespace PrigovorHR.Shared.Controllers
         void DeleteFile(string FileName);
 
         int GetSDKVersion();
+
+        void UpdateComplaintsListFromPortableToNative(string JSON, string UserToken);
     }
 
     public interface IAndroidFacebookCallers

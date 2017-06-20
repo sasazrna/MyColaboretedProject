@@ -99,7 +99,12 @@ namespace PrigovorHR.Droid
         {
             return MainActivity.SDKVersion;
         }
-       
+
+        public void UpdateComplaintsListFromPortableToNative(string JSON, string UserToken)
+        {
+            AndroidServices.AlarmReceiver.UpdateComplaintsListFromPortable(JSON, UserToken);
+        }
+
         #region sound recording
         private Android.Media.MediaRecorder _recorder = new Android.Media.MediaRecorder();
         private Android.Media.MediaPlayer _player = new Android.Media.MediaPlayer();

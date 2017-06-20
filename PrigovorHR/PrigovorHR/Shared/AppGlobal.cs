@@ -28,6 +28,8 @@ namespace PrigovorHR.Shared
         {
             return DependencyService.Get<Controllers.IAndroidCallers>().GetSDKVersion();
         }
+
+       public static string AppVersion { get; set; }
     }
 }
 

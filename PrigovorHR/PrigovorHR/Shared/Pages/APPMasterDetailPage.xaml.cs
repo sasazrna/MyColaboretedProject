@@ -64,8 +64,8 @@ namespace PrigovorHR.Shared.Pages
             {
                 if (item.Id > 0 & item.Id < 5)
                 {
-                    ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(item.Id, true);
                     Detail = DetailNavigationPage;
+                    ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(item.Id, true);
                 }
 
                 if (item.Id == 6)
@@ -82,7 +82,7 @@ namespace PrigovorHR.Shared.Pages
 
                     MasterPage.ListView.SelectedItem = null;
                 }
-                IsPresented = false;
+                // IsPresented = false;
             }
         }
 
