@@ -57,15 +57,17 @@
           <Label x:Name="lblElementName" Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" Margin="0, 5, 0, 5" />
 
           <StackLayout x:Name="_complaintLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
-            <Label Text="Napišite prigovor" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
-            <Editor x:Name="complaintEditor"  BackgroundColor="White" TextColor="Black"  HeightRequest="180" />
+            <!--<Label Text="Napišite prigovor" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />-->
+            <Editor x:Name="complaintEditor" Text="Napišite prigovor..." FontSize="Small" BackgroundColor="#f5f5f5" TextColor="Gray"  HeightRequest="180" />
+            <StackLayout HeightRequest="15" BackgroundColor="White" Margin="0,-15,0,0"></StackLayout>
          <!--<Button x:Name="_cameraButton" Image="camera.png" BorderWidth="2" HorizontalOptions="Start" />-->
             <views:FontAwesomeLabel x:Name="imgTakePhoto" FontSize="Large" HorizontalOptions="Start"></views:FontAwesomeLabel>
           </StackLayout>
 
           <StackLayout x:Name="suggestionLayout" Padding="5, 0, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand" IsVisible="False">
-            <Label Text="Napišite sugestiju" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />
-            <Editor x:Name="suggestionEditor" BackgroundColor="White" TextColor="Black" HeightRequest="180" />
+            <!--<Label Text="Napišite sugestiju" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center"  HorizontalOptions="FillAndExpand" TextColor="#6d7c85" />-->
+            <Editor x:Name="suggestionEditor" Text="Napišite sugestiju..."  FontSize="Small" BackgroundColor="#f5f5f5"  TextColor="Gray" HeightRequest="180" />
+            <StackLayout HeightRequest="15" BackgroundColor="White" Margin="0,-15,0,0"></StackLayout>
            <views:FontAwesomeLabel x:Name="imgTakePhotoFake" FontSize="Large" HorizontalOptions="Start"></views:FontAwesomeLabel>
           </StackLayout>
           <views:FontAwesomeLabel x:Name="btnSendComplaint" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>

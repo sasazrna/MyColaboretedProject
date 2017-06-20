@@ -274,6 +274,18 @@ namespace PrigovorHR.Shared.Pages
             SaveToDevice();
         }
 
+        private void editReplyText_Focused(object sender, FocusEventArgs e)
+        {
+            ComplaintCoversationHeaderView.IsVisible = false;
+            MainsStack.Padding = new Thickness(25, 15, 25, 30);
+        }
+
+        private void editReplyText_Unfocused(object sender, FocusEventArgs e)
+        {
+            ComplaintCoversationHeaderView.IsVisible = true;
+            MainsStack.Padding = new Thickness(25, 35, 25, 30);
+        }
+
         protected override bool OnBackButtonPressed()
         {
             if (!string.IsNullOrEmpty(editReplyText.Text) | lytAttachments.Children.Any())
