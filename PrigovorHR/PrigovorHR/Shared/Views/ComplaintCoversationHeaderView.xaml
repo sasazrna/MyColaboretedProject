@@ -4,7 +4,7 @@
               xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Views.ComplaintCoversationHeaderView">
     <ContentView.Content>
-        <Frame Margin="0,-20,-15,-5" Padding="10">
+        <StackLayout Margin="0,-20,-15,-5" Padding="10">
                 <StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label Text="Razgovaram s:" FontSize="Small" HorizontalOptions="Start" TextColor="Black" />
@@ -21,6 +21,6 @@
                     <views:FontAwesomeLabel x:Name="imgSend" FontSize="50" TextColor="#FF7e65" Margin=" 0, 0,20, 0"></views:FontAwesomeLabel>
                 </StackLayout>-->
             </StackLayout>
-        </Frame>
+        </StackLayout>
     </ContentView.Content>
 </ContentView>

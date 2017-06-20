@@ -14,7 +14,7 @@
             <StackLayout>
                 <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
 
-                <StackLayout VerticalOptions="Start" Margin="0,6,0,0">
+                <StackLayout VerticalOptions="Start" Margin="0,25,0,0">
                     <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView"></views:ComplaintCoversationHeaderView>
                 </StackLayout>
 

@@ -18,6 +18,8 @@ namespace PrigovorHR.Shared.Pages
             InitializeComponent();
             btnSend.Clicked += _btnSend_Clicked;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
+
+           
         }
 
         private async void _btnSend_Clicked(object sender, EventArgs e)
@@ -48,5 +50,21 @@ namespace PrigovorHR.Shared.Pages
         {
             return OnBackButtonPressed();
         }
+
+        private void MessageEntry_Focused(object sender, FocusEventArgs e)
+        {
+            FakeStack.IsVisible = false;
+            LogoStack.IsVisible = false;
+        }
+
+        private void MessageEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            FakeStack.IsVisible = true;
+            FakeStack.IsVisible = true;
+        }
+
+     
+
+
     }
 }

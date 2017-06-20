@@ -13,6 +13,14 @@ namespace PrigovorHR.Shared.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewComplaintPage : ContentPage
     {
+
+        public Action<object, FocusEventArgs> ComplaintFocused { get; private set; }
+        public Action<object, FocusEventArgs> SuggestionFocused { get; private set; }
+
+        public Action<object, FocusEventArgs> ComplaintUnfocused { get; private set; }
+        public Action<object, FocusEventArgs> SuggestionUnfocused { get; private set; }
+
+
         private Controllers.TAPController TAPController;
         private string Latitude = string.Empty, Longitude = string.Empty;
         public delegate void ComplaintSentHandler(int id);
@@ -27,11 +35,54 @@ namespace PrigovorHR.Shared.Pages
         public NewComplaintPage()
         {
             InitializeComponent();
+            ComplaintFocused += EditorComplaint_Focused;
+            SuggestionFocused += EditorSuggestion_Focused;
+            ComplaintUnfocused += EditorComplaint_Unfocused;
+            SuggestionUnfocused += EditorSuggestion_Unfocused;
+
         }
+
+        private void EditorComplaint_Focused(object sender, FocusEventArgs e)
+        {
+            TimePickerStack.IsVisible = false;
+            ComplaintCoversationHeaderView.IsVisible = false;
+            editSuggestionText.IsVisible = false;
+
+        }
+
+        private void EditorSuggestion_Focused(object sender, FocusEventArgs e)
+        {
+            TimePickerStack.IsVisible = false;
+            ComplaintCoversationHeaderView.IsVisible = false;
+            editComplaintText.IsVisible = false;
+            editComplaintTextUderStack.IsVisible = false;
+        }
+
+
+        private void EditorComplaint_Unfocused(object sender, FocusEventArgs e)
+        {
+            TimePickerStack.IsVisible = true;
+            ComplaintCoversationHeaderView.IsVisible = true;
+            editSuggestionText.IsVisible = true;
+
+        }
+
+        private void EditorSuggestion_Unfocused(object sender, FocusEventArgs e)
+        {
+            TimePickerStack.IsVisible = true;
+            ComplaintCoversationHeaderView.IsVisible = true;
+            editComplaintText.IsVisible = true;
+            editComplaintTextUderStack.IsVisible = true;
+        }
+
+
+
 
         public NewComplaintPage(Models.CompanyElementModel companyElement, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
+
+
 
             FaNow.Text = Views.FontAwesomeLabel.Images.FAClockO;
             FaPast.Text = Views.FontAwesomeLabel.Images.FACalendarO;
@@ -76,7 +127,7 @@ namespace PrigovorHR.Shared.Pages
                 labela_vremena_sad.Text = ProblemOccurred.ToString();
                 labela_vremena_sad.IsVisible = true;
             }
-        
+
             imgAttachDocs.Text = '\uf1c1'.ToString();
             imgAttachDocs.TextColor = Color.Gray;
 
@@ -90,7 +141,7 @@ namespace PrigovorHR.Shared.Pages
             btnSendComplaint.TextColor = Color.FromHex("#FF7e65");
 
             arrivalTimePicke.PropertyChanged += ArrivalTimePicke_PropertyChanged;
-          
+
             arrivalDatePicker.IsVisible = false;
             arrivalTimePicke.IsVisible = false;
 
@@ -106,8 +157,8 @@ namespace PrigovorHR.Shared.Pages
             arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
             AutomationId = "NewComplaintPage";
             ReferenceToPage = this;
-           
-          //  NavigationPage.SetHasNavigationBar(this, false);
+
+            //  NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void TAPController_SingleTaped(string viewId, View view)
@@ -166,6 +217,7 @@ namespace PrigovorHR.Shared.Pages
                     attachment_mime = AttachmentView.Id.ToString()
                 });
                 SaveToDevice();
+
             }
         }
 
@@ -199,6 +251,7 @@ namespace PrigovorHR.Shared.Pages
 
         private async void InitTakeGPSLocation()
         {
+
             if (imgTakeGPSLocation.TextColor != Color.FromHex("#FF6A00"))
             {
                 Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Tražim vašu lokaciju", Acr.UserDialogs.MaskType.Clear);
@@ -227,6 +280,7 @@ namespace PrigovorHR.Shared.Pages
                 imgTakeGPSLocation.TextColor = Color.Gray;
             }
             SaveToDevice();
+
         }
 
         public async void SendComplaint()
@@ -334,7 +388,8 @@ namespace PrigovorHR.Shared.Pages
                            CancelText = "NE",
                            OkText = "DA",
                            Message = "Jeste li sigurni u prekid?",
-                           OnAction = (Confirm) => {
+                           OnAction = (Confirm) =>
+                           {
                                if (!Confirm) { return; }
                                else
                                {

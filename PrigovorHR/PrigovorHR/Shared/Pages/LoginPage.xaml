@@ -6,10 +6,10 @@
              xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
              x:Class="PrigovorHR.Shared.Pages.LoginPage">
 
-    <StackLayout>
+    
    <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
-  <ScrollView x:Name="LoginScrollView">
-    <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand">
+  <!--<ScrollView  x:Name="LoginScrollView">-->
+    <StackLayout Padding="5, 5, 5, 5" x:Name="GlavniStack" Orientation="Vertical" VerticalOptions="FillAndExpand">
       <!--<Label Text="Imate jedan od ovih računa? Klik za prijavu" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Silver" LineBreakMode="CharacterWrap" />-->
        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="15, 20, 15, 20">
          <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
@@ -28,24 +28,24 @@
       </StackLayout>-->
        
 
-      <StackLayout>
+      <StackLayout x:Name="EmailStack">
         <Label Text="Prijava email adresom:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Gray" />
       </StackLayout>
 
-      <StackLayout VerticalOptions="FillAndExpand" Margin="0,15,0,0" >
+      <StackLayout x:Name="EntryStack" VerticalOptions="FillAndExpand" Margin="0,0,0,0" >
         <!--<Label Text="Upišite e-mail:" FontSize="Medium" HorizontalTextAlignment="Start" TextColor="Silver"/>-->
-                    <customcontrols:Entry x:Name="EMailEntry" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0,20,0,20" />
-                    <customcontrols:Entry x:Name="PasswordEntry" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0,20,0,20" />
+                    <customcontrols:Entry x:Name="EMailEntry" Focused="EMailEntry_Focused" Unfocused="EMailEntry_Unfocused" Placeholder="Upišite vaš email" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0,20,0,20" />
+                    <customcontrols:Entry x:Name="PasswordEntry" Focused="PasswordEntry_Focused" Unfocused="PasswordEntry_Unfocused" Placeholder="Upišite lozinku" IsPassword="true" TextColor="Black" PlaceholderColor="#FF7e65" FontSize="Medium" Margin="0,20,0,20" />
       </StackLayout>
 
 
-      <StackLayout VerticalOptions="EndAndExpand">
+      <StackLayout x:Name="GumbiStack" VerticalOptions="Start">
                     <Button x:Name="btnLogin" Text="Prijavi me" TextColor="White" BackgroundColor="#FF7e65"/>
         <Button x:Name="btnIForgotPassword" Text="Zaboravili ste lozinku?" TextColor="Black" FontSize="Small"  BackgroundColor="Silver" />
       </StackLayout>
     </StackLayout>
-   </ScrollView>
-  </StackLayout>
+   <!--</ScrollView>-->
+ 
    
 </ContentPage>
 

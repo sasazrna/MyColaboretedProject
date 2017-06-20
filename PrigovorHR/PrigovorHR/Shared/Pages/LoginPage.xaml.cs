@@ -82,5 +82,33 @@ namespace PrigovorHR.Shared.Pages
                     Acr.UserDialogs.UserDialogs.Instance.Alert("Greška kod prijave!" + Environment.NewLine + "Provjerite ispravnost unesenih podataka", "Neispravna prijava", "OK");
             }
         }
+
+        private void EMailEntry_Focused(object sender, FocusEventArgs e)
+        {
+            EmailStack.IsVisible = false;
+            GumbiStack.VerticalOptions = LayoutOptions.Start;
+            EntryStack.VerticalOptions = LayoutOptions.Start;
+        }
+
+        private void EMailEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            EmailStack.IsVisible = true;
+            GumbiStack.VerticalOptions = LayoutOptions.EndAndExpand;
+            EntryStack.VerticalOptions = LayoutOptions.FillAndExpand;
+        }
+
+        private void PasswordEntry_Focused(object sender, FocusEventArgs e)
+        {
+            EmailStack.IsVisible = false;
+            GumbiStack.VerticalOptions = LayoutOptions.Start;
+            EntryStack.VerticalOptions = LayoutOptions.Start;
+        }
+
+        private void PasswordEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            EmailStack.IsVisible = true;
+            GumbiStack.VerticalOptions = LayoutOptions.EndAndExpand;
+            EntryStack.VerticalOptions = LayoutOptions.FillAndExpand;
+        }
     }
 }
