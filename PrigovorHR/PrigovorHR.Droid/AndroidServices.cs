@@ -116,7 +116,7 @@ namespace PrigovorHR.Droid
 
             public override void OnReceive(Context context, Intent intent)
             {
-                ShowNotification(0, "IsRunning", IsRunning.ToString(), context);
+                //ShowNotification(0, "IsRunning", IsRunning.ToString(), context);
                 if (IsRunning) return;
                 RefreshValues.Clear();
                 RefreshValues.Add(false, new Dictionary<int, double>() { { 0, 120 }, { 1, 120 }, { 2, 5 }, { 3, 5 }, { 4, 15 }, { 5, 30 } });
