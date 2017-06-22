@@ -21,8 +21,6 @@ namespace PrigovorHR.Shared.Views
         public delegate void ComplaintClickedHandler(ComplaintModel Complaint);
         public bool IsUnreaded = false;
 
-
-       
         public ComplaintListView_BasicUser()
         {
             InitializeComponent();
@@ -45,7 +43,7 @@ namespace PrigovorHR.Shared.Views
                 lblShortComplaint.Text = Complaint.closed & !string.IsNullOrEmpty(LastClosedComplaintEvent?.message) ? LastClosedComplaintEvent?.message :
                                           Reply == null ? Complaint.complaint : Reply.reply;
 
-                var LastResponse = complaint.closed ? DateTime.Parse(LastClosedComplaintEvent.created_at) :
+                var LastResponse = Complaint.closed ? DateTime.Parse(LastClosedComplaintEvent.created_at) :
                     Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);//updateat ne postoji kod skica.
 
                 if (LastResponse.Date == DateTime.Now.Date)
@@ -84,6 +82,9 @@ namespace PrigovorHR.Shared.Views
                     lblTalkingTo.IsVisible = false;
                 }
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
+
+                lblMessageType.Text = ComplaintModel.messageTypeNamesDefinitions[Convert.ToInt32(complaint.messageType)].Item1;
+                lblMessageType.BackgroundColor = ComplaintModel.messageTypeNamesDefinitions[Convert.ToInt32(complaint.messageType)].Item2;
 
                 //lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
                 //lblNumOfResponses.IsVisible = complaint.replies.Any();

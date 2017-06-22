@@ -13,8 +13,8 @@
     <MasterDetailPage.Detail>
         <NavigationPage x:Name="DetailNavigationPage" BackgroundColor="White" BarBackgroundColor="Blue" >
             <NavigationPage.ToolbarItems>
-                <ToolbarItem Name="tbiLogo" Order="Primary" Icon="LOGO.png" Text="Prigovor.HR" Priority="0"/>
-                <ToolbarItem Name="tbiPrigovorText" Order="Primary" Text="Prigovor.HR" Priority="0"/>
+                <ToolbarItem Name="tbiLogo" Order="Primary" Icon="LOGO.png" Priority="0"/>
+                <ToolbarItem Name="tbiPrigovorText" Order="Primary" Text="{Binding AppName}" Priority="0"/>
                 <ToolbarItem Name="tbiQRScanner" Order="Primary" Icon="awsomeQR.png" Priority="2" Clicked="tbiQRScanner_Clicked" />
                 <ToolbarItem Name="tbiSearch" Order="Primary" Icon="awsomeSearch.png"  Priority="2" Clicked="tbiSearch_Clicked" />
             </NavigationPage.ToolbarItems>

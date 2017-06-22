@@ -42,8 +42,8 @@ namespace PrigovorHR.Shared.Pages
                 MenuItems = new ObservableCollection<APPMasterDetailPageMenuItem>(new[]
                 {
                     new APPMasterDetailPageMenuItem { Icon="awsomeUser.png", Id = 0, Title = "Moj profil", TargetType = typeof(ProfilePage) },
-                    new APPMasterDetailPageMenuItem { Icon="awsomeInbox.png", Id = 1, Title = "Aktivni prigovori" },
-                    new APPMasterDetailPageMenuItem { Icon="awsomeArchive.png", Id = 2, Title = "Zatvoreni prigovori" },
+                    new APPMasterDetailPageMenuItem { Icon="awsomeInbox.png", Id = 1, Title = "Aktivno" },
+                    new APPMasterDetailPageMenuItem { Icon="awsomeArchive.png", Id = 2, Title = "Zatvoreno" },
                     //new APPMasterDetailPageMenuItem { Icon="awsomeEdit.png", Id = 3, Title = "Skice" },
                     //new APPMasterDetailPageMenuItem { Icon="awsomeNotSent.png", Id = 4, Title = "Neposlani prigovori" },
                     new APPMasterDetailPageMenuItem { Icon="awsomeCard.png", Id = 5, Title = "Kontakt", TargetType=typeof(ContactUsPage) },

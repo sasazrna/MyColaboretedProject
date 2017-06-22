@@ -17,6 +17,8 @@ namespace PrigovorHR.Shared
 
         public static bool AppIsComplio { get; set; } = false;
 
+        public static string AppName { get { return AppIsComplio ? "Complio" : "Prigovor.HR"; } }
+
         public static bool DEBUGING = false;
 
         public static void CloseApp()

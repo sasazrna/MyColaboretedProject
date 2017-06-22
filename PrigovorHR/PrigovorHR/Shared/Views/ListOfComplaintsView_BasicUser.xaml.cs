@@ -254,10 +254,10 @@ namespace PrigovorHR.Shared.Views
 
             if (VisibleLayout == lytClosedComplaints | VisibleLayout == lytActiveComplaints)
             {
-                var MaxOfVisibleComplaints = _DataSource?.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
+                var MaxOfVisibleComplaints = DataSource?.user?.complaints.Count(c => c.closed == ClosedComplaintsVisible) - 1;
                 if (displayedComplaints != MaxOfVisibleComplaints | displayedComplaints == 0)
                 {
-                    foreach (var Complaint in _DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.updated_at))
+                    foreach (var Complaint in DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.updated_at))
                                                                .Where(c => c.closed == ClosedComplaintsVisible)
                                                                .Skip(displayedComplaints)
                                                                .Take(MaximumDisplayedComplaintsPerRequest))

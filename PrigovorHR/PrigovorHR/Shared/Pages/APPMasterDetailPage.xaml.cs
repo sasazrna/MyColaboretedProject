@@ -20,11 +20,16 @@ namespace PrigovorHR.Shared.Pages
     {
         public static Controllers.QRScannerController QRScannerController;
         public static APPMasterDetailPage ReferenceToView;
+        public string AppName
+        {
+            get { return AppGlobal.AppName;  }
+        }
   //      public static Dictionary<string, List<ToolbarItem>> ToolBarForPage;
 
         public APPMasterDetailPage()
         {
             InitializeComponent();
+            BindingContext = this;
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
             NavigationPage.SetHasNavigationBar(this, false);
             ReferenceToView = this;

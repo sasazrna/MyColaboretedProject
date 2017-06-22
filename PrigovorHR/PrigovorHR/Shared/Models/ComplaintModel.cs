@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Forms;
 namespace PrigovorHR.Shared.Models
 {
     public class ComplaintModel
@@ -22,6 +22,14 @@ namespace PrigovorHR.Shared.Models
         public string problem_occurred { get; set; }//??
         public string suggestion { get; set; }
         public string last_event { get; set; }
+        public int? messageType { get; set; }
+
+        public static Dictionary<int, Tuple<string, Color>> messageTypeNamesDefinitions =
+            new Dictionary<int, Tuple<string, Color>>() { { 0, new Tuple<string, Color>("Prigovor", Color.Red) } ,
+                                                          { 2, new Tuple<string, Color>("Pohvala", Color.Green) },
+                                                          { 3, new Tuple<string, Color>("Prijedlog", Color.Yellow) },
+                                                          { 4, new Tuple<string, Color>("Upit", Color.Blue) } };
+
         public List<ComplaintEvent> complaint_events { get; set; }
 
         public string latitude { get; set; }

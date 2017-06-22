@@ -26,10 +26,16 @@ namespace PrigovorHR.Shared.Pages
             NameEntry.Completed += Entry_Completed;
             SurnameEntry.Completed += Entry_Completed;
             PasswordEntry.Completed += Entry_Completed;
+            PasswordEntry.TextChanged += PasswordEntry_TextChanged;
             btnRegister.Clicked += btnRegister_Clicked;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             TAPController = new TAPController(lblTerms);
             TAPController.SingleTaped += (string id, View view) => { Device.OpenUri(new Uri("https://www.prigovor.hr/hr/uvjeti-koristenja-fizicke-osobe")); };
+        }
+
+        private void PasswordEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lblPassword.IsVisible = false;
         }
 
         private async void btnRegister_Clicked(object sender, EventArgs e)
@@ -68,6 +74,7 @@ namespace PrigovorHR.Shared.Pages
                 }
                 else
                 {
+                    lblPassword.IsVisible = true;
                     lblPassword.TextColor = Color.Red;
                     lblPassword.Text = "Vaša lozinka treba sadržavati minimalno 6 znakova od čega jedan mora biti broj";
                     return;
