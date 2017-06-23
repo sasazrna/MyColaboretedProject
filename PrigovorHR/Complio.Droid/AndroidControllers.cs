@@ -9,16 +9,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using PrigovorHR.Droid;
-using PrigovorHR.Shared.Controllers;
+using Complio.Droid;
+using Complio.Shared.Controllers;
 
 using System.IO;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
-using static PrigovorHR.Droid.AndroidCallers;
+using static Complio.Droid.AndroidCallers;
 using Xamarin.Auth;
 using Xamarin.Facebook.Login;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Views;
 using Xamarin.Facebook;
 using Xamarin.Facebook.Share.Widget;
 using System.Net;
@@ -28,7 +28,7 @@ using Android.Webkit;
 //[assembly: Xamarin.Forms.Dependency(typeof(LoginPageRenderer))]
 //[assembly: ExportRenderer(typeof(LoginPageRenderer), typeof(PrigovorHR.Shared.Pages.RegisterLoginPage))]
 
-namespace PrigovorHR.Droid
+namespace Complio.Droid
 {
     class AndroidCallers : IAndroidCallers
     {
@@ -99,7 +99,12 @@ namespace PrigovorHR.Droid
         {
             return MainActivity.SDKVersion;
         }
-       
+
+        public void UpdateComplaintsListFromPortableToNative(string JSON, string UserToken)
+        {
+            AndroidServices.AlarmReceiver.UpdateComplaintsListFromPortable(JSON, UserToken);
+        }
+
         #region sound recording
         private Android.Media.MediaRecorder _recorder = new Android.Media.MediaRecorder();
         private Android.Media.MediaPlayer _player = new Android.Media.MediaPlayer();

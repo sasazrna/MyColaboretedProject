@@ -1,4 +1,4 @@
-﻿using PrigovorHR.Shared.Models;
+﻿using Complio.Shared.Models;
 using Refractored.XamForms.PullToRefresh;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using PrigovorHR.Shared.Pages;
+using Complio.Shared.Pages;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -43,7 +43,7 @@ namespace PrigovorHR.Shared.Views
                 lblShortComplaint.Text = Complaint.closed & !string.IsNullOrEmpty(LastClosedComplaintEvent?.message) ? LastClosedComplaintEvent?.message :
                                           Reply == null ? Complaint.complaint : Reply.reply;
 
-                var LastResponse = Complaint.closed ? DateTime.Parse(LastClosedComplaintEvent.created_at) :
+                var LastResponse = Complaint.closed & LastClosedComplaintEvent != null ? DateTime.Parse(LastClosedComplaintEvent.created_at) :
                     Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);//updateat ne postoji kod skica.
 
                 if (LastResponse.Date == DateTime.Now.Date)

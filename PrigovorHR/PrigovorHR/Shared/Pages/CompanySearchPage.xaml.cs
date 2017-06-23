@@ -1,4 +1,4 @@
-﻿using PrigovorHR.Shared.Views;
+﻿using Complio.Shared.Views;
 using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CompanySearchPage : PopupPage

@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Xaml;
 using Xamarin.Forms;
-using PrigovorHR.Shared.Controllers;
-using PrigovorHR.Shared.Models;
+using Complio.Shared.Controllers;
+using Complio.Shared.Models;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ComplaintPage : ContentPage

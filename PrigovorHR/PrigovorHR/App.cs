@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Views;
 using System.Reflection;
-using PrigovorHR.Shared.Pages;
+using Complio.Shared.Pages;
 using System.Threading.Tasks;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
 
-namespace PrigovorHR
+namespace Complio
 {
     public class App : Application
     {

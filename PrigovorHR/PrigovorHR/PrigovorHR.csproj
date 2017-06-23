@@ -53,6 +53,9 @@
     <Compile Include="Shared\Pages\CompanySearchPage.xaml.cs">
       <DependentUpon>CompanySearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shared\Pages\MessageTypeSelectionPage.xaml.cs">
+      <DependentUpon>MessageTypeSelectionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\Pages\SplashScreenPage.xaml.cs">
       <DependentUpon>SplashScreenPage.xaml</DependentUpon>
     </Compile>
@@ -622,6 +625,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\SplashScreenPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Pages\MessageTypeSelectionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

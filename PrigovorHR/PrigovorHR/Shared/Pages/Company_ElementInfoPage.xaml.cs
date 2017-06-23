@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PrigovorHR.Shared.Models;
+using Complio.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
-using PrigovorHR.Shared.Controllers;
+using Complio.Shared.Controllers;
 using Android.Runtime;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Company_ElementInfoPage : ContentPage
@@ -99,12 +99,18 @@ namespace PrigovorHR.Shared.Pages
 
         private async void BtnWriteComplaint_Clicked(object sender, EventArgs e)
         {
-            var NewComplaintPage = new NewComplaintPage(CompanyElement.element);
-             await Navigation.PushAsync(NewComplaintPage, true);
-            NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "awsomeSend2.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
-
-         //   await Pages.APPMasterDetailPage.PushPage(NewComplaintPage);
-            NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+            if (!AppGlobal.AppIsComplio)
+            {
+                var NewComplaintPage = new NewComplaintPage(CompanyElement.element, 0);
+                await Navigation.PushAsync(NewComplaintPage, true);
+                NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "awsomeSend2.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
+                NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+            }
+            else
+            {
+                var MessageTypeSelectionPage = new MessageTypeSelectionPage(CompanyElement.element);
+                await Navigation.PushAsync(MessageTypeSelectionPage, true);
+            }
         }
 
         private async void NavigationBar_BackButtonPressedEvent()

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrigovorHR.Shared.Controllers
+namespace Complio.Shared.Controllers
 {
     class VibrationController
     {

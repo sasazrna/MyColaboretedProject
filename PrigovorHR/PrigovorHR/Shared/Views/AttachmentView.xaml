@@ -2,8 +2,8 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              BackgroundColor="White"
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views"
-             x:Class="PrigovorHR.Shared.Views.AttachmentView">
+             xmlns:Views="clr-namespace:Complio.Shared.Views"
+             x:Class="Complio.Shared.Views.AttachmentView">
     <ContentView.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Complio.Shared.Pages.MessageTypeSelectionPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button x:Name="btnComplaint" Text="Prigovor" Clicked="btn_Clicked" AutomationId="0"></Button>
+            <Button x:Name="btnCompliment" Text="Pohvala" Clicked="btn_Clicked" AutomationId="2"></Button>
+            <Button x:Name="btnSuggestion" Text="Prijedlog" Clicked="btn_Clicked" AutomationId="3"></Button>
+            <Button x:Name="btnQuestion" Text="Upit" Clicked="btn_Clicked" AutomationId="4"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
-             xmlns:views="clr-namespace:PrigovorHR.Shared.Views" 
-             xmlns:customcontrols="clr-namespace:PrigovorHR.Shared.CustomControls;assembly=PrigovorHR" 
-             x:Class="PrigovorHR.Shared.Pages.RegisterPage">
+             xmlns:views="clr-namespace:Complio.Shared.Views" 
+             xmlns:customcontrols="clr-namespace:Complio.Shared.CustomControls;assembly=PrigovorHR" 
+             x:Class="Complio.Shared.Pages.RegisterPage">
 
     <StackLayout>
         <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->

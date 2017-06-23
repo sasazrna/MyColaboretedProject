@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Plugin.Connectivity;
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.Controllers
+namespace Complio.Shared.Controllers
 {
     public class NetworkController
     {

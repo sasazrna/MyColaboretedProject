@@ -5,8 +5,8 @@ using Android.Views;
 using Android.Graphics;
 using Android.OS;
 using Android.Util;
-using PrigovorHR.Shared.Views;
-namespace PrigovorHR.Droid
+using Complio.Shared.Views;
+namespace Complio.Droid
 {
     public class KeyBoardOverlayFix
     {

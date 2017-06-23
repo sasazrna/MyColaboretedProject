@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
-using PrigovorHR.Shared.Models;
+using Complio.Shared.Models;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
 
     public partial class QuickComplaintPage : PopupPage

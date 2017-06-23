@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.CustomControls
+namespace Complio.Shared.CustomControls
 {
     public class Entry : Xamarin.Forms.Entry
     {

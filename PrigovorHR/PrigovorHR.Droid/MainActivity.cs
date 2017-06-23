@@ -20,20 +20,20 @@ using Xamarin.Forms.Platform.Android;
 using Android.Support.V7.App;
 using ImageCircle.Forms.Plugin.Droid;
 //using Plugin.Toasts;
-using PrigovorHR.Shared;
+using Complio.Shared;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
 using ScnViewGestures.Plugin.Forms.Droid.Renderers;
 using Plugin.Permissions;
 using Plugin.Media;
-using PrigovorHR.Shared.Views;
-using static PrigovorHR.Droid.AndroidServices;
+using Complio.Shared.Views;
+using static Complio.Droid.AndroidServices;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PrigovorHR.Droid
+namespace Complio.Droid
 {
     [Activity(Label = "Prigovor.hr", Icon = "@drawable/logo", Theme = "@style/MainTheme", LaunchMode = LaunchMode.SingleTop, MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity

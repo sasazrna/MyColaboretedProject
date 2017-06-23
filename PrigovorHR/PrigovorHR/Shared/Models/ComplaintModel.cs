@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-namespace PrigovorHR.Shared.Models
+namespace Complio.Shared.Models
 {
     public class ComplaintModel
     {
@@ -95,6 +95,7 @@ namespace PrigovorHR.Shared.Models
             public string problem_occurred { get; set; }
             public string suggestion { get; set; }
             public string complaint_received_message { get; set; }
+            public int MessageType { get; set; }
             public List<ComplaintAttachmentModel> attachments { get; set; }
         }
     }

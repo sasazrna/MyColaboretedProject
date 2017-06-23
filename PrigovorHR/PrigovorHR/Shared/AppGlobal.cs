@@ -1,4 +1,4 @@
-﻿using PrigovorHR.Shared.Controllers;
+﻿using Complio.Shared.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared
+namespace Complio.Shared
 {
     public class AppGlobal
     {
@@ -18,6 +18,8 @@ namespace PrigovorHR.Shared
         public static bool AppIsComplio { get; set; } = false;
 
         public static string AppName { get { return AppIsComplio ? "Complio" : "Prigovor.HR"; } }
+
+        public static string AppPackageName { get { return AppIsComplio ? "com.complio.android" : "com.prigovorHR.android"; } }
 
         public static bool DEBUGING = false;
 

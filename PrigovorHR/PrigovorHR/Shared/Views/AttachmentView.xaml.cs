@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 

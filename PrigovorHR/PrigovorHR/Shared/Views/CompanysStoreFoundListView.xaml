@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="White"
-             x:Class="PrigovorHR.Shared.Views.CompanysStoreFoundListView">
+             x:Class="Complio.Shared.Views.CompanysStoreFoundListView">
   <ContentView.Content>
        
     <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,10,0">

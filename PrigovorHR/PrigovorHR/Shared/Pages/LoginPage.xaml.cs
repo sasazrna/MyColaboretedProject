@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PrigovorHR.Shared.Models;
+using Complio.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 

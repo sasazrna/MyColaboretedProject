@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR" BackgroundColor="White"
-             x:Class="PrigovorHR.Shared.Pages.NewComplaintPage">
+             xmlns:views="clr-namespace:Complio.Shared.Views;assembly=PrigovorHR" BackgroundColor="White"
+             x:Class="Complio.Shared.Pages.NewComplaintPage">
 
     <RelativeLayout x:Name="lytRelative">
         <ContentView x:Name="cvTopContentView"
@@ -16,48 +16,48 @@
                 <ScrollView>
                     <StackLayout Padding="25,15,25,30">
                         <!--<Label Text="SuperKonzum, Poslovica Osijek, Super Nova" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="Black" Margin="0, 15, 0, 10" />-->
-                       <!--<StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>-->
-                       
-                        <StackLayout x:Name="TimePickerStack">
+                        <!--<StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>-->
+
+                        <StackLayout x:Name="lytTimePicker">
                             <Label Text="Kada se problem dogodio?" FontSize="Small" HorizontalTextAlignment="Center" Margin="0,0,0,15" TextColor="Silver" />
                             <DatePicker x:Name="arrivalDatePicker" />
-                        <TimePicker x:Name="arrivalTimePicke" />
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
-                            <StackLayout HorizontalOptions="StartAndExpand">
-                                <StackLayout x:Name="SadaStackButton" Orientation="Horizontal">
-                                    <views:FontAwesomeLabel x:Name="FaNow" FontSize="Medium" TextColor="#FF7e65" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></views:FontAwesomeLabel>
-                                    <Label  Text="Dogodio se sada!" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Center"></Label>
+                            <TimePicker x:Name="arrivalTimePicke" />
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <StackLayout x:Name="SadaStackButton" Orientation="Horizontal">
+                                        <views:FontAwesomeLabel x:Name="FaNow" FontSize="Medium" TextColor="#FF7e65" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></views:FontAwesomeLabel>
+                                        <Label  Text="Dogodio se sada!" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout Padding="0.35,1.5,0.35,1.5" BackgroundColor="Silver" HorizontalOptions="CenterAndExpand"></StackLayout>
+
+                                <StackLayout x:Name="RanijeStackButton" Orientation="Horizontal" >
+                                    <views:FontAwesomeLabel x:Name="FaPast" FontSize="Medium" TextColor="#FF7e65" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></views:FontAwesomeLabel>
+                                    <StackLayout HorizontalOptions="EndAndExpand">
+                                        <Label  Text="Dogodio se ranije!" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Center"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </StackLayout>
+                            <StackLayout x:Name="ZaPopunit_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="dmeodied" HorizontalTextAlignment="Center" TextColor="White" FontSize="Small"></Label>
                                 </StackLayout>
                             </StackLayout>
-
-                            <StackLayout Padding="0.35,1.5,0.35,1.5" BackgroundColor="Silver" HorizontalOptions="CenterAndExpand"></StackLayout>
-
-                            <StackLayout x:Name="RanijeStackButton" Orientation="Horizontal" >
-                                <views:FontAwesomeLabel x:Name="FaPast" FontSize="Medium" TextColor="#FF7e65" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></views:FontAwesomeLabel>
-                                <StackLayout HorizontalOptions="EndAndExpand">
-                                    <Label  Text="Dogodio se ranije!" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Center"></Label>
+                            <StackLayout x:Name="Sada_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label x:Name="labela_vremena_sad" HorizontalTextAlignment="Center" TextColor="Silver" FontSize="Small"></Label>
                                 </StackLayout>
                             </StackLayout>
+                            <StackLayout x:Name="Ranije_stack" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                    <Label x:Name="labelavremena" Text="12.1.2017." TextColor="White" HorizontalTextAlignment="Center" FontSize="Small"></Label>
+                                    <Label x:Name="labelasati" Text="03:13:12" TextColor="White" FontSize="Small" HorizontalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
 
-                        </StackLayout>
-                        <StackLayout x:Name="ZaPopunit_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
-                            <StackLayout HorizontalOptions="FillAndExpand">
-                                <Label Text="dmeodied" HorizontalTextAlignment="Center" TextColor="White" FontSize="Small"></Label>
-                            </StackLayout>
-                        </StackLayout>
-                        <StackLayout x:Name="Sada_stack" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
-                            <StackLayout HorizontalOptions="FillAndExpand">
-                                <Label x:Name="labela_vremena_sad" HorizontalTextAlignment="Center" TextColor="Silver" FontSize="Small"></Label>
-                            </StackLayout>
-                        </StackLayout>
-                        <StackLayout x:Name="Ranije_stack" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                <Label x:Name="labelavremena" Text="12.1.2017." TextColor="White" HorizontalTextAlignment="Center" FontSize="Small"></Label>
-                                <Label x:Name="labelasati" Text="03:13:12" TextColor="White" FontSize="Small" HorizontalTextAlignment="Center"></Label>
-                            </StackLayout>
-                        </StackLayout>
-                        </StackLayout>
-                        <!--<StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,5,120,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>-->
                         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <StackLayout x:Name="AttachStack" Orientation="Horizontal" Padding="25,0,25,0" HorizontalOptions="FillAndExpand">
                                 <views:FontAwesomeLabel x:Name="imgAttachDocs" FontSize="Large" HorizontalOptions="StartAndExpand"></views:FontAwesomeLabel>
@@ -65,29 +65,14 @@
                                 <views:FontAwesomeLabel x:Name="imgTakeGPSLocation" FontSize="Large" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
                             </StackLayout>
                             <StackLayout x:Name="lytAttachments"></StackLayout>
-                            <!--<Label Text="Opis problema" FontSize="Small" HorizontalTextAlignment="Center" TextColor="Silver" Margin="0, 0, 0, 0" />-->
-                            <!--<StackLayout Orientation="Horizontal" Padding="20,0.45,20,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>-->
-                            <Editor x:Name="editComplaintText" TextColor="Gray" Text="Opis problema..." Unfocused="EditorComplaint_Unfocused" Focused="EditorComplaint_Focused" FontSize="Small" BackgroundColor="#f5f5f5" HeightRequest="230" />
+
+                            <Editor x:Name="editComplaintText" AutomationId="editComplaintText" TextColor="Gray" Unfocused="Editor_FocusedUnfocused" Focused="Editor_FocusedUnfocused" FontSize="Small" BackgroundColor="#f5f5f5" HeightRequest="230" />
                             <StackLayout x:Name="editComplaintTextUderStack" HeightRequest="15" BackgroundColor="White" Margin="0,-15,0,0"></StackLayout>
-                            <Editor x:Name="editSuggestionText" Text="Ostavite sugestiju..." Unfocused="EditorSuggestion_Unfocused" Focused="EditorSuggestion_Focused" HeightRequest="230" BackgroundColor="#f5f5f5" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Gray" />
+                            <Editor x:Name="editSuggestionText" AutomationId="editSuggestionText" Text="Napišite prijedlog..." Unfocused="Editor_FocusedUnfocused" Focused="Editor_FocusedUnfocused" BackgroundColor="#f5f5f5" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Gray" />
                             <StackLayout HeightRequest="15" BackgroundColor="White" Margin="0,-15,0,0"></StackLayout>
-
                         </StackLayout>
-                        <!--<StackLayout x:Name="lytAttachments"> </StackLayout>-->
-                            <!--<views:FontAwesomeLabel x:Name="send_font" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>-->
-                       
-                        <!--<StackLayout Orientation="Horizontal" Padding="5,0.45,5,0.45" Margin="5,5,5,5" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>-->
-
-                        <StackLayout Margin="0,5,0,0">
-                            <!--<Label Text="Ostavite sugestiju" FontSize="Medium"  TextColor="#ff7e65" HorizontalOptions="Center" Margin="0, 15, 0, 5"/>-->
-                            <!--<Editor x:Name="editSuggestionText" Text="Ostavite sugestiju..." Unfocused="EditorSuggestion_Unfocused" Focused="EditorSuggestion_Focused" HeightRequest="220" BackgroundColor="#f5f5f5" VerticalOptions="FillAndExpand" FontSize="Small" TextColor="Gray"/>
-                            <StackLayout HeightRequest="15" BackgroundColor="White" Margin="0,-15,0,0"></StackLayout>-->
-                        </StackLayout>
-
-                        <views:FontAwesomeLabel IsVisible="False" x:Name="btnSendComplaint" FontSize="55" HorizontalOptions="Center"></views:FontAwesomeLabel>
                     </StackLayout>
                 </ScrollView>
-
             </StackLayout>
         </ContentView>
     </RelativeLayout>

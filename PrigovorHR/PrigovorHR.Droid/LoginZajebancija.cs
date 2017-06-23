@@ -6,11 +6,11 @@ using Xamarin.Forms;
 using Xamarin.Facebook;
 using LoginManager = Xamarin.Facebook.Login.LoginManager;
 using LoginResult = Xamarin.Facebook.Login.LoginResult;
-using PrigovorHR.Shared.Controllers;
+using Complio.Shared.Controllers;
 using System.ComponentModel.Design;
-[assembly: Dependency(typeof(PrigovorHR.Droid.Login))]
+[assembly: Dependency(typeof(Complio.Droid.Login))]
 
-namespace PrigovorHR.Droid
+namespace Complio.Droid
 {
     public class FacebookCallback : Java.Lang.Object, IFacebookCallback
     {

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.Controllers
+namespace Complio.Shared.Controllers
 {
     class GPSController
     {

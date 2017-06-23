@@ -6,8 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Graphics.Drawables;
 using Android.Util;
-using PrigovorHR.Shared.Views;
-using static PrigovorHR.AndroidRenderers.AndroidRenderers;
+using Complio.Shared.Views;
+using static Complio.AndroidRenderers.AndroidRenderers;
 using Android.Runtime;
 
 [assembly: ExportRenderer(typeof(CurvedCornersLabel), typeof(CurvedCornersLabelRenderer))]
@@ -16,7 +16,7 @@ using Android.Runtime;
 
 //[assembly: ExportRenderer(typeof(MultiLineLabel), typeof(CustomMultiLineLabelRenderer))]
 
-namespace PrigovorHR.AndroidRenderers
+namespace Complio.AndroidRenderers
 {
     class AndroidRenderers
     {

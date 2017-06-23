@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
-             xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
-             x:Class="PrigovorHR.Shared.Pages.ComplaintPage" NavigationPage.BackButtonTitle="Natraške">
+             xmlns:views="clr-namespace:Complio.Shared.Views"
+             x:Class="Complio.Shared.Pages.ComplaintPage" NavigationPage.BackButtonTitle="Natraške">
 
 <RelativeLayout x:Name="lytRelative">
 

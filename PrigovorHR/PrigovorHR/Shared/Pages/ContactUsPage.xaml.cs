@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrigovorHR.Shared.Models
+namespace Complio.Shared.Models
 {
     public class ElementTypeModel
     {

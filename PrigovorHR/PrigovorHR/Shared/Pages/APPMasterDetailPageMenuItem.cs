@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     public class APPMasterDetailPageMenuItem
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     public partial class CompanyInfoView : ContentView
     {

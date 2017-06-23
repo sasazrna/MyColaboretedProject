@@ -6,9 +6,9 @@ using Android.Runtime;
 using Plugin.CurrentActivity;
 using ZXing.Mobile;
 using Android.Content;
-using PrigovorHR.Shared.Controllers;
+using Complio.Shared.Controllers;
 
-namespace PrigovorHR.Droid
+namespace Complio.Droid
 {
 	//You can specify additional application information in this attribute
     [Application]

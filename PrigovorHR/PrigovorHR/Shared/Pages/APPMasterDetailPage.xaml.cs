@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PrigovorHR.Shared.Controllers;
-using PrigovorHR.Shared.Models;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Controllers;
+using Complio.Shared.Models;
+using Complio.Shared.Views;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]

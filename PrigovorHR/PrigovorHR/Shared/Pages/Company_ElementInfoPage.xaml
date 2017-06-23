@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" 
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views" 
-             x:Class="PrigovorHR.Shared.Pages.Company_ElementInfoPage" 
+             xmlns:Views="clr-namespace:Complio.Shared.Views" 
+             x:Class="Complio.Shared.Pages.Company_ElementInfoPage" 
              BackgroundColor="White">
 
     <ContentPage.ToolbarItems>

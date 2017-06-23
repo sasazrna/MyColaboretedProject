@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using ZXing.Mobile;
 using ZXing.Net.Mobile.Forms;
 
-namespace PrigovorHR.Shared.Controllers
+namespace Complio.Shared.Controllers
 {
     public class QRScannerController : ZXingScannerPage
     {

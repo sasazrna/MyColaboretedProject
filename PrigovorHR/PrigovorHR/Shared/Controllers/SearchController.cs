@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Views;
 
-namespace PrigovorHR.Shared.Controllers
+namespace Complio.Shared.Controllers
 {
     class SearchController:IDisposable
     {

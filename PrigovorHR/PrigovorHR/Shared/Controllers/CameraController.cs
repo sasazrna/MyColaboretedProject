@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace PrigovorHR.Shared.Controllers
+namespace Complio.Shared.Controllers
 {
     class CameraController
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MessageSentPage : ContentPage

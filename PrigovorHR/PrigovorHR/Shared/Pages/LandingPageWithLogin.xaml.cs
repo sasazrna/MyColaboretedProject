@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PrigovorHR.Shared.Models;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Models;
+using Complio.Shared.Views;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms.Xaml;
-using PrigovorHR.Shared.Controllers;
+using Complio.Shared.Controllers;
 using System.IO;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LandingPageWithLogin : ContentPage
@@ -69,7 +69,7 @@ namespace PrigovorHR.Shared.Pages
                     }
                     else
                     {
-                        var NewComplaintPage = new NewComplaintPage(null, WriteNewComplaintModel);
+                        var NewComplaintPage = new NewComplaintPage(null, WriteNewComplaintModel.MessageType, WriteNewComplaintModel);
 
                         await Navigation.PushAsync(NewComplaintPage);
                         NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); ListOfComplaintsView.LoadComplaints(); };

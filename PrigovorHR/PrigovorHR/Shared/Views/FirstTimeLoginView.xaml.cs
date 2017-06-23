@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     public partial class FirstTimeLoginView : ContentView
     {

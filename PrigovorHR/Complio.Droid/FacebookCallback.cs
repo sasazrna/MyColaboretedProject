@@ -3,7 +3,7 @@ using Java.Lang;
 using Xamarin.Facebook;
 using Android.Runtime;
 
-namespace PrigovorHR.Droid
+namespace Complio.Droid
 {
     public class FacebookCallback<TResult> : Java.Lang.Object, IFacebookCallback where TResult : Java.Lang.Object
     {

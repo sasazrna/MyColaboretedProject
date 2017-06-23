@@ -1,11 +1,11 @@
-﻿using PrigovorHR.Shared.Controllers;
+﻿using Complio.Shared.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrigovorHR.Shared.Models
+namespace Complio.Shared.Models
 {
     public static class ExceptionInfoModel
     {

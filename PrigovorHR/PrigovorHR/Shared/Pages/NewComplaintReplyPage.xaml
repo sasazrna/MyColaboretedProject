@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:PrigovorHR.Shared.Views"
-             x:Class="PrigovorHR.Shared.Pages.NewComplaintReplyPage" BackgroundColor="White">
+             xmlns:views="clr-namespace:Complio.Shared.Views"
+             x:Class="Complio.Shared.Pages.NewComplaintReplyPage" BackgroundColor="White">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="tbiLogo" Order="Primary" Icon="awsomeSend2.png" Priority="0" Clicked="BtnSendReply_Clicked"/>

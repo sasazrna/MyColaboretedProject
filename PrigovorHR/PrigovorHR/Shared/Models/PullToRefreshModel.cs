@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Views;
 using Xamarin.Forms;
 
-namespace PrigovorHR.Shared.Models
+namespace Complio.Shared.Models
 {
     class PullToRefreshModel: INotifyPropertyChanged
     {

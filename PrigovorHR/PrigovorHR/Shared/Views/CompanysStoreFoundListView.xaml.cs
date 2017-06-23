@@ -2,7 +2,7 @@
 //using LocalNotifications.Plugin.Abstractions;
 using Newtonsoft.Json;
 //using Plugin.Toasts;
-using PrigovorHR.Shared.Pages;
+using Complio.Shared.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using Rg.Plugins.Popup.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 

@@ -3,24 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PrigovorHR.Shared.Views;
+using Complio.Shared.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Newtonsoft.Json;
 
-namespace PrigovorHR.Shared.Pages
+namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewComplaintPage : ContentPage
     {
-
-        public Action<object, FocusEventArgs> ComplaintFocused { get; private set; }
-        public Action<object, FocusEventArgs> SuggestionFocused { get; private set; }
-
-        public Action<object, FocusEventArgs> ComplaintUnfocused { get; private set; }
-        public Action<object, FocusEventArgs> SuggestionUnfocused { get; private set; }
-
-
         private Controllers.TAPController TAPController;
         private string Latitude = string.Empty, Longitude = string.Empty;
         public delegate void ComplaintSentHandler(int id);
@@ -32,60 +24,86 @@ namespace PrigovorHR.Shared.Pages
         private DateTime DateProblem;
         private DateTime TimeProblem;
         public static NewComplaintPage ReferenceToPage;
+        private int MessageType;
+        private Dictionary<int, string> InstructionForEditor = 
+            new Dictionary<int, string>() { { 0, "Napišite prigovor..." },
+                { 2, "Napišite pohvalu..." }, { 3, "Napišite prijedlog..." }, { 4, "Napišite upit..." } };
+
         public NewComplaintPage()
         {
             InitializeComponent();
-            ComplaintFocused += EditorComplaint_Focused;
-            SuggestionFocused += EditorSuggestion_Focused;
-            ComplaintUnfocused += EditorComplaint_Unfocused;
-            SuggestionUnfocused += EditorSuggestion_Unfocused;
-
         }
 
-        private void EditorComplaint_Focused(object sender, FocusEventArgs e)
+        private void Editor_FocusedUnfocused(object sender, FocusEventArgs e)
         {
-            TimePickerStack.IsVisible = false;
-            ComplaintCoversationHeaderView.IsVisible = false;
-            editSuggestionText.IsVisible = false;
+            if (MessageType ==0)
+            {
+                lytTimePicker.IsVisible = !e.IsFocused;
+                ComplaintCoversationHeaderView.IsVisible = !e.IsFocused;
+            }
+            var SelectedEditor = ((Editor)e.VisualElement);
 
+            if (e.IsFocused)
+            {
+                editSuggestionText.IsVisible = SelectedEditor.AutomationId == editSuggestionText.AutomationId;
+                editComplaintText.IsVisible = SelectedEditor.AutomationId == editComplaintText.AutomationId;
+
+                foreach (var IFE in InstructionForEditor)
+                    if (SelectedEditor.Text == IFE.Value)
+                        Device.StartTimer(new TimeSpan(0, 0, 0, 0, 10), () => { SelectedEditor.Text = string.Empty; return false; });                    
+            }
+            else
+            {
+                editSuggestionText.IsVisible = MessageType == 0;
+                editComplaintText.IsVisible = true;
+
+                if (string.IsNullOrEmpty(editComplaintText.Text))
+                    editComplaintText.Text =  InstructionForEditor[Convert.ToInt32(MessageType)];
+                if (string.IsNullOrEmpty(editSuggestionText.Text))
+                    editSuggestionText.Text = "Napišite prijedlog...";
+            }          
         }
 
-        private void EditorSuggestion_Focused(object sender, FocusEventArgs e)
-        {
-            TimePickerStack.IsVisible = false;
-            ComplaintCoversationHeaderView.IsVisible = false;
-            editComplaintText.IsVisible = false;
-            editComplaintTextUderStack.IsVisible = false;
-        }
+        //private void EditorComplaint_Focused(object sender, FocusEventArgs e)
+        //{
+        //    lytTimePicker.IsVisible = false;
+        //    ComplaintCoversationHeaderView.IsVisible = false;
+        //    editSuggestionText.IsVisible = false;
+        //}
+
+        //private void EditorSuggestion_Focused(object sender, FocusEventArgs e)
+        //{
+        //    lytTimePicker.IsVisible = false;
+        //    ComplaintCoversationHeaderView.IsVisible = false;
+        //    editComplaintText.IsVisible = false;
+        //    editComplaintTextUderStack.IsVisible = false;
+        //}
+
+        //private void EditorComplaint_Unfocused(object sender, FocusEventArgs e)
+        //{
+        //    lytTimePicker.IsVisible = true;
+        //    ComplaintCoversationHeaderView.IsVisible = true;
+        //    editSuggestionText.IsVisible = true;
+        //}
+
+        //private void EditorSuggestion_Unfocused(object sender, FocusEventArgs e)
+        //{
+        //    lytTimePicker.IsVisible = true;
+        //    ComplaintCoversationHeaderView.IsVisible = true;
+        //    editComplaintText.IsVisible = true;
+        //    editComplaintTextUderStack.IsVisible = true;
+        //}
 
 
-        private void EditorComplaint_Unfocused(object sender, FocusEventArgs e)
-        {
-            TimePickerStack.IsVisible = true;
-            ComplaintCoversationHeaderView.IsVisible = true;
-            editSuggestionText.IsVisible = true;
-
-        }
-
-        private void EditorSuggestion_Unfocused(object sender, FocusEventArgs e)
-        {
-            TimePickerStack.IsVisible = true;
-            ComplaintCoversationHeaderView.IsVisible = true;
-            editComplaintText.IsVisible = true;
-            editComplaintTextUderStack.IsVisible = true;
-        }
-
-
-
-
-        public NewComplaintPage(Models.CompanyElementModel companyElement, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
+        public NewComplaintPage(Models.CompanyElementModel companyElement,
+                                int messageType,
+                                Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
 
-
-
             FaNow.Text = Views.FontAwesomeLabel.Images.FAClockO;
             FaPast.Text = Views.FontAwesomeLabel.Images.FACalendarO;
+            MessageType = messageType;
 
             WriteNewComplaintModel = _WriteNewComplaintModel;
             CompanyElement = companyElement;
@@ -137,9 +155,6 @@ namespace PrigovorHR.Shared.Pages
             imgTakeGPSLocation.Text = '\uf041'.ToString();
             imgTakeGPSLocation.TextColor = Color.Gray;
 
-            btnSendComplaint.Text = Views.FontAwesomeLabel.Images.FASend_msg;
-            btnSendComplaint.TextColor = Color.FromHex("#FF7e65");
-
             arrivalTimePicke.PropertyChanged += ArrivalTimePicke_PropertyChanged;
 
             arrivalDatePicker.IsVisible = false;
@@ -148,7 +163,15 @@ namespace PrigovorHR.Shared.Pages
             Sada_stack.IsVisible = false;
             Ranije_stack.IsVisible = false;
 
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendComplaint, SadaStackButton, RanijeStackButton);
+            if (MessageType>0)
+            {
+                lytTimePicker.IsVisible = false;
+                editSuggestionText.IsVisible = false;
+            }
+
+                editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
+
+            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, SadaStackButton, RanijeStackButton);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
@@ -190,8 +213,6 @@ namespace PrigovorHR.Shared.Pages
                 arrivalDatePicker.Focus();
                 ProblemOccurred = DateTime.Now;
             }
-            else if (view == btnSendComplaint)
-                SendComplaint();
             SaveToDevice();
         }
 
@@ -316,7 +337,8 @@ namespace PrigovorHR.Shared.Pages
                  problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
                  problemOccurredTime = ProblemOccurred.ToString("HH:mm"),
                  latitude = Latitude,
-                 longitude = Longitude
+                 longitude = Longitude,
+                 messageType = MessageType
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
 
@@ -379,6 +401,7 @@ namespace PrigovorHR.Shared.Pages
 
         protected override bool OnBackButtonPressed()
         {
+
             if (!string.IsNullOrEmpty(editComplaintText.Text) | lytAttachments.Children.Any())
             {
                 Acr.UserDialogs.UserDialogs.Instance.Confirm(

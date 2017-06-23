@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace PrigovorHR.iOS
+namespace Complio.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Views="clr-namespace:PrigovorHR.Shared.Views;assembly=PrigovorHR"
+             xmlns:Views="clr-namespace:Complio.Shared.Views;assembly=PrigovorHR"
              BackgroundColor="White"
-             x:Class="PrigovorHR.Shared.Views.ComplaintListView_BasicUser">
+             x:Class="Complio.Shared.Views.ComplaintListView_BasicUser">
 
     <StackLayout Padding="15, 5, 15, 5" x:Name="lytRoot" >
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >

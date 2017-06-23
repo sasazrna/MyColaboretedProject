@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Plugin.Connectivity;
-using PrigovorHR.Shared.Controllers;
-using PrigovorHR.Shared.Models;
-using PrigovorHR.Shared.Pages;
+using Complio.Shared.Controllers;
+using Complio.Shared.Models;
+using Complio.Shared.Pages;
 using Refractored.XamForms.PullToRefresh;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListOfComplaintsView_BasicUser : ContentView

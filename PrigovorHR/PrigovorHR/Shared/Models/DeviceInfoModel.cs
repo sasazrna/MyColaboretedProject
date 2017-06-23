@@ -1,6 +1,6 @@
 ﻿
 using Plugin.DeviceInfo;
-namespace PrigovorHR.Shared.Models
+namespace Complio.Shared.Models
 {
    public class DeviceInfoModel
     {

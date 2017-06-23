@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using PrigovorHR.Shared.Models;
-using PrigovorHR.Shared.Pages;
+using Complio.Shared.Models;
+using Complio.Shared.Pages;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PrigovorHR.Shared.Views
+namespace Complio.Shared.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CompanyOtherElementsView

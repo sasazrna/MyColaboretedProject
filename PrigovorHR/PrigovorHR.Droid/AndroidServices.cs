@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using PrigovorHR.Shared;
+using Complio.Shared;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using Android.Support.V7.App;
@@ -17,12 +17,12 @@ using Android.Content.PM;
 using Android.Media;
 using Android.Graphics;
 using Newtonsoft.Json;
-using PrigovorHR.Shared.Models;
+using Complio.Shared.Models;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.IO;
 
-namespace PrigovorHR.Droid
+namespace Complio.Droid
 {
     class AndroidServices
     {
