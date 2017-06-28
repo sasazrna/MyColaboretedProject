@@ -83,7 +83,7 @@ namespace PrigovorHR.Droid
                      .SetContentTitle(Title)
                      .SetContentText(longTextMessage)
                      .SetVisibility(NotificationVisibility.Public)//if <5 remove set visibility
-                     .SetSmallIcon(Resource.Drawable.LOGO)
+                     //.SetSmallIcon(Resource.Drawable.LOGO)
                      .SetDefaults(NotificationDefaults.All)
                      .SetStyle(textStyle)
                      .SetPriority(7)
@@ -95,7 +95,7 @@ namespace PrigovorHR.Droid
                     Notification = new Notification.Builder(context)
                     .SetContentTitle(Title)
                     .SetContentText(longTextMessage)
-                    .SetSmallIcon(Resource.Drawable.LOGO)
+                    //.SetSmallIcon(Resource.Drawable.LOGO)
                     .SetDefaults(NotificationDefaults.All)
                     .SetStyle(textStyle)
                     .SetPriority(7)

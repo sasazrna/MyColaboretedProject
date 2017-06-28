@@ -25,6 +25,17 @@ namespace Complio.Shared.Pages
         public NewComplaintReplyPage(Models.ComplaintModel complaint, Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
+
+            //var ListClearing = new TapGestureRecognizer();
+            //ListClearing.Tapped += (s, e) =>
+            //{
+            //    MenuStack.IsVisible = false;
+            //    lytAttachments.Children.Clear();
+            //};
+            //ClearList.GestureRecognizers.Add(ListClearing);
+
+
+
             Complaint = complaint;
 
             WriteNewComplaintModel = _WriteNewComplaintModel;
@@ -72,14 +83,41 @@ namespace Complio.Shared.Pages
             btnSendReply.Text = Views.FontAwesomeLabel.Images.FASend_msg;
             btnSendReply.TextColor = Color.FromHex("#FF7e65");
 
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendReply);
+            ListDropDown.Text = Views.FontAwesomeLabel.Images.FACaretDown;
+            ListDropDown.TextColor = Color.Gray;
+
+            ClearList.Text = Views.FontAwesomeLabel.Images.FAClose;
+            ClearList.TextColor = Color.Gray;
+
+            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendReply, ListDropDown, ClearList);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editReplyText.TextChanged += EditReplyText_TextChanged;
-          //  NavigationPage.SetHasNavigationBar(this, false);
+            //  NavigationPage.SetHasNavigationBar(this, false);
+            //TAPController.SingleTaped += TAPController_ListTaped;
+
+          
 
         }
+
+        //private async void TAPController_ListTaped (string viewId, View view)
+        //{
+        //    if (!lytAttachments.IsVisible)
+        //    {
+        //        lytAttachments.IsVisible = true;
+        //        await ListDropDown.RotateTo(180, 100);
+        //    }
+        //    else
+        //    {
+        //        //lytAttachments.Children.Clear();
+        //        lytAttachments.IsVisible = false;
+        //        await ListDropDown.RotateTo(0, 100);
+        //    }
+
+        //}
+
+       
 
         private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -154,7 +192,7 @@ namespace Complio.Shared.Pages
             }
             else
             {
-                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora, moguće zbog internet konekcije" + Environment.NewLine + 
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora, moguće zbog internet konekcije" + Environment.NewLine +
               /*      "Vaš prigovor je spremljen na vašem mobitelu te će biti automatski poslan prvom prilikom"*/ "Greška u slanju prigovora", "OK");
                 SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Unsent);
             }
@@ -195,6 +233,7 @@ namespace Complio.Shared.Pages
 
             if (view == imgAttachDocs)
             {
+               
                 var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
                 if (!string.IsNullOrEmpty(Picker?.FileName))
                 {
@@ -216,9 +255,36 @@ namespace Complio.Shared.Pages
                     });
                 }
                 Picker = null;
+                MenuStack.IsVisible = true;
+
+                
+               
+   }
+            else if(view == ListDropDown)
+            {
+                if (!lytAttachments.IsVisible)
+                {
+                    lytAttachments.IsVisible = true;
+                    await ListDropDown.RotateTo(180, 100);
+                }
+                else
+                {
+                    //lytAttachments.Children.Clear();
+                    lytAttachments.IsVisible = false;
+                    await ListDropDown.RotateTo(0, 100);
+                }
             }
+
+            else if(view == ClearList)
+            {
+                MenuStack.IsVisible = false;
+                lytAttachments.Children.Clear();
+            }
+
+
             else if (view == imgTakePhoto)
             {
+
                 var photo = await Controllers.CameraController.TakePhoto();
                 if (photo != null)
                 {
@@ -242,7 +308,9 @@ namespace Complio.Shared.Pages
                         attachment_mime = AttachmentView.Id.ToString()
                     });
                 }
-            }
+                MenuStack.IsVisible = true;
+               
+}
             else if (view == imgTakeGPSLocation)
             {
                 if (imgTakeGPSLocation.TextColor != Color.FromHex("#FF6A00"))
@@ -270,14 +338,20 @@ namespace Complio.Shared.Pages
                 }
             }
             else if (view == btnSendReply)
-                BtnSendReply_Clicked(null,null );
+                BtnSendReply_Clicked(null, null);
             SaveToDevice();
         }
 
+        
+	
+
         private void editReplyText_Focused(object sender, FocusEventArgs e)
         {
+            lytAttachments.IsVisible = false;
+            ListDropDown.RotateTo(0, 0);
             ComplaintCoversationHeaderView.IsVisible = false;
             MainsStack.Padding = new Thickness(25, 15, 25, 30);
+            
         }
 
         private void editReplyText_Unfocused(object sender, FocusEventArgs e)
@@ -297,14 +371,15 @@ namespace Complio.Shared.Pages
                            CancelText = "NE",
                            OkText = "DA",
                            Message = "Jeste li sigurni u prekid?",
-                           OnAction = (Confirm)=>{
+                           OnAction = (Confirm) =>
+                           {
                                if (!Confirm) { return; }
                                else
                                {
                                    Application.Current.Properties.Remove("WriteComplaintAutoSave");
                                    Application.Current.SavePropertiesAsync();
                                    Navigation.PopAsync(true);
-                               } 
+                               }
                            }
                        });
             }
@@ -312,5 +387,6 @@ namespace Complio.Shared.Pages
 
             return true;
         }
+
     }
 }

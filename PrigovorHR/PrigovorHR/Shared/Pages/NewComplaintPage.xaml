@@ -64,7 +64,19 @@
                                 <views:FontAwesomeLabel x:Name="imgTakePhoto" FontSize="Large" HorizontalOptions="CenterAndExpand"></views:FontAwesomeLabel>
                                 <views:FontAwesomeLabel x:Name="imgTakeGPSLocation" FontSize="Large" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
                             </StackLayout>
-                            <StackLayout x:Name="lytAttachments"></StackLayout>
+
+
+                            <StackLayout IsVisible="False" x:Name="MenuStack" Margin="0,5,0,5">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,5,0,0">
+                                    <Label Text="Lista priloženih dokumenata" TextColor="Gray" FontSize="Medium" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
+                                    <views:FontAwesomeLabel x:Name="ListDropDown" FontSize="Large" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
+                                    <views:FontAwesomeLabel x:Name="ClearList" FontSize="Large" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand"></views:FontAwesomeLabel>
+                                </StackLayout>
+                                <StackLayout IsVisible="False" x:Name="lytAttachments">
+                                </StackLayout>
+                            </StackLayout>
+
+
 
                             <Editor x:Name="editComplaintText" AutomationId="editComplaintText" TextColor="Gray" Unfocused="Editor_FocusedUnfocused" Focused="Editor_FocusedUnfocused" FontSize="Small" BackgroundColor="#f5f5f5" HeightRequest="230" />
                             <StackLayout x:Name="editComplaintTextUderStack" HeightRequest="15" BackgroundColor="White" Margin="0,-15,0,0"></StackLayout>
