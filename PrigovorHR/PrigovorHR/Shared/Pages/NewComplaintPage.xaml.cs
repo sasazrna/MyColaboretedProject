@@ -32,7 +32,11 @@ namespace Complio.Shared.Pages
         public NewComplaintPage()
         {
             InitializeComponent();
+         
+
         }
+
+
 
         private void Editor_FocusedUnfocused(object sender, FocusEventArgs e)
         {
@@ -45,8 +49,14 @@ namespace Complio.Shared.Pages
 
             if (e.IsFocused)
             {
+                lytAttachments.IsVisible = false;
+              
+                ListDropDown.RotateTo(0, 0);
                 editSuggestionText.IsVisible = SelectedEditor.AutomationId == editSuggestionText.AutomationId;
                 editComplaintText.IsVisible = SelectedEditor.AutomationId == editComplaintText.AutomationId;
+
+                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
+                    editComplaintTextUderStack.IsVisible = false;
 
                 foreach (var IFE in InstructionForEditor)
                     if (SelectedEditor.Text == IFE.Value)
@@ -57,12 +67,18 @@ namespace Complio.Shared.Pages
                 editSuggestionText.IsVisible = MessageType == 0;
                 editComplaintText.IsVisible = true;
 
+                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
+                editComplaintTextUderStack.IsVisible = true;
+
                 if (string.IsNullOrEmpty(editComplaintText.Text))
                     editComplaintText.Text =  InstructionForEditor[Convert.ToInt32(MessageType)];
                 if (string.IsNullOrEmpty(editSuggestionText.Text))
                     editSuggestionText.Text = "Napišite prijedlog...";
             }          
         }
+
+
+       
 
         //private void EditorComplaint_Focused(object sender, FocusEventArgs e)
         //{
@@ -100,6 +116,16 @@ namespace Complio.Shared.Pages
                                 Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
+
+
+            //var ListClearing = new TapGestureRecognizer();
+            //ListClearing.Tapped += (s, e) =>
+            //{
+            //    MenuStack.IsVisible = false;
+            //    lytAttachments.Children.Clear();
+            //};
+            //ClearList.GestureRecognizers.Add(ListClearing);
+
 
             FaNow.Text = Views.FontAwesomeLabel.Images.FAClockO;
             FaPast.Text = Views.FontAwesomeLabel.Images.FACalendarO;
@@ -155,6 +181,14 @@ namespace Complio.Shared.Pages
             imgTakeGPSLocation.Text = '\uf041'.ToString();
             imgTakeGPSLocation.TextColor = Color.Gray;
 
+
+            ListDropDown.Text = Views.FontAwesomeLabel.Images.FACaretDown;
+            ListDropDown.TextColor = Color.Gray;
+
+            ClearList.Text = Views.FontAwesomeLabel.Images.FAClose;
+            ClearList.TextColor = Color.Gray;
+
+
             arrivalTimePicke.PropertyChanged += ArrivalTimePicke_PropertyChanged;
 
             arrivalDatePicker.IsVisible = false;
@@ -171,7 +205,7 @@ namespace Complio.Shared.Pages
 
                 editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
 
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, SadaStackButton, RanijeStackButton);
+            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, SadaStackButton, RanijeStackButton, ListDropDown, ClearList);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
             //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
@@ -182,18 +216,41 @@ namespace Complio.Shared.Pages
             ReferenceToPage = this;
 
             //  NavigationPage.SetHasNavigationBar(this, false);
+        
+
+        //TAPController.SingleTaped += TAPController_ListTaped;
+
+          
+
         }
 
-        private void TAPController_SingleTaped(string viewId, View view)
+    //private async void TAPController_ListTaped(string viewId, View view)
+    //{
+    //    if (!lytAttachments.IsVisible)
+    //    {
+    //        lytAttachments.IsVisible = true;
+    //        await ListDropDown.RotateTo(180, 100);
+    //    }
+    //    else
+    //    {
+    //        //lytAttachments.Children.Clear();
+    //        lytAttachments.IsVisible = false;
+    //        await ListDropDown.RotateTo(0, 100);
+    //    }
+
+    //}
+
+
+    private void TAPController_SingleTaped(string viewId, View view)
         {
             if (WriteNewComplaintModel.attachments == null)
                 WriteNewComplaintModel.attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>();
 
             if (view == imgAttachDocs)
                 InitAttachDocs();
-            else if (view == imgTakePhoto)
+             else if (view == imgTakePhoto)
                 InitTakePhoto();
-            else if (view == imgTakeGPSLocation)
+                else if (view == imgTakeGPSLocation)
                 InitTakeGPSLocation();
             else if (view == SadaStackButton)
             {
@@ -212,6 +269,25 @@ namespace Complio.Shared.Pages
                 Ranije_stack.IsVisible = true;
                 arrivalDatePicker.Focus();
                 ProblemOccurred = DateTime.Now;
+            }
+            else if (view == ListDropDown)
+            {
+                if (!lytAttachments.IsVisible)
+                {
+                    lytAttachments.IsVisible = true;
+                    ListDropDown.RotateTo(180, 100);
+                }
+                else
+                {
+                    //lytAttachments.Children.Clear();
+                    lytAttachments.IsVisible = false;
+                    ListDropDown.RotateTo(0, 100);
+                }
+            }
+            else if (view == ClearList)
+            {
+                MenuStack.IsVisible = false;
+                lytAttachments.Children.Clear();
             }
             SaveToDevice();
         }
@@ -238,7 +314,7 @@ namespace Complio.Shared.Pages
                     attachment_mime = AttachmentView.Id.ToString()
                 });
                 SaveToDevice();
-
+                MenuStack.IsVisible = true;
             }
         }
 
@@ -267,6 +343,7 @@ namespace Complio.Shared.Pages
                     attachment_mime = AttachmentView.Id.ToString()
                 });
                 SaveToDevice();
+                MenuStack.IsVisible = true;
             }
         }
 
