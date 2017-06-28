@@ -28,12 +28,13 @@ using ScnViewGestures.Plugin.Forms.Droid.Renderers;
 using Plugin.Permissions;
 using Plugin.Media;
 using Complio.Shared.Views;
-using static Complio.Droid.AndroidServices;
+using static PrigovorHR.Droid.AndroidServices;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
+using Complio;
 
-namespace Complio.Droid
+namespace PrigovorHR.Droid
 {
     [Activity(Label = "Prigovor.hr", Icon = "@drawable/logo", Theme = "@style/MainTheme", LaunchMode = LaunchMode.SingleTop, MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -49,7 +50,7 @@ namespace Complio.Droid
             base.OnCreate(bundle);
             Forms.Init(this, bundle);
             ViewGesturesRenderer.Init();
-
+            
             if ((int)Build.VERSION.SdkInt >= 21)
                 Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FF6A00"));
             else
@@ -128,7 +129,7 @@ namespace Complio.Droid
             IsUserActive = true;
             AlarmReceiver.IsRunning = false;
         }
-
+     
         protected override void OnNewIntent(Intent intent)
         {
             new Task(() =>
@@ -136,15 +137,15 @@ namespace Complio.Droid
                 int NumOfRetrys = 0;
                 while (NumOfRetrys < 10)
                 {
-                    if (ListOfComplaintsView_BasicUser.ReferenceToView != null)
-                    {
+                    //if (ListOfComplaintsView_BasicUser.ReferenceToView != null)
+                    //{
                         OpenComplaint(intent);
                         break;
-                    }
+                   // }
                     Task.Delay(1000);
                 }               
             }).Start();
-            base.OnNewIntent(intent);
+           // base.OnNewIntent(intent);
         }
 
         private void OpenComplaint(Intent intent)

@@ -5,16 +5,21 @@
              xmlns:CircleImage="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions" 
              x:Class="Complio.Shared.Pages.LandingPageWithLogin">
 
-    <ContentPage.Content>
-        <Frame Padding="1" >
-        <StackLayout x:Name="lytContent">
+    <RelativeLayout x:Name="lytRelative">
+
+        <ContentView x:Name="cvTopContentView"
+      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+            <Frame Padding="1" >
+                <StackLayout x:Name="lytContent">
                     <StackLayout Margin="0,0,0,-15" VerticalOptions="End">
                         <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView" IsVisible="True" x:FieldModifier="Public">
                         </views:ListOfComplaintsView_BasicUser>
-
-                        <views:FirstTimeLoginView x:Name="FirstTimeLoginView" IsVisible="False" x:FieldModifier="Public"></views:FirstTimeLoginView>
+                        <views:FirstTimeLoginView x:Name="FirstTimeLoginView" IsVisible="False" x:FieldModifier="Public">
+                        </views:FirstTimeLoginView>
                     </StackLayout>
                 </StackLayout>
-        </Frame>
-    </ContentPage.Content>
+            </Frame>
+        </ContentView>
+    </RelativeLayout>
 </ContentPage>

@@ -101,6 +101,9 @@ namespace Complio.Shared.Controllers
             switch (LoginType)
             {
                 case LoginTypeModel.eLoginType.email:
+                    if(loginData.email == "korisnik1@prigovor.hr")
+                        AppGlobal.DEBUGING = true;
+
                     EMailLoginModel = new EMailLoginModel() { email = loginData.email, password = loginData.password };
                     ReturnedData = await DataExchangeServices.LoginUser_EMail(JsonConvert.SerializeObject(EMailLoginModel));
                     //var res= await DataExchangeServices.ResetPassword(JsonConvert.SerializeObject(EMailLoginModel));

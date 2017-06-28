@@ -53,6 +53,9 @@
     <Compile Include="Shared\Pages\CompanySearchPage.xaml.cs">
       <DependentUpon>CompanySearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shared\Pages\FindAndFilterMessagesPage.xaml.cs">
+      <DependentUpon>FindAndFilterMessagesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shared\Pages\MessageTypeSelectionPage.xaml.cs">
       <DependentUpon>MessageTypeSelectionPage.xaml</DependentUpon>
     </Compile>
@@ -630,6 +633,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shared\Pages\MessageTypeSelectionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shared\Pages\FindAndFilterMessagesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -21,14 +21,18 @@ namespace Complio.Shared.Views
         private PullToRefreshModel PullToRefreshModel = new PullToRefreshModel();
         public static ListOfComplaintsView_BasicUser ReferenceToView;
         private RootComplaintModel _DataSource;
-        private Dictionary<string, int> DisplayedComplaints = new Dictionary<string, int>();
-        private const int MaximumDisplayedComplaintsPerRequest = 6;
+        private Dictionary<string, Tuple<int, bool>> DisplayedComplaints = new Dictionary<string, Tuple<int, bool>>();
+        private const int MaximumLoadedComplaintsPerRequest = 6;
         private double CurrentMaximumScrollValue = 0;
-        private bool AllComplaintsVisible = false;
+       // private bool AllComplaintsVisible = false;//a di je array za closed?
         private Dictionary<int, StackLayout> Layouts = new Dictionary<int, StackLayout>();
         private StackLayout VisibleLayout;
         private int SelectedTab;
         private bool LoadOnlyNewComplaints = false;
+        public delegate void ListScrolledHandler();
+        public event ListScrolledHandler ListScrolledEvent;
+        public bool IsFilterAndSearchActivated = false;
+        public int NumOfDisplayedComplaints { get { return DisplayedComplaints[VisibleLayout.Id.ToString()].Item1; } }
 
         public ListOfComplaintsView_BasicUser()
         {
@@ -39,10 +43,10 @@ namespace Complio.Shared.Views
             _pullLayout.SetBinding<PullToRefreshModel>(PullToRefreshLayout.RefreshCommandProperty, vm => vm.RefreshCommand);
             PullToRefreshModel.Pulled += PullToRefreshModel_Pulled;
 
-            DisplayedComplaints.Add(lytActiveComplaints.Id.ToString(), 0);
-            DisplayedComplaints.Add(lytClosedComplaints.Id.ToString(), 0);
-            DisplayedComplaints.Add(lytStoredComplaints.Id.ToString(), 0);
-            DisplayedComplaints.Add(lytUnsentComplaints.Id.ToString(), 0);
+            DisplayedComplaints.Add(lytActiveComplaints.Id.ToString(), new Tuple<int, bool>(0, false));
+            DisplayedComplaints.Add(lytClosedComplaints.Id.ToString(), new Tuple<int, bool>(0, false));
+            DisplayedComplaints.Add(lytStoredComplaints.Id.ToString(), new Tuple<int, bool>(0, false));
+            DisplayedComplaints.Add(lytUnsentComplaints.Id.ToString(), new Tuple<int, bool>(0, false));
             Layouts.Add(1, lytActiveComplaints);
             Layouts.Add(2, lytClosedComplaints);
             Layouts.Add(3, lytStoredComplaints);
@@ -53,6 +57,48 @@ namespace Complio.Shared.Views
             scrview.Scrolled += Scrview_Scrolled;
             CrossConnectivity.Current.ConnectivityChanged += Current_ConnectivityChanged;
             ReferenceToView = this;
+        }
+
+        public async void FilterAndFindMessages(string CompanyOrElement, DateTime DateFrom, DateTime DateTo, bool Active, bool Closed, string Text)
+        {
+            if (DataSource == null) return;
+
+            await Task.Delay(100);
+
+            VisibleLayout.Children.Clear();
+            var SearchableData = DataSource.user?.complaints;
+            var SearchableDataWithTextFilter = new List<ComplaintModel>();
+
+            if (!string.IsNullOrEmpty(CompanyOrElement))
+                SearchableDataWithTextFilter = SearchableData.Where(c => c.element.root_business.name.Contains(CompanyOrElement) |
+                                                                         c.element.name.Contains(CompanyOrElement)).ToList();
+            foreach (var t in Text.Split(' '))
+                if (!string.IsNullOrEmpty(t))
+                    SearchableDataWithTextFilter = 
+                        SearchableDataWithTextFilter.Concat(SearchableData.Where(c => c.complaint.Contains(t))).Distinct().ToList();
+
+            if (!string.IsNullOrEmpty(CompanyOrElement) | !string.IsNullOrEmpty(Text))
+                SearchableData = SearchableDataWithTextFilter;
+
+             SearchableData = SearchableData.OrderByDescending(c => DateTime.Parse(c.updated_at))
+                                                            .Where(c =>
+                                                             (Convert.ToDateTime(c.created_at) >= DateFrom &
+                                                             Convert.ToDateTime(c.created_at) <= DateTo)).ToList();
+
+            if (Active != Closed & Active)
+                SearchableData = SearchableData.Where(c => !c.closed).ToList();
+            else if (Active != Closed & Closed)
+                SearchableData = SearchableData.Where(c => c.closed).ToList();
+            else if (Active == Closed & !Active)
+                SearchableData = new List<ComplaintModel>();
+
+                foreach (var Complaint in SearchableData)
+            {
+                Complaint.typeOfComplaint =
+                        (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
+                var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
+                VisibleLayout.Children.Add(ComplaintListView);
+            }
         }
 
         private void Current_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
@@ -108,19 +154,21 @@ namespace Complio.Shared.Views
             foreach (var Layout in Layouts.Where(l => l.Key != selectedTab))
                 Layout.Value.IsVisible = false;
 
-            //if (!ChangedByControl)
-            //    ComplaintListTabView.ReferenceToView.InvokeSelectedTabChanged(SelectedTab);
-
+            CurrentMaximumScrollValue = 0;
             DisplayData();
         }
 
         private void Scrview_Scrolled(object sender, ScrolledEventArgs e)
         {
-            if (e.ScrollY >= CurrentMaximumScrollValue & !AllComplaintsVisible)
+            if (IsFilterAndSearchActivated) return;
+
+            if (e.ScrollY >= CurrentMaximumScrollValue & !DisplayedComplaints[VisibleLayout.Id.ToString()].Item2)
             {
                 DisplayData();
                 CalculateMaximumScroll();
             }
+            ListScrolledEvent?.Invoke();
+
         }
 
         private void CalculateMaximumScroll()
@@ -147,8 +195,8 @@ namespace Complio.Shared.Views
         {
             Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Učitavanje prigovora");
             VisibleLayout.Children.Clear();
-            DisplayedComplaints[lytActiveComplaints.Id.ToString()] = 0;
-            DisplayedComplaints[lytClosedComplaints.Id.ToString()] = 0;
+            DisplayedComplaints[lytActiveComplaints.Id.ToString()] = new Tuple<int, bool>(0, false);
+            DisplayedComplaints[lytClosedComplaints.Id.ToString()] = new Tuple<int, bool>(0, false);
             lytActiveComplaints.Children.Clear();
             lytClosedComplaints.Children.Clear();
 
@@ -189,14 +237,14 @@ namespace Complio.Shared.Views
                         Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
                         await Application.Current.SavePropertiesAsync();
 
-                        DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                        DisplayedComplaints[VisibleLayout.Id.ToString()] = new Tuple<int, bool>(0, false);
                         LandingPageWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
                         LandingPageWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
                    //     LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
                     }
                     else
                     {
-                        DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                        DisplayedComplaints[VisibleLayout.Id.ToString()] = new Tuple<int, bool>(0, false);
                         ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                             (await DataExchangeServices.GetMyComplaints());
                         Application.Current.Properties.Remove("AllComplaints");
@@ -213,7 +261,7 @@ namespace Complio.Shared.Views
                 }
                 else
                 {
-                    DisplayedComplaints[VisibleLayout.Id.ToString()] = 0;
+                    DisplayedComplaints[VisibleLayout.Id.ToString()] = new Tuple<int, bool>(0, false);
                     ComplaintModel.RefToAllComplaints = JsonConvert.DeserializeObject<RootComplaintModel>
                         (await DataExchangeServices.GetMyComplaints());
                     Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
@@ -243,13 +291,12 @@ namespace Complio.Shared.Views
                 VisibleLayout.Children.Clear();
                 DisplayData();
                 CalculateMaximumScroll();
-             //   MainNavigationBar.ReferenceToView.HasUnreadedReplys = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any();
             }
         }
 
-        public void DisplayData()
+        private void DisplayData()
         {
-            var displayedComplaints = DisplayedComplaints[VisibleLayout.Id.ToString()];
+            var displayedComplaints = DisplayedComplaints[VisibleLayout.Id.ToString()].Item1;
             var ClosedComplaintsVisible = VisibleLayout == lytClosedComplaints;
 
             if (VisibleLayout == lytClosedComplaints | VisibleLayout == lytActiveComplaints)
@@ -260,20 +307,16 @@ namespace Complio.Shared.Views
                     foreach (var Complaint in DataSource.user?.complaints.OrderByDescending(c => DateTime.Parse(c.updated_at))
                                                                .Where(c => c.closed == ClosedComplaintsVisible)
                                                                .Skip(displayedComplaints)
-                                                               .Take(MaximumDisplayedComplaintsPerRequest))
+                                                               .Take(MaximumLoadedComplaintsPerRequest))
                     {
-                        //new Task(() =>
-                        //{
                             Complaint.typeOfComplaint =
                                 (ComplaintModel.TypeOfComplaint)Enum.Parse(typeof(Models.ComplaintModel.TypeOfComplaint), Convert.ToString((int)SelectedTab));
                             var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
                             VisibleLayout.Children.Add(ComplaintListView);
-                        //}).Start();
                         displayedComplaints++;
-                        AllComplaintsVisible = displayedComplaints >= MaxOfVisibleComplaints;
                     }
+                    DisplayedComplaints[VisibleLayout.Id.ToString()] = new Tuple<int, bool>(displayedComplaints, displayedComplaints >= MaxOfVisibleComplaints);
 
-                    DisplayedComplaints[VisibleLayout.Id.ToString()] = displayedComplaints;
                 }
             }
             else
@@ -293,8 +336,11 @@ namespace Complio.Shared.Views
                 //    var ComplaintListView = new ComplaintListView_BasicUser(Complaint);
                 //    VisibleLayout.Children.Add(ComplaintListView);
                 //}
-                AllComplaintsVisible = true;
+               // AllComplaintsVisible = true;
             }
+
+            //Ovo pozivam iako se scroling ne dešava ali zato što se promjenila lista pa da updejta na landing pageu što treba
+            ListScrolledEvent?.Invoke();
         }
     }
 }

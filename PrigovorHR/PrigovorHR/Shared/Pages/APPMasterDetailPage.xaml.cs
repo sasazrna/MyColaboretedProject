@@ -24,29 +24,24 @@ namespace Complio.Shared.Pages
         {
             get { return AppGlobal.AppName;  }
         }
-  //      public static Dictionary<string, List<ToolbarItem>> ToolBarForPage;
 
         public APPMasterDetailPage()
         {
             InitializeComponent();
             BindingContext = this;
+            APPMasterDetailPage_IsPresentedChanged(null, null);
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
             NavigationPage.SetHasNavigationBar(this, false);
             ReferenceToView = this;
             MasterBehavior = MasterBehavior.Popover;
-
-            //ToolBarForPage = new Dictionary<string, List<ToolbarItem>>()
-            //     { {LandingPageWithLogin.AutomationId.ToString() ,
-            //        new List<ToolbarItem>() { new ToolbarItem("tbiLogo", "LOGO.png", (()=> { }), ToolbarItemOrder.Primary, 0)  ,
-            //        new ToolbarItem("tbiPrigovorText", "", (()=> { }), ToolbarItemOrder.Primary, 0) {Text="Prigovor.HR"},
-            //        new ToolbarItem("tbiQRScanner", "QRIcon.png",  (()=> { tbiSearch_Clicked(null, null); }) , ToolbarItemOrder.Primary, 1),
-            //        new ToolbarItem("tbiSearch", "SearchIcon.png", (()=> { tbiQRScanner_Clicked(null, null); }), ToolbarItemOrder.Primary, 2)} } };
-
             IsPresentedChanged += APPMasterDetailPage_IsPresentedChanged;
         }
 
         private void APPMasterDetailPage_IsPresentedChanged(object sender, EventArgs e)
         {
+            if (MasterPage.ListView.SelectedItem == null)
+                MasterPage.ListView.SelectedItem = APPMasterDetailPageMaster.DefaultItem;
+
             if (IsPresented)
                 ((APPMasterDetailPageMaster)Master).SetProfileImage();
         }
@@ -87,7 +82,7 @@ namespace Complio.Shared.Pages
 
                     MasterPage.ListView.SelectedItem = null;
                 }
-                // IsPresented = false;
+                IsPresented = false;
             }
         }
 
@@ -111,7 +106,7 @@ namespace Complio.Shared.Pages
 
         private async  void tbiSearch_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushPopupAsync(new CompanySearchPage());
+            await Navigation.PushAsync(new FindAndFilterMessages() { Title = "Pronađi i filtriraj razgovore" });
         }
 
         private void QRScannerController__ScanCompletedEvent(string result, bool isQRFormat)

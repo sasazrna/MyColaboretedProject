@@ -18,7 +18,7 @@ namespace Complio.Shared.Pages
         {
             InitializeComponent();
             lblMessage.Text = "";
-            lblComplaintSent.Text = IsResponse ? "Vaš odgovor je poslan" : "Vaš prigovor je poslan" + System.Environment.NewLine + System.Environment.NewLine + Message;
+            lblComplaintSent.Text = IsResponse ? "Vaš odgovor je poslan" : "Vaš prigovor/prijava je poslan/a" + System.Environment.NewLine + System.Environment.NewLine + Message;
             ClosePage();
         }
 

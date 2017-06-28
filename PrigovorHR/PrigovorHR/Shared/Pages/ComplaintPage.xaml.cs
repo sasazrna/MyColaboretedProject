@@ -70,7 +70,7 @@ namespace Complio.Shared.Pages
         private void SetFABS()
         {
             for (int i = 0; i < 4; i++)
-                    SetFAB(i);
+                SetFAB(i);
 
             foreach (var FAB in Fabs.Values)
             {
@@ -82,20 +82,15 @@ namespace Complio.Shared.Pages
 
             //if (AppGlobal.GetAndroidSDKVersion() < 21)
             //{
-                TAPController = new TAPController(Fabs.Values.ToArray());
-                TAPController.SingleTaped += TAPController_SingleTaped;
-          //  }
+            TAPController = new TAPController(Fabs.Values.ToArray());
+            TAPController.SingleTaped += TAPController_SingleTaped;
+            //  }
 
             Fabs["fabCloseComplaint"].IsVisible = !ComplaintClosed;
             Fabs["fabCloseComplaint"].TranslateTo(0, 0, 100);
             Fabs["fabReply"].TranslateTo(0, 0, 100);
             Fabs["fabRateComplaint"].TranslateTo(0, 0, 100);
             Fabs["fabRateComplaint"].IsVisible = ComplaintClosed & !ComplaintEvaluated;
-        }
-
-        private void TAPController_SingleTaped(string viewId, View view)
-        {
-            FabButton_Click(view, null);
         }
 
         private void SetFAB(int i)
@@ -112,31 +107,16 @@ namespace Complio.Shared.Pages
             Fabs.Add(FabImages.Keys.ToList()[i], FAB);
         }
 
+        private void TAPController_SingleTaped(string viewId, View view)
+        {
+            FabButton_Click(view, null);
+        }
+
         private bool scrolling = false;
         private void ScrView_Scrolled(object sender, ScrolledEventArgs e)
         {
             if (_clickedTotal % 2 == 0)
                 FabButton_Click(Fabs["fabOpenOptions"], new EventArgs());
-
-           // foreach (var fab in Fabs.Values)
-           //     if (fab.Opacity == 0.5)
-           //         break;
-           //     else fab.FadeTo(1, 1000);
-           // scrolling = true;
-
-           // Device.StartTimer(new TimeSpan(0, 0, 1), () =>
-           //{
-           //    scrolling = false;
-           //    if (scrolling == false)
-           //    {
-           //        foreach (var fab in Fabs.Values)
-           //            if (fab.Opacity == 0.5)
-           //                break;
-           //            else fab.FadeTo(0.5, 1000);
-           //        scrolling = true;
-           //    }
-           //    return scrolling;
-           //});    
         }
 
         private void FabButton_Click(object sender, EventArgs e)
@@ -169,7 +149,6 @@ namespace Complio.Shared.Pages
             {
                 for (int i = 0; i < FabsToAnimate.Count; i++)
                 {
-                    if (FabsToAnimate[i].Value.GetType() == typeof(Views.FontAwesomeLabel))
                         FabsToAnimate[i].Value.Opacity = 1;
                     await FabsToAnimate[i].Value.TranslateTo(0, -60 * (i + 1), 70);
                 }
@@ -179,7 +158,6 @@ namespace Complio.Shared.Pages
                 for (int i = 0; i < FabsToAnimate.Count; i++)
                 {
                     await FabsToAnimate[i].Value.TranslateTo(0, 0, 70);
-                    if (FabsToAnimate[i].Value.GetType() == typeof(Views.FontAwesomeLabel))
                         FabsToAnimate[i].Value.Opacity = 0;
                 }
             }

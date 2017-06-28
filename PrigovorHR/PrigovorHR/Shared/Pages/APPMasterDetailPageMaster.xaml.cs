@@ -16,7 +16,7 @@ namespace Complio.Shared.Pages
     public partial class APPMasterDetailPageMaster 
     {
         public ListView ListView => ListViewMenuItems;
-
+        public static APPMasterDetailPageMenuItem DefaultItem;
         public APPMasterDetailPageMaster()
         {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace Complio.Shared.Pages
                     new APPMasterDetailPageMenuItem { Icon="awsomeCard.png", Id = 5, Title = "Kontakt", TargetType=typeof(ContactUsPage) },
                     new APPMasterDetailPageMenuItem { Icon="awsomeSignOut.png", Id = 6, Title = "Odjava" },
                 });
-                
+                DefaultItem = MenuItems[1];
             }
             public event PropertyChangedEventHandler PropertyChanged;
             void OnPropertyChanged([CallerMemberName]string propertyName = "") =>

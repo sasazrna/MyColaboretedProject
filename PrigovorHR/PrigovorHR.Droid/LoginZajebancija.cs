@@ -8,9 +8,9 @@ using LoginManager = Xamarin.Facebook.Login.LoginManager;
 using LoginResult = Xamarin.Facebook.Login.LoginResult;
 using Complio.Shared.Controllers;
 using System.ComponentModel.Design;
-[assembly: Dependency(typeof(Complio.Droid.Login))]
+[assembly: Dependency(typeof(PrigovorHR.Droid.Login))]
 
-namespace Complio.Droid
+namespace PrigovorHR.Droid
 {
     public class FacebookCallback : Java.Lang.Object, IFacebookCallback
     {

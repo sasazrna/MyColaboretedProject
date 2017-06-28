@@ -1,50 +1,75 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Complio.Shared;
 using Xamarin.Forms;
 using System.Threading.Tasks;
-using Android.Support.V7.App;
-using Android.Content.PM;
-using Android.Media;
-using Android.Graphics;
+
 using Newtonsoft.Json;
 using Complio.Shared.Models;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.IO;
+using Complio.Shared;
+using Android.Runtime;
 
-namespace Complio.Droid
+namespace PrigovorHR.Droid
 {
     class AndroidServices
     {
+        [Activity(Label = "SecondActivity", MainLauncher = false)]
+        public class SecondActivity:Activity
+        {
+            protected override void OnStart()
+            {
+
+                base.OnStart();
+            }
+            protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+            {
+                base.OnActivityResult(requestCode, resultCode, data);
+            }
+        }
+
         [BroadcastReceiver]
         public class AlarmReceiver : BroadcastReceiver
         {
-            public static AlarmReceiver ReferenceToReciver;
-            private string ComplaintLastEvent;
             public static bool IsRunning = false;
             private static Dictionary<int, int> FechedNewReplys = new Dictionary<int, int>();
             private static List<int> FechedComplaintEvents = new List<int>();
             private Dictionary<bool, Dictionary<int, double>> RefreshValues = new Dictionary<bool, Dictionary<int, double>>();
             private bool HasNewResults, HasClosedComplaintEvent = false;
             private string[] ServiceAddresses = new string[] { "https://prigovor.hr/api/", "http://138.68.85.217/api/" };
-            private string ServiceAddress;
             public static RootComplaintModel RootComplaint = new RootComplaintModel();
 
             private void ShowNotification(int ComplaintId, string Title, string Text, Context context)
             {
-                Intent resultIntent = new Intent(context, typeof(MainActivity)).AddFlags(ActivityFlags.BroughtToFront);
+                Intent resultIntent = new Intent(context, typeof(MainActivity)).AddFlags(ActivityFlags.ForwardResult);
                 resultIntent.PutExtra("ComplaintId", ComplaintId);
                 PendingIntent resultPendingIntent = PendingIntent.GetActivity(context, ComplaintId, resultIntent, PendingIntentFlags.UpdateCurrent);
+
+//Intent secondIntent = new Intent(context, typeof(SecondActivity));
+
+//// Pass some information to SecondActivity:
+//secondIntent.PutExtra("message", "Greetings from MainActivity!");
+
+//// Create a task stack builder to manage the back stack:
+//TaskStackBuilder stackBuilder = TaskStackBuilder.Create(context);
+
+//                // Add all parents of SecondActivity to the stack: 
+//                stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(SecondActivity)));
+
+//                // Push the intent that starts SecondActivity onto the stack:
+//                stackBuilder.AddNextIntent(secondIntent);
+
+//                // Obtain the PendingIntent for launching the task constructed by
+//                // stackbuilder. The pending intent can be used only once (one shot):
+//                const int pendingIntentId = 0;
+//                PendingIntent pendingIntent =
+//                stackBuilder.GetPendingIntent(pendingIntentId, PendingIntentFlags.OneShot);
+
 
                 Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
 
@@ -203,25 +228,27 @@ namespace Complio.Droid
                                 Xamarin.Forms.Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(RootComplaint));
                                 await Xamarin.Forms.Application.Current.SavePropertiesAsync();
                                 WriteComplaintsDataToStorage(JsonConvert.SerializeObject(RootComplaint), RootComplaint.user.token);
-                                Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
+                                Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
                                 Device.BeginInvokeOnMainThread(() =>
                                 {
                                     if (HasClosedComplaintEvent)
-                                        Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
+                                        Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
                                     else
-                                        Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
+                                        Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
                                 });
                                 HasNewResults = false;
                             }
                         }
 
-                        await Task.Delay(Convert.ToInt32(RefreshValues[MainActivity.IsUserActive][Convert.ToInt32(DateTime.Now.Hour / 6D)] * 1000 * 60));
+                      //  await Task.Delay(Convert.ToInt32(RefreshValues[MainActivity.IsUserActive][Convert.ToInt32(DateTime.Now.Hour / 6D)] * 1000 * 60));
                         IsRunning = false;
                     }
                     catch (Exception ex)
                     {
+                        ShowNotification(0, "exception", ex.ToString(), context);
                         IsRunning = false;
-                        Shared.Controllers.ExceptionController.HandleException(ex, "public override void OnReceive(Context context, Intent intent)");
+                        Complio.Shared.Controllers.ExceptionController.HandleException(ex, "public override void OnReceive(Context context, Intent intent)");
+                        ShowNotification(0, "exception", ex.ToString(), context);
                     }
                 });
             }

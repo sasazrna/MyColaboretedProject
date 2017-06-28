@@ -5,15 +5,13 @@
              xmlns:views="clr-namespace:Complio.Shared.Views"
              x:Class="Complio.Shared.Pages.ComplaintPage" NavigationPage.BackButtonTitle="Natraške">
 
-<RelativeLayout x:Name="lytRelative">
+    <RelativeLayout x:Name="lytRelative">
 
-   <ContentView x:Name="cvTopContentView"
+        <ContentView x:Name="cvTopContentView"
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 
             <StackLayout>
-                <!--<views:NavigationBar x:Name="NavigationBar"></views:NavigationBar>-->
-
                 <StackLayout VerticalOptions="Start" Margin="0,25,0,0">
                     <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView"></views:ComplaintCoversationHeaderView>
                 </StackLayout>
@@ -45,8 +43,6 @@
                 </ScrollView>
             </StackLayout>
         </ContentView>
-
     </RelativeLayout>
-
 </ContentPage>
 

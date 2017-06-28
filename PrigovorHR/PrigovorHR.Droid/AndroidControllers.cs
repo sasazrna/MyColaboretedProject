@@ -15,7 +15,7 @@ using Complio.Shared.Controllers;
 using System.IO;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
-using static Complio.Droid.AndroidCallers;
+
 using Xamarin.Auth;
 using Xamarin.Facebook.Login;
 using Complio.Shared.Views;
@@ -24,11 +24,11 @@ using Xamarin.Facebook.Share.Widget;
 using System.Net;
 using Android.Webkit;
 
-[assembly: Xamarin.Forms.Dependency(typeof(AndroidCallers))]
+[assembly: Xamarin.Forms.Dependency(typeof(PrigovorHR.Droid.AndroidCallers))]
 //[assembly: Xamarin.Forms.Dependency(typeof(LoginPageRenderer))]
 //[assembly: ExportRenderer(typeof(LoginPageRenderer), typeof(PrigovorHR.Shared.Pages.RegisterLoginPage))]
 
-namespace Complio.Droid
+namespace PrigovorHR.Droid
 {
     class AndroidCallers : IAndroidCallers
     {

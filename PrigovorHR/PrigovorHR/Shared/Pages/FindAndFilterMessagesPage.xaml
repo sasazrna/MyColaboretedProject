@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:customcontrols="clr-namespace:Complio.Shared.CustomControls;assembly=PrigovorHR" 
+              xmlns:views="clr-namespace:Complio.Shared.Views" 
+             x:Class="Complio.Shared.Pages.FindAndFilterMessages">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame HasShadow="True" CornerRadius="2" Margin="10, 0, 10,10">
+                <StackLayout>
+                    <!--<Label Text="Pronađi i filtriraj razgovore" FontSize="Large" HorizontalTextAlignment="Center">
+                    </Label>-->
+                    <SearchBar x:Name="SearchCompanyElement" Placeholder="Tvrtka/poslovnica" Margin="-20,-10,0,0" SearchButtonPressed="SearchButtonPressed" ></SearchBar>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                            <Label Text="Od:" FontSize="Large" Margin="0,6,0,0"></Label>
+                            <DatePicker x:Name="dpDateFrom" AutomationId="dpDateTo"  DateSelected="dpDate_DateSelected"></DatePicker>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                            <Label Text="Do:" FontSize="Large" Margin="0,6,0,0"></Label>
+                            <DatePicker x:Name="dpDateTo" AutomationId="dpDateTo" DateSelected="dpDate_DateSelected"></DatePicker>
+                        </StackLayout>
+                    </StackLayout>
+                    <SearchBar x:Name="SearchMessageText" Placeholder="Poruka sadrži..." Margin="-20,-10,0,0" SearchButtonPressed="SearchButtonPressed" ></SearchBar>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                        <Label Text="Aktivno"></Label>
+                        <Switch x:Name="swActive" IsToggled="True" Toggled="sw_Toggled"></Switch>
+                        <Label Text="Zatvoreno"></Label>
+                        <Switch x:Name="swClosed" IsToggled="True" Toggled="sw_Toggled"></Switch>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <views:ListOfComplaintsView_BasicUser x:Name="ListOfComplaintsView" IsVisible="True" x:FieldModifier="Public">
+            </views:ListOfComplaintsView_BasicUser>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
