@@ -7,8 +7,8 @@
     <ContentView.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                <Image Source="attach.png" WidthRequest="15"  />
-                <Label x:Name="lblAttachmentName" Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" LineBreakMode="TailTruncation" HorizontalOptions = "Start"/>
+                <Image x:Name="imgAttachment" Source="attach.png" WidthRequest="15"  />
+                <Label x:Name="lblAttachmentName" Text="attachment01.pdf" FontSize="Small" TextColor="#529bca" LineBreakMode="TailTruncation" HorizontalOptions = "StartAndExpand"/>
                 <Views:FontAwesomeLabel x:Name="imgClose" FontSize="Large" HorizontalOptions="End" IsVisible="False">
                 </Views:FontAwesomeLabel>
             </StackLayout>

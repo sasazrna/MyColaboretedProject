@@ -38,6 +38,7 @@ namespace Complio.Shared.Views
             imgClose.Text = Views.FontAwesomeLabel.Images.FATimes;
             Data = data;
             IsReply = isReply;
+
             TAPController = new Controllers.TAPController(lblAttachmentName, imgClose);
             TAPController.SingleTaped += TAPController_SingleTaped;
         }
@@ -68,9 +69,20 @@ namespace Complio.Shared.Views
                 }
                 else
                 {
-                    DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Data);
-                    DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
-                    DependencyService.Get<Controllers.IAndroidCallers>().DeleteFile(AttachmentFileName);
+                    if (AttachmentFileName.Contains("loc:"))
+                    {
+                        AttachmentFileName = AttachmentFileName.Remove(0, AttachmentFileName.IndexOf(":")+1);
+                        var addr = new Uri("http://maps.google.com/?daddr=" + AttachmentFileName);
+                      
+
+                        Device.OpenUri(addr);
+                    }
+                    else
+                    {
+                        DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Data);
+                        DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
+                        DependencyService.Get<Controllers.IAndroidCallers>().DeleteFile(AttachmentFileName);
+                    }
                 }
             }
             else

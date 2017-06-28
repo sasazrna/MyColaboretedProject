@@ -23,6 +23,8 @@ namespace Complio.Shared.Models
         public string suggestion { get; set; }
         public string last_event { get; set; }
         public int? messageType { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
 
         public static Dictionary<int, Tuple<string, Color>> messageTypeNamesDefinitions =
             new Dictionary<int, Tuple<string, Color>>() { { 0, new Tuple<string, Color>("Prigovor", Color.Red) } ,
@@ -31,8 +33,6 @@ namespace Complio.Shared.Models
                                                           { 4, new Tuple<string, Color>("Upit", Color.Blue) } };
 
         public List<ComplaintEvent> complaint_events { get; set; }
-
-        public string latitude { get; set; }
 
         public List<ComplaintAttachmentModel> attachments { get; set; }
         public CompanyElementModel element { get; set; }
@@ -97,6 +97,8 @@ namespace Complio.Shared.Models
             public string complaint_received_message { get; set; }
             public int MessageType { get; set; }
             public List<ComplaintAttachmentModel> attachments { get; set; }
+            public string latitude { get; set; }
+            public string longitude { get; set; }
         }
     }
 

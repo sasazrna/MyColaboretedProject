@@ -26,16 +26,6 @@ namespace Complio.Shared.Pages
         {
             InitializeComponent();
 
-            //var ListClearing = new TapGestureRecognizer();
-            //ListClearing.Tapped += (s, e) =>
-            //{
-            //    MenuStack.IsVisible = false;
-            //    lytAttachments.Children.Clear();
-            //};
-            //ClearList.GestureRecognizers.Add(ListClearing);
-
-
-
             Complaint = complaint;
 
             WriteNewComplaintModel = _WriteNewComplaintModel;
@@ -47,76 +37,29 @@ namespace Complio.Shared.Pages
                 WriteNewComplaintModel.element_id = complaint.element_id;
                 WriteNewComplaintModel.complaint_id = complaint.id;
                 WriteNewComplaintModel.element_slug = complaint.element.slug;
+
+                AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, true);
             }
             else
             {
-                foreach (var Attachment in WriteNewComplaintModel.attachments ?? new List<Models.ComplaintModel.ComplaintAttachmentModel>())
-                {
-                    var AttachmentView = new AttachmentView(true, 0, 0, Attachment.attachment_url, true, Convert.FromBase64String(Attachment.attachment_data));
-                    lytAttachments.Children.Add(AttachmentView);
-                    AttachmentView.AutomationId = Attachment.attachment_mime;
-
-                    AttachmentView.AttachmentDeletedEvent += (View v) =>
-                    {
-                        lytAttachments.Children.Remove(v);
-                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.AutomationId.ToString()));
-                    };
-                }
+                AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, true);
 
                 Complaint.complaint = WriteNewComplaintModel.complaint;
                 editReplyText.Text = complaint.complaint;
             }
+            lytAttachmentsAndEditors.Children.RemoveAt(0);
+            lytAttachmentsAndEditors.Children.Insert(0, AttachmentListView);
 
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
                        Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
                        Complaint.element.name, Complaint.element.name);
 
-            imgAttachDocs.Text = '\uf1c1'.ToString();
-            imgAttachDocs.TextColor = Color.Gray;
 
-            imgTakePhoto.Text = '\uf030'.ToString();
-            imgTakePhoto.TextColor = Color.Gray;
-
-            imgTakeGPSLocation.Text = '\uf041'.ToString();
-            imgTakeGPSLocation.TextColor = Color.Gray;
-
-            btnSendReply.Text = Views.FontAwesomeLabel.Images.FASend_msg;
-            btnSendReply.TextColor = Color.FromHex("#FF7e65");
-
-            ListDropDown.Text = Views.FontAwesomeLabel.Images.FACaretDown;
-            ListDropDown.TextColor = Color.Gray;
-
-            ClearList.Text = Views.FontAwesomeLabel.Images.FAClose;
-            ClearList.TextColor = Color.Gray;
-
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, btnSendReply, ListDropDown, ClearList);
+            TAPController = new Controllers.TAPController(btnSendReply);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
-            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editReplyText.TextChanged += EditReplyText_TextChanged;
-            //  NavigationPage.SetHasNavigationBar(this, false);
-            //TAPController.SingleTaped += TAPController_ListTaped;
-
-          
-
         }
-
-        //private async void TAPController_ListTaped (string viewId, View view)
-        //{
-        //    if (!lytAttachments.IsVisible)
-        //    {
-        //        lytAttachments.IsVisible = true;
-        //        await ListDropDown.RotateTo(180, 100);
-        //    }
-        //    else
-        //    {
-        //        //lytAttachments.Children.Clear();
-        //        lytAttachments.IsVisible = false;
-        //        await ListDropDown.RotateTo(0, 100);
-        //    }
-
-        //}
-
        
 
         private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
@@ -161,10 +104,10 @@ namespace Complio.Shared.Pages
             await Task.Delay(19);
             List<int> attachment_ids = new List<int>();
 
-            foreach (var Attachment in lytAttachments.Children.OfType<AttachmentView>().Cast<AttachmentView>())
+            foreach (var Attachment in AttachmentListView.GetAttachmentsData())
                 attachment_ids.Add(await DataExchangeServices.SendReplyAttachment(Attachment.Data, Attachment.AttachmentFileName));
 
-            if (lytAttachments.Children.Any() && (attachment_ids == null | attachment_ids.Any(aid => aid == 0)))
+            if (attachment_ids == null | attachment_ids.Any(aid => aid == 0))
             {
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vaših privitaka!" + System.Environment.NewLine + "Pokušajte ponovno poslati", "Greška", "OK");
@@ -194,175 +137,64 @@ namespace Complio.Shared.Pages
             {
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vašeg prigovora, moguće zbog internet konekcije" + Environment.NewLine +
               /*      "Vaš prigovor je spremljen na vašem mobitelu te će biti automatski poslan prvom prilikom"*/ "Greška u slanju prigovora", "OK");
-                SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Unsent);
+                //SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Unsent);
             }
         }
 
-        private void SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType DraftType)
-        {
-            var DraftReply = new Models.ComplaintModel.ComplaintReplyModel()
-            {
-                attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>(),
-                reply = editReplyText.Text,
-                complaint_id = Complaint.id,
-                user_id = Controllers.LoginRegisterController.LoggedUser.id.Value
-            };
+        //private void SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType DraftType)
+        //{
+        //    var DraftReply = new Models.ComplaintModel.ComplaintReplyModel()
+        //    {
+        //        attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>(),
+        //        reply = editReplyText.Text,
+        //        complaint_id = Complaint.id,
+        //        user_id = Controllers.LoginRegisterController.LoggedUser.id.Value
+        //    };
 
-            foreach (var Attachment in lytAttachments.Children.OfType<AttachmentView>().Cast<AttachmentView>())
-                DraftReply.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
-                {
-                    attachment_data = Convert.ToBase64String(Attachment.Data),
-                    attachment_url = Attachment.AttachmentFileName,
-                    complaint_reply_id = Complaint.id,
-                    user_id = Controllers.LoginRegisterController.LoggedUser.id.Value
-                });
+        //    foreach (var Attachment in lytAttachments.Children.OfType<AttachmentView>().Cast<AttachmentView>())
+        //        DraftReply.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
+        //        {
+        //            attachment_data = Convert.ToBase64String(Attachment.Data),
+        //            attachment_url = Attachment.AttachmentFileName,
+        //            complaint_reply_id = Complaint.id,
+        //            user_id = Controllers.LoginRegisterController.LoggedUser.id.Value
+        //        });
 
-            ComplaintDraftGuid = Controllers.ComplaintDraftController.SaveDraft(null, DraftReply, ComplaintDraftGuid, Complaint.element.slug, DraftType);
-        }
+        //    ComplaintDraftGuid = Controllers.ComplaintDraftController.SaveDraft(null, DraftReply, ComplaintDraftGuid, Complaint.element.slug, DraftType);
+        //}
 
         private void BtnSaveReply_Clicked(object sender, EventArgs e)
         {
-            SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Draft);
-            Acr.UserDialogs.UserDialogs.Instance.Toast("Vaš odgovor je spremljen u skice", new TimeSpan(0, 0, 3));
+            //SaveReply(Models.ComplaintModel.DraftComplaintModel.DraftType.Draft);
+            //Acr.UserDialogs.UserDialogs.Instance.Toast("Vaš odgovor je spremljen u skice", new TimeSpan(0, 0, 3));
         }
 
-        private async void TAPController_SingleTaped(string viewId, View view)
+        private void TAPController_SingleTaped(string viewId, View view)
         {
             if (WriteNewComplaintModel.attachments == null)
                 WriteNewComplaintModel.attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>();
 
-            if (view == imgAttachDocs)
-            {
-               
-                var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-                if (!string.IsNullOrEmpty(Picker?.FileName))
-                {
-                    var AttachmentView = new AttachmentView(false, 0, 0, Picker.FileName, true, Picker.DataArray);
-                    lytAttachments.Children.Add(AttachmentView);
-
-                    AttachmentView.AttachmentDeletedEvent += (View v) =>
-                    {
-                        lytAttachments.Children.Remove(v);
-                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.Id.ToString()));
-                    };
-
-                    WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
-                    {
-                        attachment_data = Convert.ToBase64String(Picker.DataArray),
-                        attachment_extension = Picker.FileName.Substring(Picker.FileName.LastIndexOf(".")),
-                        attachment_url = Picker.FileName,
-                        attachment_mime = AttachmentView.Id.ToString()
-                    });
-                }
-                Picker = null;
-                MenuStack.IsVisible = true;
-
-                
-               
-   }
-            else if(view == ListDropDown)
-            {
-                if (!lytAttachments.IsVisible)
-                {
-                    lytAttachments.IsVisible = true;
-                    await ListDropDown.RotateTo(180, 100);
-                }
-                else
-                {
-                    //lytAttachments.Children.Clear();
-                    lytAttachments.IsVisible = false;
-                    await ListDropDown.RotateTo(0, 100);
-                }
-            }
-
-            else if(view == ClearList)
-            {
-                MenuStack.IsVisible = false;
-                lytAttachments.Children.Clear();
-            }
-
-
-            else if (view == imgTakePhoto)
-            {
-
-                var photo = await Controllers.CameraController.TakePhoto();
-                if (photo != null)
-                {
-                    var MS = new System.IO.MemoryStream();
-                    photo.GetStream().CopyTo(MS);
-                    var PhotoName = photo.Path.Substring(photo.Path.LastIndexOf("/") + 1);
-                    var AttachmentView = new AttachmentView(false, 0, 0, PhotoName, true, MS.ToArray());
-                    lytAttachments.Children.Add(AttachmentView);
-
-                    AttachmentView.AttachmentDeletedEvent += (View v) =>
-                    {
-                        lytAttachments.Children.Remove(v);
-                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.Id.ToString()));
-                    };
-
-                    WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
-                    {
-                        attachment_data = Convert.ToBase64String(MS.ToArray()),
-                        attachment_extension = PhotoName.Substring(PhotoName.LastIndexOf(".")),
-                        attachment_url = PhotoName,
-                        attachment_mime = AttachmentView.Id.ToString()
-                    });
-                }
-                MenuStack.IsVisible = true;
-               
-}
-            else if (view == imgTakeGPSLocation)
-            {
-                if (imgTakeGPSLocation.TextColor != Color.FromHex("#FF6A00"))
-                {
-                    Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Tražim vašu lokaciju", Acr.UserDialogs.MaskType.Clear);
-
-                    var MyLocation = await Controllers.GPSController.GetPosition();
-                    if (MyLocation != null)
-                    {
-                        Latitude = MyLocation.Latitude;
-                        Longitude = MyLocation.Longitude;
-                        imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
-                        Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaša lokacija je pronađena");
-                    }
-                    else
-                        Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom dobivanja vaše lokacije!" + Environment.NewLine + "Provjerite jeli vam GPS uključen te da aplikaciji dozvolite pristup GPS-u", "Greška", "OK");
-
-                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                }
-                else
-                {
-                    Latitude = 0;
-                    Longitude = 0;
-                    imgTakeGPSLocation.TextColor = Color.Gray;
-                }
-            }
-            else if (view == btnSendReply)
+            if (view == btnSendReply)
                 BtnSendReply_Clicked(null, null);
-            SaveToDevice();
         }
-
-        
-	
 
         private void editReplyText_Focused(object sender, FocusEventArgs e)
         {
-            lytAttachments.IsVisible = false;
-            ListDropDown.RotateTo(0, 0);
+            AttachmentListView.HideUnhideAttachments(true);
             ComplaintCoversationHeaderView.IsVisible = false;
-            MainsStack.Padding = new Thickness(25, 15, 25, 30);
-            
+            MainsStack.Padding = new Thickness(25, 15, 25, 30);      
         }
 
         private void editReplyText_Unfocused(object sender, FocusEventArgs e)
         {
+            AttachmentListView.HideUnhideAttachments(false);
             ComplaintCoversationHeaderView.IsVisible = true;
             MainsStack.Padding = new Thickness(25, 35, 25, 30);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            if (!string.IsNullOrEmpty(editReplyText.Text) | lytAttachments.Children.Any())
+            if (!string.IsNullOrEmpty(editReplyText.Text) | AttachmentListView.GetAttachmentsData().Any())
             {
                 Acr.UserDialogs.UserDialogs.Instance.Confirm(
                        new Acr.UserDialogs.ConfirmConfig()
@@ -387,6 +219,5 @@ namespace Complio.Shared.Pages
 
             return true;
         }
-
     }
 }

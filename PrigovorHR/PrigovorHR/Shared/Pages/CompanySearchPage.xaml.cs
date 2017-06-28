@@ -25,7 +25,8 @@ namespace Complio.Shared.Pages
             InitializeComponent();
             imgClose.Text = Views.FontAwesomeLabel.Images.FAClose;
             imgClose.TextColor = Color.FromHex("#aaa4a4");
-            SearchOptionsLayout.IsVisible = Models.ComplaintModel.RefToAllComplaints.user.complaints.Count < 4;
+            SearchOptionsLayout.IsVisible = Models.ComplaintModel.RefToAllComplaints.user.complaints.Count < 4 & AppGlobal.AppIsComplio;
+            lblHash.IsVisible = lblAt.IsVisible = AppGlobal.AppIsComplio;
 
             Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () => { entrySearch.Focus(); return false; });
 

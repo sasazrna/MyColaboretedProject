@@ -32,100 +32,13 @@ namespace Complio.Shared.Pages
         public NewComplaintPage()
         {
             InitializeComponent();
-         
-
         }
-
-
-
-        private void Editor_FocusedUnfocused(object sender, FocusEventArgs e)
-        {
-            if (MessageType ==0)
-            {
-                lytTimePicker.IsVisible = !e.IsFocused;
-                ComplaintCoversationHeaderView.IsVisible = !e.IsFocused;
-            }
-            var SelectedEditor = ((Editor)e.VisualElement);
-
-            if (e.IsFocused)
-            {
-                lytAttachments.IsVisible = false;
-              
-                ListDropDown.RotateTo(0, 0);
-                editSuggestionText.IsVisible = SelectedEditor.AutomationId == editSuggestionText.AutomationId;
-                editComplaintText.IsVisible = SelectedEditor.AutomationId == editComplaintText.AutomationId;
-
-                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
-                    editComplaintTextUderStack.IsVisible = false;
-
-                foreach (var IFE in InstructionForEditor)
-                    if (SelectedEditor.Text == IFE.Value)
-                        Device.StartTimer(new TimeSpan(0, 0, 0, 0, 10), () => { SelectedEditor.Text = string.Empty; return false; });                    
-            }
-            else
-            {
-                editSuggestionText.IsVisible = MessageType == 0;
-                editComplaintText.IsVisible = true;
-
-                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
-                editComplaintTextUderStack.IsVisible = true;
-
-                if (string.IsNullOrEmpty(editComplaintText.Text))
-                    editComplaintText.Text =  InstructionForEditor[Convert.ToInt32(MessageType)];
-                if (string.IsNullOrEmpty(editSuggestionText.Text))
-                    editSuggestionText.Text = "Napišite prijedlog...";
-            }          
-        }
-
-
-       
-
-        //private void EditorComplaint_Focused(object sender, FocusEventArgs e)
-        //{
-        //    lytTimePicker.IsVisible = false;
-        //    ComplaintCoversationHeaderView.IsVisible = false;
-        //    editSuggestionText.IsVisible = false;
-        //}
-
-        //private void EditorSuggestion_Focused(object sender, FocusEventArgs e)
-        //{
-        //    lytTimePicker.IsVisible = false;
-        //    ComplaintCoversationHeaderView.IsVisible = false;
-        //    editComplaintText.IsVisible = false;
-        //    editComplaintTextUderStack.IsVisible = false;
-        //}
-
-        //private void EditorComplaint_Unfocused(object sender, FocusEventArgs e)
-        //{
-        //    lytTimePicker.IsVisible = true;
-        //    ComplaintCoversationHeaderView.IsVisible = true;
-        //    editSuggestionText.IsVisible = true;
-        //}
-
-        //private void EditorSuggestion_Unfocused(object sender, FocusEventArgs e)
-        //{
-        //    lytTimePicker.IsVisible = true;
-        //    ComplaintCoversationHeaderView.IsVisible = true;
-        //    editComplaintText.IsVisible = true;
-        //    editComplaintTextUderStack.IsVisible = true;
-        //}
-
 
         public NewComplaintPage(Models.CompanyElementModel companyElement,
                                 int messageType,
                                 Models.ComplaintModel.DraftComplaintModel _WriteNewComplaintModel = null)
         {
             InitializeComponent();
-
-
-            //var ListClearing = new TapGestureRecognizer();
-            //ListClearing.Tapped += (s, e) =>
-            //{
-            //    MenuStack.IsVisible = false;
-            //    lytAttachments.Children.Clear();
-            //};
-            //ClearList.GestureRecognizers.Add(ListClearing);
-
 
             FaNow.Text = Views.FontAwesomeLabel.Images.FAClockO;
             FaPast.Text = Views.FontAwesomeLabel.Images.FACalendarO;
@@ -140,21 +53,11 @@ namespace Complio.Shared.Pages
                 WriteNewComplaintModel.element_id = companyElement.id;
                 WriteNewComplaintModel.element_slug = companyElement.slug;
                 ComplaintCoversationHeaderView.SetHeaderInfo(CompanyElement.name, CompanyElement.name);
+                AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, false);
             }
             else
             {
-                foreach (var Attachment in WriteNewComplaintModel.attachments ?? new List<Models.ComplaintModel.ComplaintAttachmentModel>())
-                {
-                    var AttachmentView = new AttachmentView(true, 0, 0, Attachment.attachment_url, true, Convert.FromBase64String(Attachment.attachment_data));
-                    lytAttachments.Children.Add(AttachmentView);
-                    AttachmentView.AutomationId = Attachment.attachment_mime;
-
-                    AttachmentView.AttachmentDeletedEvent += (View v) =>
-                    {
-                        lytAttachments.Children.Remove(v);
-                        WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.AutomationId.ToString()));
-                    };
-                }
+                AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, false);
 
                 editComplaintText.Text = WriteNewComplaintModel.complaint ?? string.Empty;
                 Task.Run(async () =>
@@ -171,23 +74,8 @@ namespace Complio.Shared.Pages
                 labela_vremena_sad.Text = ProblemOccurred.ToString();
                 labela_vremena_sad.IsVisible = true;
             }
-
-            imgAttachDocs.Text = '\uf1c1'.ToString();
-            imgAttachDocs.TextColor = Color.Gray;
-
-            imgTakePhoto.Text = '\uf030'.ToString();
-            imgTakePhoto.TextColor = Color.Gray;
-
-            imgTakeGPSLocation.Text = '\uf041'.ToString();
-            imgTakeGPSLocation.TextColor = Color.Gray;
-
-
-            ListDropDown.Text = Views.FontAwesomeLabel.Images.FACaretDown;
-            ListDropDown.TextColor = Color.Gray;
-
-            ClearList.Text = Views.FontAwesomeLabel.Images.FAClose;
-            ClearList.TextColor = Color.Gray;
-
+            lytAttachmentsAndEditors.Children.RemoveAt(0);
+            lytAttachmentsAndEditors.Children.Insert(0, AttachmentListView);
 
             arrivalTimePicke.PropertyChanged += ArrivalTimePicke_PropertyChanged;
 
@@ -203,56 +91,62 @@ namespace Complio.Shared.Pages
                 editSuggestionText.IsVisible = false;
             }
 
-                editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
+            editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
 
-            TAPController = new Controllers.TAPController(imgAttachDocs, imgTakeGPSLocation, imgTakePhoto, SadaStackButton, RanijeStackButton, ListDropDown, ClearList);
+            TAPController = new Controllers.TAPController(SadaStackButton, RanijeStackButton);
 
             TAPController.SingleTaped += TAPController_SingleTaped;
-            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             editComplaintText.TextChanged += EditComplaintText_TextChanged;
             editSuggestionText.TextChanged += EditComplaintText_TextChanged;
             arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
             AutomationId = "NewComplaintPage";
-            ReferenceToPage = this;
-
-            //  NavigationPage.SetHasNavigationBar(this, false);
-        
-
-        //TAPController.SingleTaped += TAPController_ListTaped;
-
-          
-
+            ReferenceToPage = this;         
         }
 
-    //private async void TAPController_ListTaped(string viewId, View view)
-    //{
-    //    if (!lytAttachments.IsVisible)
-    //    {
-    //        lytAttachments.IsVisible = true;
-    //        await ListDropDown.RotateTo(180, 100);
-    //    }
-    //    else
-    //    {
-    //        //lytAttachments.Children.Clear();
-    //        lytAttachments.IsVisible = false;
-    //        await ListDropDown.RotateTo(0, 100);
-    //    }
+        private void Editor_FocusedUnfocused(object sender, FocusEventArgs e)
+        {
+            if (MessageType == 0)
+            {
+                lytTimePicker.IsVisible = !e.IsFocused;
+                ComplaintCoversationHeaderView.IsVisible = !e.IsFocused;
+            }
+            var SelectedEditor = ((Editor)e.VisualElement);
 
-    //}
+            AttachmentListView.HideUnhideAttachments(e.IsFocused);
 
+            if (e.IsFocused)
+            {
+                editSuggestionText.IsVisible = SelectedEditor.AutomationId == editSuggestionText.AutomationId;
+                editComplaintText.IsVisible = SelectedEditor.AutomationId == editComplaintText.AutomationId;
 
-    private void TAPController_SingleTaped(string viewId, View view)
+                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
+                    editComplaintTextUderStack.IsVisible = false;
+
+                foreach (var IFE in InstructionForEditor)
+                    if (SelectedEditor.Text == IFE.Value)
+                        Device.StartTimer(new TimeSpan(0, 0, 0, 0, 10), () => { SelectedEditor.Text = string.Empty; return false; });
+            }
+            else
+            {
+                editSuggestionText.IsVisible = MessageType == 0;
+                editComplaintText.IsVisible = true;
+
+                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
+                    editComplaintTextUderStack.IsVisible = true;
+
+                if (string.IsNullOrEmpty(editComplaintText.Text))
+                    editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
+                if (string.IsNullOrEmpty(editSuggestionText.Text))
+                    editSuggestionText.Text = "Napišite prijedlog...";
+            }
+        }
+
+        private void TAPController_SingleTaped(string viewId, View view)
         {
             if (WriteNewComplaintModel.attachments == null)
                 WriteNewComplaintModel.attachments = new List<Models.ComplaintModel.ComplaintAttachmentModel>();
 
-            if (view == imgAttachDocs)
-                InitAttachDocs();
-             else if (view == imgTakePhoto)
-                InitTakePhoto();
-                else if (view == imgTakeGPSLocation)
-                InitTakeGPSLocation();
-            else if (view == SadaStackButton)
+             if (view == SadaStackButton)
             {
                 ZaPopunit_stack.IsVisible = false;
                 Ranije_stack.IsVisible = false;
@@ -270,115 +164,8 @@ namespace Complio.Shared.Pages
                 arrivalDatePicker.Focus();
                 ProblemOccurred = DateTime.Now;
             }
-            else if (view == ListDropDown)
-            {
-                if (!lytAttachments.IsVisible)
-                {
-                    lytAttachments.IsVisible = true;
-                    ListDropDown.RotateTo(180, 100);
-                }
-                else
-                {
-                    //lytAttachments.Children.Clear();
-                    lytAttachments.IsVisible = false;
-                    ListDropDown.RotateTo(0, 100);
-                }
-            }
-            else if (view == ClearList)
-            {
-                MenuStack.IsVisible = false;
-                lytAttachments.Children.Clear();
-            }
+           
             SaveToDevice();
-        }
-
-        private async void InitAttachDocs()
-        {
-            var Picker = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-            if (!string.IsNullOrEmpty(Picker?.FileName))
-            {
-                var AttachmentView = new AttachmentView(false, 0, 0, Picker.FileName, true, Picker.DataArray);
-                lytAttachments.Children.Add(AttachmentView);
-
-                AttachmentView.AttachmentDeletedEvent += (View v) =>
-                {
-                    lytAttachments.Children.Remove(v);
-                    WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.Id.ToString()));
-                };
-
-                WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
-                {
-                    attachment_data = Convert.ToBase64String(Picker.DataArray),
-                    attachment_extension = Picker.FileName.Substring(Picker.FileName.LastIndexOf(".")),
-                    attachment_url = Picker.FileName,
-                    attachment_mime = AttachmentView.Id.ToString()
-                });
-                SaveToDevice();
-                MenuStack.IsVisible = true;
-            }
-        }
-
-        private async void InitTakePhoto()
-        {
-            var photo = await Controllers.CameraController.TakePhoto();
-            if (photo != null)
-            {
-                var MS = new System.IO.MemoryStream();
-                photo.GetStream().CopyTo(MS);
-                var PhotoName = photo.Path.Substring(photo.Path.LastIndexOf("/") + 1);
-                var AttachmentView = new AttachmentView(false, 0, 0, PhotoName, true, MS.ToArray());
-                lytAttachments.Children.Add(AttachmentView);
-
-                AttachmentView.AttachmentDeletedEvent += (View v) =>
-                {
-                    lytAttachments.Children.Remove(v);
-                    WriteNewComplaintModel.attachments.Remove(WriteNewComplaintModel.attachments.Single(a => a.attachment_mime == v.Id.ToString()));
-                };
-
-                WriteNewComplaintModel.attachments.Add(new Models.ComplaintModel.ComplaintAttachmentModel()
-                {
-                    attachment_data = Convert.ToBase64String(MS.ToArray()),
-                    attachment_extension = PhotoName.Substring(PhotoName.LastIndexOf(".")),
-                    attachment_url = PhotoName,
-                    attachment_mime = AttachmentView.Id.ToString()
-                });
-                SaveToDevice();
-                MenuStack.IsVisible = true;
-            }
-        }
-
-        private async void InitTakeGPSLocation()
-        {
-
-            if (imgTakeGPSLocation.TextColor != Color.FromHex("#FF6A00"))
-            {
-                Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Tražim vašu lokaciju", Acr.UserDialogs.MaskType.Clear);
-
-                var MyLocation = await Controllers.GPSController.GetPosition();
-                if (MyLocation != null)
-                {
-                    Latitude = MyLocation.Latitude.ToString().Replace(".", ",");
-                    Longitude = MyLocation.Longitude.ToString().Replace(".", ",");
-
-                    imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
-
-                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                    Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaša lokacija je pronađena");
-                }
-                else
-                {
-                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
-                    Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom dobivanja vaše lokacije!" + Environment.NewLine + "Provjerite jeli vam GPS uključen te da aplikaciji dozvolite pristup GPS-u", "Greška", "OK");
-                }
-            }
-            else
-            {
-                Latitude = string.Empty;
-                Longitude = string.Empty;
-                imgTakeGPSLocation.TextColor = Color.Gray;
-            }
-            SaveToDevice();
-
         }
 
         public async void SendComplaint()
@@ -393,10 +180,10 @@ namespace Complio.Shared.Pages
             await Task.Delay(19);
             List<int> attachment_ids = new List<int>();
 
-            foreach (var Attachment in lytAttachments.Children.OfType<AttachmentView>().Cast<AttachmentView>())
+            foreach (var Attachment in AttachmentListView.GetAttachmentsData())
                 attachment_ids.Add(await DataExchangeServices.SendComplaintAttachment(Attachment.Data, Attachment.AttachmentFileName));
 
-            if (lytAttachments.Children.Any() && (attachment_ids == null | attachment_ids.Any(aid => aid == 0)))
+            if (attachment_ids == null | attachment_ids.Any(aid => aid == 0))
             {
                 Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Došlo je do greške prilikom slanja vaših privitaka!" + System.Environment.NewLine + "Pokušajte ponovno poslati", "Greška", "OK");
@@ -476,10 +263,16 @@ namespace Complio.Shared.Pages
             arrivalTimePicke.Focus();
         }
 
+        protected override void OnDisappearing()
+        {
+            Application.Current.Properties.Remove("WriteComplaintAutoSave");
+            Application.Current.SavePropertiesAsync();
+            base.OnDisappearing();
+        }
+
         protected override bool OnBackButtonPressed()
         {
-
-            if (!string.IsNullOrEmpty(editComplaintText.Text) | lytAttachments.Children.Any())
+            if (!string.IsNullOrEmpty(editComplaintText.Text) | AttachmentListView.GetAttachmentsData().Any())
             {
                 Acr.UserDialogs.UserDialogs.Instance.Confirm(
                        new Acr.UserDialogs.ConfirmConfig()
