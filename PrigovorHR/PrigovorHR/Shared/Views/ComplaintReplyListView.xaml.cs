@@ -45,7 +45,7 @@ namespace Complio.Shared.Views
 
             if (complaintReply != null)
                 foreach (var Attachment in complaintReply.attachments)
-                    lytAttachmentsLayout.Children.Add(new AttachmentView(true, ComplaintReply.id, Attachment.id, Attachment.attachment_url, false, null));
+                    lytAttachmentsLayout.Children.Add(new AttachmentView(true,false,ComplaintReply.id, Attachment.id, Attachment.attachment_url, false, null));
 
             lytBottomLine.BackgroundColor = ComplaintEvent != null ? Color.Green : Color.Silver;
         }

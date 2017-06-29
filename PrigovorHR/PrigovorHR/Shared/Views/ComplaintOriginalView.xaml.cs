@@ -33,7 +33,7 @@ namespace Complio.Shared.Views
             lblOriginalComplaint_TextLong.IsVisible = true;
         }
 
-        private void DisplayData(Models.ComplaintModel Complaint)
+        private async void DisplayData(Models.ComplaintModel Complaint)
         {
             var NameSurname = Controllers.LoginRegisterController.LoggedUser.name_surname;
 
@@ -49,7 +49,12 @@ namespace Complio.Shared.Views
 
             lytAttachmentsLayout.Children.Clear();
             foreach (var Attachment in Complaint.attachments)
-                lytAttachmentsLayout.Children.Add(new AttachmentView(false, Complaint.id, Attachment.id, Attachment.attachment_url, false, null));
+                lytAttachmentsLayout.Children.Add(new AttachmentView(false,  false, Complaint.id, Attachment.id, Attachment.attachment_url, false, null));
+
+            if(!string.IsNullOrEmpty(Complaint.latitude))
+                lytAttachmentsLayout.Children.Add(new AttachmentView(false, true, Complaint.id, 0,
+                    await Controllers.GPSController.GetAddressOrCityFromPosition(Controllers.GPSController.AddressOrCityenum.Address, 
+                    new Xamarin.Forms.Maps.Position(Convert.ToDouble(Complaint.latitude), Convert.ToDouble(Complaint.longitude))), false, null));
 
             lblProblemDateTime.Text = !string.IsNullOrEmpty(Complaint.problem_occurred) ?
              DateTime.Parse(Complaint.problem_occurred).Year != 1 ? DateTime.Parse(Complaint.problem_occurred).ToString() : "nedefinirano" : "Nedefinirano";

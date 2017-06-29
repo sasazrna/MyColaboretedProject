@@ -19,6 +19,7 @@ namespace Complio.Shared.Views
         public string AttachmentFileName = string.Empty;
         private int ComplaintReplyId = 0;
         private bool IsReply = false;
+        public bool IsGeoLocation = false;
         public byte[] Data = null;
         public delegate void AttachmentClickedHandler(Models.ComplaintModel.ComplaintAttachmentModel Attachment);
         public event AttachmentClickedHandler AttachmentClickedEvent;
@@ -26,14 +27,20 @@ namespace Complio.Shared.Views
         public event AttachmentDeletedHandler AttachmentDeletedEvent;
 
         public AttachmentView() { }
-        public AttachmentView(bool isReply, int complaintreplyId, int attachmentId, string attachmentFileName, bool disposable, byte[] data)
+        public AttachmentView(bool isReply, bool isGeoLocation, int complaintreplyId, int attachmentId, string attachmentFileName, bool disposable, byte[] data)
         {
             InitializeComponent();
 
             AttachmentId = attachmentId;
-            AttachmentFileName = attachmentFileName;
+            IsGeoLocation = isGeoLocation;
+
+            //new Task(async () =>
+            //{
+                AttachmentFileName = attachmentFileName;
+            lblAttachmentName.Text = AttachmentFileName;
+            //}).Start();
+
             ComplaintReplyId = complaintreplyId;
-            lblAttachmentName.Text = attachmentFileName;
             imgClose.IsVisible = disposable;
             imgClose.Text = Views.FontAwesomeLabel.Images.FATimes;
             Data = data;
@@ -49,6 +56,13 @@ namespace Complio.Shared.Views
             {
                 if (Data == null)
                 {
+                    if (IsGeoLocation)
+                    {
+                        var addr = new Uri("http://maps.google.com/?daddr=" + AttachmentFileName);
+                        Device.OpenUri(addr);
+                        return;
+                    }
+
                     Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Otvaram " + AttachmentFileName);
                     AttachmentClickedEvent?.Invoke(new Models.ComplaintModel.ComplaintAttachmentModel() { attachment_url = AttachmentFileName, id = AttachmentId });
 
@@ -69,20 +83,9 @@ namespace Complio.Shared.Views
                 }
                 else
                 {
-                    if (AttachmentFileName.Contains("loc:"))
-                    {
-                        AttachmentFileName = AttachmentFileName.Remove(0, AttachmentFileName.IndexOf(":")+1);
-                        var addr = new Uri("http://maps.google.com/?daddr=" + AttachmentFileName);
-                      
-
-                        Device.OpenUri(addr);
-                    }
-                    else
-                    {
                         DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Data);
                         DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
                         DependencyService.Get<Controllers.IAndroidCallers>().DeleteFile(AttachmentFileName);
-                    }
                 }
             }
             else

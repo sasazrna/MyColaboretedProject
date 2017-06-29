@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 
 namespace Complio.Shared.Controllers
 {
@@ -17,7 +18,7 @@ namespace Complio.Shared.Controllers
         public static event GPSEnabledChangedHandler GPSEnabledChangedEvent;
         private static bool GPSEnabledLastState = false;
         private static bool TrackingOfGPSStateStarted = false;
-
+        public enum AddressOrCityenum { Address=0, City=2 };
         public static bool IsGPSEnabled
         {
             get
@@ -80,6 +81,23 @@ namespace Complio.Shared.Controllers
                     return null;
                 }
             }
+        }
+
+        public static async Task<string> GetAddressOrCityFromPosition(AddressOrCityenum AddressOrCity, Position ExistingPosition)
+        {
+            Geocoder G = new Geocoder();
+
+            Plugin.Geolocator.Abstractions.Position Pos1 = null;
+
+            if (ExistingPosition.Latitude == 0)
+                Pos1 = await GetPosition();
+            else
+                Pos1 = new Plugin.Geolocator.Abstractions.Position() { Latitude = ExistingPosition.Latitude, Longitude = ExistingPosition.Longitude };
+
+            Position Pos2 = new Position(Pos1.Latitude, Pos1.Longitude);
+            var adr = await G.GetAddressesForPositionAsync(Pos2);
+
+            return adr.ToList()[(int)AddressOrCity].Substring(0, adr.ToList()[(int)AddressOrCity].IndexOf("\n"));
         }
 
         public static void OpenGPSOptions()

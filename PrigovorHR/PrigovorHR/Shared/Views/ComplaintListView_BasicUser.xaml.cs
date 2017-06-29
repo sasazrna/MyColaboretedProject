@@ -83,8 +83,12 @@ namespace Complio.Shared.Views
                 }
                 lblStoreName.Text = complaint.element.name; // treba mi i parent u slučaju da je dubina u pitanju.
 
-                lblMessageType.Text = ComplaintModel.messageTypeNamesDefinitions[Convert.ToInt32(complaint.messageType)].Item1;
-                lblMessageType.BackgroundColor = ComplaintModel.messageTypeNamesDefinitions[Convert.ToInt32(complaint.messageType)].Item2;
+                if (AppGlobal.AppIsComplio)
+                {
+                    lblMessageType.Text = ComplaintModel.messageTypeNamesDefinitions[Convert.ToInt32(complaint.messageType)].Item1;
+                    lblMessageType.BackgroundColor = ComplaintModel.messageTypeNamesDefinitions[Convert.ToInt32(complaint.messageType)].Item2;
+                }
+                else lblMessageType.IsVisible = false;
 
                 //lblNumOfResponses.Text = "(+" + complaint.replies.Count + ")";
                 //lblNumOfResponses.IsVisible = complaint.replies.Any();

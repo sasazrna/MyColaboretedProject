@@ -29,6 +29,7 @@ namespace Complio.Shared.Models
         public string telephone { get; set; }
         public string profileimage { get; set; }
         public string password { get; set; }
+        public string City { get; set; }
         public UserType.eUserType usertype { get; set; }
         public LoginTypeModel.eLoginType LoginType { get; set; }
         public List<ComplaintModel> complaints { get; set; }

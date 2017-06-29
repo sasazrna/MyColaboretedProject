@@ -62,6 +62,7 @@ namespace Complio.Shared.Models
             public string attachment_extension { get; set; }
             public string attachment_mime { get; set; }
             public string attachment_data { get; set; }
+            public bool IsGeoLocation { get; set; }
         }
 
         public class ComplaintEvent

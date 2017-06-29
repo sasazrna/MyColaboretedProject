@@ -3,11 +3,14 @@ using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace Complio.Shared.Pages
@@ -19,6 +22,8 @@ namespace Complio.Shared.Pages
         public delegate void SearchDeactivatedHandler();
         private Controllers.SearchController SearchController;
         private Controllers.TAPController TAPController;
+        private static string MyCity;
+        private static List<string> AllCities= new List<string>();
 
         public CompanySearchPage()
         {
@@ -35,6 +40,34 @@ namespace Complio.Shared.Pages
             CompanyStoreFoundListView.CompanyStoreClickedEvent += CompanyStoreFoundListView_CompanyStoreClickedEvent;
             TAPController = new Controllers.TAPController(imgClose);
             TAPController.SingleTaped += TAPController_SingleTaped;
+
+            if (!AppGlobal.AppIsComplio)
+                GetMyCity();
+        }
+
+        private async void GetMyCity()
+        {
+            if (string.IsNullOrEmpty(MyCity))
+            {
+                // note that the prefix includes the trailing period '.' that is required
+
+                if (!string.IsNullOrEmpty(Controllers.LoginRegisterController.LoggedUser.City))
+                {
+                    MyCity = Controllers.LoginRegisterController.LoggedUser.City;
+                    entrySearch.Text = MyCity;
+                }
+
+                MyCity = await Controllers.GPSController.GetAddressOrCityFromPosition(Controllers.GPSController.AddressOrCityenum.City, new Position());
+                MyCity = MyCity.Split(',').Last();
+
+                if (entrySearch.Text != MyCity)
+                {
+                    entrySearch.Text = MyCity;
+                    Controllers.LoginRegisterController.LoggedUser.City = MyCity;
+                    await Controllers.LoginRegisterController.SaveUserData(Controllers.LoginRegisterController.LoggedUser, Models.LoginTypeModel.eLoginType.email, false);
+                }
+            }
+            else entrySearch.Text = MyCity;
         }
 
         private void TAPController_SingleTaped(string viewId, View view)

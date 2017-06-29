@@ -28,7 +28,7 @@ namespace Complio.Droid
             Acr.Support.Android.ActivityLifecycleCallbacks.Register(this);
             AppContext = ApplicationContext;
             //This service will keep your app receiving push even when closed.             
-
+            
             //A great place to initialize Xamarin.Insights and Dependency Services!
         }
 

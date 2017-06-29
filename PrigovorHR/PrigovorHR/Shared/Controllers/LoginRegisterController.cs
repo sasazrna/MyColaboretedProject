@@ -18,11 +18,11 @@ namespace Complio.Shared.Controllers
 
         public static bool IsLoggedIn { get { return LoggedUser != null; } }
 
-        public static async Task<bool> SaveUserData(object Data, LoginTypeModel.eLoginType LoginType, bool PushToServer)
+        public static async Task<bool> SaveUserData(User Data, LoginTypeModel.eLoginType LoginType, bool PushToServer)
         {
             if (PushToServer)
             {
-                var User = (User)Data;
+                var User = Data;
                 var result = await DataExchangeServices.ChangeUserInfo(JsonConvert.SerializeObject(new EditProfileModel(User)), Convert.FromBase64String( User.profileimage));
                 if (result.Contains("Error"))
                 {
@@ -32,7 +32,7 @@ namespace Complio.Shared.Controllers
                 Acr.UserDialogs.UserDialogs.Instance.Alert("Vaši podaci su uspješno izmjenjeni", "Izmjena podataka", "OK");
             }
 
-            LoggedUser = (User)Data;
+            LoggedUser = Data;
           //  LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
             SaveUserData();
             return true;
@@ -114,11 +114,13 @@ namespace Complio.Shared.Controllers
             {
                 if (!ReturnedData.Contains("Error"))
                 {
+                    string City = LoggedUser.City;
                     LoggedUser = new User();
                     LoggedUser = JsonConvert.DeserializeObject<User>(ReturnedData);
                     LoggedUser.password = EMailLoginModel.password;
                     UserToken.token = LoggedUser.token;
                     LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
+                    LoggedUser.City = City;
                     await SaveUserData(LoggedUser, LoginTypeModel.eLoginType.email, false);
                     Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                     _UserLoggedInOutEvent?.Invoke(true);
