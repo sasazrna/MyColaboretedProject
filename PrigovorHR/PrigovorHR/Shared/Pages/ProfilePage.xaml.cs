@@ -31,20 +31,14 @@ namespace Complio.Shared.Pages
             btnSaveChanges.Clicked += btnSaveChanges_Clicked;
             EMailEntry.Completed += EntryEMail_Completed;
             PasswordAgainEntry.Completed += EntryPasswordAgain_Completed;
-            //NavigationBar.BackButtonPressedEvent += NavigationBar_BackButtonPressedEvent;
             TAPController.SingleTaped += TAPController_SingleTaped;
             LoadData();
         }
 
         public void LoadData()
         {
-            NameEntry.Text = Controllers.LoginRegisterController.LoggedUser.name;
-            SurnameEntry.Text = Controllers.LoginRegisterController.LoggedUser.surname;
-            TelephoneEntry.Text = Controllers.LoginRegisterController.LoggedUser.telephone;
-            EMailEntry.Text = Controllers.LoginRegisterController.LoggedUser.email;
+            BindingContext = Controllers.LoginRegisterController.LoggedUser;
             EMailEntry.IsEnabled = false;
-            //_PasswordAgainEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
-            //_PasswordEntry.Text = Controllers.LoginRegisterController.LoggedUser.password;
 
             try
             {

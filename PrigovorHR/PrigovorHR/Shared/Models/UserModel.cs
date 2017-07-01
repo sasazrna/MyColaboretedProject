@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
-
 namespace Complio.Shared.Models
 {
     public class User

@@ -51,7 +51,7 @@ namespace Complio.Shared.Views
             foreach (var Attachment in Complaint.attachments)
                 lytAttachmentsLayout.Children.Add(new AttachmentView(false,  false, Complaint.id, Attachment.id, Attachment.attachment_url, false, null));
 
-            if(!string.IsNullOrEmpty(Complaint.latitude))
+            if(!string.IsNullOrEmpty(Complaint.latitude) & Convert.ToDouble(Complaint.latitude)>0)
                 lytAttachmentsLayout.Children.Add(new AttachmentView(false, true, Complaint.id, 0,
                     await Controllers.GPSController.GetAddressOrCityFromPosition(Controllers.GPSController.AddressOrCityenum.Address, 
                     new Xamarin.Forms.Maps.Position(Convert.ToDouble(Complaint.latitude), Convert.ToDouble(Complaint.longitude))), false, null));

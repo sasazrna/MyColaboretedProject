@@ -114,7 +114,7 @@ namespace Complio.Shared.Controllers
             {
                 if (!ReturnedData.Contains("Error"))
                 {
-                    string City = LoggedUser.City;
+                    string City = LoggedUser?.City;
                     LoggedUser = new User();
                     LoggedUser = JsonConvert.DeserializeObject<User>(ReturnedData);
                     LoggedUser.password = EMailLoginModel.password;

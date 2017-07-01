@@ -11,21 +11,21 @@
       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
 
-            <StackLayout>
-                <StackLayout VerticalOptions="Start" Margin="0,25,0,0">
-                    <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView"></views:ComplaintCoversationHeaderView>
-                </StackLayout>
+                <StackLayout>
+                    <StackLayout VerticalOptions="Start" Margin="0,25,0,0">
+                        <views:ComplaintCoversationHeaderView x:Name="ComplaintCoversationHeaderView"></views:ComplaintCoversationHeaderView>
+                    </StackLayout>
 
-                <ScrollView x:Name="scrView">
-                    <StackLayout>
-                        <StackLayout x:Name="lytOriginalComplaint" VerticalOptions="Start" >
-                            <views:ComplaintOriginalView></views:ComplaintOriginalView>
-                        </StackLayout>
+                    <ScrollView x:Name="scrView">
+                        <StackLayout>
+                            <StackLayout x:Name="lytOriginalComplaint" VerticalOptions="Start" >
+                                <views:ComplaintOriginalView></views:ComplaintOriginalView>
+                            </StackLayout>
 
-                        <StackLayout Spacing="-35">
-                            <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
-                            <StackLayout x:Name="Open" HorizontalOptions="Center">
-                                <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
+                            <StackLayout Spacing="-35">
+                                <StackLayout Margin="-15,25,-15,10" Padding="0,0.3,0,0" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" />
+                                <StackLayout x:Name="Open" HorizontalOptions="Center">
+                                    <views:CurvedCornersLabel x:Name="lblNumberOfResponses"
                                      CurvedBackgroundColor="#FF7e65"
                                      CurvedCornerRadius="25"
                          HeightRequest="50"
@@ -33,15 +33,15 @@
                          HorizontalTextAlignment="Center"
                          TextColor="White"
                          VerticalTextAlignment="Center" />
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout x:Name="lytAllResponses">
+                                <views:ComplaintReplyListView></views:ComplaintReplyListView>
+                                <views:ComplaintReplyListView></views:ComplaintReplyListView>
                             </StackLayout>
                         </StackLayout>
-                        <StackLayout x:Name="lytAllResponses">
-                            <views:ComplaintReplyListView></views:ComplaintReplyListView>
-                            <views:ComplaintReplyListView></views:ComplaintReplyListView>
-                        </StackLayout>
-                    </StackLayout>
-                </ScrollView>
-            </StackLayout>
+                    </ScrollView>
+                </StackLayout>
         </ContentView>
     </RelativeLayout>
 </ContentPage>
