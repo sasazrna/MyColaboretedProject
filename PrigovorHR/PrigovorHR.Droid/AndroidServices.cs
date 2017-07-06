@@ -95,7 +95,7 @@ namespace PrigovorHR.Droid
                     Notification = new Notification.Builder(context)
                     .SetContentTitle(Title)
                     .SetContentText(longTextMessage)
-                    //.SetSmallIcon(Resource.Drawable.LOGO)
+                    .SetSmallIcon(Resource.Drawable.LOGO)
                     .SetDefaults(NotificationDefaults.All)
                     .SetStyle(textStyle)
                     .SetPriority(7)
@@ -162,93 +162,92 @@ namespace PrigovorHR.Droid
                         {
                             var ComplaintLastEvent = complaints.Select(c => DateTime.Parse(c.updated_at)).Max().ToString("dd.MM.yyyy. H:mm");
                             var GetDataResult = await GetData(ComplaintLastEvent);
-                           // ShowNotification(0, "Data", GetDataResult, context);
 
                             var NewComplaintReplys = JsonConvert.DeserializeObject<RootComplaintModel>(GetDataResult);
 
-                            //Check for new closed complaints
-                            restart:
-                            foreach (var Complaint in complaints)
+                            if (NewComplaintReplys != null)
                             {
-                                var NewComplaintEvents = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == Complaint.id)?.complaint_events;
-
-                                if (NewComplaintEvents != null && NewComplaintEvents.Count() > 0 && Complaint.complaint_events?.Count > 0)
-                                    if (NewComplaintEvents.Count != Complaint.complaint_events.Count & !FechedComplaintEvents.Contains(NewComplaintEvents.Last().id))
-                                    {
-                                        FechedComplaintEvents.Add(NewComplaintEvents.Last().id);
-                                        // var Complaints = ComplaintModel.RefToAllComplaints?.user.complaints;
-                                        var NewComplaintEvent = NewComplaintEvents.Last();
-
-                                        if (NewComplaintEvent.user_id != RootComplaint.user.id)
-                                        {
-                                            ShowNotification(Complaint.id, Complaint.element.name,
-                                                !string.IsNullOrEmpty(NewComplaintEvent.message) ? NewComplaintEvent.message :
-                                                NewComplaintEvent.closed ? "Vaš prigovor je zatvoren" : "Vaš prigovor je otvoren", context);
-                                        }
-                                        HasNewResults = true;
-                                        HasClosedComplaintEvent = NewComplaintEvent.closed;
-
-                                        complaints.Remove(complaints.Single(c => c.id == Complaint.id));
-                                        complaints.Add(Complaint);
-                                        goto restart;
-                                    }
-                            }
-
-                            //Novi neproèitani prigovori.
-                            foreach (var UnreadComplaint in NewComplaintReplys.user.unread_complaints)
-                            {
-                                var Complaint = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == UnreadComplaint.id);
-                                var LastReply = Complaint?.replies?.Last();
-
-                                if (Complaint == null)
-                                    continue;
-
-                                if (FechedNewReplys.ContainsKey(Complaint.id) && FechedNewReplys.ContainsValue(LastReply.id))
-                                    continue;
-
-                                ShowNotification(Complaint.id, UnreadComplaint.element.name, LastReply.reply, context);
-
-                                if (!FechedNewReplys.ContainsKey(Complaint.id))
-                                    FechedNewReplys.Add(Complaint.id, LastReply.id);
-                                else
-                                    FechedNewReplys[Complaint.id] = LastReply.id;
-
-                                var Complaints = RootComplaint.user.complaints;
-                                Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
-                                Complaints.Add(Complaint);
-
-                                var UnreadComplaints = RootComplaint.user.unread_complaints;
-                                UnreadComplaints.Add(UnreadComplaint);
-                                HasNewResults = true;
-                            }
-
-                            if (MainActivity.IsUserActive & HasNewResults)
-                            {
-                                Xamarin.Forms.Application.Current.Properties.Remove("AllComplaints");
-                                Xamarin.Forms.Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(RootComplaint));
-                                await Xamarin.Forms.Application.Current.SavePropertiesAsync();
-                                WriteComplaintsDataToStorage(JsonConvert.SerializeObject(RootComplaint), RootComplaint.user.token);
-                                Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
-                                Device.BeginInvokeOnMainThread(() =>
+                                //Check for new closed complaints
+                                restart:
+                                foreach (var Complaint in complaints)
                                 {
-                                    if (HasClosedComplaintEvent)
-                                        Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
+                                    var NewComplaintEvents = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == Complaint.id)?.complaint_events;
+
+                                    if (NewComplaintEvents != null && NewComplaintEvents.Count() > 0 && Complaint.complaint_events?.Count > 0)
+                                        if (NewComplaintEvents.Count != Complaint.complaint_events.Count & !FechedComplaintEvents.Contains(NewComplaintEvents.Last().id))
+                                        {
+                                            FechedComplaintEvents.Add(NewComplaintEvents.Last().id);
+                                            // var Complaints = ComplaintModel.RefToAllComplaints?.user.complaints;
+                                            var NewComplaintEvent = NewComplaintEvents.Last();
+
+                                            if (NewComplaintEvent.user_id != RootComplaint.user.id)
+                                            {
+                                                ShowNotification(Complaint.id, Complaint.element.name,
+                                                    !string.IsNullOrEmpty(NewComplaintEvent.message) ? NewComplaintEvent.message :
+                                                    NewComplaintEvent.closed ? "Vaš prigovor je zatvoren" : "Vaš prigovor je otvoren", context);
+                                            }
+                                            HasNewResults = true;
+                                            HasClosedComplaintEvent = NewComplaintEvent.closed;
+
+                                            complaints.Remove(complaints.Single(c => c.id == Complaint.id));
+                                            complaints.Add(Complaint);
+                                            goto restart;
+                                        }
+                                }
+
+                                //Novi neproèitani prigovori.
+                                foreach (var UnreadComplaint in NewComplaintReplys.user.unread_complaints)
+                                {
+                                    var Complaint = NewComplaintReplys.user.complaints.FirstOrDefault(c => c.id == UnreadComplaint.id);
+                                    var LastReply = Complaint?.replies?.Last();
+
+                                    if (Complaint == null)
+                                        continue;
+
+                                    if (FechedNewReplys.ContainsKey(Complaint.id) && FechedNewReplys.ContainsValue(LastReply.id))
+                                        continue;
+
+                                    ShowNotification(Complaint.id, UnreadComplaint.element.name, LastReply.reply, context);
+
+                                    if (!FechedNewReplys.ContainsKey(Complaint.id))
+                                        FechedNewReplys.Add(Complaint.id, LastReply.id);
                                     else
-                                        Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
-                                });
-                                HasNewResults = false;
+                                        FechedNewReplys[Complaint.id] = LastReply.id;
+
+                                    var Complaints = RootComplaint.user.complaints;
+                                    Complaints.Remove(Complaints.Single(c => c.id == Complaint.id));
+                                    Complaints.Add(Complaint);
+
+                                    var UnreadComplaints = RootComplaint.user.unread_complaints;
+                                    UnreadComplaints.Add(UnreadComplaint);
+                                    HasNewResults = true;
+                                }
+
+                                if (MainActivity.IsUserActive & HasNewResults)
+                                {
+                                    Xamarin.Forms.Application.Current.Properties.Remove("AllComplaints");
+                                    Xamarin.Forms.Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(RootComplaint));
+                                    await Xamarin.Forms.Application.Current.SavePropertiesAsync();
+                                    WriteComplaintsDataToStorage(JsonConvert.SerializeObject(RootComplaint), RootComplaint.user.token);
+                                    Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints();
+                                    Device.BeginInvokeOnMainThread(() =>
+                                    {
+                                        if (HasClosedComplaintEvent)
+                                            Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(2, false);
+                                        else
+                                            Complio.Shared.Views.ListOfComplaintsView_BasicUser.ReferenceToView.ChangeVisibleLayout(1, false);
+                                    });
+                                    HasNewResults = false;
+                                }
                             }
                         }
-
                       //  await Task.Delay(Convert.ToInt32(RefreshValues[MainActivity.IsUserActive][Convert.ToInt32(DateTime.Now.Hour / 6D)] * 1000 * 60));
                         IsRunning = false;
                     }
                     catch (Exception ex)
                     {
-                        ShowNotification(0, "exception", ex.ToString(), context);
                         IsRunning = false;
                         Complio.Shared.Controllers.ExceptionController.HandleException(ex, "public override void OnReceive(Context context, Intent intent)");
-                        ShowNotification(0, "exception", ex.ToString(), context);
                     }
                 });
             }

@@ -16,7 +16,7 @@ namespace Complio.Shared.Views
     {
         private Controllers.TAPController TAPController;
         public Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel;
-        private string Latitude = string.Empty, Longitude = string.Empty;
+        public double Latitude, Longitude;
         private bool IsReply = false;
 
         public AttachmentListView()
@@ -172,7 +172,7 @@ namespace Complio.Shared.Views
                 var PhotoName = photo.Path.Substring(photo.Path.LastIndexOf("/") + 1);
                 SetAttachment(PhotoName, false, MS.ToArray());
 
-                if (!AppGlobal.AppIsComplio & string.IsNullOrEmpty(Latitude) & !IsReply)
+                if (!AppGlobal.AppIsComplio & Latitude == 0 & !IsReply)
                     InitTakeGPSLocation();
             }
         }
@@ -186,8 +186,8 @@ namespace Complio.Shared.Views
                 var MyLocation = await Controllers.GPSController.GetPosition();
                 if (MyLocation != null)
                 {
-                    Latitude = MyLocation.Latitude.ToString().Replace(".", ",");
-                    Longitude = MyLocation.Longitude.ToString().Replace(".", ",");
+                    Latitude = MyLocation.Latitude;//.ToString().Replace(".", ",");
+                    Longitude = MyLocation.Longitude;//.ToString().Replace(".", ",");
                     WriteNewComplaintModel.latitude = Latitude;
                     WriteNewComplaintModel.longitude = Longitude;
                     imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
@@ -195,7 +195,7 @@ namespace Complio.Shared.Views
                     Acr.UserDialogs.UserDialogs.Instance.HideLoading();
                     Acr.UserDialogs.UserDialogs.Instance.ShowSuccess("Vaša lokacija je pronađena");
                     SetAttachment(await Controllers.GPSController.GetAddressOrCityFromPosition(Controllers.GPSController.AddressOrCityenum.Address,
-                        new Position(Convert.ToDouble(Latitude), Convert.ToDouble(Longitude))), true, null);
+                        Latitude, Longitude), true, null);
                 }
                 else
                 {
@@ -205,8 +205,8 @@ namespace Complio.Shared.Views
             }
             else
             {
-                Latitude = string.Empty;
-                Longitude = string.Empty;
+                Latitude = 0;
+                Longitude = 0;
                 WriteNewComplaintModel.latitude = Latitude;
                 WriteNewComplaintModel.longitude = Longitude;
                 imgTakeGPSLocation.TextColor = Color.Gray;

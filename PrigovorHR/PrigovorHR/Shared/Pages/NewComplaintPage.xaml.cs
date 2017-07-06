@@ -14,7 +14,6 @@ namespace Complio.Shared.Pages
     public partial class NewComplaintPage : ContentPage
     {
         private Controllers.TAPController TAPController;
-        private string Latitude = string.Empty, Longitude = string.Empty;
         public delegate void ComplaintSentHandler(int id);
         public event ComplaintSentHandler ComplaintSentEvent;
         private Models.ComplaintModel.DraftComplaintModel WriteNewComplaintModel;
@@ -54,12 +53,10 @@ namespace Complio.Shared.Pages
                 WriteNewComplaintModel.element_slug = companyElement.slug;
                 ComplaintCoversationHeaderView.SetHeaderInfo(CompanyElement.name, CompanyElement.name);
                 AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, false);
+                editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
             }
             else
             {
-                AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, false);
-
-                editComplaintText.Text = WriteNewComplaintModel.complaint ?? string.Empty;
                 Task.Run(async () =>
                 {
                     var CompanyElementRoot =
@@ -69,10 +66,12 @@ namespace Complio.Shared.Pages
                     ComplaintCoversationHeaderView.SetHeaderInfo(CompanyElement.name, CompanyElement.name);
                 });
 
+                editComplaintText.Text = WriteNewComplaintModel.complaint ?? string.Empty;
                 editSuggestionText.Text = WriteNewComplaintModel.suggestion ?? string.Empty;
                 ProblemOccurred = DateTime.Parse(WriteNewComplaintModel.problem_occurred ?? DateTime.Now.ToString());
                 labela_vremena_sad.Text = ProblemOccurred.ToString();
                 labela_vremena_sad.IsVisible = true;
+                AttachmentListView = new AttachmentListView(ref WriteNewComplaintModel, false);
             }
             lytAttachmentsAndEditors.Children.RemoveAt(0);
             lytAttachmentsAndEditors.Children.Insert(0, AttachmentListView);
@@ -85,26 +84,29 @@ namespace Complio.Shared.Pages
             Sada_stack.IsVisible = false;
             Ranije_stack.IsVisible = false;
 
-            if (MessageType>0)
+            if (MessageType > 0)
             {
                 lytTimePicker.IsVisible = false;
                 editSuggestionText.IsVisible = false;
             }
 
-            editComplaintText.Text = InstructionForEditor[Convert.ToInt32(MessageType)];
-
             TAPController = new Controllers.TAPController(SadaStackButton, RanijeStackButton);
-
             TAPController.SingleTaped += TAPController_SingleTaped;
             editComplaintText.TextChanged += EditComplaintText_TextChanged;
             editSuggestionText.TextChanged += EditComplaintText_TextChanged;
             arrivalDatePicker.DateSelected += ArrivalDatePicker_DateSelected;
             AutomationId = "NewComplaintPage";
-            ReferenceToPage = this;         
+            ReferenceToPage = this;
         }
 
+        private bool FocusUnfocusInProgress = false;
         private void Editor_FocusedUnfocused(object sender, FocusEventArgs e)
         {
+            if (FocusUnfocusInProgress)
+                return;
+
+            FocusUnfocusInProgress = true;
+
             if (MessageType == 0)
             {
                 lytTimePicker.IsVisible = !e.IsFocused;
@@ -131,7 +133,7 @@ namespace Complio.Shared.Pages
                 editSuggestionText.IsVisible = MessageType == 0;
                 editComplaintText.IsVisible = true;
 
-                if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
+                //if (SelectedEditor.AutomationId == editSuggestionText.AutomationId)
                     editComplaintTextUderStack.IsVisible = true;
 
                 if (string.IsNullOrEmpty(editComplaintText.Text))
@@ -139,6 +141,8 @@ namespace Complio.Shared.Pages
                 if (string.IsNullOrEmpty(editSuggestionText.Text))
                     editSuggestionText.Text = "Napišite prijedlog...";
             }
+
+            FocusUnfocusInProgress = false;
         }
 
         private void TAPController_SingleTaped(string viewId, View view)
@@ -181,6 +185,7 @@ namespace Complio.Shared.Pages
             List<int> attachment_ids = new List<int>();
 
             foreach (var Attachment in AttachmentListView.GetAttachmentsData())
+                if(Attachment.Data != null & !Attachment.IsGeoLocation)
                 attachment_ids.Add(await DataExchangeServices.SendComplaintAttachment(Attachment.Data, Attachment.AttachmentFileName));
 
             if (attachment_ids == null | attachment_ids.Any(aid => aid == 0))
@@ -197,11 +202,11 @@ namespace Complio.Shared.Pages
                  element_id = CompanyElement.id,
                  attachment_ids = attachment_ids,
                  suggestion = editSuggestionText.Text,
-                 problemOccurred = ProblemOccurred.ToString("dd.MMMMM yyyy"),
+                 problemOccurred = ProblemOccurred.ToString("dd.MMMM yyyy"),
                  problemOccurred_submit = ProblemOccurred.ToString("dd.M.yyyy"),
                  problemOccurredTime = ProblemOccurred.ToString("HH:mm"),
-                 latitude = Latitude,
-                 longitude = Longitude,
+                 latitude = AttachmentListView.Latitude > 0 ? AttachmentListView.Latitude.ToString() : string.Empty,
+                 longitude = AttachmentListView.Longitude > 0 ? AttachmentListView.Longitude.ToString() : string.Empty,
                  messageType = MessageType
              }));
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();

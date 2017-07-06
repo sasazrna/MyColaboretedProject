@@ -42,6 +42,10 @@ namespace Complio.Shared.Pages
             FirstTimeLoginView.SearchIconClickedEvent += () => Navigation.PushPopupAsync(new CompanySearchPage(), true);
             ListOfComplaintsView.ListScrolledEvent += ListOfComplaintsView_ListScrolledEvent;
             AutomationId = "LandingPageWithLogin";
+
+            if (!GPSController.IsGPSEnabled)
+                Acr.UserDialogs.UserDialogs.Instance.Alert("Vaš GPS je isključen ili je ograničen pristup aplikacije vašem GPS-u." + 
+                    Environment.NewLine + "Za punu funkcionalnost aplikacije je potrebno uključiti GPS", "Napomena", "OK");
         }
 
         private void ListOfComplaintsView_ListScrolledEvent()
@@ -107,7 +111,7 @@ namespace Complio.Shared.Pages
                     else
                     {
                         var NewComplaintPage = new NewComplaintPage(null, WriteNewComplaintModel.MessageType, WriteNewComplaintModel);
-
+                        NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "awsomeSend2.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
                         await Navigation.PushAsync(NewComplaintPage);
                         NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); ListOfComplaintsView.LoadComplaints(); };
                     }

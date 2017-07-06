@@ -15,7 +15,6 @@ namespace Complio.Shared.Pages
     public partial class NewComplaintReplyPage : ContentPage
     {
         private Controllers.TAPController TAPController;
-        private double Latitude, Longitude;
         private Models.ComplaintModel Complaint;
         public delegate void ReplySentHandler(int id);
         public event ReplySentHandler ReplaySentEvent;
@@ -61,7 +60,6 @@ namespace Complio.Shared.Pages
             editReplyText.TextChanged += EditReplyText_TextChanged;
         }
        
-
         private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
         {
             WriteNewComplaintModel.complaint = editReplyText.Text;
@@ -182,7 +180,8 @@ namespace Complio.Shared.Pages
         {
             AttachmentListView.HideUnhideAttachments(true);
             ComplaintCoversationHeaderView.IsVisible = false;
-            MainsStack.Padding = new Thickness(25, 15, 25, 30);      
+            MainsStack.Padding = new Thickness(25, 15, 25, 30);
+            editReplyText.Text = string.Empty; 
         }
 
         private void editReplyText_Unfocused(object sender, FocusEventArgs e)
@@ -190,6 +189,7 @@ namespace Complio.Shared.Pages
             AttachmentListView.HideUnhideAttachments(false);
             ComplaintCoversationHeaderView.IsVisible = true;
             MainsStack.Padding = new Thickness(25, 35, 25, 30);
+            editReplyText.Text = "Vaš odgovor...";
         }
 
         protected override bool OnBackButtonPressed()

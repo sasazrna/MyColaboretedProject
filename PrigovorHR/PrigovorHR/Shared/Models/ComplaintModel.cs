@@ -98,8 +98,8 @@ namespace Complio.Shared.Models
             public string complaint_received_message { get; set; }
             public int MessageType { get; set; }
             public List<ComplaintAttachmentModel> attachments { get; set; }
-            public string latitude { get; set; }
-            public string longitude { get; set; }
+            public double latitude { get; set; }
+            public double longitude { get; set; }
         }
     }
 

@@ -19,6 +19,7 @@ namespace Complio.Shared.Controllers
         private static bool GPSEnabledLastState = false;
         private static bool TrackingOfGPSStateStarted = false;
         public enum AddressOrCityenum { Address=0, City=2 };
+
         public static bool IsGPSEnabled
         {
             get
@@ -63,13 +64,15 @@ namespace Complio.Shared.Controllers
             retry:
             try
             {
-                return await CrossGeolocator.Current.GetPositionAsync(15000);
+                if (IsGPSEnabled)
+                    return await CrossGeolocator.Current.GetPositionAsync(new TimeSpan(0, 0, 15));
+                else throw new Exception("GPSIsOff");
             }
             catch (Exception Err)
             {
                 ExceptionController.HandleException(Err, "Došlo je do greške na public static async Task<Plugin.Geolocator.Abstractions.Position> GetPosition()");
 
-                if(numofretrys==0)
+                if(numofretrys==0 & IsGPSEnabled)
                 {
                     numofretrys++;
                     goto retry;
@@ -83,21 +86,26 @@ namespace Complio.Shared.Controllers
             }
         }
 
-        public static async Task<string> GetAddressOrCityFromPosition(AddressOrCityenum AddressOrCity, Position ExistingPosition)
+        public static async Task<string> GetAddressOrCityFromPosition(AddressOrCityenum AddressOrCity, double Latitude, double Longitude)
         {
-            Geocoder G = new Geocoder();
+            if (IsGPSEnabled)
+            {
+                Geocoder G = new Geocoder();
 
-            Plugin.Geolocator.Abstractions.Position Pos1 = null;
+                Plugin.Geolocator.Abstractions.Position Pos1 = null;
 
-            if (ExistingPosition.Latitude == 0)
-                Pos1 = await GetPosition();
-            else
-                Pos1 = new Plugin.Geolocator.Abstractions.Position() { Latitude = ExistingPosition.Latitude, Longitude = ExistingPosition.Longitude };
+                if (Latitude == 0)
+                    Pos1 = await GetPosition();
+                else
+                    Pos1 = new Plugin.Geolocator.Abstractions.Position() { Latitude = Latitude, Longitude = Longitude };
 
-            Position Pos2 = new Position(Pos1.Latitude, Pos1.Longitude);
-            var adr = await G.GetAddressesForPositionAsync(Pos2);
+                Position Pos2 = new Position(Pos1.Latitude, Pos1.Longitude);
+                var adr = await G.GetAddressesForPositionAsync(Pos2);
 
-            return adr.ToList()[(int)AddressOrCity].Substring(0, adr.ToList()[(int)AddressOrCity].IndexOf("\n"));
+                return adr.ToList().Any() ? 
+                    adr.ToList()[(int)AddressOrCity].Substring(0, adr.ToList()[(int)AddressOrCity].IndexOf("\n")) : string.Empty;
+            }
+            else return "GPSIsOff";
         }
 
         public static void OpenGPSOptions()

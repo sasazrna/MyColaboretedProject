@@ -57,7 +57,7 @@ namespace Complio.Shared.Pages
                 var page = (Page)Activator.CreateInstance(item.TargetType);
                 page.Title = item.Title;
                 Detail = new NavigationPage(page) { BackgroundColor = Color.White };
-                MasterPage.ListView.SelectedItem = null;
+                //MasterPage.ListView.SelectedItem = null;
                 IsPresented = false;
             }
             else

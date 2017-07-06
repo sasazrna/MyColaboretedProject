@@ -142,7 +142,7 @@ namespace PrigovorHR.Droid
                         OpenComplaint(intent);
                         break;
                    // }
-                    Task.Delay(1000);
+                    //Task.Delay(1000);
                 }               
             }).Start();
            // base.OnNewIntent(intent);
@@ -152,9 +152,13 @@ namespace PrigovorHR.Droid
         {
             Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
             {
-                MessagingCenter.Subscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint", (sender, arg) => ListOfComplaintsView_BasicUser.ReferenceToView.FindAndOpenComplaint(arg));
-                MessagingCenter.Send(ListOfComplaintsView_BasicUser.ReferenceToView, "OpenComplaint", intent.GetIntExtra("ComplaintId", 0));
-                MessagingCenter.Unsubscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint");
+                try
+                {
+                    MessagingCenter.Subscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint", (sender, arg) => ListOfComplaintsView_BasicUser.ReferenceToView.FindAndOpenComplaint(arg));
+                    MessagingCenter.Send(ListOfComplaintsView_BasicUser.ReferenceToView, "OpenComplaint", intent.GetIntExtra("ComplaintId", 0));
+                    MessagingCenter.Unsubscribe<ListOfComplaintsView_BasicUser, int>(this, "OpenComplaint");
+                }
+                catch { }
             });
         }
     }

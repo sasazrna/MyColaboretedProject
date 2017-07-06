@@ -31,6 +31,7 @@ namespace Complio.Shared.Models
         public int type_id { get; set; }
         public ElementTypeModel type { get; set; }
         public int root_business_id { get; set; }
+        public bool elementIsCity { get; set; }
     }
 
     public class CompanyElementRootModel

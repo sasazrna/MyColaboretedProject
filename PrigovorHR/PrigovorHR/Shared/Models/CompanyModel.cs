@@ -19,5 +19,6 @@ namespace Complio.Shared.Models
         public CountyModel county { get; set; }
         public CityModel city { get; set; }
         public int city_id { get; set; }
+        public bool isCity { get; set; }
     }
 }

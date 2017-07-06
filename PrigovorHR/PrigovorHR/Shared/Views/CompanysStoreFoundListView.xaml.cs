@@ -21,6 +21,8 @@ namespace Complio.Shared.Views
         private List<Models.CompanyElementModel> CompaniesStoresFoundInfo = new List<Models.CompanyElementModel>();
         public delegate void CompanyStoreClickedHandler(Models.CompanyElementRootModel element);
         public event CompanyStoreClickedHandler CompanyStoreClickedEvent;
+        private static List<Models.CompanyElementModel> CitiesCompanyFoundInfo = new List<Models.CompanyElementModel>();
+        private static string LastCity;
 
         public CompanysStoreFoundListView()
         {
@@ -33,6 +35,9 @@ namespace Complio.Shared.Views
             //await Task.Delay(20);
 
             string Result;
+
+            if(CitiesCompanyFoundInfo.Any())
+                DisplayData(CitiesCompanyFoundInfo);
 
             if (!IsDirectTag)
                 Result = await DataExchangeServices.GetSearchResults(searchtext);
@@ -50,8 +55,18 @@ namespace Complio.Shared.Views
             if (!IsDirectTag)
             {
                 CompaniesStoresFoundInfo = JsonConvert.DeserializeObject<List<Models.CompanyElementModel>>(Result);
-                CompaniesStoresFoundInfo = CompaniesStoresFoundInfo.Where(c => c.type_id <2).ToList();
-                DisplayData(CompaniesStoresFoundInfo);
+                if (!AppGlobal.AppIsComplio)
+                {
+                    CompaniesStoresFoundInfo = CompaniesStoresFoundInfo.Where(c => c.root_business.isCity).ToList();
+                    if (!CitiesCompanyFoundInfo.Any())
+                        CitiesCompanyFoundInfo = CompaniesStoresFoundInfo.ToList();
+                }
+                else
+                    CompaniesStoresFoundInfo = CompaniesStoresFoundInfo.Where(c => c.type_id < 2).ToList();
+
+                //if (CompaniesStoresFoundInfo != CitiesCompanyFoundInfo)
+                 DisplayData(CompaniesStoresFoundInfo);
+
                 if (!CompaniesStoresFoundInfo.Any()) { entrySearch.Focus(); }
             }
             else

@@ -65,8 +65,6 @@ namespace PrigovorHR.Droid
 			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::PrigovorHR.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
 			global::PCLCrypto.Resource.String.ApplicationName = global::PrigovorHR.Droid.Resource.String.ApplicationName;
 			global::PCLCrypto.Resource.String.Hello = global::PrigovorHR.Droid.Resource.String.Hello;
-			global::Plugin.Vibrate.Resource.String.ApplicationName = global::PrigovorHR.Droid.Resource.String.ApplicationName;
-			global::Plugin.Vibrate.Resource.String.Hello = global::PrigovorHR.Droid.Resource.String.Hello;
 			global::ScnViewGestures.Droid.Resource.Animation.abc_fade_in = global::PrigovorHR.Droid.Resource.Animation.abc_fade_in;
 			global::ScnViewGestures.Droid.Resource.Animation.abc_fade_out = global::PrigovorHR.Droid.Resource.Animation.abc_fade_out;
 			global::ScnViewGestures.Droid.Resource.Animation.abc_grow_fade_in_from_bottom = global::PrigovorHR.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;

@@ -23,13 +23,14 @@ namespace Complio.Shared.Pages
         private Controllers.SearchController SearchController;
         private Controllers.TAPController TAPController;
         private static string MyCity;
-        private static List<string> AllCities= new List<string>();
 
         public CompanySearchPage()
         {
             InitializeComponent();
             imgClose.Text = Views.FontAwesomeLabel.Images.FAClose;
             imgClose.TextColor = Color.FromHex("#aaa4a4");
+            imgGPS.Text = Views.FontAwesomeLabel.Images.FALocationArrow;
+            imgGPS.TextColor = Color.White;
             SearchOptionsLayout.IsVisible = Models.ComplaintModel.RefToAllComplaints.user.complaints.Count < 4 & AppGlobal.AppIsComplio;
             lblHash.IsVisible = lblAt.IsVisible = AppGlobal.AppIsComplio;
 
@@ -38,46 +39,66 @@ namespace Complio.Shared.Pages
             SearchController = new Controllers.SearchController(null, entrySearch);
             SearchController.SearchActivated += SearchController_SearchActivated;
             CompanyStoreFoundListView.CompanyStoreClickedEvent += CompanyStoreFoundListView_CompanyStoreClickedEvent;
-            TAPController = new Controllers.TAPController(imgClose);
-            TAPController.SingleTaped += TAPController_SingleTaped;
+            TAPController = new Controllers.TAPController(imgClose, imgGPS);
+            TAPController.SingleTaped += TAPController_SingleTapedAsync;
 
             if (!AppGlobal.AppIsComplio)
                 GetMyCity();
         }
 
-        private async void GetMyCity()
+        private async Task<bool> GetMyCity()
         {
             if (string.IsNullOrEmpty(MyCity))
             {
-                // note that the prefix includes the trailing period '.' that is required
-
                 if (!string.IsNullOrEmpty(Controllers.LoginRegisterController.LoggedUser.City))
                 {
                     MyCity = Controllers.LoginRegisterController.LoggedUser.City;
                     entrySearch.Text = MyCity;
                 }
 
-                MyCity = await Controllers.GPSController.GetAddressOrCityFromPosition(Controllers.GPSController.AddressOrCityenum.City, new Position());
-                MyCity = MyCity.Split(',').Last();
-
-                if (entrySearch.Text != MyCity)
+                MyCity = await Controllers.GPSController.GetAddressOrCityFromPosition(Controllers.GPSController.AddressOrCityenum.City, 0,0);
+                if (MyCity != "GPSIsOff")
                 {
-                    entrySearch.Text = MyCity;
-                    Controllers.LoginRegisterController.LoggedUser.City = MyCity;
-                    await Controllers.LoginRegisterController.SaveUserData(Controllers.LoginRegisterController.LoggedUser, Models.LoginTypeModel.eLoginType.email, false);
+                    MyCity = MyCity.Split(',').Last();
+
+                    if (entrySearch.Text != MyCity)
+                    {
+                        entrySearch.Text = MyCity;
+                        Controllers.LoginRegisterController.LoggedUser.City = MyCity;
+                        await Controllers.LoginRegisterController.SaveUserData(Controllers.LoginRegisterController.LoggedUser, Models.LoginTypeModel.eLoginType.email, false);
+                    }
                 }
+                else MyCity = string.Empty;
             }
             else entrySearch.Text = MyCity;
+
+            return true;
         }
 
-        private void TAPController_SingleTaped(string viewId, View view)
+        private async void TAPController_SingleTapedAsync(string viewId, View view)
         {
-            if (!string.IsNullOrEmpty(entrySearch.Text))
+            if (view == imgClose)
             {
-                entrySearch.Text = string.Empty;
-                entrySearch.Focus();
+                if (!string.IsNullOrEmpty(entrySearch.Text))
+                {
+                    entrySearch.Text = string.Empty;
+                    entrySearch.Focus();
+                }
+                else await Navigation.PopPopupAsync(true);
             }
-            else Navigation.PopPopupAsync(true);
+            else
+            {
+                imgGPS.TextColor = imgGPS.TextColor == Color.White ? Color.FromHex("#FF7e65") : Color.White;
+                if (imgGPS.TextColor == Color.FromHex("#FF7e65"))
+                {
+                    MyCity = string.Empty;
+                    Controllers.LoginRegisterController.LoggedUser.City = string.Empty;
+                    Acr.UserDialogs.UserDialogs.Instance.ShowLoading("Dohvaćam vašu lokaciju...");
+                    await GetMyCity();
+                    imgGPS.TextColor = Color.White;
+                    Acr.UserDialogs.UserDialogs.Instance.HideLoading();
+                }
+            }
         }
 
         private async void CompanyStoreFoundListView_CompanyStoreClickedEvent(Models.CompanyElementRootModel CompanyElement)
@@ -86,7 +107,15 @@ namespace Complio.Shared.Pages
             if (!entrySearch.Text.Contains("#"))
             {
                 await Navigation.PopPopupAsync(true);
-                await Navigation.PushAsync(new Company_ElementInfoPage(CompanyElement, true) { BackgroundColor = APPMasterDetailPage.ReferenceToView.Detail.BackgroundColor }, true);
+                if (AppGlobal.AppIsComplio)
+                    await Navigation.PushAsync(new Company_ElementInfoPage(CompanyElement, true) { BackgroundColor = APPMasterDetailPage.ReferenceToView.Detail.BackgroundColor }, true);
+                else
+                {
+                    var NewComplaintPage = new NewComplaintPage(CompanyElement.element, 0);
+                    await Navigation.PushAsync(NewComplaintPage, true);
+                    NewComplaintPage.ToolbarItems.Add(new ToolbarItem("tbiSendComplaint", "awsomeSend2.png", (() => { NewComplaintPage.SendComplaint(); }), ToolbarItemOrder.Primary, 10));
+                    NewComplaintPage.ComplaintSentEvent += (int id) => { Navigation.PopAsync(true); Views.ListOfComplaintsView_BasicUser.ReferenceToView.LoadComplaints(); };
+                }
             }
             else
             {

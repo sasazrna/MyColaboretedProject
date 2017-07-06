@@ -10,7 +10,7 @@ namespace Complio.Shared.Controllers
     {
         public static void Vibrate()
         {
-            Plugin.Vibrate.CrossVibrate.Current.Vibration(300);
+            Plugin.Vibrate.CrossVibrate.Current.Vibration();
         }
     }
 }

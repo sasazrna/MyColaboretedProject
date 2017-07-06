@@ -120,6 +120,10 @@ namespace Complio.Shared.Controllers
                     LoggedUser.password = EMailLoginModel.password;
                     UserToken.token = LoggedUser.token;
                     LoggedUser.profileimage = await DataExchangeServices.GetUserAvatar(JsonConvert.SerializeObject(UserToken.token));
+
+                    if (string.IsNullOrEmpty(City))
+                        City = await GPSController.GetAddressOrCityFromPosition(GPSController.AddressOrCityenum.City, 0, 0);
+
                     LoggedUser.City = City;
                     await SaveUserData(LoggedUser, LoginTypeModel.eLoginType.email, false);
                     Acr.UserDialogs.UserDialogs.Instance.HideLoading();

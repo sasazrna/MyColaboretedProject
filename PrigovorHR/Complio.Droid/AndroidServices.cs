@@ -232,7 +232,7 @@ namespace Complio.Droid
                 var serviceAddress = ServiceAddresses[1];
 
 #else
-                 ServiceAddress = ServiceAddresses[0];
+                var serviceAddress = ServiceAddresses[0];
 
 #endif
 
