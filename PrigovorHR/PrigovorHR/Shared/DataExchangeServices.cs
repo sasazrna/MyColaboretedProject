@@ -81,6 +81,7 @@ namespace Complio.Shared
         {
             return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.ResetPassword, jsonvalue);
         }
+
         public static async Task<string> ComplaintReaded(string jsonvalue)
         {
             return await new ServerCommuncationServices().SendData(ServerCommuncationServices.ServiceCommands.ComplaintReaded, jsonvalue);
@@ -169,15 +170,15 @@ namespace Complio.Shared
             return !ResultData.Contains("Error:");
         }
 
-        public static async Task<bool> IsThereNewAppVersion()
+        public static async Task<bool> CheckForNewAppVersion()
         {
             WebRequest request = WebRequest.Create("https://play.google.com/store/apps/details?id=" + AppGlobal.AppPackageName);
             WebResponse response = await Task.Factory.FromAsync(request.BeginGetResponse, request.EndGetResponse, null);
             var html = new HtmlAgilityPack.HtmlDocument(); html.Load(response.GetResponseStream());
             var element = html.DocumentNode.InnerHtml;
             element = element.Remove(0, element.IndexOf("softwareVersion") + 18);
-            element = element.Substring(0, element.IndexOf("<")-2);
-            
+            element = element.Substring(0, element.IndexOf("<") - 2);
+
             return element != AppGlobal.AppVersion;
         }
 
@@ -192,7 +193,7 @@ namespace Complio.Shared
 #else
 #endif
 
-            public enum ServiceCommands : int
+            internal enum ServiceCommands : int
             {
                 GetSearchResults,
                 GetDirectTagResult,
@@ -248,17 +249,10 @@ namespace Complio.Shared
 
             internal async Task<string> GetData(ServiceCommands ServiceCommand, string value = null)
             {
-                //#if DEBUG
-                //                var serviceAddress = ServiceAddresses[1];
-
-                //#else
                 var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
-                //#endif
-
 
                 var byteArray = Encoding.UTF8.GetBytes("forge:123123p");
                 var header = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
-                //json = json.Trim('"');
 
                 try
                 {
@@ -356,12 +350,7 @@ namespace Complio.Shared
             {
                 try
                 {
-                    //#if DEBUG
-                    //                    var serviceAddress = ServiceAddresses[1];
-
-                    //#else
                     var serviceAddress = ServiceAddresses[Convert.ToInt32(AppGlobal.DEBUGING)];
-                    //#endif
 
                     using (var client = new HttpClient())
                     {

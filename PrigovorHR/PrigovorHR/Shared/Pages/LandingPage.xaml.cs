@@ -29,7 +29,7 @@ namespace Complio.Shared.Pages
 
             Task.Run(async () =>
             {
-                if (await DataExchangeServices.IsThereNewAppVersion())
+                if (await DataExchangeServices.CheckForNewAppVersion())
                 {
                     Acr.UserDialogs.UserDialogs.Instance.Confirm(new Acr.UserDialogs.ConfirmConfig()
                     {

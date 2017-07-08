@@ -9,9 +9,9 @@
         <!--<Views:NavigationBar x:Name="NavigationBar"></Views:NavigationBar>-->
         <ScrollView>
             <StackLayout Padding="5, 20, 5, 5" Orientation="Vertical" VerticalOptions="FillAndExpand"  >
-                <Label Text="Zahvaljujemo na Vašem angažmanu i želji da unaprijedite našu uslugu." FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
+                <Label Text="Zahvaljujemo na Vašem angažmanu i kontaktu." FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 0, 0, 20"/>
                 <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
-                <Label Text="Ocijenite rješenje vašeg prigovora/sugestije" FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 20"/>
+                <Label Text="Ocijenite zadovoljstvo rješenjem vašeg prigovora/prijave" FontSize="Large"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 20"/>
 
                 <StackLayout Orientation="Horizontal" Padding="85,0.45,85,0.45" Margin="120,10,120,10" HorizontalOptions="FillAndExpand" BackgroundColor="#FF7e65"></StackLayout>
              

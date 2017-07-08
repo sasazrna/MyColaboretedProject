@@ -7,8 +7,6 @@
   <ContentView.Content>
         <StackLayout Padding="20,10,20,10" Margin="10,10,10,10" BackgroundColor="#eeeeee">
 
-          
-
             <Label Text="Zadovoljstvo odgovorom" FontSize="Medium"  HorizontalTextAlignment="Center" TextColor="#6d7c85" Margin="0, 20, 0, 10" />
        
             <StackLayout x:Name="SatisfactionEvaluationLayout" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40, 0, 40, 0">

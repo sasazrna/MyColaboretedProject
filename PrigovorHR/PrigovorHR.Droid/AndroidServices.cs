@@ -43,6 +43,7 @@ namespace PrigovorHR.Droid
             private bool HasNewResults, HasClosedComplaintEvent = false;
             private string[] ServiceAddresses = new string[] { "https://prigovor.hr/api/", "http://138.68.85.217/api/" };
             public static RootComplaintModel RootComplaint = new RootComplaintModel();
+            private static bool DEBUGING = false;
 
             private void ShowNotification(int ComplaintId, string Title, string Text, Context context)
             {
@@ -113,6 +114,7 @@ namespace PrigovorHR.Droid
                 RootComplaint = JsonConvert.DeserializeObject<RootComplaintModel>(JSON);
                 RootComplaint.user.token = UserToken;
                 WriteComplaintsDataToStorage(JSON, UserToken);
+                DEBUGING = AppGlobal.DEBUGING;
             }
 
             private static void WriteComplaintsDataToStorage(string JSON, string UserToken)
@@ -241,7 +243,7 @@ namespace PrigovorHR.Droid
                                 }
                             }
                         }
-                      //  await Task.Delay(Convert.ToInt32(RefreshValues[MainActivity.IsUserActive][Convert.ToInt32(DateTime.Now.Hour / 6D)] * 1000 * 60));
+                        await Task.Delay(Convert.ToInt32(RefreshValues[MainActivity.IsUserActive][Convert.ToInt32(DateTime.Now.Hour / 6D)] * 1000 * 60));
                         IsRunning = false;
                     }
                     catch (Exception ex)
@@ -254,13 +256,7 @@ namespace PrigovorHR.Droid
 
             internal async Task<string> GetData(string value = null)
             {
-#if DEBUG
-                var serviceAddress = ServiceAddresses[1];
-
-#else
-                 ServiceAddress = ServiceAddresses[0];
-
-#endif
+                var serviceAddress = ServiceAddresses[Convert.ToInt32(DEBUGING)];
 
                 var byteArray = System.Text.Encoding.UTF8.GetBytes("forge:123123p");
                 var header = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
