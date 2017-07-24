@@ -19,7 +19,7 @@
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <views:CurvedCornersLabel x:Name="lblNumber1" Text="1." CurvedBackgroundColor="#FF7e65" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
-                                <Label Text="Pronađite tvrtku/poslovnicu" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                                <Label TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                             </StackLayout>
 
                         </StackLayout>
@@ -38,7 +38,7 @@
                                 <views:CurvedCornersLabel x:Name="lblNumber2" Text="2." CurvedBackgroundColor="#5178D0" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
                                     <Label Text="+2" TextColor="White" HorizontalOptions="Start"></Label>
                                 </StackLayout>
-                                <Label Text="Kliknite na željenu tvrtku za detalje" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                                <Label TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                             </StackLayout>
 
                         </StackLayout>
@@ -54,7 +54,7 @@
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <views:CurvedCornersLabel x:Name="lblNumber3" Text="3." CurvedBackgroundColor="#FF7e65" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
-                                <Label Text="Napišite prigovor ili sugestiju" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                                <Label TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                             </StackLayout>
 
                         </StackLayout>
@@ -87,16 +87,16 @@
 
 
 
-                <Label Text="Kako prigovor kao usluga funkcionira" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Gray" Margin="0,0,0,15"></Label>
-                <Label Text="Pojednostavili smo proces prigovora kako bi krajnji korisnici imali što bržu i lakšu komunikaciju s tvrtkom" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Gray" Margin="0,0,0,25"></Label>
+                <Label x:Name="lblPrig_ComplioHeader" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Gray" Margin="0,0,0,15"></Label>
+                <Label x:Name="lblHeaderDetaild" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Gray" Margin="0,0,0,25"></Label>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,10,0,0">
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
                             <Image Source="number1.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start"></Image>
-                            <Label Text="Korisnik sastavlja prigovor" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                            <Label x:Name="lblFirstTitle" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                         </StackLayout>
-                        <Label Text="Putem mobilne aplikacije ili web stranice korisnik piše prigovor ili sugestiju" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
+                        <Label x:Name="lblFirstDetails" Text="Putem mobilne aplikacije ili web stranice korisnik piše prigovor ili sugestiju" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
                     </StackLayout>
                     <StackLayout>
                         <Image Source="Smartphone.png" WidthRequest="65" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"></Image>
@@ -114,9 +114,9 @@
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
                             <Image Source="number2.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="EndAndExpand"></Image>
-                            <Label Text="Obrada prigovora" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="End" HorizontalOptions="End"></Label>
+                            <Label x:Name="lblSecondTitle" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="End" HorizontalOptions="End"></Label>
                         </StackLayout>
-                        <Label Text="Tvrtka dobiva informaciju o zaprimljenom prigovoru ili sugestiji i započinje s obradom" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
+                        <Label x:Name="lblSecondDetails" Text="Tvrtka dobiva informaciju o zaprimljenom prigovoru ili sugestiji i započinje s obradom" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
                     </StackLayout>
                 </StackLayout>
 
@@ -128,12 +128,12 @@
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
                             <Image Source="number3.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="Start"></Image>
-                            <Label Text="Korisnik zaprima odgovor" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
+                            <Label x:Name="lblThirdTitle" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
                         </StackLayout>
-                        <Label Text="Prigovor.hr se brine o tome da korisnik bude obaviješten o odgovoru i statusu prigovora ili sugestije korisnika" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
+                        <Label x:Name="lblThirdDetails" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
                     </StackLayout>
                     <StackLayout>
-                        <Image Source="Chat.png" WidthRequest="65" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
+                        <Image Source="Chat2.png" WidthRequest="65" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Image>
                     </StackLayout>
                 </StackLayout>
 
@@ -147,9 +147,9 @@
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal">
                             <Image Source="number4.png" HeightRequest="20" WidthRequest="20" HorizontalOptions="EndAndExpand"></Image>
-                            <Label Text="Prigovor.hr obrađuje podatke" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="End" HorizontalOptions="End"></Label>
+                            <Label x:Name="lblFourthTitle" TextColor="Gray" FontSize="Medium" HorizontalTextAlignment="End" HorizontalOptions="End"></Label>
                         </StackLayout>
-                        <Label Text="Zadnji korak ali najbitniji je da Prigovor.hr obrađuje podatke i provodi statistiku kako bi tvrtka bila upućena u detalje i kako bi se kvaliteta usluge poboljšala" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
+                        <Label x:Name="lblFourthDetails" TextColor="Silver" FontSize="Small" HorizontalTextAlignment="Start"></Label>
                     </StackLayout>
                 </StackLayout>
 
