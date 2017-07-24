@@ -35,7 +35,7 @@
 
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <StackLayout Orientation="Vertical">
-                                <views:CurvedCornersLabel x:Name="lblNumber2" Text="2." CurvedBackgroundColor="#5178D0" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
+                                    <views:CurvedCornersLabel x:Name="lblNumber2" Text="2." CurvedBackgroundColor="#5178D0" CurvedCornerRadius="35" HeightRequest="25" WidthRequest="25" HorizontalTextAlignment="Center" TextColor="White" VerticalTextAlignment="Center" />
                                     <Label Text="+2" TextColor="White" HorizontalOptions="Start"></Label>
                                 </StackLayout>
                                 <Label TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"></Label>
@@ -79,13 +79,6 @@
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
-
-
-
-
-
-
-
 
                 <Label x:Name="lblPrig_ComplioHeader" HorizontalTextAlignment="Center" FontSize="Large" TextColor="Gray" Margin="0,0,0,15"></Label>
                 <Label x:Name="lblHeaderDetaild" HorizontalTextAlignment="Center" FontSize="Medium" TextColor="Gray" Margin="0,0,0,25"></Label>

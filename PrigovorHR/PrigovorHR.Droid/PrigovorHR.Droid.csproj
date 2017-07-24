@@ -381,8 +381,7 @@
       <HintPath>..\..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Facebook, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Facebook.Android.4.22.0\lib\MonoAndroid70\Xamarin.Facebook.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Xamarin.Facebook.Android.4.24.0\lib\MonoAndroid70\Xamarin.Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.231\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
