@@ -36,7 +36,7 @@ namespace Complio.Shared.Views
 
             //new Task(async () =>
             //{
-                AttachmentFileName = attachmentFileName;
+            AttachmentFileName = attachmentFileName;
             lblAttachmentName.Text = AttachmentFileName;
             //}).Start();
 
@@ -83,9 +83,9 @@ namespace Complio.Shared.Views
                 }
                 else
                 {
-                        DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Data);
-                        DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
-                        DependencyService.Get<Controllers.IAndroidCallers>().DeleteFile(AttachmentFileName);
+                    DependencyService.Get<Controllers.IAndroidCallers>().SaveFile(AttachmentFileName, Data);
+                    DependencyService.Get<Controllers.IAndroidCallers>().OpenFile(AttachmentFileName);
+                    DependencyService.Get<Controllers.IAndroidCallers>().DeleteFile(AttachmentFileName);
                 }
             }
             else

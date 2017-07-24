@@ -48,11 +48,10 @@ namespace Complio.Shared.Pages
             }
             lytAttachmentsAndEditors.Children.RemoveAt(0);
             lytAttachmentsAndEditors.Children.Insert(0, AttachmentListView);
-
+          
             ComplaintCoversationHeaderView.SetHeaderInfo(Complaint.replies.Any() ?
                        Complaint.replies.LastOrDefault(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id)?.user?.name_surname ?? Complaint.element.name :
                        Complaint.element.name, Complaint.element.name);
-
 
             TAPController = new Controllers.TAPController(btnSendReply);
 
@@ -63,7 +62,6 @@ namespace Complio.Shared.Pages
         private void EditReplyText_TextChanged(object sender, TextChangedEventArgs e)
         {
             WriteNewComplaintModel.complaint = editReplyText.Text;
-            SaveToDevice();
         }
 
         private void SaveToDevice()
@@ -181,7 +179,8 @@ namespace Complio.Shared.Pages
             AttachmentListView.HideUnhideAttachments(true);
             ComplaintCoversationHeaderView.IsVisible = false;
             MainsStack.Padding = new Thickness(25, 15, 25, 30);
-            editReplyText.Text = string.Empty; 
+            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 10), () => { editReplyText.Text = editReplyText.Text == "Vaš odgovor..." ? string.Empty : editReplyText.Text; return false; });
+            SaveToDevice();
         }
 
         private void editReplyText_Unfocused(object sender, FocusEventArgs e)
@@ -189,7 +188,10 @@ namespace Complio.Shared.Pages
             AttachmentListView.HideUnhideAttachments(false);
             ComplaintCoversationHeaderView.IsVisible = true;
             MainsStack.Padding = new Thickness(25, 35, 25, 30);
-            editReplyText.Text = "Vaš odgovor...";
+            if (string.IsNullOrEmpty(editReplyText.Text))
+                editReplyText.Text = "Vaš odgovor...";
+
+            SaveToDevice();
         }
 
         protected override bool OnBackButtonPressed()

@@ -63,13 +63,16 @@ namespace Complio.Shared.Views
                 lytAttachments.Children.Add(AttachmentView);
                 AttachmentView.AutomationId = Attachment.attachment_mime;
 
-                if(Attachment.IsGeoLocation)
+                if (Attachment.IsGeoLocation)
                     imgTakeGPSLocation.TextColor = Color.FromHex("#FF6A00");
 
                 AttachmentView.AttachmentDeletedEvent += (View v) =>
                 {
                     lytAttachments.Children.Remove(v);
                     attachments.Remove(attachments.Single(a => a.attachment_mime == v.AutomationId.ToString()));
+
+                    if (((AttachmentView)v).IsGeoLocation)
+                        imgTakeGPSLocation.TextColor = Color.Gray;
 
                     lytAttachmentContainer.IsVisible = lytAttachments.Children.Any();
                 };

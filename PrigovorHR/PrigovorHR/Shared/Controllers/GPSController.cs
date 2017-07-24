@@ -102,8 +102,22 @@ namespace Complio.Shared.Controllers
                 Position Pos2 = new Position(Pos1.Latitude, Pos1.Longitude);
                 var adr = await G.GetAddressesForPositionAsync(Pos2);
 
-                return adr.ToList().Any() ? 
-                    adr.ToList()[(int)AddressOrCity].Substring(0, adr.ToList()[(int)AddressOrCity].IndexOf("\n")) : string.Empty;
+                if (adr.ToList().Any())
+                {
+                    if (AddressOrCity == AddressOrCityenum.City)
+                    {
+                        var AllCities = Models.CityModel.AllCities;
+                        foreach (var AdrSplit in adr.ToList()[1].Split(','))
+                            if (AllCities.Contains(AdrSplit.Replace(" ", "")))
+                                return AdrSplit;
+
+                        return string.Empty;
+                    }
+                    else return adr.ToList()[0];
+                }
+                else return string.Empty;
+                //return adr.ToList().Any() ? 
+                //    adr.ToList()[(int)AddressOrCity].Substring(0, adr.ToList()[(int)AddressOrCity].IndexOf("\n")) : string.Empty;
             }
             else return "GPSIsOff";
         }

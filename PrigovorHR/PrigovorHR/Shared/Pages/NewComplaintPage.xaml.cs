@@ -143,6 +143,7 @@ namespace Complio.Shared.Pages
             }
 
             FocusUnfocusInProgress = false;
+            SaveToDevice();
         }
 
         private void TAPController_SingleTaped(string viewId, View view)
@@ -232,7 +233,6 @@ namespace Complio.Shared.Pages
         {
             WriteNewComplaintModel.complaint = editComplaintText.Text;
             WriteNewComplaintModel.suggestion = editSuggestionText.Text;
-            SaveToDevice();
         }
 
         private void SaveToDevice()

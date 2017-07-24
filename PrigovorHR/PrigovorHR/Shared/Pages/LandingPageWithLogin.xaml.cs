@@ -50,16 +50,19 @@ namespace Complio.Shared.Pages
 
         private void ListOfComplaintsView_ListScrolledEvent()
         {
-            Fabs["FabOpenOptions"].Opacity = 1;
-
-            if (ListOfComplaintsView.NumOfDisplayedComplaints > 4)
+            if (Fabs.ContainsKey("FabOpenOptions"))
             {
-                AnimatingFABOpacity = false;
-                AnimateFABOpacity();
-            }
+                Fabs["FabOpenOptions"].Opacity = 1;
 
-            if (FabOpened)
-                OpenCloseFabs();
+                if (ListOfComplaintsView.NumOfDisplayedComplaints > 4)
+                {
+                    AnimatingFABOpacity = false;
+                    AnimateFABOpacity();
+                }
+
+                if (FabOpened)
+                    OpenCloseFabs();
+            }
         }
 
         private async void AnimateFABOpacity()
