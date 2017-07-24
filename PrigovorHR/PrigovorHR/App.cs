@@ -13,10 +13,6 @@ namespace Complio
 {
     public class App : Application
     {
-        public delegate void OrientationChangedHandler();
-        public static event OrientationChangedHandler _OrientationChanged;
-        public static string _ApplicationFont = Xamarin.Forms.Device.OnPlatform("MarkerFelt-Thin", "Droid Sans Mono", "Comic Sans MS");
-
         public App()
         {
             var assembly = typeof(App).GetTypeInfo().Assembly;
@@ -32,7 +28,7 @@ namespace Complio
             {
                 MainPage = new NavigationPage(new LandingPage())
                 {
-                    BarBackgroundColor = Color.FromHex("#7dbbe6"),
+                    BarBackgroundColor = Color.White,
                     BarTextColor = Color.Black
                 };
                 MainPage.SizeChanged += MainPage_SizeChanged1;
@@ -54,12 +50,6 @@ namespace Complio
         }
 
         public static Action<string> PostSuccessFacebookAction { get; set; }
-
-        private void MainPage_SizeChanged(object sender, EventArgs e)
-        {
-            _OrientationChanged?.Invoke();
-           // MainActivity();
-        }
 
         protected override void OnStart()
         {

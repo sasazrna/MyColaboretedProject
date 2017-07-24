@@ -10,7 +10,7 @@ namespace Complio.Shared.CustomControls
     public class Entry : Xamarin.Forms.Entry
     {
         private Xamarin.Forms.Label lblLabel = new Label() {
-            FontSize = Device.GetNamedSize(NamedSize.Micro, 
+            FontSize = Device.GetNamedSize(NamedSize.Small, 
                 typeof(Label)), FontAttributes = FontAttributes.Bold};
         private int EntryPositionInStack = 0;
 

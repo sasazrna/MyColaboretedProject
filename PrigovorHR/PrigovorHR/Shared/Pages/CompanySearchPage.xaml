@@ -21,11 +21,11 @@
         <Frame x:Name="Frame" BackgroundColor="#5b5b5b" Margin="6,20,6,10"  HorizontalOptions="Center" Padding="10" CornerRadius="10">
             <StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Views:FontAwesomeLabel x:Name="imgGPS" FontSize="Large"  HorizontalOptions="Start" VerticalOptions="Center" VerticalTextAlignment="Center" ></Views:FontAwesomeLabel>
+                    <Views:FontAwesomeLabel x:Name="imgGPS" FontSize="Large"  HorizontalOptions="Start" VerticalOptions="Center" VerticalTextAlignment="Start" ></Views:FontAwesomeLabel>
                     <Label x:Name="lblHash" Text="#" FontSize="Large" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold"  TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
                     <Label x:Name="lblAt" Text="@" FontSize="Large" VerticalOptions="Center" VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="#aaa4a4" HorizontalOptions="Start" HorizontalTextAlignment="Start"></Label>
                     <Entry x:Name="entrySearch" HorizontalTextAlignment="Start" TextColor="White" FontSize="Medium"
-                               Placeholder="Pronađi grad/tvrtku                 "  PlaceholderColor="White" HorizontalOptions="StartAndExpand"></Entry>
+                               Placeholder="Pronađi grad/tvrtku           "  PlaceholderColor="White" HorizontalOptions="StartAndExpand"></Entry>
                     <Views:FontAwesomeLabel x:Name="imgClose" FontSize="Large"  HorizontalOptions="EndAndExpand" VerticalOptions="Center" VerticalTextAlignment="Center" ></Views:FontAwesomeLabel>
                 </StackLayout>
                 <StackLayout HeightRequest="10" HorizontalOptions="FillAndExpand" BackgroundColor="#5b5b5b" Margin="0,-15,0,0"></StackLayout>

@@ -47,13 +47,13 @@ namespace Complio.Shared.Views
                     Reply == null ? DateTime.Parse(Complaint.updated_at) : DateTime.Parse(Reply.updated_at);//updateat ne postoji kod skica.
 
                 if (LastResponse.Date == DateTime.Now.Date)
-                    lblComplaintResponseDate.Text = LastResponse.ToString().Substring(0, LastResponse.ToString().LastIndexOf(":"));
+                    lblComplaintResponseDate.Text = LastResponse.ToString("H:mm");
                 else
                     lblComplaintResponseDate.Text = LastResponse.ToString("dd.MMM");
 
                 IsUnreaded = ComplaintModel.RefToAllComplaints.user.unread_complaints.Any(uc => uc.id == complaint.id);
 
-                if(IsUnreaded)
+                if (IsUnreaded)
                 {
                     lblShortComplaint.FontAttributes = FontAttributes.Bold | FontAttributes.Italic;
                     //lblRead.Text = FontAwesomeLabel.Images.FAPEnvelopeClosed;
@@ -68,7 +68,7 @@ namespace Complio.Shared.Views
                 //lblLock.Text = Complaint.closed ? FontAwesomeLabel.Images.FALock : FontAwesomeLabel.Images.FAUnlock;
                 //lblLock.TextColor = Color.Black;
 
-                if (Complaint.replies.Any(r=>r.user_id != Controllers.LoginRegisterController.LoggedUser.id))
+                if (Complaint.replies.Any(r => r.user_id != Controllers.LoginRegisterController.LoggedUser.id))
                 {
                     lblNameOfContactPerson.Text =
                         Complaint.closed && LastClosedComplaintEvent != null && LastClosedComplaintEvent.user?.id != Controllers.LoginRegisterController.LoggedUser.id ? LastClosedComplaintEvent.user?.name_surname :
@@ -121,9 +121,11 @@ namespace Complio.Shared.Views
                         }
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                Controllers.ExceptionController.HandleException(ex, "public ComplaintListView_BasicUser(ComplaintModel complaint)"); }
+                Controllers.ExceptionController.HandleException(ex, "public ComplaintListView_BasicUser(ComplaintModel complaint)");
+            }
 
             TAPController = new Controllers.TAPController(Content);
             TAPController.SingleTaped += TAPController_SingleTaped;

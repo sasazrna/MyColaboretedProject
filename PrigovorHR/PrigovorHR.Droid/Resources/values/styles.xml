@@ -23,11 +23,6 @@
     
     
   <item name="colorControlActivated">#FF7E65</item>
-
-
-
-    
-  
     
     <item name="colorControlNormal">#FF7E65</item>
 
@@ -36,9 +31,5 @@
 
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF7E65</item>
-  </style>
-
-
- 
-  
+  </style> 
 </resources>

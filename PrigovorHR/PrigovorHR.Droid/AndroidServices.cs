@@ -50,28 +50,6 @@ namespace PrigovorHR.Droid
                 Intent resultIntent = new Intent(context, typeof(MainActivity)).AddFlags(ActivityFlags.ForwardResult);
                 resultIntent.PutExtra("ComplaintId", ComplaintId);
                 PendingIntent resultPendingIntent = PendingIntent.GetActivity(context, ComplaintId, resultIntent, PendingIntentFlags.UpdateCurrent);
-
-//Intent secondIntent = new Intent(context, typeof(SecondActivity));
-
-//// Pass some information to SecondActivity:
-//secondIntent.PutExtra("message", "Greetings from MainActivity!");
-
-//// Create a task stack builder to manage the back stack:
-//TaskStackBuilder stackBuilder = TaskStackBuilder.Create(context);
-
-//                // Add all parents of SecondActivity to the stack: 
-//                stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(SecondActivity)));
-
-//                // Push the intent that starts SecondActivity onto the stack:
-//                stackBuilder.AddNextIntent(secondIntent);
-
-//                // Obtain the PendingIntent for launching the task constructed by
-//                // stackbuilder. The pending intent can be used only once (one shot):
-//                const int pendingIntentId = 0;
-//                PendingIntent pendingIntent =
-//                stackBuilder.GetPendingIntent(pendingIntentId, PendingIntentFlags.OneShot);
-
-
                 Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
 
                 string longTextMessage = Text;

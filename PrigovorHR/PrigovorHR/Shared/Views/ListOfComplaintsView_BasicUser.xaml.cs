@@ -229,7 +229,7 @@ namespace Complio.Shared.Views
                                     UnreadComplaints.Add(UnreadedComplaint);
                         }
 
-                        foreach(var Review in NewComplaintReplys.user.element_reviews)
+                        foreach (var Review in NewComplaintReplys.user.element_reviews)
                             if (!ComplaintModel.RefToAllComplaints.user.element_reviews.Any(er => er.id == Review.id))
                                 ComplaintModel.RefToAllComplaints.user.element_reviews.Add(Review);
 
@@ -240,7 +240,7 @@ namespace Complio.Shared.Views
                         DisplayedComplaints[VisibleLayout.Id.ToString()] = new Tuple<int, bool>(0, false);
                         LandingPageWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = false;
                         LandingPageWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = true;
-                   //     LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
+                        //     LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = true;
                     }
                     else
                     {
@@ -255,7 +255,7 @@ namespace Complio.Shared.Views
                         {
                             LandingPageWithLogin.ReferenceToView.firstTimeLoginView.IsVisible = true;
                             LandingPageWithLogin.ReferenceToView.listOfComplaintsView.IsVisible = false;
-                          //  LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = false;
+                            //  LandingPageWithLogin.ReferenceToView.complaintListTabView.IsVisible = false;
                         }
                     }
                 }
@@ -267,6 +267,9 @@ namespace Complio.Shared.Views
                     Application.Current.Properties.Add("AllComplaints", JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints));
                     await Application.Current.SavePropertiesAsync();
                 }
+
+                DataSource = ComplaintModel.RefToAllComplaints;
+                DependencyService.Get<IAndroidCallers>().UpdateComplaintsListFromPortableToNative(JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints), LoginRegisterController.LoggedUser.token);
             }
             catch
             (Exception ex)
@@ -275,8 +278,7 @@ namespace Complio.Shared.Views
                     Environment.NewLine + "Provjerite internet konekciju", "Greška", "OK");
                 ExceptionController.HandleException(ex, "Došlo je do greške na  private async void PullToRefreshModel_Pulled()");
             }
-            DataSource = ComplaintModel.RefToAllComplaints;
-            DependencyService.Get<IAndroidCallers>().UpdateComplaintsListFromPortableToNative(JsonConvert.SerializeObject(ComplaintModel.RefToAllComplaints), LoginRegisterController.LoggedUser.token);
+
             Acr.UserDialogs.UserDialogs.Instance.HideLoading();
             PullToRefreshModel.IsBusy = false;
             AppGlobal.AppLoaded = true;

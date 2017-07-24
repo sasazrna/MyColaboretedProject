@@ -11,7 +11,7 @@
     </MasterDetailPage.Master>
 
     <MasterDetailPage.Detail>
-        <NavigationPage x:Name="DetailNavigationPage" BackgroundColor="White" BarBackgroundColor="Blue" >
+        <NavigationPage x:Name="DetailNavigationPage" BackgroundColor="White" BarBackgroundColor="White" >
             <NavigationPage.ToolbarItems>
                 <!--<ToolbarItem Name="tbiLogo" Order="Primary" Icon="LOGO.png" Priority="0"/>-->
                 <!--<ToolbarItem Name="tbiPrigovorText" Order="Primary" Text="{Binding AppName}" Priority="0"/>-->

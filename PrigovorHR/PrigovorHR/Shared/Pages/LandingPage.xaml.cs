@@ -15,10 +15,10 @@ namespace Complio.Shared.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
-    public partial class LandingPage 
+    public partial class LandingPage
     {
-        private LandingViewNoLogin LandingViewNoLogin=null;
-        private LandingPageWithLogin LandingViewWithLogin=null;
+        private LandingViewNoLogin LandingViewNoLogin = null;
+        private LandingPageWithLogin LandingViewWithLogin = null;
         public LandingPage()
         {
             InitializeComponent();
@@ -54,7 +54,7 @@ namespace Complio.Shared.Pages
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                       LandingViewNoLogin = new LandingViewNoLogin();
+                        LandingViewNoLogin = new LandingViewNoLogin();
                         Content = LandingViewNoLogin;
                         BackgroundColor = Color.FromHex("#30343f");
                         Acr.UserDialogs.UserDialogs.Instance.HideLoading();
@@ -92,9 +92,9 @@ namespace Complio.Shared.Pages
            {
                if (!isLogged)
                {
-                   App.Current.MainPage = new NavigationPage( this);
+                   App.Current.MainPage = new NavigationPage(this);
                    LandingViewNoLogin = new LandingViewNoLogin();
-                  Content = LandingViewNoLogin;
+                   Content = LandingViewNoLogin;
                    BackgroundColor = Color.FromHex("#30343f");
                    //Navigation.PopToRootAsync();
                }
@@ -102,7 +102,7 @@ namespace Complio.Shared.Pages
                {
                    //LandingViewWithLogin = new LandingViewWithLogin();
                    //Content = LandingViewWithLogin;
-                   App.Current.MainPage = new NavigationPage(new APPMasterDetailPage()) { BarBackgroundColor = Color.Blue };
+                   App.Current.MainPage = new NavigationPage(new APPMasterDetailPage()) { BarBackgroundColor = Color.White };
 
                    BackgroundColor = Color.White;
                }

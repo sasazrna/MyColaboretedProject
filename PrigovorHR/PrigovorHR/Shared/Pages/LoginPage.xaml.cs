@@ -15,8 +15,6 @@ namespace Complio.Shared.Pages
 
     public partial class LoginPage : ContentPage
     {
-        public Color BarBackgroundColor { get; private set; }
-
         public delegate void LoginSucessfulHandler(bool Sucessfull);
         public static event LoginSucessfulHandler _LoginSucessfulEvent;
 
